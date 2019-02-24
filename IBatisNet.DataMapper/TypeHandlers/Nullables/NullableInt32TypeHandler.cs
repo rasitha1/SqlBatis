@@ -1,4 +1,5 @@
 #region Apache Notice
+
 /*****************************************************************************
  * $Revision: 378879 $
  * $LastChangedDate: 2006-11-19 17:07:45 +0100 (dim., 19 nov. 2006) $
@@ -21,126 +22,102 @@
  * limitations under the License.
  * 
  ********************************************************************************/
+
 #endregion
 
 #region Using
+
 using System;
 using System.Data;
-
-using System.Collections.Generic;
-using IBatisNet.DataMapper.Configuration.ParameterMapping;
 using IBatisNet.DataMapper.Configuration.ResultMapping;
+
 #endregion
 
 namespace IBatisNet.DataMapper.TypeHandlers.Nullables
 {
     /// <summary>
-    /// TypeHandler for Nullable Int32 Type
+    ///     TypeHandler for Nullable Int32 Type
     /// </summary>
     public sealed class NullableInt32TypeHandler : BaseTypeHandler
-	{
+    {
+        /// <summary>
+        ///     Gets a value indicating whether this instance is simple type.
+        /// </summary>
+        /// <value>
+        ///     <c>true</c> if this instance is simple type; otherwise, <c>false</c>.
+        /// </value>
+        public override bool IsSimpleType => true;
+
 
         /// <summary>
-        /// Sets a parameter on a IDbCommand
+        ///     The null value for this type
+        /// </summary>
+        /// <value></value>
+        public override object NullValue => new int?();
+
+        /// <summary>
+        ///     Sets a parameter on a IDbCommand
         /// </summary>
         /// <param name="dataParameter">the parameter</param>
         /// <param name="parameterValue">the parameter value</param>
         /// <param name="dbType">the dbType of the parameter</param>
         public override void SetParameter(IDataParameter dataParameter, object parameterValue, string dbType)
         {
-            Int32? nullableValue = (Int32?)parameterValue;
+            int? nullableValue = (int?) parameterValue;
 
             if (nullableValue.HasValue)
-            {
                 dataParameter.Value = nullableValue.Value;
-            }
             else
-            {
                 dataParameter.Value = DBNull.Value;
-            }
         }
 
-		/// <summary>
-		/// 
-		/// </summary>
-		/// <param name="mapping"></param>
-		/// <param name="dataReader"></param>
-		/// <returns></returns>
-		public override object GetValueByName(ResultProperty mapping, IDataReader dataReader)
-		{
-			int index = dataReader.GetOrdinal(mapping.ColumnName);
-
-			if (dataReader.IsDBNull(index) == true)
-			{
-				return DBNull.Value;
-			}
-			else
-			{
-				// Don't used dataReader.GetInt32 to fix oracle who alwray return decimal type
-				return new Int32?( Convert.ToInt32(dataReader.GetValue(index)) );
-			}
-		}
-
         /// <summary>
-        /// Gets a column value by the index
         /// </summary>
         /// <param name="mapping"></param>
         /// <param name="dataReader"></param>
         /// <returns></returns>
-		public override object GetValueByIndex(ResultProperty mapping, IDataReader dataReader) 
-		{
-			if (dataReader.IsDBNull(mapping.ColumnIndex) == true)
-			{
-				return DBNull.Value;
-			}
-			else
-			{
-				return new Int32?( Convert.ToInt32(dataReader.GetValue(mapping.ColumnIndex)) );
-			}
-		}
+        public override object GetValueByName(ResultProperty mapping, IDataReader dataReader)
+        {
+            int index = dataReader.GetOrdinal(mapping.ColumnName);
+
+            if (dataReader.IsDBNull(index))
+                return DBNull.Value;
+            return Convert.ToInt32(dataReader.GetValue(index));
+        }
 
         /// <summary>
-        /// Retrieve ouput database value of an output parameter
+        ///     Gets a column value by the index
+        /// </summary>
+        /// <param name="mapping"></param>
+        /// <param name="dataReader"></param>
+        /// <returns></returns>
+        public override object GetValueByIndex(ResultProperty mapping, IDataReader dataReader)
+        {
+            if (dataReader.IsDBNull(mapping.ColumnIndex))
+                return DBNull.Value;
+            return Convert.ToInt32(dataReader.GetValue(mapping.ColumnIndex));
+        }
+
+        /// <summary>
+        ///     Retrieve ouput database value of an output parameter
         /// </summary>
         /// <param name="outputValue">ouput database value</param>
         /// <param name="parameterType">type used in EnumTypeHandler</param>
         /// <returns></returns>
-		public override object GetDataBaseValue(object outputValue, Type parameterType )
-		{
-			return new Int32?( Convert.ToInt32(outputValue) );
-		}
+        public override object GetDataBaseValue(object outputValue, Type parameterType)
+        {
+            return Convert.ToInt32(outputValue);
+        }
 
         /// <summary>
-        /// Converts the String to the type that this handler deals with
+        ///     Converts the String to the type that this handler deals with
         /// </summary>
         /// <param name="type">the tyepe of the property (used only for enum conversion)</param>
         /// <param name="s">the String value</param>
         /// <returns>the converted value</returns>
-		public override object ValueOf(Type type, string s)
-		{
-            return new Int32?( Int32.Parse(s) );
-		}
-
-
-        /// <summary>
-        /// Gets a value indicating whether this instance is simple type.
-        /// </summary>
-        /// <value>
-        /// 	<c>true</c> if this instance is simple type; otherwise, <c>false</c>.
-        /// </value>
-		public override bool IsSimpleType
-		{
-			get { return true; }
-		}
-
-
-        /// <summary>
-        /// The null value for this type
-        /// </summary>
-        /// <value></value>
-        public override object NullValue
+        public override object ValueOf(Type type, string s)
         {
-            get { return new Int32?(); }
+            return int.Parse(s);
         }
 
         //public override bool Equals(object x, object y)
@@ -149,5 +126,5 @@ namespace IBatisNet.DataMapper.TypeHandlers.Nullables
         //    Int32? xTyped = (Int32?)x;
         //    return xTyped.Equals(y);
         //}
-	}
+    }
 }

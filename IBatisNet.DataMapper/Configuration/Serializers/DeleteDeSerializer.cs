@@ -1,4 +1,5 @@
 #region Apache Notice
+
 /*****************************************************************************
  * $Header: $
  * $Revision: 469233 $
@@ -21,6 +22,7 @@
  * limitations under the License.
  * 
  ********************************************************************************/
+
 #endregion
 
 #region Using
@@ -31,51 +33,50 @@ using IBatisNet.Common.Xml;
 using IBatisNet.DataMapper.Configuration.Statements;
 using IBatisNet.DataMapper.Scope;
 
-#endregion 
+#endregion
 
 namespace IBatisNet.DataMapper.Configuration.Serializers
 {
-	/// <summary>
-	/// Summary description for DeleteDeSerializer.
-	/// </summary>
-	public sealed class DeleteDeSerializer
-	{
-		/// <summary>
-		/// Deserialize a TypeHandler object
-		/// </summary>
-		/// <param name="node"></param>
-		/// <param name="configScope"></param>
-		/// <returns></returns>
-		public static Delete Deserialize(XmlNode node, ConfigurationScope configScope)
-		{
-			Delete delete = new Delete();
-			NameValueCollection prop = NodeUtils.ParseAttributes(node, configScope.Properties);
-			
-			delete.CacheModelName = NodeUtils.GetStringAttribute(prop, "cacheModel");
-			delete.ExtendStatement = NodeUtils.GetStringAttribute(prop, "extends");
-			delete.Id = NodeUtils.GetStringAttribute(prop, "id");
-			delete.ListClassName = NodeUtils.GetStringAttribute(prop, "listClass");
-			delete.ParameterClassName = NodeUtils.GetStringAttribute(prop, "parameterClass");
-			delete.ParameterMapName = NodeUtils.GetStringAttribute(prop, "parameterMap");
-			delete.ResultClassName = NodeUtils.GetStringAttribute(prop, "resultClass");
-			delete.ResultMapName = NodeUtils.GetStringAttribute(prop, "resultMap");
-			delete.AllowRemapping = NodeUtils.GetBooleanAttribute(prop, "remapResults", false); 
+    /// <summary>
+    ///     Summary description for DeleteDeSerializer.
+    /// </summary>
+    public sealed class DeleteDeSerializer
+    {
+        /// <summary>
+        ///     Deserialize a TypeHandler object
+        /// </summary>
+        /// <param name="node"></param>
+        /// <param name="configScope"></param>
+        /// <returns></returns>
+        public static Delete Deserialize(XmlNode node, ConfigurationScope configScope)
+        {
+            Delete delete = new Delete();
+            NameValueCollection prop = NodeUtils.ParseAttributes(node, configScope.Properties);
 
-			int count = node.ChildNodes.Count;
-			for(int i=0;i<count;i++)
-			{
-				if (node.ChildNodes[i].LocalName=="generate")
-				{
-					Generate generate = new Generate();
-					NameValueCollection props = NodeUtils.ParseAttributes(node.ChildNodes[i], configScope.Properties);
-					
-					generate.By = NodeUtils.GetStringAttribute(props, "by");
-					generate.Table = NodeUtils.GetStringAttribute(props, "table");
+            delete.CacheModelName = NodeUtils.GetStringAttribute(prop, "cacheModel");
+            delete.ExtendStatement = NodeUtils.GetStringAttribute(prop, "extends");
+            delete.Id = NodeUtils.GetStringAttribute(prop, "id");
+            delete.ListClassName = NodeUtils.GetStringAttribute(prop, "listClass");
+            delete.ParameterClassName = NodeUtils.GetStringAttribute(prop, "parameterClass");
+            delete.ParameterMapName = NodeUtils.GetStringAttribute(prop, "parameterMap");
+            delete.ResultClassName = NodeUtils.GetStringAttribute(prop, "resultClass");
+            delete.ResultMapName = NodeUtils.GetStringAttribute(prop, "resultMap");
+            delete.AllowRemapping = NodeUtils.GetBooleanAttribute(prop, "remapResults", false);
 
-					delete.Generate = generate;
-				}
-			}
-			return delete;
-		}
-	}
+            int count = node.ChildNodes.Count;
+            for (int i = 0; i < count; i++)
+                if (node.ChildNodes[i].LocalName == "generate")
+                {
+                    Generate generate = new Generate();
+                    NameValueCollection props = NodeUtils.ParseAttributes(node.ChildNodes[i], configScope.Properties);
+
+                    generate.By = NodeUtils.GetStringAttribute(props, "by");
+                    generate.Table = NodeUtils.GetStringAttribute(props, "table");
+
+                    delete.Generate = generate;
+                }
+
+            return delete;
+        }
+    }
 }

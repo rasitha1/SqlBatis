@@ -1,5 +1,5 @@
-
 #region Apache Notice
+
 /*****************************************************************************
  * $Revision: 405046 $
  * $LastChangedDate: 2006-05-08 15:21:44 +0200 (lun., 08 mai 2006) $
@@ -22,76 +22,61 @@
  * limitations under the License.
  * 
  ********************************************************************************/
+
 #endregion
 
 #region Imports
+
 using System;
 using System.Collections;
+using IBatisNet.Common.Utilities.Objects;
 using IBatisNet.Common.Utilities.Objects.Members;
 using IBatisNet.DataMapper.Configuration.Sql.Dynamic.Elements;
-using IBatisNet.Common.Utilities.Objects;
 
 #endregion
 
 
 namespace IBatisNet.DataMapper.Configuration.Sql.Dynamic.Handlers
 {
-	/// <summary>
-	/// IsEmptyTagHandler represent a isEmpty tag element in a dynamic mapped statement.
-	/// </summary>
-	public class IsEmptyTagHandler : ConditionalTagHandler 
-	{
-
+    /// <summary>
+    ///     IsEmptyTagHandler represent a isEmpty tag element in a dynamic mapped statement.
+    /// </summary>
+    public class IsEmptyTagHandler : ConditionalTagHandler
+    {
         /// <summary>
-        /// Initializes a new instance of the <see cref="IsEmptyTagHandler"/> class.
+        ///     Initializes a new instance of the <see cref="IsEmptyTagHandler" /> class.
         /// </summary>
         /// <param name="accessorFactory">The accessor factory.</param>
         public IsEmptyTagHandler(AccessorFactory accessorFactory)
             : base(accessorFactory)
-		{
-		}
+        {
+        }
 
-		#region Methods
-		/// <summary>
-		/// 
-		/// </summary>
-		/// <param name="ctx"></param>
-		/// <param name="tag"></param>
-		/// <param name="parameterObject"></param>
-		/// <returns></returns>
-		public override bool IsCondition(SqlTagContext ctx, SqlTag tag, object parameterObject)
-		{
-			if (parameterObject == null) 
-			{
-				return true;
-			} 
-			else 
-			{
-				string propertyName = ((BaseTag)tag).Property;
-				object value = null;
-				if (propertyName != null && propertyName.Length>0) 
-				{
-					value = ObjectProbe.GetMemberValue(parameterObject, propertyName, this.AccessorFactory);
-				} 
-				else 
-				{
-					value = parameterObject;
-				}
-				if (value is ICollection) 
-				{
-					return ((value == null) || (((ICollection) value).Count< 1));
-				} 
-				else if (value != null && typeof(Array).IsAssignableFrom(value.GetType())) //value.GetType().IsArray
-				{
-					return ((Array) value).GetLength(0) == 0;
-				}
-				else 
-				{
-					return ((value == null) || (System.Convert.ToString(value).Equals("")));
-				}
-			}
-		}
-		#endregion
+        #region Methods
 
-	}
+        /// <summary>
+        /// </summary>
+        /// <param name="ctx"></param>
+        /// <param name="tag"></param>
+        /// <param name="parameterObject"></param>
+        /// <returns></returns>
+        public override bool IsCondition(SqlTagContext ctx, SqlTag tag, object parameterObject)
+        {
+            if (parameterObject == null) return true;
+
+            string propertyName = ((BaseTag) tag).Property;
+            object value = null;
+            if (propertyName != null && propertyName.Length > 0)
+                value = ObjectProbe.GetMemberValue(parameterObject, propertyName, AccessorFactory);
+            else
+                value = parameterObject;
+            if (value is ICollection)
+                return ((value == null) || (((ICollection) value).Count < 1));
+            if (value != null && typeof(Array).IsAssignableFrom(value.GetType())) //value.GetType().IsArray
+                return ((Array) value).GetLength(0) == 0;
+            return ((value == null) || (Convert.ToString(value).Equals("")));
+        }
+
+        #endregion
+    }
 }

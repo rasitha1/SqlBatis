@@ -1,5 +1,5 @@
-
 #region Apache Notice
+
 /*****************************************************************************
  * $Header: $
  * $Revision: 471480 $
@@ -22,6 +22,7 @@
  * limitations under the License.
  * 
  ********************************************************************************/
+
 #endregion
 
 using System;
@@ -29,51 +30,40 @@ using System.Collections.Specialized;
 
 namespace IBatisNet.Common.Logging
 {
-	/// <summary>
-	/// Container used to hold configuration information from config file.
-	/// </summary>
-	internal class LogSetting
-	{
+    /// <summary>
+    ///     Container used to hold configuration information from config file.
+    /// </summary>
+    internal class LogSetting
+    {
+        /// <summary>
+        /// </summary>
+        /// <param name="factoryAdapterType">
+        ///     The <see cref="ILoggerFactoryAdapter" /> type
+        ///     that will be used for creating <see cref="ILog" />
+        /// </param>
+        /// <param name="properties">
+        ///     Additional user supplied properties that are passed to the
+        ///     <paramref name="factoryAdapterType" />'s constructor.
+        /// </param>
+        public LogSetting(Type factoryAdapterType, NameValueCollection properties)
+        {
+            FactoryAdapterType = factoryAdapterType;
+            Properties = properties;
+        }
 
-		#region Fields
+        /// <summary>
+        ///     The <see cref="ILoggerFactoryAdapter" /> type that will be used for creating <see cref="ILog" />
+        ///     instances.
+        /// </summary>
+        public Type FactoryAdapterType { get; }
 
-		private Type _factoryAdapterType= null;
-		private NameValueCollection _properties = null;
+        /// <summary>
+        ///     Additional user supplied properties that are passed to the <see cref="FactoryAdapterType" />'s constructor.
+        /// </summary>
+        public NameValueCollection Properties { get; }
 
-		#endregion 
-		
-		/// <summary>
-		/// 
-		/// </summary>
-		/// <param name="factoryAdapterType">
-		/// The <see cref="ILoggerFactoryAdapter" /> type 
-		/// that will be used for creating <see cref="ILog" />
-		/// </param>
-		/// <param name="properties">
-		/// Additional user supplied properties that are passed to the 
-		/// <paramref name="factoryAdapterType" />'s constructor.
-		/// </param>
-		public LogSetting ( Type factoryAdapterType , NameValueCollection properties )
-		{
-			_factoryAdapterType = factoryAdapterType;
-			_properties = properties;
-		}
-		
-		/// <summary>
-		/// The <see cref="ILoggerFactoryAdapter" /> type that will be used for creating <see cref="ILog" />
-		/// instances.
-		/// </summary>
-		public Type FactoryAdapterType
-		{
-			get { return _factoryAdapterType; }
-		}
+        #region Fields
 
-		/// <summary>
-		/// Additional user supplied properties that are passed to the <see cref="FactoryAdapterType" />'s constructor.
-		/// </summary>
-		public NameValueCollection Properties
-		{
-			get { return _properties; }
-		}
-	}
+        #endregion
+    }
 }

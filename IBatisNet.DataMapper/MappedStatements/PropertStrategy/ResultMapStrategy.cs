@@ -1,4 +1,5 @@
 #region Apache Notice
+
 /*****************************************************************************
  * $Revision: 374175 $
  * $LastChangedDate: 2006-04-25 19:40:27 +0200 (mar., 25 avr. 2006) $
@@ -21,6 +22,7 @@
  * limitations under the License.
  * 
  ********************************************************************************/
+
 #endregion
 
 using System.Data;
@@ -29,42 +31,43 @@ using IBatisNet.DataMapper.Scope;
 
 namespace IBatisNet.DataMapper.MappedStatements.PropertyStrategy
 {
-	/// <summary>
-	/// <see cref="IPropertyStrategy"/> implementation when a 'resultMapping' attribute exists
-	/// on a <see cref="ResultProperty"/>.
-	/// </summary>
+    /// <summary>
+    ///     <see cref="IPropertyStrategy" /> implementation when a 'resultMapping' attribute exists
+    ///     on a <see cref="ResultProperty" />.
+    /// </summary>
     public sealed class ResultMapStrategy : BaseStrategy, IPropertyStrategy
-	{
-		#region IPropertyStrategy Members
+    {
+        #region IPropertyStrategy Members
 
-		/// <summary>
-		/// Sets value of the specified <see cref="ResultProperty"/> on the target object
-		/// when a 'resultMapping' attribute exists
-		/// on the <see cref="ResultProperty"/>.
-		/// </summary>
-		/// <param name="request">The request.</param>
-		/// <param name="resultMap">The result map.</param>
-		/// <param name="mapping">The ResultProperty.</param>
-		/// <param name="target">The target.</param>
-		/// <param name="reader">The reader.</param>
-		/// <param name="keys">The keys</param>
-		public void Set(RequestScope request, IResultMap resultMap, 
-			ResultProperty mapping, ref object target, IDataReader reader, object keys)
-		{
+        /// <summary>
+        ///     Sets value of the specified <see cref="ResultProperty" /> on the target object
+        ///     when a 'resultMapping' attribute exists
+        ///     on the <see cref="ResultProperty" />.
+        /// </summary>
+        /// <param name="request">The request.</param>
+        /// <param name="resultMap">The result map.</param>
+        /// <param name="mapping">The ResultProperty.</param>
+        /// <param name="target">The target.</param>
+        /// <param name="reader">The reader.</param>
+        /// <param name="keys">The keys</param>
+        public void Set(RequestScope request, IResultMap resultMap,
+            ResultProperty mapping, ref object target, IDataReader reader, object keys)
+        {
             object obj = Get(request, resultMap, mapping, ref target, reader);
-			// Sets created object on the property
-			resultMap.SetValueOfProperty( ref target, mapping, obj );		
-		}
+            // Sets created object on the property
+            resultMap.SetValueOfProperty(ref target, mapping, obj);
+        }
 
-	    /// <summary>
-        /// Gets the value of the specified <see cref="ResultProperty"/> that must be set on the target object.
+        /// <summary>
+        ///     Gets the value of the specified <see cref="ResultProperty" /> that must be set on the target object.
         /// </summary>
         /// <param name="request">The request.</param>
         /// <param name="resultMap">The result map.</param>
         /// <param name="mapping">The mapping.</param>
         /// <param name="reader">The reader.</param>
-		/// <param name="target">The target object</param>
-		public object Get(RequestScope request, IResultMap resultMap, ResultProperty mapping, ref object target, IDataReader reader)
+        /// <param name="target">The target object</param>
+        public object Get(RequestScope request, IResultMap resultMap, ResultProperty mapping, ref object target,
+            IDataReader reader)
         {
             object[] parameters = null;
             bool isParameterFound = false;
@@ -78,7 +81,8 @@ namespace IBatisNet.DataMapper.MappedStatements.PropertyStrategy
                 for (int index = 0; index < resultMapping.Parameters.Count; index++)
                 {
                     ResultProperty resultProperty = resultMapping.Parameters[index];
-                    parameters[index] = resultProperty.ArgumentStrategy.GetValue(request, resultProperty, ref reader, null);
+                    parameters[index] =
+                        resultProperty.ArgumentStrategy.GetValue(request, resultProperty, ref reader, null);
                     request.IsRowDataFound = request.IsRowDataFound || (parameters[index] != null);
                     isParameterFound = isParameterFound || (parameters[index] != null);
                 }
@@ -95,14 +99,12 @@ namespace IBatisNet.DataMapper.MappedStatements.PropertyStrategy
                 obj = resultMapping.CreateInstanceOfResult(parameters);
 
                 // Fills properties on the new object
-                if (this.FillObjectWithReaderAndResultMap(request, reader, resultMapping, obj) == false)
-                {
-                    obj = null;
-                }
+                if (FillObjectWithReaderAndResultMap(request, reader, resultMapping, obj) == false) obj = null;
             }
-	        
-	        return obj;
+
+            return obj;
         }
-		#endregion
-	}
+
+        #endregion
+    }
 }

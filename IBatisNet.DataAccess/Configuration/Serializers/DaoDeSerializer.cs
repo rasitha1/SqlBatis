@@ -1,4 +1,5 @@
 #region Apache Notice
+
 /*****************************************************************************
  * $Header: $
  * $Revision: 383115 $
@@ -21,6 +22,7 @@
  * limitations under the License.
  * 
  ********************************************************************************/
+
 #endregion
 
 #region Using
@@ -30,30 +32,30 @@ using System.Xml;
 using IBatisNet.Common.Xml;
 using IBatisNet.DataAccess.Scope;
 
-#endregion 
+#endregion
 
 namespace IBatisNet.DataAccess.Configuration.Serializers
 {
-	/// <summary>
-	/// Summary description for DaoDeSerializer.
-	/// </summary>
-	public class DaoDeSerializer
-	{
-		/// <summary>
-		/// Deserialize a Dao object
-		/// </summary>
-		/// <param name="node"></param>
-		/// <param name="configScope"></param>
-		/// <returns></returns>
-		public static Dao Deserialize(XmlNode node, ConfigurationScope configScope)
-		{
-			Dao dao = new Dao();
+    /// <summary>
+    ///     Summary description for DaoDeSerializer.
+    /// </summary>
+    public class DaoDeSerializer
+    {
+        /// <summary>
+        ///     Deserialize a Dao object
+        /// </summary>
+        /// <param name="node"></param>
+        /// <param name="configScope"></param>
+        /// <returns></returns>
+        public static Dao Deserialize(XmlNode node, ConfigurationScope configScope)
+        {
+            Dao dao = new Dao();
 
-			NameValueCollection prop = NodeUtils.ParseAttributes(node, configScope.Properties);
-			dao.Implementation = NodeUtils.GetStringAttribute(prop, "implementation");
-			dao.Interface = NodeUtils.GetStringAttribute(prop, "interface");
+            NameValueCollection prop = NodeUtils.ParseAttributes(node, configScope.Properties);
+            dao.Implementation = NodeUtils.GetStringAttribute(prop, "implementation");
+            dao.Interface = NodeUtils.GetStringAttribute(prop, "interface");
 
-			return dao;
-		}
-	}
+            return dao;
+        }
+    }
 }

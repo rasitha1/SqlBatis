@@ -1,4 +1,5 @@
 ﻿#region Apache Notice
+
 /*****************************************************************************
  * $Header: $
  * $Revision: 383115 $
@@ -21,6 +22,7 @@
  * limitations under the License.
  * 
  ********************************************************************************/
+
 #endregion
 
 using System;
@@ -30,14 +32,14 @@ using IBatisNet.Common.Logging;
 namespace IBatisNet.DynamicProxy
 {
     /// <summary>
-    ///  A Factory for getting the ProxyGenerator.
+    ///     A Factory for getting the ProxyGenerator.
     /// </summary>
     [CLSCompliant(false)]
     public sealed class ProxyGeneratorFactory
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(ProxyGeneratorFactory));
 
-        private static ProxyGenerator _generator = new CachedProxyGenerator();
+        private static readonly ProxyGenerator _generator = new CachedProxyGenerator();
 
         private ProxyGeneratorFactory()
         {

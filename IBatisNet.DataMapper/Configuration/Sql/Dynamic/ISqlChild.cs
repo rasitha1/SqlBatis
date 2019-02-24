@@ -1,5 +1,5 @@
-
 #region Apache Notice
+
 /*****************************************************************************
  * $Header: $
  * $Revision: 383115 $
@@ -22,19 +22,19 @@
  * limitations under the License.
  * 
  ********************************************************************************/
+
 #endregion
 
 #region Imports
-using System;
+
 #endregion
 
 namespace IBatisNet.DataMapper.Configuration.Sql.Dynamic
 {
-	/// <summary>
-	/// Summary description for ISqlChild.
-	/// </summary>
-	public interface ISqlChild
-	{
-
-	}
+    /// <summary>
+    ///     Summary description for ISqlChild.
+    /// </summary>
+    public interface ISqlChild
+    {
+    }
 }

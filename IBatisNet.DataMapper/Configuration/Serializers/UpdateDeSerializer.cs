@@ -1,4 +1,5 @@
 #region Apache Notice
+
 /*****************************************************************************
  * $Header: $
  * $Revision: 469233 $
@@ -21,6 +22,7 @@
  * limitations under the License.
  * 
  ********************************************************************************/
+
 #endregion
 
 #region Using
@@ -31,49 +33,48 @@ using IBatisNet.Common.Xml;
 using IBatisNet.DataMapper.Configuration.Statements;
 using IBatisNet.DataMapper.Scope;
 
-#endregion 
+#endregion
 
 
 namespace IBatisNet.DataMapper.Configuration.Serializers
 {
-	/// <summary>
-	/// Summary description for UpdateDeSerializer.
-	/// </summary>
-	public sealed class UpdateDeSerializer
-	{
-		/// <summary>
-		/// Deserialize a Procedure object
-		/// </summary>
-		/// <param name="node"></param>
-		/// <param name="configScope"></param>
-		/// <returns></returns>
-		public static Update Deserialize(XmlNode node, ConfigurationScope configScope)
-		{
-			Update update = new Update();
-			NameValueCollection prop = NodeUtils.ParseAttributes(node, configScope.Properties);
-						
-			update.CacheModelName = NodeUtils.GetStringAttribute(prop, "cacheModel");
-			update.ExtendStatement = NodeUtils.GetStringAttribute(prop, "extends");
-			update.Id = NodeUtils.GetStringAttribute(prop, "id");
-			update.ParameterClassName = NodeUtils.GetStringAttribute(prop, "parameterClass");
-			update.ParameterMapName = NodeUtils.GetStringAttribute(prop, "parameterMap");
-			update.AllowRemapping = NodeUtils.GetBooleanAttribute(prop, "remapResults", false); 
+    /// <summary>
+    ///     Summary description for UpdateDeSerializer.
+    /// </summary>
+    public sealed class UpdateDeSerializer
+    {
+        /// <summary>
+        ///     Deserialize a Procedure object
+        /// </summary>
+        /// <param name="node"></param>
+        /// <param name="configScope"></param>
+        /// <returns></returns>
+        public static Update Deserialize(XmlNode node, ConfigurationScope configScope)
+        {
+            Update update = new Update();
+            NameValueCollection prop = NodeUtils.ParseAttributes(node, configScope.Properties);
 
-			int count = node.ChildNodes.Count;
-			for(int i=0;i<count;i++)
-			{
-				if (node.ChildNodes[i].LocalName=="generate")
-				{
-					Generate generate = new Generate();
-					NameValueCollection props = NodeUtils.ParseAttributes(node.ChildNodes[i], configScope.Properties);
-					
-					generate.By = NodeUtils.GetStringAttribute(props, "by");
-					generate.Table = NodeUtils.GetStringAttribute(props, "table");
+            update.CacheModelName = NodeUtils.GetStringAttribute(prop, "cacheModel");
+            update.ExtendStatement = NodeUtils.GetStringAttribute(prop, "extends");
+            update.Id = NodeUtils.GetStringAttribute(prop, "id");
+            update.ParameterClassName = NodeUtils.GetStringAttribute(prop, "parameterClass");
+            update.ParameterMapName = NodeUtils.GetStringAttribute(prop, "parameterMap");
+            update.AllowRemapping = NodeUtils.GetBooleanAttribute(prop, "remapResults", false);
 
-					update.Generate = generate;
-				}
-			}
-			return update;
-		}
-	}
+            int count = node.ChildNodes.Count;
+            for (int i = 0; i < count; i++)
+                if (node.ChildNodes[i].LocalName == "generate")
+                {
+                    Generate generate = new Generate();
+                    NameValueCollection props = NodeUtils.ParseAttributes(node.ChildNodes[i], configScope.Properties);
+
+                    generate.By = NodeUtils.GetStringAttribute(props, "by");
+                    generate.Table = NodeUtils.GetStringAttribute(props, "table");
+
+                    update.Generate = generate;
+                }
+
+            return update;
+        }
+    }
 }

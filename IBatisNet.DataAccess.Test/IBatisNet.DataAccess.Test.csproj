@@ -335,7 +335,6 @@
     </None>
     <None Include="DataBase-Template.config" />
     <None Include="DataBase.config" />
-    <None Include="IBatisNet.DataMapper.Test.build" />
     <EmbeddedResource Include="SqlMap_MSSQL_SqlClient.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>

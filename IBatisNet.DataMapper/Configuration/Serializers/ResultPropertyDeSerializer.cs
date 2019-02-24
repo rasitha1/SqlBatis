@@ -1,4 +1,5 @@
 #region Apache Notice
+
 /*****************************************************************************
  * $Header: $
  * $Revision: 408164 $
@@ -21,6 +22,7 @@
  * limitations under the License.
  * 
  ********************************************************************************/
+
 #endregion
 
 #region Using
@@ -30,38 +32,40 @@ using System.Xml;
 using IBatisNet.Common.Xml;
 using IBatisNet.DataMapper.Configuration.ResultMapping;
 using IBatisNet.DataMapper.Scope;
-#endregion 
+
+#endregion
 
 namespace IBatisNet.DataMapper.Configuration.Serializers
 {
-	/// <summary>
-	/// Summary description for ResultPropertyDeSerializer.
-	/// </summary>
-	public sealed class ResultPropertyDeSerializer
-	{
-		/// <summary>
-		/// Deserialize a ResultProperty object
-		/// </summary>
-		/// <param name="node"></param>
-		/// <param name="configScope"></param>
-		/// <returns></returns>
-		public static ResultProperty Deserialize(XmlNode node, ConfigurationScope configScope)
-		{
-			ResultProperty resultProperty = new ResultProperty();
+    /// <summary>
+    ///     Summary description for ResultPropertyDeSerializer.
+    /// </summary>
+    public sealed class ResultPropertyDeSerializer
+    {
+        /// <summary>
+        ///     Deserialize a ResultProperty object
+        /// </summary>
+        /// <param name="node"></param>
+        /// <param name="configScope"></param>
+        /// <returns></returns>
+        public static ResultProperty Deserialize(XmlNode node, ConfigurationScope configScope)
+        {
+            ResultProperty resultProperty = new ResultProperty();
 
-			NameValueCollection prop = NodeUtils.ParseAttributes(node, configScope.Properties);
-			resultProperty.CLRType = NodeUtils.GetStringAttribute(prop, "type");
-			resultProperty.CallBackName = NodeUtils.GetStringAttribute(prop, "typeHandler");
-			resultProperty.ColumnIndex = NodeUtils.GetIntAttribute( prop, "columnIndex", ResultProperty.UNKNOWN_COLUMN_INDEX  );
-			resultProperty.ColumnName = NodeUtils.GetStringAttribute(prop, "column");
-			resultProperty.DbType = NodeUtils.GetStringAttribute(prop, "dbType");
-			resultProperty.IsLazyLoad = NodeUtils.GetBooleanAttribute( prop, "lazyLoad", false);
-			resultProperty.NestedResultMapName = NodeUtils.GetStringAttribute(prop, "resultMapping");
-			resultProperty.NullValue = prop["nullValue"];
-			resultProperty.PropertyName = NodeUtils.GetStringAttribute(prop, "property");
-			resultProperty.Select = NodeUtils.GetStringAttribute(prop, "select");
+            NameValueCollection prop = NodeUtils.ParseAttributes(node, configScope.Properties);
+            resultProperty.CLRType = NodeUtils.GetStringAttribute(prop, "type");
+            resultProperty.CallBackName = NodeUtils.GetStringAttribute(prop, "typeHandler");
+            resultProperty.ColumnIndex =
+                NodeUtils.GetIntAttribute(prop, "columnIndex", ResultProperty.UNKNOWN_COLUMN_INDEX);
+            resultProperty.ColumnName = NodeUtils.GetStringAttribute(prop, "column");
+            resultProperty.DbType = NodeUtils.GetStringAttribute(prop, "dbType");
+            resultProperty.IsLazyLoad = NodeUtils.GetBooleanAttribute(prop, "lazyLoad", false);
+            resultProperty.NestedResultMapName = NodeUtils.GetStringAttribute(prop, "resultMapping");
+            resultProperty.NullValue = prop["nullValue"];
+            resultProperty.PropertyName = NodeUtils.GetStringAttribute(prop, "property");
+            resultProperty.Select = NodeUtils.GetStringAttribute(prop, "select");
 
-			return resultProperty;
-		}
-	}
+            return resultProperty;
+        }
+    }
 }

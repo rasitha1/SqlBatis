@@ -1,5 +1,5 @@
-
 #region Apache Notice
+
 /*****************************************************************************
  * $Header: $
  * $Revision: 383115 $
@@ -22,65 +22,52 @@
  * limitations under the License.
  * 
  ********************************************************************************/
+
 #endregion
 
 #region Imports
+
 using System;
 using System.Xml.Serialization;
 
-using IBatisNet.DataMapper.Configuration.Sql.Dynamic.Handlers;
 #endregion
 
 
 namespace IBatisNet.DataMapper.Configuration.Sql.Dynamic.Elements
 {
-	/// <summary>
-	/// Summary description for Conditional.
-	/// </summary>
-	[Serializable]
-	public abstract class Conditional : BaseTag
-	{
-
-		#region Fields
-		
-		[NonSerialized]
-		private string _compareValue = string.Empty;
-		[NonSerialized]
-		private string _compareProperty = string.Empty;
-
-		#endregion
-
-		/// <summary>
-		/// CompareProperty attribute
-		/// </summary>
-		[XmlAttribute("compareProperty")]
-		public string CompareProperty
-		{
-			get
-			{
-				return _compareProperty;
-			}
-			set
-			{
-				_compareProperty = value;
-			}
-		}
+    /// <summary>
+    ///     Summary description for Conditional.
+    /// </summary>
+    [Serializable]
+    public abstract class Conditional : BaseTag
+    {
+        /// <summary>
+        ///     CompareProperty attribute
+        /// </summary>
+        [XmlAttribute("compareProperty")]
+        public string CompareProperty
+        {
+            get => _compareProperty;
+            set => _compareProperty = value;
+        }
 
 
-		/// <summary>
-		/// CompareValue attribute
-		/// </summary>
-		[XmlAttribute("compareValue")]
-		public string CompareValue
-		{
-			get
-			{
-				return _compareValue;
-			}
-			set
-			{
-				_compareValue = value;
-			}
-		}
-	}
+        /// <summary>
+        ///     CompareValue attribute
+        /// </summary>
+        [XmlAttribute("compareValue")]
+        public string CompareValue
+        {
+            get => _compareValue;
+            set => _compareValue = value;
+        }
+
+        #region Fields
+
+        [NonSerialized] private string _compareValue = string.Empty;
+
+        [NonSerialized] private string _compareProperty = string.Empty;
+
+        #endregion
+    }
 }

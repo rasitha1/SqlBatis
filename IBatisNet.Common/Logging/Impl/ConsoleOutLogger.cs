@@ -1,5 +1,5 @@
-
 #region Apache Notice
+
 /*****************************************************************************
  * $Header: $
  * $Revision: 474141 $
@@ -22,6 +22,7 @@
  * limitations under the License.
  * 
  ********************************************************************************/
+
 #endregion
 
 using System;
@@ -30,100 +31,91 @@ using System.Text;
 
 namespace IBatisNet.Common.Logging.Impl
 {
-	/// <summary>
-	/// Sends log messages to <see cref="Console.Out" />.
-	/// </summary>
-	public class ConsoleOutLogger : AbstractLogger
-	{
-		private bool _showDateTime = false;
-		private bool _showLogName = false;
-		private string _logName = string.Empty;
-		private LogLevel _currentLogLevel = LogLevel.All;
-		private string _dateTimeFormat = string.Empty;
-		private bool _hasDateTimeFormat = false;
+    /// <summary>
+    ///     Sends log messages to <see cref="Console.Out" />.
+    /// </summary>
+    public class ConsoleOutLogger : AbstractLogger
+    {
+        private readonly LogLevel _currentLogLevel = LogLevel.All;
+        private readonly string _dateTimeFormat = string.Empty;
+        private readonly bool _hasDateTimeFormat;
+        private readonly string _logName = string.Empty;
+        private readonly bool _showDateTime;
+        private readonly bool _showLogName;
 
-		/// <summary>
-		/// Creates and initializes a logger that writes messages to <see cref="Console.Out" />.
-		/// </summary>
-		/// <param name="logName">The name, usually type name of the calling class, of the logger.</param>
-		/// <param name="logLevel">The current logging threshold. Messages recieved that are beneath this threshold will not be logged.</param>
-		/// <param name="showDateTime">Include the current time in the log message.</param>
-		/// <param name="showLogName">Include the instance name in the log message.</param>
-		/// <param name="dateTimeFormat">The date and time format to use in the log message.</param>
-		public ConsoleOutLogger( string logName, LogLevel logLevel
-		                         , bool showDateTime, bool showLogName, string dateTimeFormat)
-		{
-			_logName = logName;
-			_currentLogLevel = logLevel;
-			_showDateTime = showDateTime;
-			_showLogName = showLogName;
-			_dateTimeFormat = dateTimeFormat;
+        /// <summary>
+        ///     Creates and initializes a logger that writes messages to <see cref="Console.Out" />.
+        /// </summary>
+        /// <param name="logName">The name, usually type name of the calling class, of the logger.</param>
+        /// <param name="logLevel">
+        ///     The current logging threshold. Messages recieved that are beneath this threshold will not be
+        ///     logged.
+        /// </param>
+        /// <param name="showDateTime">Include the current time in the log message.</param>
+        /// <param name="showLogName">Include the instance name in the log message.</param>
+        /// <param name="dateTimeFormat">The date and time format to use in the log message.</param>
+        public ConsoleOutLogger(string logName, LogLevel logLevel
+            , bool showDateTime, bool showLogName, string dateTimeFormat)
+        {
+            _logName = logName;
+            _currentLogLevel = logLevel;
+            _showDateTime = showDateTime;
+            _showLogName = showLogName;
+            _dateTimeFormat = dateTimeFormat;
 
-			if (_dateTimeFormat != null && _dateTimeFormat.Length > 0)
-			{
-				_hasDateTimeFormat = true;
-			}
-		}
+            if (_dateTimeFormat != null && _dateTimeFormat.Length > 0) _hasDateTimeFormat = true;
+        }
 
-		/// <summary>
-		/// Do the actual logging by constructing the log message using a <see cref="StringBuilder" /> then
-		/// sending the output to <see cref="Console.Out" />.
-		/// </summary>
-		/// <param name="level">The <see cref="LogLevel" /> of the message.</param>
-		/// <param name="message">The log message.</param>
-		/// <param name="e">An optional <see cref="Exception" /> associated with the message.</param>
-		protected override void Write( LogLevel level, object message, Exception e )
-		{
-			// Use a StringBuilder for better performance
-			StringBuilder sb = new StringBuilder();
-			// Append date-time if so configured
-			if ( _showDateTime )
-			{
-				if ( _hasDateTimeFormat )
-				{
-					sb.Append( DateTime.Now.ToString( _dateTimeFormat, CultureInfo.InvariantCulture ));
-				}
-				else
-				{
-					sb.Append( DateTime.Now );
-				}
-				
-				sb.Append( " " );
-			}	
-			// Append a readable representation of the log level
-			sb.Append( string.Format( "[{0}]", level.ToString().ToUpper() ).PadRight( 8 ) );
+        /// <summary>
+        ///     Do the actual logging by constructing the log message using a <see cref="StringBuilder" /> then
+        ///     sending the output to <see cref="Console.Out" />.
+        /// </summary>
+        /// <param name="level">The <see cref="LogLevel" /> of the message.</param>
+        /// <param name="message">The log message.</param>
+        /// <param name="e">An optional <see cref="Exception" /> associated with the message.</param>
+        protected override void Write(LogLevel level, object message, Exception e)
+        {
+            // Use a StringBuilder for better performance
+            StringBuilder sb = new StringBuilder();
+            // Append date-time if so configured
+            if (_showDateTime)
+            {
+                if (_hasDateTimeFormat)
+                    sb.Append(DateTime.Now.ToString(_dateTimeFormat, CultureInfo.InvariantCulture));
+                else
+                    sb.Append(DateTime.Now);
 
-			// Append the name of the log instance if so configured
-			if ( _showLogName )
-			{
-				sb.Append( _logName ).Append( " - " );
-			}
+                sb.Append(" ");
+            }
 
-			// Append the message
-			sb.Append( message.ToString() );
+            // Append a readable representation of the log level
+            sb.Append(string.Format("[{0}]", level.ToString().ToUpper()).PadRight(8));
 
-			// Append stack trace if not null
-			if ( e != null )
-			{
-				sb.Append(Environment.NewLine).Append( e.ToString() );
-			}
+            // Append the name of the log instance if so configured
+            if (_showLogName) sb.Append(_logName).Append(" - ");
 
-			// Print to the appropriate destination
-			Console.Out.WriteLine( sb.ToString() );
-		}
+            // Append the message
+            sb.Append(message);
 
-		/// <summary>
-		/// Determines if the given log level is currently enabled.
-		/// </summary>
-		/// <param name="level"></param>
-		/// <returns></returns>
-		protected override bool IsLevelEnabled( LogLevel level )
-		{
-			int iLevel = (int)level;
-			int iCurrentLogLevel = (int)_currentLogLevel;
-		
-			// return iLevel.CompareTo(iCurrentLogLevel); better ???
-			return ( iLevel >= iCurrentLogLevel );
-		}
-	}
+            // Append stack trace if not null
+            if (e != null) sb.Append(Environment.NewLine).Append(e);
+
+            // Print to the appropriate destination
+            Console.Out.WriteLine(sb.ToString());
+        }
+
+        /// <summary>
+        ///     Determines if the given log level is currently enabled.
+        /// </summary>
+        /// <param name="level"></param>
+        /// <returns></returns>
+        protected override bool IsLevelEnabled(LogLevel level)
+        {
+            int iLevel = (int) level;
+            int iCurrentLogLevel = (int) _currentLogLevel;
+
+            // return iLevel.CompareTo(iCurrentLogLevel); better ???
+            return (iLevel >= iCurrentLogLevel);
+        }
+    }
 }

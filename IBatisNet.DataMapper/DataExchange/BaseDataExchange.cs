@@ -1,4 +1,5 @@
 #region Apache Notice
+
 /*****************************************************************************
  * $Revision: 374175 $
  * $LastChangedDate: 2006-04-01 20:53:15 +0200 (sam., 01 avr. 2006) $
@@ -21,6 +22,7 @@
  * limitations under the License.
  * 
  ********************************************************************************/
+
 #endregion
 
 using IBatisNet.DataMapper.Configuration.ParameterMapping;
@@ -28,56 +30,51 @@ using IBatisNet.DataMapper.Configuration.ResultMapping;
 
 namespace IBatisNet.DataMapper.DataExchange
 {
-	/// <summary>
-	/// Summary description for BaseDataExchange.
-	/// </summary>
-	public abstract class BaseDataExchange : IDataExchange
-	{
-		private DataExchangeFactory _dataExchangeFactory = null;
+    /// <summary>
+    ///     Summary description for BaseDataExchange.
+    /// </summary>
+    public abstract class BaseDataExchange : IDataExchange
+    {
+        /// <summary>
+        ///     Constructor
+        /// </summary>
+        /// <param name="dataExchangeFactory"></param>
+        public BaseDataExchange(DataExchangeFactory dataExchangeFactory)
+        {
+            DataExchangeFactory = dataExchangeFactory;
+        }
 
-		/// <summary>
-		/// Getter for the factory that created this object
-		/// </summary>
-		public DataExchangeFactory DataExchangeFactory
-		{
-			get{ return _dataExchangeFactory; }
-		}
+        /// <summary>
+        ///     Getter for the factory that created this object
+        /// </summary>
+        public DataExchangeFactory DataExchangeFactory { get; }
 
-		/// <summary>
-		/// Constructor
-		/// </summary>
-		/// <param name="dataExchangeFactory"></param>
-		public BaseDataExchange(DataExchangeFactory dataExchangeFactory)
-		{
-			_dataExchangeFactory = dataExchangeFactory;
-		}
+        #region IDataExchange Members
 
-		#region IDataExchange Members
+        /// <summary>
+        ///     Gets the data to be set into a IDataParameter.
+        /// </summary>
+        /// <param name="mapping"></param>
+        /// <param name="parameterObject"></param>
+        public abstract object GetData(ParameterProperty mapping, object parameterObject);
 
-		/// <summary>
-		/// Gets the data to be set into a IDataParameter.
-		/// </summary>
-		/// <param name="mapping"></param>
-		/// <param name="parameterObject"></param>
-		public abstract object GetData(ParameterProperty mapping, object parameterObject);
+        /// <summary>
+        ///     Sets the value to the result property.
+        /// </summary>
+        /// <param name="mapping"></param>
+        /// <param name="target"></param>
+        /// <param name="dataBaseValue"></param>
+        public abstract void SetData(ref object target, ResultProperty mapping, object dataBaseValue);
 
-		/// <summary>
-		/// Sets the value to the result property.
-		/// </summary>
-		/// <param name="mapping"></param>
-		/// <param name="target"></param>
-		/// <param name="dataBaseValue"></param>
-		public abstract void SetData(ref object target, ResultProperty mapping, object dataBaseValue);
+        /// <summary>
+        ///     Sets the value to the parameter property.
+        /// </summary>
+        /// <remarks>Use to set value on output parameter</remarks>
+        /// <param name="mapping"></param>
+        /// <param name="target"></param>
+        /// <param name="dataBaseValue"></param>
+        public abstract void SetData(ref object target, ParameterProperty mapping, object dataBaseValue);
 
-		/// <summary>
-		/// Sets the value to the parameter property.
-		/// </summary>
-		/// <remarks>Use to set value on output parameter</remarks>
-		/// <param name="mapping"></param>
-		/// <param name="target"></param>
-		/// <param name="dataBaseValue"></param>
-		public abstract void SetData(ref object target, ParameterProperty mapping, object dataBaseValue);
-
-		#endregion
-	}
+        #endregion
+    }
 }

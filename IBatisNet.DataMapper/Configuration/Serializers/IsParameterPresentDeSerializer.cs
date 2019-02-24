@@ -1,4 +1,5 @@
 #region Apache Notice
+
 /*****************************************************************************
  * $Header: $
  * $Revision: 408164 $
@@ -21,6 +22,7 @@
  * limitations under the License.
  * 
  ********************************************************************************/
+
 #endregion
 
 #region Using
@@ -31,43 +33,43 @@ using IBatisNet.Common.Xml;
 using IBatisNet.DataMapper.Configuration.Sql.Dynamic.Elements;
 using IBatisNet.DataMapper.Scope;
 
-#endregion 
+#endregion
 
 namespace IBatisNet.DataMapper.Configuration.Serializers
 {
-	/// <summary>
-	/// Summary description for IsParameterPresentDeSerializer.
-	/// </summary>
-	public sealed class IsParameterPresentDeSerializer : IDeSerializer
-	{
-		private ConfigurationScope _configScope = null;
+    /// <summary>
+    ///     Summary description for IsParameterPresentDeSerializer.
+    /// </summary>
+    public sealed class IsParameterPresentDeSerializer : IDeSerializer
+    {
+        private readonly ConfigurationScope _configScope;
 
-		/// <summary>
-		/// 
-		/// </summary>
-		/// <param name="configScope"></param>
-		public IsParameterPresentDeSerializer(ConfigurationScope configScope)
-		{
-			_configScope = configScope;
-		}
+        /// <summary>
+        /// </summary>
+        /// <param name="configScope"></param>
+        public IsParameterPresentDeSerializer(ConfigurationScope configScope)
+        {
+            _configScope = configScope;
+        }
 
-		#region IDeSerializer Members
+        #region IDeSerializer Members
 
-		/// <summary>
-		/// Deserialize a Dynamic object
-		/// </summary>
-		/// <param name="node"></param>
-		/// <returns></returns>
-		public SqlTag Deserialize(XmlNode node)
-		{
-			IsParameterPresent isParameterPresent = new IsParameterPresent(_configScope.DataExchangeFactory.AccessorFactory);
+        /// <summary>
+        ///     Deserialize a Dynamic object
+        /// </summary>
+        /// <param name="node"></param>
+        /// <returns></returns>
+        public SqlTag Deserialize(XmlNode node)
+        {
+            IsParameterPresent isParameterPresent =
+                new IsParameterPresent(_configScope.DataExchangeFactory.AccessorFactory);
 
-			NameValueCollection prop = NodeUtils.ParseAttributes(node, _configScope.Properties);
-			isParameterPresent.Prepend = NodeUtils.GetStringAttribute(prop, "prepend");
+            NameValueCollection prop = NodeUtils.ParseAttributes(node, _configScope.Properties);
+            isParameterPresent.Prepend = NodeUtils.GetStringAttribute(prop, "prepend");
 
-			return isParameterPresent;
-		}
+            return isParameterPresent;
+        }
 
-		#endregion
-	}
+        #endregion
+    }
 }

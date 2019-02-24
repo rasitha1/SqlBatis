@@ -1,5 +1,5 @@
-
 #region Apache Notice
+
 /*****************************************************************************
  * $Revision: 476843 $
  * $LastChangedDate: 2006-11-19 17:07:45 +0100 (dim., 19 nov. 2006) $
@@ -22,6 +22,7 @@
  * limitations under the License.
  * 
  ********************************************************************************/
+
 #endregion
 
 #region Using
@@ -30,100 +31,86 @@ using System;
 using System.Data;
 using IBatisNet.DataMapper.Configuration.ResultMapping;
 
-#endregion 
+#endregion
 
 namespace IBatisNet.DataMapper.TypeHandlers
 {
-	/// <summary>
-	/// Summary description for BaseTypeHandler.
-	/// </summary>
-	public abstract class BaseTypeHandler : ITypeHandler
-	{
-		/// <summary>
-		/// Gets a column value by the name
-		/// </summary>
-		/// <param name="mapping"></param>
-		/// <param name="dataReader"></param>
-		/// <returns></returns>
-		public abstract object GetValueByName(ResultProperty mapping, IDataReader dataReader);
-
-		/// <summary>
-		/// Gets a column value by the index
-		/// </summary>
-		/// <param name="mapping"></param>
-		/// <param name="dataReader"></param>
-		/// <returns></returns>
-		public abstract object GetValueByIndex(ResultProperty mapping, IDataReader dataReader);
-
-		/// <summary>
-		/// Retrieve ouput database value of an output parameter
-		/// </summary>
-		/// <param name="outputValue">ouput database value</param>
-		/// <param name="parameterType">type used in EnumTypeHandler</param>
-		/// <returns></returns>
-		public abstract object GetDataBaseValue(object outputValue, Type parameterType );
+    /// <summary>
+    ///     Summary description for BaseTypeHandler.
+    /// </summary>
+    public abstract class BaseTypeHandler : ITypeHandler
+    {
+        /// <summary>
+        ///     Gets a column value by the name
+        /// </summary>
+        /// <param name="mapping"></param>
+        /// <param name="dataReader"></param>
+        /// <returns></returns>
+        public abstract object GetValueByName(ResultProperty mapping, IDataReader dataReader);
 
         /// <summary>
-        /// Gets a value indicating whether this instance is simple type.
+        ///     Gets a column value by the index
+        /// </summary>
+        /// <param name="mapping"></param>
+        /// <param name="dataReader"></param>
+        /// <returns></returns>
+        public abstract object GetValueByIndex(ResultProperty mapping, IDataReader dataReader);
+
+        /// <summary>
+        ///     Retrieve ouput database value of an output parameter
+        /// </summary>
+        /// <param name="outputValue">ouput database value</param>
+        /// <param name="parameterType">type used in EnumTypeHandler</param>
+        /// <returns></returns>
+        public abstract object GetDataBaseValue(object outputValue, Type parameterType);
+
+        /// <summary>
+        ///     Gets a value indicating whether this instance is simple type.
         /// </summary>
         /// <value>
-        /// 	<c>true</c> if this instance is simple type; otherwise, <c>false</c>.
+        ///     <c>true</c> if this instance is simple type; otherwise, <c>false</c>.
         /// </value>
-		public abstract bool IsSimpleType{ get; }
-
-		/// <summary>
-		/// Converts the String to the type that this handler deals with
-		/// </summary>
-		/// <param name="type">the tyepe of the property (used only for enum conversion)</param>
-		/// <param name="s">the String value</param>
-		/// <returns>the converted value</returns>
-		public abstract object ValueOf(Type type, string s);
+        public abstract bool IsSimpleType { get; }
 
         /// <summary>
-        /// The null value for this type
+        ///     Converts the String to the type that this handler deals with
         /// </summary>
-        public virtual object NullValue 
+        /// <param name="type">the tyepe of the property (used only for enum conversion)</param>
+        /// <param name="s">the String value</param>
+        /// <returns>the converted value</returns>
+        public abstract object ValueOf(Type type, string s);
+
+        /// <summary>
+        ///     The null value for this type
+        /// </summary>
+        public virtual object NullValue => null;
+
+        /// <summary>
+        ///     Sets a parameter on a IDbCommand
+        /// </summary>
+        /// <param name="dataParameter">the parameter</param>
+        /// <param name="parameterValue">the parameter value</param>
+        /// <param name="dbType">the dbType of the parameter</param>
+        public virtual void SetParameter(IDataParameter dataParameter, object parameterValue, string dbType)
         {
-            get { return null; }
+            if (parameterValue != null)
+                dataParameter.Value = parameterValue;
+            else
+                dataParameter.Value = DBNull.Value;
         }
 
-		/// <summary>
-		///  Sets a parameter on a IDbCommand
-		/// </summary>
-		/// <param name="dataParameter">the parameter</param>
-		/// <param name="parameterValue">the parameter value</param>
-		/// <param name="dbType">the dbType of the parameter</param>
-		public virtual void SetParameter(IDataParameter dataParameter, object parameterValue, string dbType)
-		{
-			if (parameterValue != null) 
-			{
-				dataParameter.Value = parameterValue;
-			}
-			else
-			{
-				// When sending a null parameter value to the server,
-				// the user must specify DBNull, not null. 
-				dataParameter.Value = DBNull.Value;
-			}
-		}
+        /// <summary>
+        ///     Compares two values (that this handler deals with) for equality
+        /// </summary>
+        /// <param name="obj">one of the objects</param>
+        /// <param name="str">the other object as a String</param>
+        /// <returns>true if they are equal</returns>
+        public virtual bool Equals(object obj, string str)
+        {
+            if (obj == null || str == null) return obj == str;
 
-		/// <summary>
-		///  Compares two values (that this handler deals with) for equality
-		/// </summary>
-		/// <param name="obj">one of the objects</param>
-		/// <param name="str">the other object as a String</param>
-		/// <returns>true if they are equal</returns>
-		public virtual bool Equals(object obj, string str) 
-		{
-			if (obj == null || str == null) 
-			{
-				return obj == str;
-			} 
-			else 
-			{
-				object castedObject = ValueOf(obj.GetType(), str);
-				return obj.Equals(castedObject);
-			}
-		}
-	}
+            object castedObject = ValueOf(obj.GetType(), str);
+            return obj.Equals(castedObject);
+        }
+    }
 }

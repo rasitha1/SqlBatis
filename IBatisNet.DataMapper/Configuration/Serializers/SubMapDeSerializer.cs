@@ -1,4 +1,5 @@
 #region Apache Notice
+
 /*****************************************************************************
  * $Header: $
  * $Revision: 408164 $
@@ -21,6 +22,7 @@
  * limitations under the License.
  * 
  ********************************************************************************/
+
 #endregion
 
 #region Using
@@ -30,31 +32,32 @@ using System.Xml;
 using IBatisNet.Common.Xml;
 using IBatisNet.DataMapper.Configuration.ResultMapping;
 using IBatisNet.DataMapper.Scope;
-#endregion 
+
+#endregion
 
 
 namespace IBatisNet.DataMapper.Configuration.Serializers
 {
-	/// <summary>
-	/// Summary description for SubMapDeSerializer.
-	/// </summary>
-	public sealed class SubMapDeSerializer
-	{
-		/// <summary>
-		/// Deserialize a ResultMap object
-		/// </summary>
-		/// <param name="node"></param>
-		/// <param name="configScope"></param>
-		/// <returns></returns>
-		public static SubMap Deserialize(XmlNode node, ConfigurationScope configScope)
-		{
-			SubMap subMap = new SubMap();
+    /// <summary>
+    ///     Summary description for SubMapDeSerializer.
+    /// </summary>
+    public sealed class SubMapDeSerializer
+    {
+        /// <summary>
+        ///     Deserialize a ResultMap object
+        /// </summary>
+        /// <param name="node"></param>
+        /// <param name="configScope"></param>
+        /// <returns></returns>
+        public static SubMap Deserialize(XmlNode node, ConfigurationScope configScope)
+        {
+            SubMap subMap = new SubMap();
 
-			NameValueCollection prop = NodeUtils.ParseAttributes(node, configScope.Properties);
-			subMap.DiscriminatorValue = NodeUtils.GetStringAttribute(prop, "value");
-			subMap.ResultMapName = NodeUtils.GetStringAttribute(prop, "resultMapping");
+            NameValueCollection prop = NodeUtils.ParseAttributes(node, configScope.Properties);
+            subMap.DiscriminatorValue = NodeUtils.GetStringAttribute(prop, "value");
+            subMap.ResultMapName = NodeUtils.GetStringAttribute(prop, "resultMapping");
 
-			return subMap;
-		}
-	}
+            return subMap;
+        }
+    }
 }

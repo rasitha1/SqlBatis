@@ -1,4 +1,5 @@
 #region Apache Notice
+
 /*****************************************************************************
  * $Revision: 374175 $
  * $LastChangedDate: 2006-04-09 20:24:53 +0200 (dim., 09 avr. 2006) $
@@ -21,6 +22,7 @@
  * limitations under the License.
  * 
  ********************************************************************************/
+
 #endregion
 
 using System;
@@ -30,103 +32,74 @@ using System.Reflection.Emit;
 namespace IBatisNet.Common.Utilities.Objects.Members
 {
     /// <summary>
-    /// The <see cref="DelegateFieldSetAccessor"/> class defines a field get accessor and
-    /// provides <c>Reflection.Emit</c>-generated <see cref="ISet"/> 
-    /// via the new DynamicMethod (.NET V2).
+    ///     The <see cref="DelegateFieldSetAccessor" /> class defines a field get accessor and
+    ///     provides <c>Reflection.Emit</c>-generated <see cref="ISet" />
+    ///     via the new DynamicMethod (.NET V2).
     /// </summary>
     public sealed class DelegateFieldSetAccessor : BaseAccessor, ISetAccessor
     {
-        private delegate void SetValue(object instance, object value);
-
-        private SetValue _set = null;
+        /// <summary>
+        ///     The field name
+        /// </summary>
+        private readonly string _fieldName = string.Empty;
 
         /// <summary>
-        /// The field name
+        ///     The class parent type
         /// </summary>
-        private string _fieldName = string.Empty;
-        /// <summary>
-        /// The class parent type
-        /// </summary>
-        private Type _fieldType = null;
+        private readonly Type _fieldType;
 
-                 /// <summary>
-        /// Initializes a new instance of the <see cref="T:DelegateFieldSetAccessor"/> class
-        /// for field get access via DynamicMethod.
+        private readonly SetValue _set;
+
+        /// <summary>
+        ///     Initializes a new instance of the <see cref="T:DelegateFieldSetAccessor" /> class
+        ///     for field get access via DynamicMethod.
         /// </summary>
         /// <param name="targetObjectType">Type of the target object.</param>
         /// <param name="fieldName">Name of the field.</param>
         public DelegateFieldSetAccessor(Type targetObjectType, string fieldName)
         {
-           // this.targetType = targetObjectType;
+            // this.targetType = targetObjectType;
             _fieldName = fieldName;
 
-            FieldInfo fieldInfo = targetObjectType.GetField(fieldName, BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Public);
+            FieldInfo fieldInfo = targetObjectType.GetField(fieldName,
+                BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Public);
 
             // Make sure the field exists
             if (fieldInfo == null)
-            {
                 throw new NotSupportedException(
                     string.Format("Field \"{0}\" does not exist for type "
-                    + "{1}.", fieldName, targetObjectType));
-            }
-            else
-            {
-                _fieldType = fieldInfo.FieldType;
-                this.nullInternal = this.GetNullInternal(_fieldType);
+                                  + "{1}.", fieldName, targetObjectType));
 
-                // Emit the IL for set access. 
-                DynamicMethod dynamicMethodSet = new DynamicMethod("SetImplementation", null, new Type[] { typeof(object), typeof(object) }, this.GetType().Module, false);
-                ILGenerator ilgen = dynamicMethodSet.GetILGenerator();
+            _fieldType = fieldInfo.FieldType;
+            nullInternal = GetNullInternal(_fieldType);
 
-                ilgen = dynamicMethodSet.GetILGenerator();
+            // Emit the IL for set access. 
+            DynamicMethod dynamicMethodSet = new DynamicMethod("SetImplementation", null,
+                new[] {typeof(object), typeof(object)}, GetType().Module, false);
+            ILGenerator ilgen = dynamicMethodSet.GetILGenerator();
 
-                ilgen.Emit(OpCodes.Ldarg_0);
-                ilgen.Emit(OpCodes.Ldarg_1);
-                UnboxIfNeeded(fieldInfo.FieldType, ilgen);
-                ilgen.Emit(OpCodes.Stfld, fieldInfo);
-                ilgen.Emit(OpCodes.Ret);
+            ilgen = dynamicMethodSet.GetILGenerator();
 
-                _set = (SetValue)dynamicMethodSet.CreateDelegate(typeof(SetValue));
-            }
-		}
+            ilgen.Emit(OpCodes.Ldarg_0);
+            ilgen.Emit(OpCodes.Ldarg_1);
+            UnboxIfNeeded(fieldInfo.FieldType, ilgen);
+            ilgen.Emit(OpCodes.Stfld, fieldInfo);
+            ilgen.Emit(OpCodes.Ret);
 
-        #region IAccessor Members
-        
-        /// <summary>
-        /// Gets the field's name.
-        /// </summary>
-        /// <value></value>
-        public string Name
-        {
-            get { return _fieldName; }
+            _set = (SetValue) dynamicMethodSet.CreateDelegate(typeof(SetValue));
         }
-
-        /// <summary>
-        /// Gets the field's type.
-        /// </summary>
-        /// <value></value>
-        public Type MemberType
-        {
-            get { return _fieldType; }
-        }
-
-        #endregion
 
         #region ISet Members
 
         /// <summary>
-        /// Sets the field for the specified target.
+        ///     Sets the field for the specified target.
         /// </summary>
         /// <param name="target">Target object.</param>
         /// <param name="value">Value to set.</param>
         public void Set(object target, object value)
         {
             object newValue = value;
-            if (newValue == null)
-            {
-                // If the value to assign is null, assign null internal value
-                newValue = nullInternal;
-            }
+            if (newValue == null) newValue = nullInternal;
             _set(target, newValue);
         }
 
@@ -134,11 +107,25 @@ namespace IBatisNet.Common.Utilities.Objects.Members
 
         private static void UnboxIfNeeded(Type type, ILGenerator generator)
         {
-            if (type.IsValueType)
-            {
-                generator.Emit(OpCodes.Unbox_Any, type);
-            }
+            if (type.IsValueType) generator.Emit(OpCodes.Unbox_Any, type);
         }
 
+        private delegate void SetValue(object instance, object value);
+
+        #region IAccessor Members
+
+        /// <summary>
+        ///     Gets the field's name.
+        /// </summary>
+        /// <value></value>
+        public string Name => _fieldName;
+
+        /// <summary>
+        ///     Gets the field's type.
+        /// </summary>
+        /// <value></value>
+        public Type MemberType => _fieldType;
+
+        #endregion
     }
 }

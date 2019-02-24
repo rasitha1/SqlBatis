@@ -1,4 +1,5 @@
 #region Apache Notice
+
 /*****************************************************************************
  * $Revision: 374175 $
  * $LastChangedDate: 2006-04-25 19:40:27 +0200 (mar., 25 avr. 2006) $
@@ -21,16 +22,17 @@
  * limitations under the License.
  * 
  ********************************************************************************/
+
 #endregion
 
 
 namespace IBatisNet.Common.Utilities.Objects.Members
 {
     /// <summary>
-    /// The <see cref="ISetAccessor"/> interface defines a field/property set accessor.
-    /// provides <c>Reflection.Emit</c>-generated <see cref="ISet"/> 
-    /// implementations for drastically improved performance over default late-bind 
-    /// invoke.
+    ///     The <see cref="ISetAccessor" /> interface defines a field/property set accessor.
+    ///     provides <c>Reflection.Emit</c>-generated <see cref="ISet" />
+    ///     implementations for drastically improved performance over default late-bind
+    ///     invoke.
     /// </summary>
     public interface ISetAccessor : IAccessor, ISet
     {

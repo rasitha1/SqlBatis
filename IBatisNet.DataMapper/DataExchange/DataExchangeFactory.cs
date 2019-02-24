@@ -1,4 +1,5 @@
 #region Apache Notice
+
 /*****************************************************************************
  * $Revision: 374175 $
  * $LastChangedDate: 2006-11-12 18:00:49 +0100 (dim., 12 nov. 2006) $
@@ -21,6 +22,7 @@
  * limitations under the License.
  * 
  ********************************************************************************/
+
 #endregion
 
 using System;
@@ -28,100 +30,76 @@ using System.Collections;
 using IBatisNet.Common.Utilities.Objects;
 using IBatisNet.Common.Utilities.Objects.Members;
 using IBatisNet.DataMapper.TypeHandlers;
-using System.Collections.Generic;
 
 namespace IBatisNet.DataMapper.DataExchange
 {
-	/// <summary>
-	/// Factory for DataExchange objects
-	/// </summary>
-	public class DataExchangeFactory
-	{
-		private TypeHandlerFactory _typeHandlerFactory = null;
-		private IObjectFactory _objectFactory = null;
-        private AccessorFactory _accessorFactory = null;
+    /// <summary>
+    ///     Factory for DataExchange objects
+    /// </summary>
+    public class DataExchangeFactory
+    {
+        private readonly IDataExchange _complexDataExchange;
+        private readonly IDataExchange _dictionaryDataExchange;
+        private readonly IDataExchange _listDataExchange;
 
-		private IDataExchange _primitiveDataExchange = null;
-		private IDataExchange _complexDataExchange = null;
-		private IDataExchange _listDataExchange = null;
-		private IDataExchange _dictionaryDataExchange = null;
-
-		/// <summary>
-		///  Getter for the type handler factory
-		/// </summary>
-		public TypeHandlerFactory TypeHandlerFactory
-		{
-			get{ return _typeHandlerFactory; }
-		}
-
-		/// <summary>
-		/// The factory for object
-		/// </summary>
-		public IObjectFactory ObjectFactory
-		{
-			get{ return _objectFactory; }
-		}
-		
-		/// <summary>
-        /// The factory which build <see cref="ISetAccessor"/>
-		/// </summary>
-        public AccessorFactory AccessorFactory
-		{
-            get { return _accessorFactory; }
-		}
+        private readonly IDataExchange _primitiveDataExchange;
 
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="DataExchangeFactory"/> class.
+        ///     Initializes a new instance of the <see cref="DataExchangeFactory" /> class.
         /// </summary>
         /// <param name="typeHandlerFactory">The type handler factory.</param>
         /// <param name="objectFactory">The object factory.</param>
         /// <param name="accessorFactory">The accessor factory.</param>
-		public DataExchangeFactory(TypeHandlerFactory typeHandlerFactory,
-			IObjectFactory objectFactory,
+        public DataExchangeFactory(TypeHandlerFactory typeHandlerFactory,
+            IObjectFactory objectFactory,
             AccessorFactory accessorFactory)
-		{
-			_objectFactory = objectFactory;
-			_typeHandlerFactory = typeHandlerFactory;
-            _accessorFactory = accessorFactory;
+        {
+            ObjectFactory = objectFactory;
+            TypeHandlerFactory = typeHandlerFactory;
+            AccessorFactory = accessorFactory;
 
-			_primitiveDataExchange = new PrimitiveDataExchange(this);
-			_complexDataExchange = new ComplexDataExchange(this);
-			_listDataExchange = new ListDataExchange(this);
-			_dictionaryDataExchange = new DictionaryDataExchange(this);
-		}
+            _primitiveDataExchange = new PrimitiveDataExchange(this);
+            _complexDataExchange = new ComplexDataExchange(this);
+            _listDataExchange = new ListDataExchange(this);
+            _dictionaryDataExchange = new DictionaryDataExchange(this);
+        }
 
-		/// <summary>
-		/// Get a DataExchange object for the passed in Class
-		/// </summary>
-		/// <param name="clazz">The class to get a DataExchange object for</param>
-		/// <returns>The IDataExchange object</returns>
-		public IDataExchange GetDataExchangeForClass(Type clazz)
-		{
-			IDataExchange dataExchange = null;
-			if (clazz == null) 
-			{
-				dataExchange = _complexDataExchange;
-			}
-			else if (typeof(IList).IsAssignableFrom(clazz)) 
-			{
-				dataExchange = _listDataExchange;
-			} 
-			else if (typeof(IDictionary).IsAssignableFrom(clazz)) 
-			{
-				dataExchange = _dictionaryDataExchange;
-			} 
-			else if (_typeHandlerFactory.GetTypeHandler(clazz) != null) 
-			{
-				dataExchange = _primitiveDataExchange;
-			} 
-			else 
-			{
-				dataExchange = new DotNetObjectDataExchange(clazz, this);
-			}
-			
-			return dataExchange;
-		}
+        /// <summary>
+        ///     Getter for the type handler factory
+        /// </summary>
+        public TypeHandlerFactory TypeHandlerFactory { get; }
 
-	}
+        /// <summary>
+        ///     The factory for object
+        /// </summary>
+        public IObjectFactory ObjectFactory { get; }
+
+        /// <summary>
+        ///     The factory which build <see cref="ISetAccessor" />
+        /// </summary>
+        public AccessorFactory AccessorFactory { get; }
+
+        /// <summary>
+        ///     Get a DataExchange object for the passed in Class
+        /// </summary>
+        /// <param name="clazz">The class to get a DataExchange object for</param>
+        /// <returns>The IDataExchange object</returns>
+        public IDataExchange GetDataExchangeForClass(Type clazz)
+        {
+            IDataExchange dataExchange = null;
+            if (clazz == null)
+                dataExchange = _complexDataExchange;
+            else if (typeof(IList).IsAssignableFrom(clazz))
+                dataExchange = _listDataExchange;
+            else if (typeof(IDictionary).IsAssignableFrom(clazz))
+                dataExchange = _dictionaryDataExchange;
+            else if (TypeHandlerFactory.GetTypeHandler(clazz) != null)
+                dataExchange = _primitiveDataExchange;
+            else
+                dataExchange = new DotNetObjectDataExchange(clazz, this);
+
+            return dataExchange;
+        }
+    }
 }

@@ -1,4 +1,5 @@
 #region Apache Notice
+
 /*****************************************************************************
  * $Header: $
  * $Revision: 476843 $
@@ -21,139 +22,136 @@
  * limitations under the License.
  * 
  ********************************************************************************/
+
 #endregion
 
 
 using System.Collections;
-
-using IBatisNet.DataMapper.Exceptions;
 using IBatisNet.DataMapper.Configuration.Statements;
+using IBatisNet.DataMapper.Exceptions;
 
 namespace IBatisNet.DataMapper.MappedStatements
 {
-	/// <summary>
-	/// Summary description for DeleteMappedStatement.
-	/// </summary>
+    /// <summary>
+    ///     Summary description for DeleteMappedStatement.
+    /// </summary>
     public sealed class DeleteMappedStatement : MappedStatement
-	{
-		/// <summary>
-		/// Constructor
-		/// </summary>
-		/// <param name="sqlMap">An SqlMap</param>
-		/// <param name="statement">An SQL statement</param>
+    {
+        /// <summary>
+        ///     Constructor
+        /// </summary>
+        /// <param name="sqlMap">An SqlMap</param>
+        /// <param name="statement">An SQL statement</param>
         internal DeleteMappedStatement(ISqlMapper sqlMap, IStatement statement)
             : base(sqlMap, statement)
-		{ }
+        {
+        }
 
-		#region ExecuteQueryForMap
+        #region ExecuteQueryForMap
 
-		/// <summary>
-		/// 
-		/// </summary>
-		/// <param name="session"></param>
-		/// <param name="parameterObject"></param>
-		/// <param name="keyProperty"></param>
-		/// <param name="valueProperty"></param>
-		/// <returns></returns>
-		public override IDictionary ExecuteQueryForMap(ISqlMapSession session, object parameterObject, string keyProperty, string valueProperty )
-		{
-			throw new DataMapperException("Delete statements cannot be executed as a query for map.");
-		}
+        /// <summary>
+        /// </summary>
+        /// <param name="session"></param>
+        /// <param name="parameterObject"></param>
+        /// <param name="keyProperty"></param>
+        /// <param name="valueProperty"></param>
+        /// <returns></returns>
+        public override IDictionary ExecuteQueryForMap(ISqlMapSession session, object parameterObject,
+            string keyProperty, string valueProperty)
+        {
+            throw new DataMapperException("Delete statements cannot be executed as a query for map.");
+        }
 
-		#endregion
+        #endregion
 
-		#region ExecuteInsert
+        #region ExecuteInsert
 
-		/// <summary>
-		/// 
-		/// </summary>
-		/// <param name="session"></param>
-		/// <param name="parameterObject"></param>
-		/// <returns></returns>
+        /// <summary>
+        /// </summary>
+        /// <param name="session"></param>
+        /// <param name="parameterObject"></param>
+        /// <returns></returns>
         public override object ExecuteInsert(ISqlMapSession session, object parameterObject)
-		{
-			throw new DataMapperException("Delete statements cannot be executed as a query insert.");
-		}
+        {
+            throw new DataMapperException("Delete statements cannot be executed as a query insert.");
+        }
 
-		#endregion
+        #endregion
 
-		#region ExecuteQueryForList
+        /// <summary>
+        /// </summary>
+        /// <param name="session"></param>
+        /// <param name="parameterObject"></param>
+        /// <param name="rowDelegate"></param>
+        /// <returns></returns>
+        public override IList ExecuteQueryForRowDelegate(ISqlMapSession session, object parameterObject,
+            RowDelegate rowDelegate)
+        {
+            throw new DataMapperException("Delete statements cannot be executed as a query for row delegate.");
+        }
 
-		/// <summary>
-		/// 
-		/// </summary>
-		/// <param name="session"></param>
-		/// <param name="parameterObject"></param>
-		/// <param name="resultObject"></param>
+        #region ExecuteQueryForList
+
+        /// <summary>
+        /// </summary>
+        /// <param name="session"></param>
+        /// <param name="parameterObject"></param>
+        /// <param name="resultObject"></param>
         public override void ExecuteQueryForList(ISqlMapSession session, object parameterObject, IList resultObject)
-		{
-			throw new DataMapperException("Delete statements cannot be executed as a query for list.");
-		}
+        {
+            throw new DataMapperException("Delete statements cannot be executed as a query for list.");
+        }
 
-		/// <summary>
-		/// 
-		/// </summary>
-		/// <param name="session"></param>
-		/// <param name="parameterObject"></param>
-		/// <param name="skipResults"></param>
-		/// <param name="maxResults"></param>
-		/// <returns></returns>
-        public override IList ExecuteQueryForList(ISqlMapSession session, object parameterObject, int skipResults, int maxResults)
-		{
-			throw new DataMapperException("Delete statements cannot be executed as a query for list.");
-		}
+        /// <summary>
+        /// </summary>
+        /// <param name="session"></param>
+        /// <param name="parameterObject"></param>
+        /// <param name="skipResults"></param>
+        /// <param name="maxResults"></param>
+        /// <returns></returns>
+        public override IList ExecuteQueryForList(ISqlMapSession session, object parameterObject, int skipResults,
+            int maxResults)
+        {
+            throw new DataMapperException("Delete statements cannot be executed as a query for list.");
+        }
 
-		/// <summary>
-		/// 
-		/// </summary>
-		/// <param name="session"></param>
-		/// <param name="parameterObject"></param>
-		/// <returns></returns>
+        /// <summary>
+        /// </summary>
+        /// <param name="session"></param>
+        /// <param name="parameterObject"></param>
+        /// <returns></returns>
         public override IList ExecuteQueryForList(ISqlMapSession session, object parameterObject)
-		{
-			throw new DataMapperException("Delete statements cannot be executed as a query for list.");
-		}
+        {
+            throw new DataMapperException("Delete statements cannot be executed as a query for list.");
+        }
 
-		#endregion
+        #endregion
 
-		/// <summary>
-		/// 
-		/// </summary>
-		/// <param name="session"></param>
-		/// <param name="parameterObject"></param>
-		/// <param name="rowDelegate"></param>
-		/// <returns></returns>
-        public override IList ExecuteQueryForRowDelegate(ISqlMapSession session, object parameterObject, RowDelegate rowDelegate)
-		{
-			throw new DataMapperException("Delete statements cannot be executed as a query for row delegate.");
-		}
 
-		
-		#region ExecuteForObject
+        #region ExecuteForObject
 
-		/// <summary>
-		/// 
-		/// </summary>
-		/// <param name="session"></param>
-		/// <param name="parameterObject"></param>
-		/// <returns></returns>
+        /// <summary>
+        /// </summary>
+        /// <param name="session"></param>
+        /// <param name="parameterObject"></param>
+        /// <returns></returns>
         public override object ExecuteQueryForObject(ISqlMapSession session, object parameterObject)
-		{
-			throw new DataMapperException("Delete statements cannot be executed as a query for object.");
-		}
+        {
+            throw new DataMapperException("Delete statements cannot be executed as a query for object.");
+        }
 
-		/// <summary>
-		/// 
-		/// </summary>
-		/// <param name="session"></param>
-		/// <param name="parameterObject"></param>
-		/// <param name="resultObject"></param>
-		/// <returns></returns>
-        public override object ExecuteQueryForObject(ISqlMapSession session, object parameterObject, object resultObject)
-		{
-			throw new DataMapperException("Delete statements cannot be executed as a query for object.");
-		}
+        /// <summary>
+        /// </summary>
+        /// <param name="session"></param>
+        /// <param name="parameterObject"></param>
+        /// <param name="resultObject"></param>
+        /// <returns></returns>
+        public override object ExecuteQueryForObject(ISqlMapSession session, object parameterObject,
+            object resultObject)
+        {
+            throw new DataMapperException("Delete statements cannot be executed as a query for object.");
+        }
 
-		#endregion
-	}
+        #endregion
+    }
 }

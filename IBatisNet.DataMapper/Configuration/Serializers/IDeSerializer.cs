@@ -1,4 +1,5 @@
 #region Apache Notice
+
 /*****************************************************************************
  * $Header: $
  * $Revision: 383115 $
@@ -21,26 +22,27 @@
  * limitations under the License.
  * 
  ********************************************************************************/
+
 #endregion
 
 #region Using
 
 using System.Xml;
 using IBatisNet.DataMapper.Configuration.Sql.Dynamic.Elements;
-#endregion 
+
+#endregion
 
 namespace IBatisNet.DataMapper.Configuration.Serializers
 {
-	/// <summary>
-	/// Summary description for IDeSerializer.
-	/// </summary>
-	public interface IDeSerializer
-	{
-		/// <summary>
-		/// 
-		/// </summary>
-		/// <param name="node"></param>
-		/// <returns></returns>
-		SqlTag Deserialize(XmlNode node);
-	}
+    /// <summary>
+    ///     Summary description for IDeSerializer.
+    /// </summary>
+    public interface IDeSerializer
+    {
+        /// <summary>
+        /// </summary>
+        /// <param name="node"></param>
+        /// <returns></returns>
+        SqlTag Deserialize(XmlNode node);
+    }
 }

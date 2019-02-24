@@ -1,4 +1,5 @@
 #region Apache Notice
+
 /*****************************************************************************
  * $Header: $
  * $Revision: 408164 $
@@ -21,6 +22,7 @@
  * limitations under the License.
  * 
  ********************************************************************************/
+
 #endregion
 
 #region Using
@@ -31,47 +33,45 @@ using IBatisNet.Common.Xml;
 using IBatisNet.DataMapper.Configuration.Sql.Dynamic.Elements;
 using IBatisNet.DataMapper.Scope;
 
-#endregion 
+#endregion
 
 namespace IBatisNet.DataMapper.Configuration.Serializers
 {
-	/// <summary>
-	/// Summary description for IsLessThanDeSerializer.
-	/// </summary>
-	public sealed class IsLessThanDeSerializer : IDeSerializer
-	{
-		private ConfigurationScope _configScope = null;
+    /// <summary>
+    ///     Summary description for IsLessThanDeSerializer.
+    /// </summary>
+    public sealed class IsLessThanDeSerializer : IDeSerializer
+    {
+        private readonly ConfigurationScope _configScope;
 
-		/// <summary>
-		/// 
-		/// </summary>
-		/// <param name="configScope"></param>
-		public IsLessThanDeSerializer(ConfigurationScope configScope)
-		{
-			_configScope = configScope;
+        /// <summary>
+        /// </summary>
+        /// <param name="configScope"></param>
+        public IsLessThanDeSerializer(ConfigurationScope configScope)
+        {
+            _configScope = configScope;
+        }
 
-		}
+        #region IDeSerializer Members
 
-		#region IDeSerializer Members
+        /// <summary>
+        ///     Deserialize a Dynamic object
+        /// </summary>
+        /// <param name="node"></param>
+        /// <returns></returns>
+        public SqlTag Deserialize(XmlNode node)
+        {
+            IsLessThan isLessThan = new IsLessThan(_configScope.DataExchangeFactory.AccessorFactory);
 
-		/// <summary>
-		/// Deserialize a Dynamic object
-		/// </summary>
-		/// <param name="node"></param>
-		/// <returns></returns>
-		public SqlTag Deserialize(XmlNode node)
-		{
-			IsLessThan isLessThan = new IsLessThan(_configScope.DataExchangeFactory.AccessorFactory);
+            NameValueCollection prop = NodeUtils.ParseAttributes(node, _configScope.Properties);
+            isLessThan.Prepend = NodeUtils.GetStringAttribute(prop, "prepend");
+            isLessThan.Property = NodeUtils.GetStringAttribute(prop, "property");
+            isLessThan.CompareProperty = NodeUtils.GetStringAttribute(prop, "compareProperty");
+            isLessThan.CompareValue = NodeUtils.GetStringAttribute(prop, "compareValue");
 
-			NameValueCollection prop = NodeUtils.ParseAttributes(node, _configScope.Properties);
-			isLessThan.Prepend = NodeUtils.GetStringAttribute(prop, "prepend");
-			isLessThan.Property = NodeUtils.GetStringAttribute(prop, "property");
-			isLessThan.CompareProperty = NodeUtils.GetStringAttribute(prop, "compareProperty");
-			isLessThan.CompareValue = NodeUtils.GetStringAttribute(prop, "compareValue");
+            return isLessThan;
+        }
 
-			return isLessThan;
-		}
-
-		#endregion
-	}
+        #endregion
+    }
 }

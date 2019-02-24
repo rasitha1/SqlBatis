@@ -1,4 +1,5 @@
 #region Apache Notice
+
 /*****************************************************************************
  * $Revision: 374175 $
  * $LastChangedDate: 2006-05-23 22:42:23 +0200 (mar., 23 mai 2006) $
@@ -21,6 +22,7 @@
  * limitations under the License.
  * 
  ********************************************************************************/
+
 #endregion
 
 using IBatisNet.Common.Utilities.Objects;
@@ -29,74 +31,66 @@ using IBatisNet.DataMapper.Configuration.ResultMapping;
 
 namespace IBatisNet.DataMapper.DataExchange
 {
-	/// <summary>
-	/// A IDataExchange implemtation for working with .NET object
-	/// </summary>
-	public sealed class ComplexDataExchange : BaseDataExchange
-	{
+    /// <summary>
+    ///     A IDataExchange implemtation for working with .NET object
+    /// </summary>
+    public sealed class ComplexDataExchange : BaseDataExchange
+    {
+        /// <summary>
+        ///     Cosntructor
+        /// </summary>
+        /// <param name="dataExchangeFactory"></param>
+        public ComplexDataExchange(DataExchangeFactory dataExchangeFactory) : base(dataExchangeFactory)
+        {
+        }
 
-		/// <summary>
-		/// Cosntructor
-		/// </summary>
-		/// <param name="dataExchangeFactory"></param>
-		public ComplexDataExchange(DataExchangeFactory dataExchangeFactory):base(dataExchangeFactory)
-		{
-		}
+        #region IDataExchange Members
 
-		#region IDataExchange Members
-
-		/// <summary>
-		/// Gets the data to be set into a IDataParameter.
-		/// </summary>
-		/// <param name="mapping"></param>
-		/// <param name="parameterObject"></param>
-		public override object GetData(ParameterProperty mapping, object parameterObject)
-		{
-            if (parameterObject!=null)
+        /// <summary>
+        ///     Gets the data to be set into a IDataParameter.
+        /// </summary>
+        /// <param name="mapping"></param>
+        /// <param name="parameterObject"></param>
+        public override object GetData(ParameterProperty mapping, object parameterObject)
+        {
+            if (parameterObject != null)
             {
- 			    if (this.DataExchangeFactory.TypeHandlerFactory.IsSimpleType(parameterObject.GetType()))
-			    {
-				    return parameterObject;
-			    }
-			    else
-			    {
-				    return ObjectProbe.GetMemberValue(parameterObject, mapping.PropertyName, this.DataExchangeFactory.AccessorFactory);
-			    }               
-            }
-		    else
-            {
-                return null;
+                if (DataExchangeFactory.TypeHandlerFactory.IsSimpleType(parameterObject.GetType()))
+                    return parameterObject;
+                return ObjectProbe.GetMemberValue(parameterObject, mapping.PropertyName,
+                    DataExchangeFactory.AccessorFactory);
             }
 
-		}
+            return null;
+        }
 
-		/// <summary>
-		/// Sets the value to the result property.
-		/// </summary>
-		/// <param name="mapping"></param>
-		/// <param name="target"></param>
-		/// <param name="dataBaseValue"></param>
-		public override void SetData(ref object target, ResultProperty mapping, object dataBaseValue)
-		{
-			ObjectProbe.SetMemberValue(target, mapping.PropertyName, dataBaseValue, 
-				this.DataExchangeFactory.ObjectFactory,
-				this.DataExchangeFactory.AccessorFactory);
-		}
+        /// <summary>
+        ///     Sets the value to the result property.
+        /// </summary>
+        /// <param name="mapping"></param>
+        /// <param name="target"></param>
+        /// <param name="dataBaseValue"></param>
+        public override void SetData(ref object target, ResultProperty mapping, object dataBaseValue)
+        {
+            ObjectProbe.SetMemberValue(target, mapping.PropertyName, dataBaseValue,
+                DataExchangeFactory.ObjectFactory,
+                DataExchangeFactory.AccessorFactory);
+        }
 
-		/// <summary>
-		/// Sets the value to the parameter property.
-		/// </summary>
-		/// <remarks>Use to set value on output parameter</remarks>
-		/// <param name="mapping"></param>
-		/// <param name="target"></param>
-		/// <param name="dataBaseValue"></param>
-		public override void SetData(ref object target, ParameterProperty mapping, object dataBaseValue)
-		{
-			ObjectProbe.SetMemberValue(target, mapping.PropertyName, dataBaseValue, 
-				this.DataExchangeFactory.ObjectFactory,
-				this.DataExchangeFactory.AccessorFactory);
-		}
+        /// <summary>
+        ///     Sets the value to the parameter property.
+        /// </summary>
+        /// <remarks>Use to set value on output parameter</remarks>
+        /// <param name="mapping"></param>
+        /// <param name="target"></param>
+        /// <param name="dataBaseValue"></param>
+        public override void SetData(ref object target, ParameterProperty mapping, object dataBaseValue)
+        {
+            ObjectProbe.SetMemberValue(target, mapping.PropertyName, dataBaseValue,
+                DataExchangeFactory.ObjectFactory,
+                DataExchangeFactory.AccessorFactory);
+        }
 
-		#endregion
-	}
+        #endregion
+    }
 }

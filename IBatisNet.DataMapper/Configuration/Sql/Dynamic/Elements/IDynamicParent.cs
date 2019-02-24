@@ -1,5 +1,5 @@
-
 #region Apache Notice
+
 /*****************************************************************************
  * $Header: $
  * $Revision: 383115 $
@@ -22,25 +22,19 @@
  * limitations under the License.
  * 
  ********************************************************************************/
+
 #endregion
-
-using System;
-
-using IBatisNet.DataMapper.Configuration.Sql;
 
 namespace IBatisNet.DataMapper.Configuration.Sql.Dynamic.Elements
 {
-	/// <summary>
-	/// Summary description for DynamicParent.
-	/// </summary>
-	public interface IDynamicParent
-	{
-
-		/// <summary>
-		/// 
-		/// </summary>
-		/// <param name="child"></param>
-		void AddChild(ISqlChild child);
-
-	}
+    /// <summary>
+    ///     Summary description for DynamicParent.
+    /// </summary>
+    public interface IDynamicParent
+    {
+        /// <summary>
+        /// </summary>
+        /// <param name="child"></param>
+        void AddChild(ISqlChild child);
+    }
 }

@@ -1,4 +1,5 @@
 #region Apache Notice
+
 /*****************************************************************************
  * $Header: $
  * $Revision: 408164 $
@@ -21,6 +22,7 @@
  * limitations under the License.
  * 
  ********************************************************************************/
+
 #endregion
 
 #region Using
@@ -31,46 +33,45 @@ using IBatisNet.Common.Xml;
 using IBatisNet.DataMapper.Configuration.Sql.Dynamic.Elements;
 using IBatisNet.DataMapper.Scope;
 
-#endregion 
+#endregion
 
 namespace IBatisNet.DataMapper.Configuration.Serializers
 {
-	/// <summary>
-	/// Summary description for IsGreaterThanDeSerializer.
-	/// </summary>
-	public sealed class IsGreaterThanDeSerializer : IDeSerializer
-	{
-		private ConfigurationScope _configScope = null;
+    /// <summary>
+    ///     Summary description for IsGreaterThanDeSerializer.
+    /// </summary>
+    public sealed class IsGreaterThanDeSerializer : IDeSerializer
+    {
+        private readonly ConfigurationScope _configScope;
 
-		/// <summary>
-		/// 
-		/// </summary>
-		/// <param name="configScope"></param>
-		public IsGreaterThanDeSerializer(ConfigurationScope configScope)
-		{
-			_configScope = configScope;
-		}
+        /// <summary>
+        /// </summary>
+        /// <param name="configScope"></param>
+        public IsGreaterThanDeSerializer(ConfigurationScope configScope)
+        {
+            _configScope = configScope;
+        }
 
-		#region IDeSerializer Members
+        #region IDeSerializer Members
 
-		/// <summary>
-		/// Deserialize a Dynamic object
-		/// </summary>
-		/// <param name="node"></param>
-		/// <returns></returns>
-		public SqlTag Deserialize(XmlNode node)
-		{
-			IsGreaterThan isGreaterThan = new IsGreaterThan(_configScope.DataExchangeFactory.AccessorFactory);
+        /// <summary>
+        ///     Deserialize a Dynamic object
+        /// </summary>
+        /// <param name="node"></param>
+        /// <returns></returns>
+        public SqlTag Deserialize(XmlNode node)
+        {
+            IsGreaterThan isGreaterThan = new IsGreaterThan(_configScope.DataExchangeFactory.AccessorFactory);
 
-			NameValueCollection prop = NodeUtils.ParseAttributes(node, _configScope.Properties);
-			isGreaterThan.Prepend = NodeUtils.GetStringAttribute(prop, "prepend");
-			isGreaterThan.Property = NodeUtils.GetStringAttribute(prop, "property");
-			isGreaterThan.CompareProperty = NodeUtils.GetStringAttribute(prop, "compareProperty");
-			isGreaterThan.CompareValue = NodeUtils.GetStringAttribute(prop, "compareValue");
+            NameValueCollection prop = NodeUtils.ParseAttributes(node, _configScope.Properties);
+            isGreaterThan.Prepend = NodeUtils.GetStringAttribute(prop, "prepend");
+            isGreaterThan.Property = NodeUtils.GetStringAttribute(prop, "property");
+            isGreaterThan.CompareProperty = NodeUtils.GetStringAttribute(prop, "compareProperty");
+            isGreaterThan.CompareValue = NodeUtils.GetStringAttribute(prop, "compareValue");
 
-			return isGreaterThan;
-		}
+            return isGreaterThan;
+        }
 
-		#endregion
-	}
+        #endregion
+    }
 }

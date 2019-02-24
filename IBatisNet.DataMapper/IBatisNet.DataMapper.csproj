@@ -679,7 +679,6 @@
     <Content Include="notice.txt" />
     <Content Include="ReadMe.txt" />
     <None Include="AssemblyKey.snk" />
-    <None Include="IBatisNet.DataMapper.build" />
     <None Include="MappedStatements\ResultStrategy\ClassDiagram.cd" />
     <EmbeddedResource Include="SqlMap.xsd">
       <SubType>Designer</SubType>

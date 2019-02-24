@@ -1,5 +1,5 @@
-
 #region Apache Notice
+
 /*****************************************************************************
  * $Revision: 450157 $
  * $LastChangedDate: 2007-02-21 21:23:49 +0100 (mer., 21 févr. 2007) $
@@ -22,6 +22,7 @@
  * limitations under the License.
  * 
  ********************************************************************************/
+
 #endregion
 
 #region Using
@@ -31,80 +32,81 @@ using System.Collections.Specialized;
 using System.Data;
 using System.Xml.Serialization;
 using IBatisNet.DataMapper.DataExchange;
+
 #endregion
 
 namespace IBatisNet.DataMapper.Configuration.ResultMapping
 {
     /// <summary>
-    /// This is a grouping of ResultMapping objects used to map results back to objects
+    ///     This is a grouping of ResultMapping objects used to map results back to objects
     /// </summary>
     public interface IResultMap
     {
         /// <summary>
-        /// The collection of constructor parameters.
+        ///     The collection of constructor parameters.
         /// </summary>
         [XmlIgnore]
         ResultPropertyCollection Parameters { get; }
-        
+
         /// <summary>
-        /// The collection of ResultProperty.
+        ///     The collection of ResultProperty.
         /// </summary>
         [XmlIgnore]
         ResultPropertyCollection Properties { get; }
 
         /// <summary>
-        /// The GroupBy Properties.
+        ///     The GroupBy Properties.
         /// </summary>
         [XmlIgnore]
         ResultPropertyCollection GroupByProperties { get; }
 
         /// <summary>
-        /// Identifier used to identify the resultMap amongst the others.
+        ///     Identifier used to identify the resultMap amongst the others.
         /// </summary>
         /// <example>GetProduct</example>
         [XmlAttribute("id")]
         string Id { get; }
 
         /// <summary>
-        /// The GroupBy Properties name.
+        ///     The GroupBy Properties name.
         /// </summary>
         [XmlIgnore]
         StringCollection GroupByPropertyNames { get; }
-        
+
         /// <summary>
-        /// The output type class of the resultMap.
+        ///     The output type class of the resultMap.
         /// </summary>
         [XmlIgnore]
         Type Class { get; }
 
         /// <summary>
-        /// Sets the IDataExchange
+        ///     Sets the IDataExchange
         /// </summary>
         [XmlIgnore]
         IDataExchange DataExchange { set; }
 
         /// <summary>
-        /// Gets or sets a value indicating whether this instance is initalized.
+        ///     Gets or sets a value indicating whether this instance is initalized.
         /// </summary>
         /// <value>
-        /// 	<c>true</c> if this instance is initalized; otherwise, <c>false</c>.
+        ///     <c>true</c> if this instance is initalized; otherwise, <c>false</c>.
         /// </value>
         [XmlIgnore]
         bool IsInitalized { get; set; }
 
 
         /// <summary>
-        /// Create an instance Of result.
+        ///     Create an instance Of result.
         /// </summary>
         /// <param name="parameters">
-        /// An array of values that matches the number, order and type 
-        /// of the parameters for this constructor. 
+        ///     An array of values that matches the number, order and type
+        ///     of the parameters for this constructor.
         /// </param>
         /// <returns>An object.</returns>
         object CreateInstanceOfResult(object[] parameters);
 
         /// <summary>
-        /// Set the value of an object property.
+        ///     Set the value of an object property.
         /// </summary>
         /// <param name="target">The object to set the property.</param>
         /// <param name="property">The result property to use.</param>
@@ -112,7 +114,6 @@ namespace IBatisNet.DataMapper.Configuration.ResultMapping
         void SetValueOfProperty(ref object target, ResultProperty property, object dataBaseValue);
 
         /// <summary>
-        /// 
         /// </summary>
         /// <param name="dataReader"></param>
         /// <returns></returns>

@@ -1,5 +1,5 @@
-
 #region Apache Notice
+
 /*****************************************************************************
  * $Revision: 430536 $
  * $LastChangedDate: 2006-08-10 23:24:45 +0200 (jeu., 10 août 2006) $
@@ -22,17 +22,16 @@
  * limitations under the License.
  * 
  ********************************************************************************/
+
 #endregion
 
 using System.Collections;
 using System.Collections.Generic;
 
-
 namespace IBatisNet.DataMapper
 {
-    
     /// <summary>
-    /// A delegate called once per row in the QueryWithRowDelegate method
+    ///     A delegate called once per row in the QueryWithRowDelegate method
     /// </summary>
     /// <param name="obj">The object currently being processed.</param>
     /// <param name="parameterObject">The optional parameter object passed into the QueryWithRowDelegate method.</param>
@@ -40,7 +39,7 @@ namespace IBatisNet.DataMapper
     public delegate void RowDelegate(object obj, object parameterObject, IList list);
 
     /// <summary>
-    /// A delegate called once per row in the QueryWithRowDelegate method
+    ///     A delegate called once per row in the QueryWithRowDelegate method
     /// </summary>
     /// <param name="obj">The object currently being processed.</param>
     /// <param name="parameterObject">The optional parameter object passed into the QueryWithRowDelegate method.</param>
@@ -48,21 +47,22 @@ namespace IBatisNet.DataMapper
     public delegate void RowDelegate<T>(object obj, object parameterObject, IList<T> list);
 
     /// <summary>
-    /// A delegate called once per row in the QueryForMapWithRowDelegate method
+    ///     A delegate called once per row in the QueryForMapWithRowDelegate method
     /// </summary>
     /// <param name="key"></param>
     /// <param name="value"></param>
     /// <param name="parameterObject">The optional parameter object passed into the QueryForMapWithRowDelegate method.</param>
     /// <param name="dictionary">The IDictionary that will be returned to the caller.</param>
-    public delegate void DictionaryRowDelegate<K, V>(K key, V value, object parameterObject, IDictionary<K, V> dictionary);
+    public delegate void DictionaryRowDelegate<K, V>(K key, V value, object parameterObject,
+        IDictionary<K, V> dictionary);
 
     /// <summary>
-    /// A delegate called once per row in the QueryForMapWithRowDelegate method
+    ///     A delegate called once per row in the QueryForMapWithRowDelegate method
     /// </summary>
     /// <param name="key"></param>
     /// <param name="value"></param>
     /// <param name="parameterObject">The optional parameter object passed into the QueryForMapWithRowDelegate method.</param>
     /// <param name="dictionary">The IDictionary that will be returned to the caller.</param>
-    public delegate void DictionaryRowDelegate(object key, object value, object parameterObject, IDictionary dictionary);
-
+    public delegate void DictionaryRowDelegate(object key, object value, object parameterObject,
+        IDictionary dictionary);
 }

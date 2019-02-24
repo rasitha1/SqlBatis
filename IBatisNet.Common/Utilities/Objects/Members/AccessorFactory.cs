@@ -1,4 +1,5 @@
 #region Apache Notice
+
 /*****************************************************************************
  * $Revision: 374175 $
  * $LastChangedDate: 2006-04-25 19:40:27 +0200 (mar., 25 avr. 2006) $
@@ -21,44 +22,36 @@
  * limitations under the License.
  * 
  ********************************************************************************/
+
 #endregion
 
 namespace IBatisNet.Common.Utilities.Objects.Members
 {
     /// <summary>
-    /// Accessor factory
+    ///     Accessor factory
     /// </summary>
     public class AccessorFactory
     {
-        private ISetAccessorFactory _setAccessorFactory = null;
-        private IGetAccessorFactory _getAccessorFactory = null;
-
         /// <summary>
-        /// The factory which build <see cref="ISetAccessor"/>
-        /// </summary>
-        public ISetAccessorFactory SetAccessorFactory
-        {
-            get { return _setAccessorFactory; }
-        }
-
-        /// <summary>
-        /// The factory which build <see cref="IGetAccessor"/>
-        /// </summary>
-        public IGetAccessorFactory GetAccessorFactory
-        {
-            get { return _getAccessorFactory; }
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="AccessorFactory"/> class.
+        ///     Initializes a new instance of the <see cref="AccessorFactory" /> class.
         /// </summary>
         /// <param name="setAccessorFactory">The set accessor factory.</param>
         /// <param name="getAccessorFactory">The get accessor factory.</param>
         public AccessorFactory(ISetAccessorFactory setAccessorFactory,
             IGetAccessorFactory getAccessorFactory)
         {
-            _setAccessorFactory = setAccessorFactory;
-            _getAccessorFactory = getAccessorFactory;
+            SetAccessorFactory = setAccessorFactory;
+            GetAccessorFactory = getAccessorFactory;
         }
+
+        /// <summary>
+        ///     The factory which build <see cref="ISetAccessor" />
+        /// </summary>
+        public ISetAccessorFactory SetAccessorFactory { get; }
+
+        /// <summary>
+        ///     The factory which build <see cref="IGetAccessor" />
+        /// </summary>
+        public IGetAccessorFactory GetAccessorFactory { get; }
     }
 }

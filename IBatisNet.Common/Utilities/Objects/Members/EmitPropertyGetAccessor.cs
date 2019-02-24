@@ -1,4 +1,5 @@
 #region Apache Notice
+
 /*****************************************************************************
  * $Revision: 374175 $
  * $LastChangedDate: 2006-04-30 18:01:40 +0200 (dim., 30 avr. 2006) $
@@ -21,6 +22,7 @@
  * limitations under the License.
  * 
  ********************************************************************************/
+
 #endregion
 
 using System;
@@ -30,68 +32,85 @@ using System.Reflection.Emit;
 namespace IBatisNet.Common.Utilities.Objects.Members
 {
     /// <summary>
-    /// The <see cref="EmitPropertyGetAccessor"/> class provides an IL-based get access   
-    /// to a property of a specified target class.
+    ///     The <see cref="EmitPropertyGetAccessor" /> class provides an IL-based get access
+    ///     to a property of a specified target class.
     /// </summary>
     public sealed class EmitPropertyGetAccessor : BaseAccessor, IGetAccessor
     {
+        private readonly bool _canRead;
+
         /// <summary>
-        /// The property name
+        ///     The IL emitted IGet
         /// </summary>
-        private string _propertyName = string.Empty;
+        private IGet _emittedGet;
+
         /// <summary>
-        /// The property type
+        ///     The property name
         /// </summary>
-        private Type _propertyType = null;
+        private readonly string _propertyName = string.Empty;
+
         /// <summary>
-        /// The class parent type
+        ///     The property type
         /// </summary>
-        private Type _targetType = null;
-        private bool _canRead = false;
+        private readonly Type _propertyType;
+
         /// <summary>
-        /// The IL emitted IGet
+        ///     The class parent type
         /// </summary>
-        private IGet _emittedGet = null;
+        private readonly Type _targetType;
 
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="EmitPropertyGetAccessor"/> class.
+        ///     Initializes a new instance of the <see cref="EmitPropertyGetAccessor" /> class.
         /// </summary>
         /// <param name="targetObjectType">Type of the target object.</param>
         /// <param name="propertyName">Name of the property.</param>
-        /// <param name="assemblyBuilder">The <see cref="AssemblyBuilder"/>.</param>
-        /// <param name="moduleBuilder">The <see cref="ModuleBuilder"/>.</param>
-        public EmitPropertyGetAccessor(Type targetObjectType, string propertyName, AssemblyBuilder assemblyBuilder, ModuleBuilder moduleBuilder)
-		{
-			_targetType = targetObjectType;
-			_propertyName = propertyName;
+        /// <param name="assemblyBuilder">The <see cref="AssemblyBuilder" />.</param>
+        /// <param name="moduleBuilder">The <see cref="ModuleBuilder" />.</param>
+        public EmitPropertyGetAccessor(Type targetObjectType, string propertyName, AssemblyBuilder assemblyBuilder,
+            ModuleBuilder moduleBuilder)
+        {
+            _targetType = targetObjectType;
+            _propertyName = propertyName;
 
-        	// deals with Overriding a property using new and reflection
-        	// http://blogs.msdn.com/thottams/archive/2006/03/17/553376.aspx
-			PropertyInfo propertyInfo = _targetType.GetProperty(propertyName, BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly);
-			if (propertyInfo == null)
-			{
-				propertyInfo = _targetType.GetProperty(propertyName);
-			}
+            // deals with Overriding a property using new and reflection
+            // http://blogs.msdn.com/thottams/archive/2006/03/17/553376.aspx
+            PropertyInfo propertyInfo = _targetType.GetProperty(propertyName,
+                BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly);
+            if (propertyInfo == null) propertyInfo = _targetType.GetProperty(propertyName);
 
-			// Make sure the property exists
-			if(propertyInfo == null)
-			{
-				throw new NotSupportedException(
-					string.Format("Property \"{0}\" does not exist for type "
-					+ "{1}.", propertyName, _targetType));
-			}
-			else
-			{
-				this._propertyType = propertyInfo.PropertyType;
-                _canRead = propertyInfo.CanRead;
-                this.EmitIL(assemblyBuilder, moduleBuilder);
-			}
-		}
+            // Make sure the property exists
+            if (propertyInfo == null)
+                throw new NotSupportedException(
+                    string.Format("Property \"{0}\" does not exist for type "
+                                  + "{1}.", propertyName, _targetType));
+
+            _propertyType = propertyInfo.PropertyType;
+            _canRead = propertyInfo.CanRead;
+            EmitIL(assemblyBuilder, moduleBuilder);
+        }
+
+        #region IGet Members
 
         /// <summary>
-        /// This method create a new type oject for the the property accessor class 
-        /// that will provide dynamic access.
+        ///     Gets the property value from the specified target.
+        /// </summary>
+        /// <param name="target">Target object.</param>
+        /// <returns>Property value.</returns>
+        public object Get(object target)
+        {
+            if (_canRead)
+                return _emittedGet.Get(target);
+            throw new NotSupportedException(
+                string.Format("Property \"{0}\" on type "
+                              + "{1} doesn't have a get method.", _propertyName, _targetType));
+        }
+
+        #endregion
+
+        /// <summary>
+        ///     This method create a new type oject for the the property accessor class
+        ///     that will provide dynamic access.
         /// </summary>
         /// <param name="assemblyBuilder">The assembly builder.</param>
         /// <param name="moduleBuilder">The module builder.</param>
@@ -103,116 +122,83 @@ namespace IBatisNet.Common.Utilities.Objects.Members
             // Create a new instance
             _emittedGet = assemblyBuilder.CreateInstance("GetFor" + _targetType.FullName + _propertyName) as IGet;
 
-            this.nullInternal = this.GetNullInternal(_propertyType);
+            nullInternal = GetNullInternal(_propertyType);
 
             if (_emittedGet == null)
-            {
                 throw new NotSupportedException(
                     string.Format("Unable to create a get property accessor for \"{0}\".", _propertyType));
-            }
         }
 
         /// <summary>
-        /// Create an type that will provide the set access method.
+        ///     Create an type that will provide the set access method.
         /// </summary>
         /// <remarks>
-        ///  new ReflectionPermission(PermissionState.Unrestricted).Assert();
-        ///  CodeAccessPermission.RevertAssert();
+        ///     new ReflectionPermission(PermissionState.Unrestricted).Assert();
+        ///     CodeAccessPermission.RevertAssert();
         /// </remarks>
         /// <param name="moduleBuilder">The module builder.</param>
         private void EmitType(ModuleBuilder moduleBuilder)
-		{
-			// Define a public class named "PropertyAccessorFor.FullTagetTypeName.PropertyName" in the assembly.
-            TypeBuilder typeBuilder = moduleBuilder.DefineType("GetFor" + _targetType.FullName + _propertyName, 
-				TypeAttributes.Class | TypeAttributes.Public | TypeAttributes.Sealed);
+        {
+            // Define a public class named "PropertyAccessorFor.FullTagetTypeName.PropertyName" in the assembly.
+            TypeBuilder typeBuilder = moduleBuilder.DefineType("GetFor" + _targetType.FullName + _propertyName,
+                TypeAttributes.Class | TypeAttributes.Public | TypeAttributes.Sealed);
 
-			// Mark the class as implementing IMemberAccessor. 
+            // Mark the class as implementing IMemberAccessor. 
             typeBuilder.AddInterfaceImplementation(typeof(IGet));
 
             // Add a constructor
             typeBuilder.DefineDefaultConstructor(MethodAttributes.Public);
 
-			#region Emit Get
+            #region Emit Get
+
             // Define a method named "Get" for the get operation (IGet). 
-			Type[] getParamTypes = new Type[] { typeof(object) };
-			MethodBuilder methodBuilder = typeBuilder.DefineMethod("Get",
-				MethodAttributes.Public | MethodAttributes.Virtual, typeof(object), getParamTypes);
+            Type[] getParamTypes = {typeof(object)};
+            MethodBuilder methodBuilder = typeBuilder.DefineMethod("Get",
+                MethodAttributes.Public | MethodAttributes.Virtual, typeof(object), getParamTypes);
             // Get an ILGenerator and used it to emit the IL that we want.
             ILGenerator generatorIL = methodBuilder.GetILGenerator();
 
-			if (_canRead)
+            if (_canRead)
             {
                 // Emit the IL for get access. 
-				MethodInfo targetGetMethod = _targetType.GetMethod("get_" + _propertyName, BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly);
-				if (targetGetMethod == null)
-				{
-					targetGetMethod =  _targetType.GetMethod("get_" + _propertyName);
-				}                	
+                MethodInfo targetGetMethod = _targetType.GetMethod("get_" + _propertyName,
+                    BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly);
+                if (targetGetMethod == null) targetGetMethod = _targetType.GetMethod("get_" + _propertyName);
 
                 generatorIL.DeclareLocal(typeof(object));
-                generatorIL.Emit(OpCodes.Ldarg_1);	//Load the first argument,(target object)
-                generatorIL.Emit(OpCodes.Castclass, _targetType);	//Cast to the source type
+                generatorIL.Emit(OpCodes.Ldarg_1); //Load the first argument,(target object)
+                generatorIL.Emit(OpCodes.Castclass, _targetType); //Cast to the source type
                 generatorIL.EmitCall(OpCodes.Call, targetGetMethod, null); //Get the property value
                 if (targetGetMethod.ReturnType.IsValueType)
-                {
                     generatorIL.Emit(OpCodes.Box, targetGetMethod.ReturnType); //Box if necessary
-                }
                 generatorIL.Emit(OpCodes.Stloc_0); //Store it
                 generatorIL.Emit(OpCodes.Ldloc_0);
                 generatorIL.Emit(OpCodes.Ret);
             }
-			else
-			{
-				 generatorIL.ThrowException(typeof(MissingMethodException));
-			}
-			#endregion			
+            else
+            {
+                generatorIL.ThrowException(typeof(MissingMethodException));
+            }
 
-			// Load the type
-			typeBuilder.CreateType();
+            #endregion
+
+            // Load the type
+            typeBuilder.CreateType();
         }
-        
+
         #region IAccessor Members
 
         /// <summary>
-        /// Gets the property's name.
+        ///     Gets the property's name.
         /// </summary>
         /// <value></value>
-        public string Name
-        {
-            get { return _propertyName; }
-        }
+        public string Name => _propertyName;
 
         /// <summary>
-        /// Gets the property's type.
+        ///     Gets the property's type.
         /// </summary>
         /// <value></value>
-        public Type MemberType
-        {
-            get { return _propertyType; }
-        }
-
-        #endregion
-
-        #region IGet Members
-
-        /// <summary>
-        /// Gets the property value from the specified target.
-        /// </summary>
-        /// <param name="target">Target object.</param>
-        /// <returns>Property value.</returns>
-        public object Get(object target)
-        {
-            if (_canRead)
-            {
-                return _emittedGet.Get(target);
-            }
-            else
-            {
-                throw new NotSupportedException(
-                    string.Format("Property \"{0}\" on type "
-                    + "{1} doesn't have a get method.", _propertyName, _targetType));
-            }
-        }
+        public Type MemberType => _propertyType;
 
         #endregion
     }

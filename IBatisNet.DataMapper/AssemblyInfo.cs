@@ -1,4 +1,3 @@
-using System;
 using System.Reflection;
 
 
@@ -13,7 +12,6 @@ using System.Reflection;
 [assembly: AssemblyDelaySign(false)]
 [assembly: AssemblyKeyFile("..\\..\\..\\AssemblyKey.snk")]
 #endif
-
 
 
 //

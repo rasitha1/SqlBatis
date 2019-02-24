@@ -1,5 +1,5 @@
-
 #region Apache Notice
+
 /*****************************************************************************
  * $Header: $
  * $Revision: 471478 $
@@ -22,156 +22,141 @@
  * limitations under the License.
  * 
  ********************************************************************************/
+
 #endregion
 
 using System;
 
 namespace IBatisNet.Common.Logging.Impl
 {
-	/// <summary>
-	/// Silently ignores all log messages.
-	/// </summary>
-	public sealed class NoOpLogger: ILog
-	{
-		#region Members of ILog
+    /// <summary>
+    ///     Silently ignores all log messages.
+    /// </summary>
+    public sealed class NoOpLogger : ILog
+    {
+        #region Members of ILog
 
-		/// <summary>
-		/// Ignores message.
-		/// </summary>
-		/// <param name="message"></param>
-		public void Debug(object message)
-		{
-			// NOP - no operation
-		}
+        /// <summary>
+        ///     Ignores message.
+        /// </summary>
+        /// <param name="message"></param>
+        public void Debug(object message)
+        {
+            // NOP - no operation
+        }
 
-		/// <summary>
-		/// Ignores message.
-		/// </summary>
-		/// <param name="message"></param>
-		/// <param name="e"></param>
-		public void Debug(object message, Exception e)
-		{
-			// NOP - no operation
-		}
+        /// <summary>
+        ///     Ignores message.
+        /// </summary>
+        /// <param name="message"></param>
+        /// <param name="e"></param>
+        public void Debug(object message, Exception e)
+        {
+            // NOP - no operation
+        }
 
-		/// <summary>
-		/// Ignores message.
-		/// </summary>
-		/// <param name="message"></param>
-		public void Error(object message)
-		{
-			// NOP - no operation
-		}
+        /// <summary>
+        ///     Ignores message.
+        /// </summary>
+        /// <param name="message"></param>
+        public void Error(object message)
+        {
+            // NOP - no operation
+        }
 
-		/// <summary>
-		/// Ignores message.
-		/// </summary>
-		/// <param name="message"></param>
-		/// <param name="e"></param>
-		public void Error(object message, Exception e)
-		{
-			// NOP - no operation
-		}
+        /// <summary>
+        ///     Ignores message.
+        /// </summary>
+        /// <param name="message"></param>
+        /// <param name="e"></param>
+        public void Error(object message, Exception e)
+        {
+            // NOP - no operation
+        }
 
-		/// <summary>
-		/// Ignores message.
-		/// </summary>
-		/// <param name="message"></param>
-		public void Fatal(object message)
-		{
-			// NOP - no operation
-		}
+        /// <summary>
+        ///     Ignores message.
+        /// </summary>
+        /// <param name="message"></param>
+        public void Fatal(object message)
+        {
+            // NOP - no operation
+        }
 
-		/// <summary>
-		/// Ignores message.
-		/// </summary>
-		/// <param name="message"></param>
-		/// <param name="e"></param>
-		public void Fatal(object message, Exception e)
-		{
-			// NOP - no operation
-		}
+        /// <summary>
+        ///     Ignores message.
+        /// </summary>
+        /// <param name="message"></param>
+        /// <param name="e"></param>
+        public void Fatal(object message, Exception e)
+        {
+            // NOP - no operation
+        }
 
-		/// <summary>
-		/// Ignores message.
-		/// </summary>
-		/// <param name="message"></param>
-		public void Info(object message)
-		{
-			// NOP - no operation
-		}
+        /// <summary>
+        ///     Ignores message.
+        /// </summary>
+        /// <param name="message"></param>
+        public void Info(object message)
+        {
+            // NOP - no operation
+        }
 
-		/// <summary>
-		/// Ignores message.
-		/// </summary>
-		/// <param name="message"></param>
-		/// <param name="e"></param>
-		public void Info(object message, Exception e)
-		{
-			// NOP - no operation
-		}
+        /// <summary>
+        ///     Ignores message.
+        /// </summary>
+        /// <param name="message"></param>
+        /// <param name="e"></param>
+        public void Info(object message, Exception e)
+        {
+            // NOP - no operation
+        }
 
-		/// <summary>
-		/// Ignores message.
-		/// </summary>
-		/// <param name="message"></param>
-		public void Warn(object message)
-		{
-			// NOP - no operation
-		}
+        /// <summary>
+        ///     Ignores message.
+        /// </summary>
+        /// <param name="message"></param>
+        public void Warn(object message)
+        {
+            // NOP - no operation
+        }
 
 
-		/// <summary>
-		/// Ignores message.
-		/// </summary>
-		/// <param name="message"></param>
-		/// <param name="e"></param>
-		public void Warn(object message, Exception e)
-		{
-			// NOP - no operation
-		}
+        /// <summary>
+        ///     Ignores message.
+        /// </summary>
+        /// <param name="message"></param>
+        /// <param name="e"></param>
+        public void Warn(object message, Exception e)
+        {
+            // NOP - no operation
+        }
 
-		/// <summary>
-		/// Always returns <see langword="false" />.
-		/// </summary>
-		public bool IsDebugEnabled
-		{
-			get { return false; }
-		}
+        /// <summary>
+        ///     Always returns <see langword="false" />.
+        /// </summary>
+        public bool IsDebugEnabled => false;
 
-		/// <summary>
-		/// Always returns <see langword="false" />.
-		/// </summary>
-		public bool IsErrorEnabled
-		{
-			get { return false; }
+        /// <summary>
+        ///     Always returns <see langword="false" />.
+        /// </summary>
+        public bool IsErrorEnabled => false;
 
-		}
+        /// <summary>
+        ///     Always returns <see langword="false" />.
+        /// </summary>
+        public bool IsFatalEnabled => false;
 
-		/// <summary>
-		/// Always returns <see langword="false" />.
-		/// </summary>
-		public bool IsFatalEnabled
-		{
-			get { return false; }
-		}
+        /// <summary>
+        ///     Always returns <see langword="false" />.
+        /// </summary>
+        public bool IsInfoEnabled => false;
 
-		/// <summary>
-		/// Always returns <see langword="false" />.
-		/// </summary>
-		public bool IsInfoEnabled
-		{
-			get { return false; }
-		}
+        /// <summary>
+        ///     Always returns <see langword="false" />.
+        /// </summary>
+        public bool IsWarnEnabled => false;
 
-		/// <summary>
-		/// Always returns <see langword="false" />.
-		/// </summary>
-		public bool IsWarnEnabled
-		{
-			get { return false; }
-		}
-
-		#endregion
-	}
+        #endregion
+    }
 }

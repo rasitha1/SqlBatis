@@ -1,4 +1,5 @@
 #region Apache Notice
+
 /*****************************************************************************
  * $Header: $
  * $Revision: 378715 $
@@ -21,6 +22,7 @@
  * limitations under the License.
  * 
  ********************************************************************************/
+
 #endregion
 
 using System.Runtime.Remoting.Messaging;
@@ -28,45 +30,42 @@ using IBatisNet.Common;
 
 namespace IBatisNet.DataAccess.SessionStore
 {
-	/// <summary>
-	/// Provides an implementation of <see cref="ISessionStore"/>
-	/// which relies on <c>CallContext</c>
-    /// This implementation will first get the current session from the current 
-    /// thread. Do NOT use on web scenario (web applications or web services).
-	/// </summary>
-	public class CallContextSessionStore : AbstractSessionStore
-	{
+    /// <summary>
+    ///     Provides an implementation of <see cref="ISessionStore" />
+    ///     which relies on <c>CallContext</c>
+    ///     This implementation will first get the current session from the current
+    ///     thread. Do NOT use on web scenario (web applications or web services).
+    /// </summary>
+    public class CallContextSessionStore : AbstractSessionStore
+    {
         /// <summary>
-        /// Initializes a new instance of the <see cref="CallContextSessionStore"/> class.
+        ///     Initializes a new instance of the <see cref="CallContextSessionStore" /> class.
         /// </summary>
         /// <param name="daoManagerId">The DaoManager name.</param>
         public CallContextSessionStore(string daoManagerId) : base(daoManagerId)
-		{}
+        {
+        }
 
-		/// <summary>
-		/// Get the local session
-		/// </summary>
-		public override IDalSession LocalSession
-		{
-			get { return CallContext.GetData(sessionName) as IDalSession; }
-		}
+        /// <summary>
+        ///     Get the local session
+        /// </summary>
+        public override IDalSession LocalSession => CallContext.GetData(sessionName) as IDalSession;
 
-		/// <summary>
-		/// Store the specified session.
-		/// </summary>
-		/// <param name="session">The session to store</param>
+        /// <summary>
+        ///     Store the specified session.
+        /// </summary>
+        /// <param name="session">The session to store</param>
+        public override void Store(IDalSession session)
+        {
+            CallContext.SetData(sessionName, session);
+        }
 
-		public override void Store(IDalSession session)
-		{
-			CallContext.SetData(sessionName, session);
-		}
-
-		/// <summary>
-		/// Remove the local session.
-		/// </summary>
-		public override void Dispose()
-		{
-			CallContext.SetData(sessionName, null);
-		}
-	}
+        /// <summary>
+        ///     Remove the local session.
+        /// </summary>
+        public override void Dispose()
+        {
+            CallContext.SetData(sessionName, null);
+        }
+    }
 }

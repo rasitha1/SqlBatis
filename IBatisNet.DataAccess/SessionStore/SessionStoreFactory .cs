@@ -1,4 +1,5 @@
 #region Apache Notice
+
 /*****************************************************************************
  * $Header: $
  * $Revision: 378715 $
@@ -21,41 +22,33 @@
  * limitations under the License.
  * 
  ********************************************************************************/
+
 #endregion
 
 
-using System;
 using System.Web;
 
 namespace IBatisNet.DataAccess.SessionStore
 {
-	/// <summary>
-	/// Build a session container for a Windows or Web context.
-	/// When running in the context of a web application the session object is 
-	/// stored in HttpContext items and has 'per request' lifetime.
-	/// When running in the context of a windows application the session object is 
-	/// stored via CallContext.
-	/// </summary>
-	public class SessionStoreFactory
-	{
-
-		/// <summary>
-		/// Get a session container for a Windows or Web context.
-		/// </summary>
-		/// <param name="daoManagerName">The DaoManager name.</param>
-		/// <returns></returns>
-		static public ISessionStore GetSessionStore(string daoManagerName)
-		{
-			if (System.Web.HttpContext.Current == null)
-			{
-				return new CallContextSessionStore(daoManagerName);
-			}
-			else
-			{
-				return new WebSessionStore(daoManagerName);
-			}
-		}
-
-	}
+    /// <summary>
+    ///     Build a session container for a Windows or Web context.
+    ///     When running in the context of a web application the session object is
+    ///     stored in HttpContext items and has 'per request' lifetime.
+    ///     When running in the context of a windows application the session object is
+    ///     stored via CallContext.
+    /// </summary>
+    public class SessionStoreFactory
+    {
+        /// <summary>
+        ///     Get a session container for a Windows or Web context.
+        /// </summary>
+        /// <param name="daoManagerName">The DaoManager name.</param>
+        /// <returns></returns>
+        static public ISessionStore GetSessionStore(string daoManagerName)
+        {
+            if (HttpContext.Current == null)
+                return new CallContextSessionStore(daoManagerName);
+            return new WebSessionStore(daoManagerName);
+        }
+    }
 }
-

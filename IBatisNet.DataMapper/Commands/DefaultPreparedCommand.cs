@@ -1,5 +1,5 @@
-
 #region Apache Notice
+
 /*****************************************************************************
  * $Header: $
  * $Revision: 477815 $
@@ -22,6 +22,7 @@
  * limitations under the License.
  * 
  ********************************************************************************/
+
 #endregion
 
 #region Using
@@ -31,7 +32,6 @@ using System.Collections.Specialized;
 using System.Data;
 using System.Reflection;
 using System.Text;
-using IBatisNet.Common;
 using IBatisNet.Common.Logging;
 using IBatisNet.Common.Utilities.Objects;
 using IBatisNet.DataMapper.Configuration.ParameterMapping;
@@ -43,208 +43,197 @@ using IBatisNet.DataMapper.Scope;
 
 namespace IBatisNet.DataMapper.Commands
 {
-	/// <summary>
-	/// Summary description for DefaultPreparedCommand.
-	/// </summary>
-	internal class DefaultPreparedCommand : IPreparedCommand
-	{
+    /// <summary>
+    ///     Summary description for DefaultPreparedCommand.
+    /// </summary>
+    internal class DefaultPreparedCommand : IPreparedCommand
+    {
+        #region Fields
 
-		#region Fields
-		private static readonly ILog _logger = LogManager.GetLogger( MethodBase.GetCurrentMethod().DeclaringType );
-        private StringBuilder _paramLogList = new StringBuilder(); // Log info
-        private StringBuilder _typeLogList = new StringBuilder(); // Log info
-		
-        #endregion 
+        private static readonly ILog _logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private readonly StringBuilder _paramLogList = new StringBuilder(); // Log info
+        private readonly StringBuilder _typeLogList = new StringBuilder(); // Log info
 
-		#region IPreparedCommand Members
+        #endregion
 
-		/// <summary>
-		/// Create an IDbCommand for the SqlMapSession and the current SQL Statement
-		/// and fill IDbCommand IDataParameter's with the parameterObject.
-		/// </summary>
-		/// <param name="request"></param>
-		/// <param name="session">The SqlMapSession</param>
-		/// <param name="statement">The IStatement</param>
-		/// <param name="parameterObject">
-		/// The parameter object that will fill the sql parameter
-		/// </param>
-		/// <returns>An IDbCommand with all the IDataParameter filled.</returns>
-		public void Create(RequestScope request, ISqlMapSession session, IStatement statement, object parameterObject )
-		{
-			// the IDbConnection & the IDbTransaction are assign in the CreateCommand 
+        #region IPreparedCommand Members
+
+        /// <summary>
+        ///     Create an IDbCommand for the SqlMapSession and the current SQL Statement
+        ///     and fill IDbCommand IDataParameter's with the parameterObject.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <param name="session">The SqlMapSession</param>
+        /// <param name="statement">The IStatement</param>
+        /// <param name="parameterObject">
+        ///     The parameter object that will fill the sql parameter
+        /// </param>
+        /// <returns>An IDbCommand with all the IDataParameter filled.</returns>
+        public void Create(RequestScope request, ISqlMapSession session, IStatement statement, object parameterObject)
+        {
+            // the IDbConnection & the IDbTransaction are assign in the CreateCommand 
             request.IDbCommand = new DbCommandDecorator(session.CreateCommand(statement.CommandType), request);
-			
-			request.IDbCommand.CommandText = request.PreparedStatement.PreparedSql;
 
-			if (_logger.IsDebugEnabled)
-			{
-				_logger.Debug("Statement Id: [" + statement.Id + "] PreparedStatement : [" + request.IDbCommand.CommandText + "]");
-			}
+            request.IDbCommand.CommandText = request.PreparedStatement.PreparedSql;
 
-			ApplyParameterMap( session, request.IDbCommand, request, statement, parameterObject  );
-		}
+            if (_logger.IsDebugEnabled)
+                _logger.Debug("Statement Id: [" + statement.Id + "] PreparedStatement : [" +
+                              request.IDbCommand.CommandText + "]");
+
+            ApplyParameterMap(session, request.IDbCommand, request, statement, parameterObject);
+        }
 
 
         /// <summary>
-        /// Applies the parameter map.
+        ///     Applies the parameter map.
         /// </summary>
         /// <param name="session">The session.</param>
         /// <param name="command">The command.</param>
         /// <param name="request">The request.</param>
         /// <param name="statement">The statement.</param>
         /// <param name="parameterObject">The parameter object.</param>
-		protected virtual void ApplyParameterMap
-			( ISqlMapSession session, IDbCommand command,
-			RequestScope request, IStatement statement, object parameterObject )
-		{
-			StringCollection properties = request.PreparedStatement.DbParametersName;
+        protected virtual void ApplyParameterMap
+        (ISqlMapSession session, IDbCommand command,
+            RequestScope request, IStatement statement, object parameterObject)
+        {
+            StringCollection properties = request.PreparedStatement.DbParametersName;
             IDbDataParameter[] parameters = request.PreparedStatement.DbParameters;
 
             #region Logging
+
             if (_logger.IsDebugEnabled)
             {
                 _paramLogList.Remove(0, _paramLogList.Length);
                 _typeLogList.Remove(0, _typeLogList.Length);
             }
-            #endregion
-            
-			int count = properties.Count;
 
-            for ( int i = 0; i < count; ++i )
-			{
+            #endregion
+
+            int count = properties.Count;
+
+            for (int i = 0; i < count; ++i)
+            {
                 IDbDataParameter sqlParameter = parameters[i];
                 IDbDataParameter parameterCopy = command.CreateParameter();
-				ParameterProperty property = request.ParameterMap.GetProperty(i);
+                ParameterProperty property = request.ParameterMap.GetProperty(i);
 
-				#region Logging
-				if (_logger.IsDebugEnabled)
-				{
+                #region Logging
+
+                if (_logger.IsDebugEnabled)
+                {
                     _paramLogList.Append(sqlParameter.ParameterName);
                     _paramLogList.Append("=[");
                     _typeLogList.Append(sqlParameter.ParameterName);
                     _typeLogList.Append("=[");
-				}
-				#endregion
+                }
 
-				if (command.CommandType == CommandType.StoredProcedure)
-				{
-					#region store procedure command
+                #endregion
 
-					// A store procedure must always use a ParameterMap 
-					// to indicate the mapping order of the properties to the columns
-					if (request.ParameterMap == null) // Inline Parameters
-					{
-						throw new DataMapperException("A procedure statement tag must alway have a parameterMap attribute, which is not the case for the procedure '"+statement.Id+"'."); 
-					}
-					else // Parameters via ParameterMap
-					{
-						if (property.DirectionAttribute.Length == 0)
-						{
-							property.Direction = sqlParameter.Direction;
-						}
+                if (command.CommandType == CommandType.StoredProcedure)
+                {
+                    #region store procedure command
 
-						sqlParameter.Direction = property.Direction;					
-					}
-					#endregion 
-				}
+                    // A store procedure must always use a ParameterMap 
+                    // to indicate the mapping order of the properties to the columns
+                    if (request.ParameterMap == null) // Inline Parameters
+                    {
+                        throw new DataMapperException(
+                            "A procedure statement tag must alway have a parameterMap attribute, which is not the case for the procedure '" +
+                            statement.Id + "'.");
+                    }
 
-				#region Logging
-				if (_logger.IsDebugEnabled)
-				{
+                    if (property.DirectionAttribute.Length == 0) property.Direction = sqlParameter.Direction;
+
+                    sqlParameter.Direction = property.Direction;
+
+                    #endregion
+                }
+
+                #region Logging
+
+                if (_logger.IsDebugEnabled)
+                {
                     _paramLogList.Append(property.PropertyName);
                     _paramLogList.Append(",");
-				}
-				#endregion 					
+                }
 
-				request.ParameterMap.SetParameter(property, parameterCopy, parameterObject );
+                #endregion
 
-				parameterCopy.Direction = sqlParameter.Direction;
+                request.ParameterMap.SetParameter(property, parameterCopy, parameterObject);
 
-				// With a ParameterMap, we could specify the ParameterDbTypeProperty
-				if (request.ParameterMap != null)
-				{
+                parameterCopy.Direction = sqlParameter.Direction;
+
+                // With a ParameterMap, we could specify the ParameterDbTypeProperty
+                if (request.ParameterMap != null)
                     if (property.DbType != null && property.DbType.Length > 0)
-					{
-						string dbTypePropertyName = session.DataSource.DbProvider.ParameterDbTypeProperty;
-						object propertyValue = ObjectProbe.GetMemberValue(sqlParameter, dbTypePropertyName, request.DataExchangeFactory.AccessorFactory);
-						ObjectProbe.SetMemberValue(parameterCopy, dbTypePropertyName, propertyValue, 
-							request.DataExchangeFactory.ObjectFactory, request.DataExchangeFactory.AccessorFactory);
-					}
-					else
-					{
-						//parameterCopy.DbType = sqlParameter.DbType;
-					}
-				}
-				else
-				{
-					//parameterCopy.DbType = sqlParameter.DbType;
-				}
+                    {
+                        string dbTypePropertyName = session.DataSource.DbProvider.ParameterDbTypeProperty;
+                        object propertyValue = ObjectProbe.GetMemberValue(sqlParameter, dbTypePropertyName,
+                            request.DataExchangeFactory.AccessorFactory);
+                        ObjectProbe.SetMemberValue(parameterCopy, dbTypePropertyName, propertyValue,
+                            request.DataExchangeFactory.ObjectFactory, request.DataExchangeFactory.AccessorFactory);
+                    }
 
 
-				#region Logging
-				if (_logger.IsDebugEnabled)
-				{
-					if (parameterCopy.Value == DBNull.Value) 
-					{
+                #region Logging
+
+                if (_logger.IsDebugEnabled)
+                {
+                    if (parameterCopy.Value == DBNull.Value)
+                    {
                         _paramLogList.Append("null");
                         _paramLogList.Append("], ");
                         _typeLogList.Append("System.DBNull, null");
                         _typeLogList.Append("], ");
-					} 
-					else 
-					{
-
-                        _paramLogList.Append(parameterCopy.Value.ToString());
+                    }
+                    else
+                    {
+                        _paramLogList.Append(parameterCopy.Value);
                         _paramLogList.Append("], ");
 
-						// sqlParameter.DbType could be null (as with Npgsql)
-						// if PreparedStatementFactory did not find a dbType for the parameter in:
-						// line 225: "if (property.DbType.Length >0)"
-						// Use parameterCopy.DbType
+                        // sqlParameter.DbType could be null (as with Npgsql)
+                        // if PreparedStatementFactory did not find a dbType for the parameter in:
+                        // line 225: "if (property.DbType.Length >0)"
+                        // Use parameterCopy.DbType
 
-						//typeLogList.Append( sqlParameter.DbType.ToString() );
+                        //typeLogList.Append( sqlParameter.DbType.ToString() );
                         _typeLogList.Append(parameterCopy.DbType.ToString());
                         _typeLogList.Append(", ");
-                        _typeLogList.Append(parameterCopy.Value.GetType().ToString());
+                        _typeLogList.Append(parameterCopy.Value.GetType());
                         _typeLogList.Append("], ");
-					}
-				}
-				#endregion 
+                    }
+                }
 
-				// JIRA-49 Fixes (size, precision, and scale)
-				if (session.DataSource.DbProvider.SetDbParameterSize) 
-				{
-					if (sqlParameter.Size > 0) 
-					{
-						parameterCopy.Size = sqlParameter.Size;
-					}
-				}
+                #endregion
 
-				if (session.DataSource.DbProvider.SetDbParameterPrecision) 
-				{
-					parameterCopy.Precision = sqlParameter.Precision;
-				}
-				
-				if (session.DataSource.DbProvider.SetDbParameterScale) 
-				{
-					parameterCopy.Scale = sqlParameter.Scale;
-				}				
+                // JIRA-49 Fixes (size, precision, and scale)
+                if (session.DataSource.DbProvider.SetDbParameterSize)
+                    if (sqlParameter.Size > 0)
+                        parameterCopy.Size = sqlParameter.Size;
 
-				parameterCopy.ParameterName = sqlParameter.ParameterName;
+                if (session.DataSource.DbProvider.SetDbParameterPrecision)
+                    parameterCopy.Precision = sqlParameter.Precision;
 
-				command.Parameters.Add( parameterCopy );
-			}
+                if (session.DataSource.DbProvider.SetDbParameterScale) parameterCopy.Scale = sqlParameter.Scale;
 
-			#region Logging
+                parameterCopy.ParameterName = sqlParameter.ParameterName;
 
-			if (_logger.IsDebugEnabled && properties.Count>0)
-			{
-                _logger.Debug("Statement Id: [" + statement.Id + "] Parameters: [" + _paramLogList.ToString(0, _paramLogList.Length - 2) + "]");
-                _logger.Debug("Statement Id: [" + statement.Id + "] Types: [" + _typeLogList.ToString(0, _typeLogList.Length - 2) + "]");
-			}
-			#endregion 
-		}
+                command.Parameters.Add(parameterCopy);
+            }
 
-		#endregion
-	}
+            #region Logging
+
+            if (_logger.IsDebugEnabled && properties.Count > 0)
+            {
+                _logger.Debug("Statement Id: [" + statement.Id + "] Parameters: [" +
+                              _paramLogList.ToString(0, _paramLogList.Length - 2) + "]");
+                _logger.Debug("Statement Id: [" + statement.Id + "] Types: [" +
+                              _typeLogList.ToString(0, _typeLogList.Length - 2) + "]");
+            }
+
+            #endregion
+        }
+
+        #endregion
+    }
 }

@@ -1,4 +1,5 @@
 #region Apache Notice
+
 /*****************************************************************************
  * $Header: $
  * $Revision: 408164 $
@@ -21,6 +22,7 @@
  * limitations under the License.
  * 
  ********************************************************************************/
+
 #endregion
 
 #region Using
@@ -31,44 +33,44 @@ using IBatisNet.Common.Xml;
 using IBatisNet.DataMapper.Configuration.Sql.Dynamic.Elements;
 using IBatisNet.DataMapper.Scope;
 
-#endregion 
+#endregion
 
 namespace IBatisNet.DataMapper.Configuration.Serializers
 {
-	/// <summary>
-	/// Summary description for DynamicDeSerializer.
-	/// </summary>
-	public sealed class DynamicDeSerializer : IDeSerializer
-	{
-		private ConfigurationScope _configScope = null;
+    /// <summary>
+    ///     Summary description for DynamicDeSerializer.
+    /// </summary>
+    public sealed class DynamicDeSerializer : IDeSerializer
+    {
+        private readonly ConfigurationScope _configScope;
 
-		/// <summary>
-		/// Constructor
-		/// </summary>
-		/// <param name="configScope"></param>
-		public DynamicDeSerializer(ConfigurationScope configScope)
-		{
-			_configScope = configScope;
-		}
-		
+        /// <summary>
+        ///     Constructor
+        /// </summary>
+        /// <param name="configScope"></param>
+        public DynamicDeSerializer(ConfigurationScope configScope)
+        {
+            _configScope = configScope;
+        }
 
-		#region IDeSerializer Members
 
-		/// <summary>
-		/// Deserialize a Dynamic object
-		/// </summary>
-		/// <param name="node"></param>
-		/// <returns></returns>
-		public SqlTag Deserialize(XmlNode node)
-		{
-			Dynamic dynamic = new Dynamic(_configScope.DataExchangeFactory.AccessorFactory);
+        #region IDeSerializer Members
 
-			NameValueCollection prop = NodeUtils.ParseAttributes(node, _configScope.Properties);
-			dynamic.Prepend = NodeUtils.GetStringAttribute(prop, "prepend");
+        /// <summary>
+        ///     Deserialize a Dynamic object
+        /// </summary>
+        /// <param name="node"></param>
+        /// <returns></returns>
+        public SqlTag Deserialize(XmlNode node)
+        {
+            Dynamic dynamic = new Dynamic(_configScope.DataExchangeFactory.AccessorFactory);
 
-			return dynamic;
-		}
+            NameValueCollection prop = NodeUtils.ParseAttributes(node, _configScope.Properties);
+            dynamic.Prepend = NodeUtils.GetStringAttribute(prop, "prepend");
 
-		#endregion
-	}
+            return dynamic;
+        }
+
+        #endregion
+    }
 }

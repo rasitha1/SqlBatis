@@ -1,4 +1,5 @@
 #region Apache Notice
+
 /*****************************************************************************
  * $Header: $
  * $Revision: 383115 $
@@ -21,42 +22,30 @@
  * limitations under the License.
  * 
  ********************************************************************************/
+
 #endregion
 
 namespace IBatisNet.Common
 {
-	/// <summary>
-	/// IDataSource
-	/// </summary>
-	public interface IDataSource
-	{
+    /// <summary>
+    ///     IDataSource
+    /// </summary>
+    public interface IDataSource
+    {
+        /// <summary>
+        ///     DataSource Name.
+        /// </summary>
+        string Name { set; get; }
 
-		/// <summary>
-		/// DataSource Name.
-		/// </summary>
-		string Name
-		{
-		    set;
-		    get;
-		}
+        /// <summary>
+        ///     Connection string used to create connections.
+        /// </summary>
+        string ConnectionString { set; get; }
 
-		/// <summary>
-		/// Connection string used to create connections.
-		/// </summary>
-		string ConnectionString
-		{
-		    set;
-		    get;
-		}
-
-		/// <summary>
-		/// The data provider.
-		/// </summary>
-		IDbProvider DbProvider
-		{
-			set;
-		    get;
-		}
+        /// <summary>
+        ///     The data provider.
+        /// </summary>
+        IDbProvider DbProvider { set; get; }
 
 /*
 		/// <summary>
@@ -95,5 +84,5 @@ namespace IBatisNet.Common
 		IDataAdapter GetDataAdapter(string selectCommandText, string selectConnectionString);
 		IDataAdapter GetDataAdapter(string selectCommandText, IDbConnection selectConnection);
 		*/
-	}
+    }
 }

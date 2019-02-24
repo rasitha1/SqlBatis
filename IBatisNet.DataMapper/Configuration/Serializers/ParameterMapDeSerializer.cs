@@ -1,4 +1,5 @@
 #region Apache Notice
+
 /*****************************************************************************
  * $Header: $
  * $Revision: 410610 $
@@ -21,6 +22,7 @@
  * limitations under the License.
  * 
  ********************************************************************************/
+
 #endregion
 
 #region Using
@@ -30,39 +32,40 @@ using System.Xml;
 using IBatisNet.Common.Xml;
 using IBatisNet.DataMapper.Configuration.ParameterMapping;
 using IBatisNet.DataMapper.Scope;
-#endregion 
+
+#endregion
 
 namespace IBatisNet.DataMapper.Configuration.Serializers
 {
-	/// <summary>
-	/// Summary description for ParameterMapDeSerializer.
-	/// </summary>
-	public sealed class ParameterMapDeSerializer
-	{
-		/// <summary>
-		/// Deserialize a ParameterMap object
-		/// </summary>
-		/// <param name="node"></param>
-		/// <param name="configScope"></param>
-		/// <returns></returns>
-		public static ParameterMap Deserialize(XmlNode node, ConfigurationScope configScope)
-		{
-			ParameterMap parameterMap = new ParameterMap(configScope.DataExchangeFactory);
-			NameValueCollection prop = NodeUtils.ParseAttributes(node, configScope.Properties);
+    /// <summary>
+    ///     Summary description for ParameterMapDeSerializer.
+    /// </summary>
+    public sealed class ParameterMapDeSerializer
+    {
+        /// <summary>
+        ///     Deserialize a ParameterMap object
+        /// </summary>
+        /// <param name="node"></param>
+        /// <param name="configScope"></param>
+        /// <returns></returns>
+        public static ParameterMap Deserialize(XmlNode node, ConfigurationScope configScope)
+        {
+            ParameterMap parameterMap = new ParameterMap(configScope.DataExchangeFactory);
+            NameValueCollection prop = NodeUtils.ParseAttributes(node, configScope.Properties);
 
-			configScope.ErrorContext.MoreInfo = "ParameterMap DeSerializer";
+            configScope.ErrorContext.MoreInfo = "ParameterMap DeSerializer";
 
-			parameterMap.ExtendMap = NodeUtils.GetStringAttribute(prop, "extends");
-			parameterMap.Id =  NodeUtils.GetStringAttribute(prop, "id");
-			parameterMap.ClassName = NodeUtils.GetStringAttribute(prop, "class");
+            parameterMap.ExtendMap = NodeUtils.GetStringAttribute(prop, "extends");
+            parameterMap.Id = NodeUtils.GetStringAttribute(prop, "id");
+            parameterMap.ClassName = NodeUtils.GetStringAttribute(prop, "class");
 
-			configScope.ErrorContext.MoreInfo = "Initialize ParameterMap";
-			configScope.NodeContext = node;
-			parameterMap.Initialize( configScope.DataSource.DbProvider.UsePositionalParameters, configScope );
-			parameterMap.BuildProperties(configScope);
-			configScope.ErrorContext.MoreInfo = string.Empty;
+            configScope.ErrorContext.MoreInfo = "Initialize ParameterMap";
+            configScope.NodeContext = node;
+            parameterMap.Initialize(configScope.DataSource.DbProvider.UsePositionalParameters, configScope);
+            parameterMap.BuildProperties(configScope);
+            configScope.ErrorContext.MoreInfo = string.Empty;
 
-			return parameterMap;
-		}
-	}
+            return parameterMap;
+        }
+    }
 }

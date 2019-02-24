@@ -1,5 +1,5 @@
-
 #region Apache Notice
+
 /*****************************************************************************
  * $Header: $
  * $Revision: 408099 $
@@ -22,6 +22,7 @@
  * limitations under the License.
  * 
  ********************************************************************************/
+
 #endregion
 
 #region Using
@@ -34,99 +35,98 @@ using IBatisNet.Common.Utilities;
 
 namespace IBatisNet.DataMapper.Configuration.Alias
 {
-	/// <summary>
-	/// TypeAlias.
-	/// </summary>
-	[Serializable]
-	[XmlRoot("typeAlias", Namespace="http://ibatis.apache.org/dataMapper")]
-	public class TypeAlias
-	{
+    /// <summary>
+    ///     TypeAlias.
+    /// </summary>
+    [Serializable]
+    [XmlRoot("typeAlias", Namespace = "http://ibatis.apache.org/dataMapper")]
+    public class TypeAlias
+    {
+        #region Methods
 
-		#region Fields
-		[NonSerialized]
-		private string _name = string.Empty;
-		[NonSerialized]
-		private string _className = string.Empty;
-		[NonSerialized]
-		private Type _class = null;
-		#endregion
-
-		#region Properties
-		/// <summary>
-		/// Name used to identify the typeAlias amongst the others.
-		/// </summary>
-		/// <example> Account</example>
-		[XmlAttribute("alias")]
-		public string Name
-		{
-			get { return _name; }
-			set 
-			{ 
-				if ((value == null) || (value.Length < 1))
-				{
-					throw new ArgumentNullException("The name attribute is mandatory in the typeAlias ");
-				}
-				_name = value; 
-			}
-		}
-
-
-		/// <summary>
-		/// The type class for the typeAlias
-		/// </summary>
-		[XmlIgnore]
-		public Type Class
-		{
-			get { return _class; }
-		}
-	
-
-		/// <summary>
-		/// The class name to identify the typeAlias.
-		/// </summary>
-		/// <example>Com.Site.Domain.Product</example>
-		[XmlAttribute("type")]
-		public string ClassName
-		{
-			get { return _className; }
-			set 
-			{ 
-				if ((value == null) || (value.Length < 1))
-				{
-					throw new ArgumentNullException("The class attribute is mandatory in the typeAlias " + _name);
-				}
-				_className = value; 
-			}
-		}
-		#endregion
-
-		#region Constructor (s) / Destructor
-		/// <summary>
-		/// Do not use direclty, only for serialization.
-		/// </summary>
-		public TypeAlias()
-		{}
-
-		/// <summary>
-		/// Constructor
-		/// </summary>
-		/// <param name="type">a type.</param>
-		public TypeAlias(Type type)
-		{
-			_class = type;
-		}
-		#endregion
-
-		#region Methods
-		/// <summary>
-		/// Initialize the object, 
-		/// try to idenfify the .Net type class from the corresponding name.
-		/// </summary>
-		public void Initialize()
-		{
+        /// <summary>
+        ///     Initialize the object,
+        ///     try to idenfify the .Net type class from the corresponding name.
+        /// </summary>
+        public void Initialize()
+        {
             _class = TypeUtils.ResolveType(_className);
-		}
-		#endregion
+        }
 
-	}
+        #endregion
+
+        #region Fields
+
+        [NonSerialized] private string _name = string.Empty;
+
+        [NonSerialized] private string _className = string.Empty;
+
+        [NonSerialized] private Type _class;
+
+        #endregion
+
+        #region Properties
+
+        /// <summary>
+        ///     Name used to identify the typeAlias amongst the others.
+        /// </summary>
+        /// <example> Account</example>
+        [XmlAttribute("alias")]
+        public string Name
+        {
+            get => _name;
+            set
+            {
+                if ((value == null) || (value.Length < 1))
+                    throw new ArgumentNullException("The name attribute is mandatory in the typeAlias ");
+                _name = value;
+            }
+        }
+
+
+        /// <summary>
+        ///     The type class for the typeAlias
+        /// </summary>
+        [XmlIgnore]
+        public Type Class => _class;
+
+
+        /// <summary>
+        ///     The class name to identify the typeAlias.
+        /// </summary>
+        /// <example>Com.Site.Domain.Product</example>
+        [XmlAttribute("type")]
+        public string ClassName
+        {
+            get => _className;
+            set
+            {
+                if ((value == null) || (value.Length < 1))
+                    throw new ArgumentNullException("The class attribute is mandatory in the typeAlias " + _name);
+                _className = value;
+            }
+        }
+
+        #endregion
+
+        #region Constructor (s) / Destructor
+
+        /// <summary>
+        ///     Do not use direclty, only for serialization.
+        /// </summary>
+        public TypeAlias()
+        {
+        }
+
+        /// <summary>
+        ///     Constructor
+        /// </summary>
+        /// <param name="type">a type.</param>
+        public TypeAlias(Type type)
+        {
+            _class = type;
+        }
+
+        #endregion
+    }
 }

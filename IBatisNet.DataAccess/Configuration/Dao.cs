@@ -1,5 +1,5 @@
-
 #region Apache Notice
+
 /*****************************************************************************
  * $Header: $
  * $Revision: 408164 $
@@ -22,163 +22,138 @@
  * limitations under the License.
  * 
  ********************************************************************************/
+
 #endregion
 
 #region Imports
+
 using System;
 using System.Xml.Serialization;
-
 using IBatisNet.Common.Exceptions;
 using IBatisNet.Common.Utilities;
 using IBatisNet.DataAccess.Interfaces;
-using IBatisNet.DataAccess;
+
 #endregion
 
 namespace IBatisNet.DataAccess.Configuration
 {
-	/// <summary>
-	/// Summary description for 
-	/// </summary>
-	[Serializable]
-	[XmlRoot("dao", Namespace="http://ibatis.apache.org/dataAccess")]
-	public class Dao
-	{
-		#region Fields
-		[NonSerialized]
-		private string _interface;
-		[NonSerialized]
-		private string _implementation;
-		[NonSerialized]
-		private Type _daoImplementation = null;
-		[NonSerialized]
-		private Type _daoInterface = null;
-		[NonSerialized]
-		private IDao _daoInstance= null;
-		[NonSerialized]
-		private IDao _proxy = null;
-		[NonSerialized]
-		private DaoManager _daoManager = null;
-		#endregion
-	
-		#region Properties
-		/// <summary>
-		/// The implementation class of the dao. 
-		/// </summary>
-		/// <example>IBatisNet.DataAccess.Test.Implementations.MSSQL.SqlAccountDao</example>
-		[XmlAttribute("implementation")]
-		public string Implementation
-		{
-			get { return _implementation; }
-			set
-			{
-				if ((value == null) || (value.Length < 1))
-				{
-					throw new ArgumentNullException("The implementation attribut is mandatory in a dao tag.");
-				}
-				_implementation = value;
-			}
-		}
+    /// <summary>
+    ///     Summary description for
+    /// </summary>
+    [Serializable]
+    [XmlRoot("dao", Namespace = "http://ibatis.apache.org/dataAccess")]
+    public class Dao
+    {
+        #region Constructor (s) / Destructor
+
+        #endregion
+
+        #region Methods
+
+        /// <summary>
+        ///     Initialize dao object.
+        /// </summary>
+        public void Initialize(DaoManager daoManager)
+        {
+            try
+            {
+                _daoManager = daoManager;
+                _daoImplementation = TypeUtils.ResolveType(Implementation);
+                _daoInterface = TypeUtils.ResolveType(Interface);
+                // Create a new instance of the Dao object.
+                _daoInstance = _daoImplementation.GetConstructor(Type.EmptyTypes).Invoke(null) as IDao;
+                _proxy = DaoProxy.NewInstance(this);
+            }
+            catch (Exception e)
+            {
+                throw new ConfigurationException(string.Format("Error configuring DAO. Cause: {0}", e.Message), e);
+            }
+        }
+
+        #endregion
+
+        #region Fields
+
+        [NonSerialized] private string _interface;
+
+        [NonSerialized] private string _implementation;
+
+        [NonSerialized] private Type _daoImplementation;
+
+        [NonSerialized] private Type _daoInterface;
+
+        [NonSerialized] private IDao _daoInstance;
+
+        [NonSerialized] private IDao _proxy;
+
+        [NonSerialized] private DaoManager _daoManager;
+
+        #endregion
+
+        #region Properties
+
+        /// <summary>
+        ///     The implementation class of the dao.
+        /// </summary>
+        /// <example>IBatisNet.DataAccess.Test.Implementations.MSSQL.SqlAccountDao</example>
+        [XmlAttribute("implementation")]
+        public string Implementation
+        {
+            get => _implementation;
+            set
+            {
+                if ((value == null) || (value.Length < 1))
+                    throw new ArgumentNullException("The implementation attribut is mandatory in a dao tag.");
+                _implementation = value;
+            }
+        }
 
 
-		/// <summary>
-		/// The Interface class that the dao must implement.
-		/// </summary>
-		[XmlAttribute("interface")]
-		public string Interface
-		{
-			get { return _interface; }
-			set
-			{
-				if ((value == null) || (value.Length < 1))
-				{
-					throw new ArgumentNullException("The interface attribut is mandatory in a dao tag.");
-				}
-				_interface = value;
-			}
-		}
+        /// <summary>
+        ///     The Interface class that the dao must implement.
+        /// </summary>
+        [XmlAttribute("interface")]
+        public string Interface
+        {
+            get => _interface;
+            set
+            {
+                if ((value == null) || (value.Length < 1))
+                    throw new ArgumentNullException("The interface attribut is mandatory in a dao tag.");
+                _interface = value;
+            }
+        }
 
-		/// <summary>
-		/// The dao interface type.
-		/// </summary>
-		[XmlIgnoreAttribute]
-		public Type DaoInterface
-		{
-			get { return _daoInterface; }
+        /// <summary>
+        ///     The dao interface type.
+        /// </summary>
+        [XmlIgnore]
+        public Type DaoInterface => _daoInterface;
 
-		}
+        /// <summary>
+        ///     The dao implementation type.
+        /// </summary>
+        [XmlIgnore]
+        public Type DaoImplementation => _daoImplementation;
 
-		/// <summary>
-		/// The dao implementation type.
-		/// </summary>
-		[XmlIgnoreAttribute]
-		public Type DaoImplementation
-		{
-			get { return _daoImplementation; }
+        /// <summary>
+        ///     The concrete dao.
+        /// </summary>
+        [XmlIgnore]
+        public IDao DaoInstance => _daoInstance;
 
-		}
+        /// <summary>
+        ///     The proxy dao.
+        /// </summary>
+        [XmlIgnore]
+        public IDao Proxy => _proxy;
 
-		/// <summary>
-		/// The concrete dao.
-		/// </summary>
-		[XmlIgnoreAttribute]
-		public IDao DaoInstance
-		{
-			get { return _daoInstance; }
+        /// <summary>
+        ///     The DaoManager who manage this dao.
+        /// </summary>
+        [XmlIgnore]
+        public DaoManager DaoManager => _daoManager;
 
-		}
-
-		/// <summary>
-		/// The proxy dao.
-		/// </summary>
-		[XmlIgnoreAttribute]
-		public IDao Proxy
-		{
-			get { return _proxy; }
-
-		}
-
-		/// <summary>
-		/// The DaoManager who manage this dao.
-		/// </summary>
-		[XmlIgnoreAttribute]
-		public DaoManager DaoManager
-		{
-			get { return _daoManager; }
-
-		}
-		#endregion
-
-		#region Constructor (s) / Destructor
-		/// <summary>
-		/// Do not use direclty, only for serialization.
-		/// </summary>
-		public Dao()
-		{
-		}
-		#endregion
-
-		#region Methods
-		/// <summary>
-		/// Initialize dao object.
-		/// </summary>
-		public void Initialize(DaoManager daoManager)
-		{
-			try
-			{
-				_daoManager = daoManager;
-                _daoImplementation = TypeUtils.ResolveType(this.Implementation);
-                _daoInterface = TypeUtils.ResolveType(this.Interface);
-				// Create a new instance of the Dao object.
-				_daoInstance = _daoImplementation.GetConstructor(Type.EmptyTypes).Invoke(null) as IDao;
-				_proxy = DaoProxy.NewInstance(this);
-			}
-			catch(Exception e)
-			{
-				throw new ConfigurationException(string.Format("Error configuring DAO. Cause: {0}", e.Message), e);
-			}
-		}
-
-		#endregion
-
-	}
+        #endregion
+    }
 }

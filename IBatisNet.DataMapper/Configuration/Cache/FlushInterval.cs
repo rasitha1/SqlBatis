@@ -1,5 +1,5 @@
-
 #region Apache Notice
+
 /*****************************************************************************
  * $Header: $
  * $Revision: 383115 $
@@ -22,144 +22,103 @@
  * limitations under the License.
  * 
  ********************************************************************************/
+
 #endregion
 
 #region Imports
+
 using System;
 using System.Xml.Serialization;
+
 #endregion
 
 namespace IBatisNet.DataMapper.Configuration.Cache
 {
-	/// <summary>
-	/// Summary description for FlushInterval.
-	/// </summary>
-	[Serializable]
-	[XmlRoot("flushInterval")]
-	public class FlushInterval
-	{
-		
-		#region Fields 
+    /// <summary>
+    ///     Summary description for FlushInterval.
+    /// </summary>
+    [Serializable]
+    [XmlRoot("flushInterval")]
+    public class FlushInterval
+    {
+        #region Methods
 
-		private int _hours = 0;
-		private int _minutes= 0;
-		private int _seconds = 0;
-		private int _milliseconds = 0;
-		private long _interval = CacheModel.NO_FLUSH_INTERVAL;
+        /// <summary>
+        ///     Calcul the flush interval value in ticks
+        /// </summary>
+        public void Initialize()
+        {
+            if (_milliseconds != 0) Interval += (_milliseconds * TimeSpan.TicksPerMillisecond);
+            if (_seconds != 0) Interval += (_seconds * TimeSpan.TicksPerSecond);
+            if (_minutes != 0) Interval += (_minutes * TimeSpan.TicksPerMinute);
+            if (_hours != 0) Interval += (_hours * TimeSpan.TicksPerHour);
 
-		#endregion
+            if (Interval == 0) Interval = CacheModel.NO_FLUSH_INTERVAL;
+        }
 
-		#region Properties
-		/// <summary>
-		/// Flush interval in hours
-		/// </summary>
-		[XmlAttribute("hours")]
-		public int Hours
-		{
-			get 
-			{
-				return _hours;
-			}
-			set 
-			{
-				_hours = value;
-			}
-		}
+        #endregion
 
+        #region Fields 
 
-		/// <summary>
-		/// Flush interval in minutes
-		/// </summary>
-		[XmlAttribute("minutes")]
-		public int Minutes
-		{
-			get 
-			{
-				return _minutes;
-			}
-			set 
-			{
-				_minutes = value;
-			}
-		}
+        private int _hours;
+        private int _minutes;
+        private int _seconds;
+        private int _milliseconds;
+
+        #endregion
+
+        #region Properties
+
+        /// <summary>
+        ///     Flush interval in hours
+        /// </summary>
+        [XmlAttribute("hours")]
+        public int Hours
+        {
+            get => _hours;
+            set => _hours = value;
+        }
 
 
-		/// <summary>
-		/// Flush interval in seconds
-		/// </summary>
-		[XmlAttribute("seconds")]
-		public int Seconds
-		{
-			get 
-			{
-				return _seconds;
-			}
-			set 
-			{
-				_seconds = value;
-			}
-		}
+        /// <summary>
+        ///     Flush interval in minutes
+        /// </summary>
+        [XmlAttribute("minutes")]
+        public int Minutes
+        {
+            get => _minutes;
+            set => _minutes = value;
+        }
 
 
-		/// <summary>
-		/// Flush interval in milliseconds
-		/// </summary>
-		[XmlAttribute("milliseconds")]
-		public int Milliseconds
-		{
-			get 
-			{
-				return _milliseconds;
-			}
-			set 
-			{
-				_milliseconds = value;
-			}
-		}
+        /// <summary>
+        ///     Flush interval in seconds
+        /// </summary>
+        [XmlAttribute("seconds")]
+        public int Seconds
+        {
+            get => _seconds;
+            set => _seconds = value;
+        }
 
 
-		/// <summary>
-		/// Get the flush interval value
-		/// </summary>
-		[XmlIgnoreAttribute]
-		public long Interval
-		{
-			get 
-			{
-				return _interval;
-			}
-		}
-		#endregion
+        /// <summary>
+        ///     Flush interval in milliseconds
+        /// </summary>
+        [XmlAttribute("milliseconds")]
+        public int Milliseconds
+        {
+            get => _milliseconds;
+            set => _milliseconds = value;
+        }
 
-		#region Methods
-		/// <summary>
-		/// Calcul the flush interval value in ticks
-		/// </summary>
-		public void Initialize()
-		{
-			if (_milliseconds != 0) 
-			{
-				_interval += (_milliseconds * TimeSpan.TicksPerMillisecond) ;
-			}
-			if (_seconds != 0) 
-			{
-				_interval += (_seconds * TimeSpan.TicksPerSecond) ;
-			}
-			if (_minutes != 0) 
-			{
-				_interval += (_minutes * TimeSpan.TicksPerMinute) ;
-			}
-			if (_hours != 0) 
-			{
-				_interval += (_hours * TimeSpan.TicksPerHour) ;
-			}
 
-			if (_interval == 0)
-			{
-				_interval = CacheModel.NO_FLUSH_INTERVAL;
-			}
-		}
-		#endregion
+        /// <summary>
+        ///     Get the flush interval value
+        /// </summary>
+        [XmlIgnore]
+        public long Interval { get; private set; } = CacheModel.NO_FLUSH_INTERVAL;
 
-	}
+        #endregion
+    }
 }

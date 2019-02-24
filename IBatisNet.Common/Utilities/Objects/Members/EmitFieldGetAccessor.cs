@@ -1,4 +1,5 @@
 #region Apache Notice
+
 /*****************************************************************************
  * $Revision: 374175 $
  * $LastChangedDate: 2006-04-30 18:01:40 +0200 (dim., 30 avr. 2006) $
@@ -21,6 +22,7 @@
  * limitations under the License.
  * 
  ********************************************************************************/
+
 #endregion
 
 using System;
@@ -30,8 +32,8 @@ using System.Reflection.Emit;
 namespace IBatisNet.Common.Utilities.Objects.Members
 {
     /// <summary>
-    /// The <see cref="EmitFieldGetAccessor"/> class provides an IL-based get access   
-    /// to a field of a specified target class.
+    ///     The <see cref="EmitFieldGetAccessor" /> class provides an IL-based get access
+    ///     to a field of a specified target class.
     /// </summary>
     /// <remarks>Will Throw FieldAccessException on private field</remarks>
     public sealed class EmitFieldGetAccessor : BaseAccessor, IGetAccessor
@@ -39,50 +41,64 @@ namespace IBatisNet.Common.Utilities.Objects.Members
         private const BindingFlags VISIBILITY = BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic;
 
         /// <summary>
-        /// The field name
+        ///     The IL emitted IGet
         /// </summary>
-        private string _fieldName = string.Empty;        
-        /// <summary>
-        /// The class parent type
-        /// </summary>
-        private Type _fieldType = null;
-        /// <summary>
-        /// The IL emitted IGet
-        /// </summary>
-        private IGet _emittedGet = null;
-        private Type _targetType = null;
+        private IGet _emittedGet;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="EmitFieldGetAccessor"/> class.
+        ///     The field name
+        /// </summary>
+        private readonly string _fieldName = string.Empty;
+
+        /// <summary>
+        ///     The class parent type
+        /// </summary>
+        private readonly Type _fieldType;
+
+        private readonly Type _targetType;
+
+        /// <summary>
+        ///     Initializes a new instance of the <see cref="EmitFieldGetAccessor" /> class.
         /// </summary>
         /// <param name="targetObjectType">Type of the target object.</param>
         /// <param name="fieldName">Name of the field.</param>
         /// <param name="assemblyBuilder">The assembly builder.</param>
         /// <param name="moduleBuilder">The module builder.</param>
-        public EmitFieldGetAccessor(Type targetObjectType, string fieldName, AssemblyBuilder assemblyBuilder, ModuleBuilder moduleBuilder)
-		{
+        public EmitFieldGetAccessor(Type targetObjectType, string fieldName, AssemblyBuilder assemblyBuilder,
+            ModuleBuilder moduleBuilder)
+        {
             _targetType = targetObjectType;
-			_fieldName = fieldName;
+            _fieldName = fieldName;
 
             FieldInfo fieldInfo = _targetType.GetField(fieldName, VISIBILITY);
 
-			// Make sure the field exists
-			if(fieldInfo == null)
-			{
-				throw new NotSupportedException(
-					string.Format("Field \"{0}\" does not exist for type "
-					+ "{1}.", fieldName, targetObjectType));
-			}
-			else
-			{
-				_fieldType = fieldInfo.FieldType;
-                this.EmitIL(assemblyBuilder, moduleBuilder);
-			}
-		}
+            // Make sure the field exists
+            if (fieldInfo == null)
+                throw new NotSupportedException(
+                    string.Format("Field \"{0}\" does not exist for type "
+                                  + "{1}.", fieldName, targetObjectType));
+
+            _fieldType = fieldInfo.FieldType;
+            EmitIL(assemblyBuilder, moduleBuilder);
+        }
+
+        #region IGet Members
 
         /// <summary>
-        /// This method create a new type oject for the the property accessor class 
-        /// that will provide dynamic access.
+        ///     Gets the value stored in the field for the specified target.
+        /// </summary>
+        /// <param name="target">Object to retrieve the field from.</param>
+        /// <returns>The value.</returns>
+        public object Get(object target)
+        {
+            return _emittedGet.Get(target);
+        }
+
+        #endregion
+
+        /// <summary>
+        ///     This method create a new type oject for the the property accessor class
+        ///     that will provide dynamic access.
         /// </summary>
         /// <param name="assemblyBuilder">The assembly builder.</param>
         /// <param name="moduleBuilder">The module builder.</param>
@@ -94,27 +110,27 @@ namespace IBatisNet.Common.Utilities.Objects.Members
             // Create a new instance
             _emittedGet = assemblyBuilder.CreateInstance("GetFor" + _targetType.FullName + _fieldName) as IGet;
 
-            this.nullInternal = this.GetNullInternal(_fieldType);
+            nullInternal = GetNullInternal(_fieldType);
 
             if (_emittedGet == null)
-            {
                 throw new NotSupportedException(
-                    string.Format("Unable to create a get field accessor for '{0}' field on class  '{0}'.", _fieldName, _fieldType));
-            }
+                    string.Format("Unable to create a get field accessor for '{0}' field on class  '{0}'.", _fieldName,
+                        _fieldType));
         }
 
         /// <summary>
-        /// Create an type that will provide the set access method.
+        ///     Create an type that will provide the set access method.
         /// </summary>
         /// <remarks>
-        ///  new ReflectionPermission(PermissionState.Unrestricted).Assert();
-        ///  CodeAccessPermission.RevertAssert();
+        ///     new ReflectionPermission(PermissionState.Unrestricted).Assert();
+        ///     CodeAccessPermission.RevertAssert();
         /// </remarks>
         /// <param name="moduleBuilder">The module builder.</param>
         private void EmitType(ModuleBuilder moduleBuilder)
         {
             // Define a public class named "GetFor.FullTagetTypeName.FieldName" in the assembly.
-            TypeBuilder typeBuilder = moduleBuilder.DefineType("GetFor" + _targetType.FullName + _fieldName, TypeAttributes.Class | TypeAttributes.Public | TypeAttributes.Sealed);
+            TypeBuilder typeBuilder = moduleBuilder.DefineType("GetFor" + _targetType.FullName + _fieldName,
+                TypeAttributes.Class | TypeAttributes.Public | TypeAttributes.Sealed);
 
             // Mark the class as implementing IMemberAccessor. 
             typeBuilder.AddInterfaceImplementation(typeof(IGet));
@@ -123,8 +139,9 @@ namespace IBatisNet.Common.Utilities.Objects.Members
             typeBuilder.DefineDefaultConstructor(MethodAttributes.Public);
 
             #region Emit Get
+
             // Define a method named "Get" for the get operation (IMemberAccessor). 
-            Type[] getParamTypes = new Type[] { typeof(object) };
+            Type[] getParamTypes = {typeof(object)};
             MethodBuilder getMethod = typeBuilder.DefineMethod("Get",
                 MethodAttributes.Public | MethodAttributes.Virtual,
                 typeof(object),
@@ -142,18 +159,14 @@ namespace IBatisNet.Common.Utilities.Objects.Members
                 // so Ldfld can load from the correct instance (this one).
                 getIL.Emit(OpCodes.Ldarg_1);
                 getIL.Emit(OpCodes.Ldfld, targetField);
-                if (_fieldType.IsValueType)
-                {
-                    // Now, we execute the box opcode, which pops the value of field 'x',
-                    // returning a reference to the filed value boxed as an object.
-                    getIL.Emit(OpCodes.Box, targetField.FieldType);
-                }
+                if (_fieldType.IsValueType) getIL.Emit(OpCodes.Box, targetField.FieldType);
                 getIL.Emit(OpCodes.Ret);
             }
             else
             {
                 getIL.ThrowException(typeof(MissingMethodException));
             }
+
             #endregion
 
             // Load the type
@@ -164,36 +177,16 @@ namespace IBatisNet.Common.Utilities.Objects.Members
         #region IAccessor Members
 
         /// <summary>
-        /// Gets the field's name.
+        ///     Gets the field's name.
         /// </summary>
         /// <value></value>
-        public string Name
-        {
-            get { return _fieldName; }
-        }
+        public string Name => _fieldName;
 
         /// <summary>
-        /// Gets the field's type.
+        ///     Gets the field's type.
         /// </summary>
         /// <value></value>
-        public Type MemberType
-        {
-            get { return _fieldType; }
-        }
-
-        #endregion
-
-        #region IGet Members
-
-        /// <summary>
-        /// Gets the value stored in the field for the specified target.
-        /// </summary>
-        /// <param name="target">Object to retrieve the field from.</param>
-        /// <returns>The value.</returns>
-        public object Get(object target)
-        {
-            return _emittedGet.Get(target);
-        }
+        public Type MemberType => _fieldType;
 
         #endregion
     }

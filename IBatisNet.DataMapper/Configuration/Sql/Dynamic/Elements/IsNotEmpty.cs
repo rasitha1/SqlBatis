@@ -1,5 +1,5 @@
-
 #region Apache Notice
+
 /*****************************************************************************
  * $Revision: 408164 $
  * $LastChangedDate: 2006-05-21 14:27:09 +0200 (dim., 21 mai 2006) $
@@ -22,31 +22,34 @@
  * limitations under the License.
  * 
  ********************************************************************************/
+
 #endregion
 
 #region Imports
+
 using System;
 using System.Xml.Serialization;
 using IBatisNet.Common.Utilities.Objects.Members;
 using IBatisNet.DataMapper.Configuration.Sql.Dynamic.Handlers;
+
 #endregion
 
 namespace IBatisNet.DataMapper.Configuration.Sql.Dynamic.Elements
 {
-	/// <summary>
-	/// Represent an isNotEmpty sql tag element.
-	/// </summary>
-	[Serializable]
-	[XmlRoot("isNotEmpty", Namespace="http://ibatis.apache.org/mapping")]
-	public sealed class IsNotEmpty : BaseTag
-	{
+    /// <summary>
+    ///     Represent an isNotEmpty sql tag element.
+    /// </summary>
+    [Serializable]
+    [XmlRoot("isNotEmpty", Namespace = "http://ibatis.apache.org/mapping")]
+    public sealed class IsNotEmpty : BaseTag
+    {
         /// <summary>
-        /// Initializes a new instance of the <see cref="IsNotEmpty"/> class.
+        ///     Initializes a new instance of the <see cref="IsNotEmpty" /> class.
         /// </summary>
         /// <param name="accessorFactory">The accessor factory.</param>
         public IsNotEmpty(AccessorFactory accessorFactory)
-		{
-            this.Handler = new IsNotEmptyTagHandler(accessorFactory);
-		}
-	}
+        {
+            Handler = new IsNotEmptyTagHandler(accessorFactory);
+        }
+    }
 }

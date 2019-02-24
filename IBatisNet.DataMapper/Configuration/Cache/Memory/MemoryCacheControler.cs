@@ -1,5 +1,5 @@
-
 #region Apache Notice
+
 /*****************************************************************************
  * $Header: $
  * $Revision: 383115 $
@@ -22,6 +22,7 @@
  * limitations under the License.
  * 
  ********************************************************************************/
+
 #endregion
 
 #region Imports
@@ -33,140 +34,121 @@ using System.Collections;
 
 namespace IBatisNet.DataMapper.Configuration.Cache.Memory
 {
-	/// <summary>
-	/// Summary description for MemoryCacheControler.
-	/// </summary>
-	public class MemoryCacheControler : ICacheController	
-	{
-		#region Fields 
-		private MemoryCacheLevel _cacheLevel = MemoryCacheLevel.Weak;
-		private Hashtable _cache = null;
-		#endregion
+    /// <summary>
+    ///     Summary description for MemoryCacheControler.
+    /// </summary>
+    public class MemoryCacheControler : ICacheController
+    {
+        #region Constructor (s) / Destructor
 
-		#region Constructor (s) / Destructor
-		/// <summary>
-		/// Constructor
-		/// </summary>
-		public MemoryCacheControler() 
-		{
-			_cache = Hashtable.Synchronized( new Hashtable() );
-		}
-		#endregion
+        /// <summary>
+        ///     Constructor
+        /// </summary>
+        public MemoryCacheControler()
+        {
+            _cache = Hashtable.Synchronized(new Hashtable());
+        }
 
-		#region ICacheController Members
+        #endregion
 
-		/// <summary>
-		/// Remove an object from a cache model
-		/// </summary>
-		/// <param name="key">the key to the object</param>
-		/// <returns>the removed object(?)</returns>
-		public object Remove(object key)
-		{
-			object value = null;
-			object reference = this[key];
-			_cache.Remove(key);
-			if (reference != null) 
-			{
-				if (reference is StrongReference) 
-				{
-					value = ((StrongReference) reference).Target;
-				} 
-				else if (reference is WeakReference) {
-					value = ((WeakReference) reference).Target;
-				}
-			}
-			return value;
-		}
+        /// <summary>
+        ///     Class to implement a strong (permanent) reference.
+        /// </summary>
+        private class StrongReference
+        {
+            public StrongReference(object obj)
+            {
+                Target = obj;
+            }
 
-		/// <summary>
-		/// Adds an item with the specified key and value into cached data.
-		/// Gets a cached object with the specified key.
-		/// </summary>
-		/// <value>The cached object or <c>null</c></value>
-		public object this[object key]
-		{
-			get
-			{
-				object value = null;
-				object reference = _cache[key];
-				if (reference != null) 
-				{
-					if (reference is StrongReference) 
-					{
-						value = ((StrongReference) reference).Target;
-					} 
-					else if (reference is WeakReference) 
-					{
-						value = ((WeakReference) reference).Target;
-					}
-				}				
-				return value;
-			}
-			set
-			{
-				object reference = null;
-				if (_cacheLevel.Equals(MemoryCacheLevel.Weak)) 
-				{
-					reference = new WeakReference(value);
-				} 
-				else if (_cacheLevel.Equals(MemoryCacheLevel.Strong)) 
-				{
-					reference = new StrongReference(value);
-				}
-				_cache[key] = reference;	
-			
-			}
-		}
+            /// <summary>
+            ///     Gets the object (the target) referenced by this instance.
+            /// </summary>
+            public object Target { get; }
+        }
 
+        #region Fields 
 
-		/// <summary>
-		/// Clears all elements from the cache.
-		/// </summary>
-		public void Flush()
-		{
-			lock(this) 
-			{
-				_cache.Clear();
-			}				
-		}
+        private MemoryCacheLevel _cacheLevel = MemoryCacheLevel.Weak;
+        private readonly Hashtable _cache;
+
+        #endregion
+
+        #region ICacheController Members
+
+        /// <summary>
+        ///     Remove an object from a cache model
+        /// </summary>
+        /// <param name="key">the key to the object</param>
+        /// <returns>the removed object(?)</returns>
+        public object Remove(object key)
+        {
+            object value = null;
+            object reference = this[key];
+            _cache.Remove(key);
+            if (reference != null)
+            {
+                if (reference is StrongReference)
+                    value = ((StrongReference) reference).Target;
+                else if (reference is WeakReference) value = ((WeakReference) reference).Target;
+            }
+
+            return value;
+        }
+
+        /// <summary>
+        ///     Adds an item with the specified key and value into cached data.
+        ///     Gets a cached object with the specified key.
+        /// </summary>
+        /// <value>The cached object or <c>null</c></value>
+        public object this[object key]
+        {
+            get
+            {
+                object value = null;
+                object reference = _cache[key];
+                if (reference != null)
+                {
+                    if (reference is StrongReference)
+                        value = ((StrongReference) reference).Target;
+                    else if (reference is WeakReference) value = ((WeakReference) reference).Target;
+                }
+
+                return value;
+            }
+            set
+            {
+                object reference = null;
+                if (_cacheLevel.Equals(MemoryCacheLevel.Weak))
+                    reference = new WeakReference(value);
+                else if (_cacheLevel.Equals(MemoryCacheLevel.Strong)) reference = new StrongReference(value);
+                _cache[key] = reference;
+            }
+        }
 
 
-		/// <summary>
-		/// Configures the cache
-		/// </summary>
-		public void Configure(IDictionary properties)
-		{
-			string referenceType = (string)properties["Type"];;
-			if (referenceType != null) 
-			{
-				_cacheLevel = MemoryCacheLevel.GetByRefenceType(referenceType.ToUpper());
-			}
-		}
+        /// <summary>
+        ///     Clears all elements from the cache.
+        /// </summary>
+        public void Flush()
+        {
+            lock (this)
+            {
+                _cache.Clear();
+            }
+        }
 
-		#endregion
 
-		/// <summary>
-		/// Class to implement a strong (permanent) reference.
-		/// </summary>
-		private class StrongReference 
-		{
-			private object _target = null;
+        /// <summary>
+        ///     Configures the cache
+        /// </summary>
+        public void Configure(IDictionary properties)
+        {
+            string referenceType = (string) properties["Type"];
+            ;
+            if (referenceType != null) _cacheLevel = MemoryCacheLevel.GetByRefenceType(referenceType.ToUpper());
+        }
 
-			public StrongReference(object obj) 
-			{
-				_target = obj;
-			}
-
-			/// <summary>
-			/// Gets the object (the target) referenced by this instance.
-			/// </summary>
-			public object Target  
-			{
-				get
-				{
-					return _target ;
-				}
-			}
-		}
-	}
+        #endregion
+    }
 }

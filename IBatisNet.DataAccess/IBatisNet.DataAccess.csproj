@@ -171,7 +171,6 @@
     <Content Include="licence.txt" />
     <Content Include="notice.txt" />
     <None Include="AssemblyKey.snk" />
-    <None Include="IBatisNet.DataAccess.build" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

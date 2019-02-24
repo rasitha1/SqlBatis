@@ -1,4 +1,5 @@
 #region Apache Notice
+
 /*****************************************************************************
  * $Header: $
  * $Revision: 408164 $
@@ -21,6 +22,7 @@
  * limitations under the License.
  * 
  ********************************************************************************/
+
 #endregion
 
 #region Using
@@ -31,44 +33,44 @@ using IBatisNet.Common.Xml;
 using IBatisNet.DataMapper.Configuration.Sql.Dynamic.Elements;
 using IBatisNet.DataMapper.Scope;
 
-#endregion 
+#endregion
 
 namespace IBatisNet.DataMapper.Configuration.Serializers
 {
-	/// <summary>
-	/// Summary description for IsNotPropertyAvailableDeSerializer.
-	/// </summary>
-	public sealed class IsNotPropertyAvailableDeSerializer : IDeSerializer
-	{
-		private ConfigurationScope _configScope = null;
+    /// <summary>
+    ///     Summary description for IsNotPropertyAvailableDeSerializer.
+    /// </summary>
+    public sealed class IsNotPropertyAvailableDeSerializer : IDeSerializer
+    {
+        private readonly ConfigurationScope _configScope;
 
-		/// <summary>
-		/// 
-		/// </summary>
-		/// <param name="configScope"></param>
-		public IsNotPropertyAvailableDeSerializer(ConfigurationScope configScope)
-		{
-			_configScope = configScope;
-		}
+        /// <summary>
+        /// </summary>
+        /// <param name="configScope"></param>
+        public IsNotPropertyAvailableDeSerializer(ConfigurationScope configScope)
+        {
+            _configScope = configScope;
+        }
 
-		#region IDeSerializer Members
+        #region IDeSerializer Members
 
-		/// <summary>
-		/// Deserialize a IsNotEmpty object
-		/// </summary>
-		/// <param name="node"></param>
-		/// <returns></returns>
-		public SqlTag Deserialize(XmlNode node)
-		{
-			IsNotPropertyAvailable isNotPropertyAvailable = new IsNotPropertyAvailable(_configScope.DataExchangeFactory.AccessorFactory);
+        /// <summary>
+        ///     Deserialize a IsNotEmpty object
+        /// </summary>
+        /// <param name="node"></param>
+        /// <returns></returns>
+        public SqlTag Deserialize(XmlNode node)
+        {
+            IsNotPropertyAvailable isNotPropertyAvailable =
+                new IsNotPropertyAvailable(_configScope.DataExchangeFactory.AccessorFactory);
 
-			NameValueCollection prop = NodeUtils.ParseAttributes(node, _configScope.Properties);
-			isNotPropertyAvailable.Prepend = NodeUtils.GetStringAttribute(prop, "prepend");
-			isNotPropertyAvailable.Property = NodeUtils.GetStringAttribute(prop, "property");
+            NameValueCollection prop = NodeUtils.ParseAttributes(node, _configScope.Properties);
+            isNotPropertyAvailable.Prepend = NodeUtils.GetStringAttribute(prop, "prepend");
+            isNotPropertyAvailable.Property = NodeUtils.GetStringAttribute(prop, "property");
 
-			return isNotPropertyAvailable;
-		}
+            return isNotPropertyAvailable;
+        }
 
-		#endregion
-	}
+        #endregion
+    }
 }

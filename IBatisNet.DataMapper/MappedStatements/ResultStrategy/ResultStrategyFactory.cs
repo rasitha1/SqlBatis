@@ -1,4 +1,5 @@
 #region Apache Notice
+
 /*****************************************************************************
  * $Revision: 374175 $
  * $LastChangedDate: 2006-04-25 19:40:27 +0200 (mar., 25 avr. 2006) $
@@ -21,6 +22,7 @@
  * limitations under the License.
  * 
  ********************************************************************************/
+
 #endregion
 
 using IBatisNet.DataMapper.Configuration.ResultMapping;
@@ -29,16 +31,16 @@ using IBatisNet.DataMapper.Configuration.Statements;
 namespace IBatisNet.DataMapper.MappedStatements.ResultStrategy
 {
     /// <summary>
-    /// Factory to get <see cref="IResultStrategy"/> implementation.
+    ///     Factory to get <see cref="IResultStrategy" /> implementation.
     /// </summary>
     public sealed class ResultStrategyFactory
     {
-        private static IResultStrategy _resultClassStrategy = null;
-        private static IResultStrategy _mapStrategy = null;
-        private static IResultStrategy _objectStrategy = null;
+        private static readonly IResultStrategy _resultClassStrategy;
+        private static readonly IResultStrategy _mapStrategy;
+        private static readonly IResultStrategy _objectStrategy;
 
         /// <summary>
-        /// Initializes the <see cref="ResultStrategyFactory"/> class.
+        ///     Initializes the <see cref="ResultStrategyFactory" /> class.
         /// </summary>
         static ResultStrategyFactory()
         {
@@ -48,28 +50,21 @@ namespace IBatisNet.DataMapper.MappedStatements.ResultStrategy
         }
 
         /// <summary>
-        /// Finds the <see cref="IResultStrategy"/>.
+        ///     Finds the <see cref="IResultStrategy" />.
         /// </summary>
         /// <param name="statement">The statement.</param>
-        /// <returns>The <see cref="IResultStrategy"/></returns>
+        /// <returns>The <see cref="IResultStrategy" /></returns>
         public static IResultStrategy Get(IStatement statement)
         {
             // If there's an IResultMap, use it
             if (statement.ResultsMap.Count > 0)
             {
                 if (statement.ResultsMap[0] is ResultMap)
-                {
-                    return _mapStrategy; 
-                }
-                else // it is an AutoResultMap
-                {
-                    return _resultClassStrategy;
-                }                    
+                    return _mapStrategy;
+                return _resultClassStrategy;
             }
-            else
-            {
-                return _objectStrategy;
-            }
+
+            return _objectStrategy;
         }
     }
 }

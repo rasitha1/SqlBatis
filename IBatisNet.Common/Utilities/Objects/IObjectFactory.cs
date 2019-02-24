@@ -1,5 +1,5 @@
-
 #region Apache Notice
+
 /*****************************************************************************
  * $Revision: 374175 $
  * $LastChangedDate: 2006-02-19 12:37:22 +0100 (Sun, 19 Feb 2006) $
@@ -22,23 +22,24 @@
  * limitations under the License.
  * 
  ********************************************************************************/
+
 #endregion
 
 using System;
 
 namespace IBatisNet.Common.Utilities.Objects
 {
-	/// <summary>
-	/// A factory that can create objects 
-	/// </summary>
-	public interface IObjectFactory
-	{
-		/// <summary>
-        /// Create a new <see cref="IFactory"/> instance for a given type
+    /// <summary>
+    ///     A factory that can create objects
+    /// </summary>
+    public interface IObjectFactory
+    {
+        /// <summary>
+        ///     Create a new <see cref="IFactory" /> instance for a given type
         /// </summary>
-		/// <param name="typeToCreate">The type instance to build</param>
-		/// <param name="types">The types of the constructor arguments</param>
+        /// <param name="typeToCreate">The type instance to build</param>
+        /// <param name="types">The types of the constructor arguments</param>
         /// <returns>Returns a new see cref="IFactory"/> instance</returns>
-		IFactory CreateFactory(Type typeToCreate, Type[] types);
-	}
+        IFactory CreateFactory(Type typeToCreate, Type[] types);
+    }
 }

@@ -1,5 +1,5 @@
-
 #region Apache Notice
+
 /*****************************************************************************
  * $Header: $
  * $Revision: 383115 $
@@ -22,6 +22,7 @@
  * limitations under the License.
  * 
  ********************************************************************************/
+
 #endregion
 
 #region Imports
@@ -33,93 +34,90 @@ using System.Collections;
 
 namespace IBatisNet.DataMapper.Configuration.Cache.Fifo
 {
-	/// <summary>
-	/// Summary description for FifoCacheController.
-	/// </summary>
-	public class FifoCacheController : ICacheController
-	{
-		#region Fields 
-		private int _cacheSize = 0;
-		private Hashtable _cache = null;
-		private IList _keyList = null;
-		#endregion
+    /// <summary>
+    ///     Summary description for FifoCacheController.
+    /// </summary>
+    public class FifoCacheController : ICacheController
+    {
+        #region Constructor (s) / Destructor
 
-		#region Constructor (s) / Destructor
-		/// <summary>
-		/// 
-		/// </summary>
-		public FifoCacheController() 
-		{
-			_cacheSize = 100;
-			_cache = Hashtable.Synchronized( new Hashtable() );
-			_keyList = ArrayList.Synchronized( new ArrayList() );
-		}
-		#endregion
+        /// <summary>
+        /// </summary>
+        public FifoCacheController()
+        {
+            _cacheSize = 100;
+            _cache = Hashtable.Synchronized(new Hashtable());
+            _keyList = ArrayList.Synchronized(new ArrayList());
+        }
 
-		#region ICacheController Members
+        #endregion
 
-		/// <summary>
-		/// Remove an object from a cache model
-		/// </summary>
-		/// <param name="key">the key to the object</param>
-		/// <returns>the removed object(?)</returns>
-		public object Remove(object key)
-		{
-			object o = this[key];
+        #region Fields 
 
-			_keyList.Remove(key);
-			_cache.Remove(key);
-			return o;
-		}
+        private int _cacheSize;
+        private readonly Hashtable _cache;
+        private readonly IList _keyList;
 
-		/// <summary>
-		/// Clears all elements from the cache.
-		/// </summary>
-		public void Flush()
-		{
-				_cache.Clear();
-				_keyList.Clear();
-		}
+        #endregion
 
+        #region ICacheController Members
 
-		/// <summary>
-		/// Adds an item with the specified key and value into cached data.
-		/// Gets a cached object with the specified key.
-		/// </summary>
-		/// <value>The cached object or <c>null</c></value>
-		public object this [object key] 
-		{
-			get
-			{
-				return _cache[key];
-			}
-			set
-			{
-				_cache[key] = value;
-				_keyList.Add(key);
-				if (_keyList.Count > _cacheSize) 
-				{
-					object oldestKey = _keyList[0];
-					_keyList.Remove(0);
-					_cache.Remove(oldestKey);
-				}		
-			}
-		}
+        /// <summary>
+        ///     Remove an object from a cache model
+        /// </summary>
+        /// <param name="key">the key to the object</param>
+        /// <returns>the removed object(?)</returns>
+        public object Remove(object key)
+        {
+            object o = this[key];
+
+            _keyList.Remove(key);
+            _cache.Remove(key);
+            return o;
+        }
+
+        /// <summary>
+        ///     Clears all elements from the cache.
+        /// </summary>
+        public void Flush()
+        {
+            _cache.Clear();
+            _keyList.Clear();
+        }
 
 
-		/// <summary>
-		/// Configures the cache
-		/// </summary>
-		public void Configure(IDictionary properties)
-		{
-			string size = (string)properties["CacheSize"];;
-			if (size != null) 
-			{
-				_cacheSize = Convert.ToInt32(size);		
-			}
-		}
-		
-		#endregion
+        /// <summary>
+        ///     Adds an item with the specified key and value into cached data.
+        ///     Gets a cached object with the specified key.
+        /// </summary>
+        /// <value>The cached object or <c>null</c></value>
+        public object this[object key]
+        {
+            get => _cache[key];
+            set
+            {
+                _cache[key] = value;
+                _keyList.Add(key);
+                if (_keyList.Count > _cacheSize)
+                {
+                    object oldestKey = _keyList[0];
+                    _keyList.Remove(0);
+                    _cache.Remove(oldestKey);
+                }
+            }
+        }
 
-	}
+
+        /// <summary>
+        ///     Configures the cache
+        /// </summary>
+        public void Configure(IDictionary properties)
+        {
+            string size = (string) properties["CacheSize"];
+            ;
+            if (size != null) _cacheSize = Convert.ToInt32(size);
+        }
+
+        #endregion
+    }
 }

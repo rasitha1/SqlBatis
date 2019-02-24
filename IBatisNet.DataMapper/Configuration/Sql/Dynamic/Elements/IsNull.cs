@@ -1,5 +1,5 @@
-
 #region Apache Notice
+
 /*****************************************************************************
  * $Revision: 408164 $
  * $LastChangedDate: 2006-05-21 14:27:09 +0200 (dim., 21 mai 2006) $
@@ -22,6 +22,7 @@
  * limitations under the License.
  * 
  ********************************************************************************/
+
 #endregion
 
 using System;
@@ -31,19 +32,18 @@ using IBatisNet.DataMapper.Configuration.Sql.Dynamic.Handlers;
 
 namespace IBatisNet.DataMapper.Configuration.Sql.Dynamic.Elements
 {
-	/// <summary>
-	/// Represent an isNull sql tag element.
-	/// </summary>
-	[Serializable]
-	[XmlRoot("isNull", Namespace="http://ibatis.apache.org/mapping")]
-	public sealed class IsNull : BaseTag
-	{
-		/// <summary>
-		/// 
-		/// </summary>
+    /// <summary>
+    ///     Represent an isNull sql tag element.
+    /// </summary>
+    [Serializable]
+    [XmlRoot("isNull", Namespace = "http://ibatis.apache.org/mapping")]
+    public sealed class IsNull : BaseTag
+    {
+        /// <summary>
+        /// </summary>
         public IsNull(AccessorFactory accessorFactory)
-		{
-            this.Handler = new IsNullTagHandler(accessorFactory);
-		}
-	}
+        {
+            Handler = new IsNullTagHandler(accessorFactory);
+        }
+    }
 }

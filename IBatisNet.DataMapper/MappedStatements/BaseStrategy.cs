@@ -1,4 +1,5 @@
 #region Apache Notice
+
 /*****************************************************************************
  * $Revision: 374175 $
  * $LastChangedDate: 2006-04-25 19:40:27 +0200 (mar., 25 avr. 2006) $
@@ -21,6 +22,7 @@
  * limitations under the License.
  * 
  ********************************************************************************/
+
 #endregion
 
 using System.Data;
@@ -30,26 +32,26 @@ using IBatisNet.DataMapper.Scope;
 
 namespace IBatisNet.DataMapper.MappedStatements
 {
-	/// <summary>
-	/// BaseStrategy.
-	/// </summary>
-	public abstract class BaseStrategy
-	{
- 	    /// <summary>
-	    /// Used by N+1 Select solution
-	    /// </summary>
-        public static object SKIP = new object();
-	    
+    /// <summary>
+    ///     BaseStrategy.
+    /// </summary>
+    public abstract class BaseStrategy
+    {
         private const string KEY_SEPARATOR = "\002";
 
-    
-	    /// <summary>
-        /// Calculte a unique key which identify the resukt object build by this <see cref="IResultMap"/>
-	    /// </summary>
-	    /// <param name="resultMap"></param>
-	    /// <param name="request"></param>
-	    /// <param name="reader"></param>
-	    /// <returns></returns>
+        /// <summary>
+        ///     Used by N+1 Select solution
+        /// </summary>
+        public static object SKIP = new object();
+
+
+        /// <summary>
+        ///     Calculte a unique key which identify the resukt object build by this <see cref="IResultMap" />
+        /// </summary>
+        /// <param name="resultMap"></param>
+        /// <param name="request"></param>
+        /// <param name="reader"></param>
+        /// <returns></returns>
         protected string GetUniqueKey(IResultMap resultMap, RequestScope request, IDataReader reader)
         {
             if (resultMap.GroupByProperties.Count > 0)
@@ -63,57 +65,46 @@ namespace IBatisNet.DataMapper.MappedStatements
                     keyBuffer.Append('-');
                 }
 
-                if (keyBuffer.Length < 1)
-                {
-                    // we should never go here
-                    return null;
-                }
-                else
-                {
-                    // separator value not likely to appear in a database
-                    keyBuffer.Append(KEY_SEPARATOR);
-                    return keyBuffer.ToString();
-                }
-            }
-            else
-            {
-                // we should never go here
-                return null;
-            }
-        }
-	    
-		/// <summary>
-		/// Fills the object with reader and result map.
-		/// </summary>
-		/// <param name="request">The request.</param>
-		/// <param name="reader">The reader.</param>
-		/// <param name="resultMap">The result map.</param>
-		/// <param name="resultObject">The result object.</param>
-		/// <returns>Indicates if we have found a row.</returns>
-		protected bool FillObjectWithReaderAndResultMap(RequestScope request,IDataReader reader, 
-		                                                IResultMap resultMap, object resultObject)
-		{
-			bool dataFound = false;
+                if (keyBuffer.Length < 1) return null;
 
-            if (resultMap.Properties.Count>0)
-            {
- 			    // For each Property in the ResultMap, set the property in the object 
-			    for(int index=0; index< resultMap.Properties.Count; index++)
-			    {
-				    request.IsRowDataFound = false;
-				    ResultProperty property = resultMap.Properties[index];
-				    property.PropertyStrategy.Set(request, resultMap, property, ref resultObject, reader, null);
-				    dataFound = dataFound || request.IsRowDataFound;
-			    }
-
-			    request.IsRowDataFound = dataFound;
-			    return dataFound;
-		    }
-		    else
-            {
-                return true;
+                // separator value not likely to appear in a database
+                keyBuffer.Append(KEY_SEPARATOR);
+                return keyBuffer.ToString();
             }
+
+            // we should never go here
+            return null;
         }
 
-	}
+        /// <summary>
+        ///     Fills the object with reader and result map.
+        /// </summary>
+        /// <param name="request">The request.</param>
+        /// <param name="reader">The reader.</param>
+        /// <param name="resultMap">The result map.</param>
+        /// <param name="resultObject">The result object.</param>
+        /// <returns>Indicates if we have found a row.</returns>
+        protected bool FillObjectWithReaderAndResultMap(RequestScope request, IDataReader reader,
+            IResultMap resultMap, object resultObject)
+        {
+            bool dataFound = false;
+
+            if (resultMap.Properties.Count > 0)
+            {
+                // For each Property in the ResultMap, set the property in the object 
+                for (int index = 0; index < resultMap.Properties.Count; index++)
+                {
+                    request.IsRowDataFound = false;
+                    ResultProperty property = resultMap.Properties[index];
+                    property.PropertyStrategy.Set(request, resultMap, property, ref resultObject, reader, null);
+                    dataFound = dataFound || request.IsRowDataFound;
+                }
+
+                request.IsRowDataFound = dataFound;
+                return dataFound;
+            }
+
+            return true;
+        }
+    }
 }

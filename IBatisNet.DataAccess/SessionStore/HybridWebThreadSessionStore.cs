@@ -1,5 +1,5 @@
-
 #region Apache Notice
+
 /*****************************************************************************
  * $Header: $
  * $Revision: 378715 $
@@ -22,6 +22,7 @@
  * limitations under the License.
  * 
  ********************************************************************************/
+
 #endregion
 
 using System.Runtime.Remoting.Messaging;
@@ -31,72 +32,59 @@ using IBatisNet.Common;
 namespace IBatisNet.DataAccess.SessionStore
 {
     /// <summary>
-    /// This implementation of <see cref="ISessionStore"/>will first try 
-    /// to get the currentrequest, and if not found, will use a thread local.
+    ///     This implementation of <see cref="ISessionStore" />will first try
+    ///     to get the currentrequest, and if not found, will use a thread local.
     /// </summary>
     /// <remarks>
-    /// This is used for scenarios where most of the you need per request session, but you also does some work outside a 
-    /// request (in a thread pool thread, for instance).
+    ///     This is used for scenarios where most of the you need per request session, but you also does some work outside a
+    ///     request (in a thread pool thread, for instance).
     /// </remarks>
     public class HybridWebThreadSessionStore : AbstractSessionStore
     {
-
         /// <summary>
-        /// Initializes a new instance of the <see cref="WebSessionStore"/> class.
+        ///     Initializes a new instance of the <see cref="WebSessionStore" /> class.
         /// </summary>
         /// <param name="daoManagerId">The DaoManager name.</param>
         public HybridWebThreadSessionStore(string daoManagerId) : base(daoManagerId)
-        { }
+        {
+        }
 
         /// <summary>
-        /// Get the local session
+        ///     Get the local session
         /// </summary>
         public override IDalSession LocalSession
         {
             get
             {
                 HttpContext currentContext = HttpContext.Current;
-                if (currentContext == null)
-                {
-                    return CallContext.GetData(sessionName) as IDalSession;
-                }
+                if (currentContext == null) return CallContext.GetData(sessionName) as IDalSession;
                 return currentContext.Items[sessionName] as IDalSession;
             }
         }
 
         /// <summary>
-        /// Store the specified session.
+        ///     Store the specified session.
         /// </summary>
         /// <param name="session">The session to store</param>
         public override void Store(IDalSession session)
         {
             HttpContext currentContext = HttpContext.Current;
             if (currentContext == null)
-            {
                 CallContext.SetData(sessionName, session);
-            }
             else
-            {
                 currentContext.Items[sessionName] = session;
-            }
         }
 
         /// <summary>
-        /// Remove the local session.
+        ///     Remove the local session.
         /// </summary>
         public override void Dispose()
         {
             HttpContext currentContext = HttpContext.Current;
             if (currentContext == null)
-            {
                 CallContext.SetData(sessionName, null);
-            }
             else
-            {
                 currentContext.Items[sessionName] = null;
-            }
         }
-
-
     }
 }

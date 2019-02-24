@@ -1,4 +1,5 @@
 #region Apache Notice
+
 /*****************************************************************************
  * $Header: $
  * $Revision: 512878 $
@@ -21,6 +22,7 @@
  * limitations under the License.
  * 
  ********************************************************************************/
+
 #endregion
 
 #region Using
@@ -28,29 +30,30 @@
 using System.Collections.Specialized;
 using System.Xml;
 using IBatisNet.Common.Xml;
-#endregion 
+
+#endregion
 
 namespace IBatisNet.Common
 {
-	/// <summary>
-	/// Summary description for DataSourceDeSerializer.
-	/// </summary>
-	public sealed class DataSourceDeSerializer
-	{
-		/// <summary>
-		/// Deserialize a DataSource object
-		/// </summary>
-		/// <param name="node"></param>
-		/// <returns></returns>
-		public static DataSource Deserialize(XmlNode node)
-		{
-			DataSource dataSource = new DataSource();
-			NameValueCollection prop = NodeUtils.ParseAttributes(node);
+    /// <summary>
+    ///     Summary description for DataSourceDeSerializer.
+    /// </summary>
+    public sealed class DataSourceDeSerializer
+    {
+        /// <summary>
+        ///     Deserialize a DataSource object
+        /// </summary>
+        /// <param name="node"></param>
+        /// <returns></returns>
+        public static DataSource Deserialize(XmlNode node)
+        {
+            DataSource dataSource = new DataSource();
+            NameValueCollection prop = NodeUtils.ParseAttributes(node);
 
-			dataSource.ConnectionString = prop["connectionString"];
-			dataSource.Name = prop["name"];
-			
-			return dataSource;
-		}
-	}
+            dataSource.ConnectionString = prop["connectionString"];
+            dataSource.Name = prop["name"];
+
+            return dataSource;
+        }
+    }
 }

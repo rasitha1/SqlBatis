@@ -1,4 +1,5 @@
 #region Apache Notice
+
 /*****************************************************************************
  * $Revision: 374175 $
  * $LastChangedDate: 2006-04-25 19:40:27 +0200 (mar., 25 avr. 2006) $
@@ -21,6 +22,7 @@
  * limitations under the License.
  * 
  ********************************************************************************/
+
 #endregion
 
 using System.Data;
@@ -30,16 +32,16 @@ using IBatisNet.DataMapper.Scope;
 namespace IBatisNet.DataMapper.MappedStatements.ResultStrategy
 {
     /// <summary>
-    /// <see cref="IResultStrategy"/> implementation when 
-    /// a 'resultMap' attribute is specified.
+    ///     <see cref="IResultStrategy" /> implementation when
+    ///     a 'resultMap' attribute is specified.
     /// </summary>
     public sealed class ResultMapStrategy : BaseStrategy, IResultStrategy
     {
         #region IResultStrategy Members
 
         /// <summary>
-        /// Processes the specified <see cref="IDataReader"/> 
-        /// when a ResultMap is specified on the statement.
+        ///     Processes the specified <see cref="IDataReader" />
+        ///     when a ResultMap is specified on the statement.
         /// </summary>
         /// <param name="request">The request.</param>
         /// <param name="reader">The reader.</param>
@@ -60,7 +62,8 @@ namespace IBatisNet.DataMapper.MappedStatements.ResultStrategy
                     for (int index = 0; index < resultMap.Parameters.Count; index++)
                     {
                         ResultProperty resultProperty = resultMap.Parameters[index];
-                        parameters[index] = resultProperty.ArgumentStrategy.GetValue(request, resultProperty, ref reader, null);
+                        parameters[index] =
+                            resultProperty.ArgumentStrategy.GetValue(request, resultProperty, ref reader, null);
                     }
                 }
 

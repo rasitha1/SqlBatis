@@ -1,4 +1,5 @@
 #region Apache Notice
+
 /*****************************************************************************
  * $Header: $
  * $Revision: 475842 $
@@ -21,6 +22,7 @@
  * limitations under the License.
  * 
  ********************************************************************************/
+
 #endregion
 
 #region Using
@@ -31,35 +33,35 @@ using IBatisNet.Common.Xml;
 using IBatisNet.DataMapper.Configuration.Statements;
 using IBatisNet.DataMapper.Scope;
 
-#endregion 
+#endregion
 
 namespace IBatisNet.DataMapper.Configuration.Serializers
 {
-	/// <summary>
-	/// Summary description for ProcedureDeSerializer.
-	/// </summary>
-	public sealed class ProcedureDeSerializer
-	{
-		/// <summary>
-		/// Deserialize a Procedure object
-		/// </summary>
-		/// <param name="node"></param>
-		/// <param name="configScope"></param>
-		/// <returns></returns>
-		public static Procedure Deserialize(XmlNode node, ConfigurationScope configScope)
-		{
-			Procedure procedure = new Procedure();
-			NameValueCollection prop = NodeUtils.ParseAttributes(node, configScope.Properties);
-			
-			procedure.CacheModelName = NodeUtils.GetStringAttribute(prop, "cacheModel");
-			procedure.Id = NodeUtils.GetStringAttribute(prop, "id");
-			procedure.ListClassName = NodeUtils.GetStringAttribute(prop, "listClass");
-			procedure.ParameterMapName = NodeUtils.GetStringAttribute(prop, "parameterMap");
-			procedure.ResultClassName = NodeUtils.GetStringAttribute(prop, "resultClass");
-			procedure.ResultMapName = NodeUtils.GetStringAttribute(prop, "resultMap");
-			procedure.ListClassName = NodeUtils.GetStringAttribute(prop, "listClass");
+    /// <summary>
+    ///     Summary description for ProcedureDeSerializer.
+    /// </summary>
+    public sealed class ProcedureDeSerializer
+    {
+        /// <summary>
+        ///     Deserialize a Procedure object
+        /// </summary>
+        /// <param name="node"></param>
+        /// <param name="configScope"></param>
+        /// <returns></returns>
+        public static Procedure Deserialize(XmlNode node, ConfigurationScope configScope)
+        {
+            Procedure procedure = new Procedure();
+            NameValueCollection prop = NodeUtils.ParseAttributes(node, configScope.Properties);
 
-			return procedure;
-		}
-	}
+            procedure.CacheModelName = NodeUtils.GetStringAttribute(prop, "cacheModel");
+            procedure.Id = NodeUtils.GetStringAttribute(prop, "id");
+            procedure.ListClassName = NodeUtils.GetStringAttribute(prop, "listClass");
+            procedure.ParameterMapName = NodeUtils.GetStringAttribute(prop, "parameterMap");
+            procedure.ResultClassName = NodeUtils.GetStringAttribute(prop, "resultClass");
+            procedure.ResultMapName = NodeUtils.GetStringAttribute(prop, "resultMap");
+            procedure.ListClassName = NodeUtils.GetStringAttribute(prop, "listClass");
+
+            return procedure;
+        }
+    }
 }

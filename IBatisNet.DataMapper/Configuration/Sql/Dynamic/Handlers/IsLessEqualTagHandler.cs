@@ -1,5 +1,5 @@
-
 #region Apache Notice
+
 /*****************************************************************************
  * $Revision: 408164 $
  * $LastChangedDate: 2006-05-21 14:27:09 +0200 (dim., 21 mai 2006) $
@@ -22,41 +22,38 @@
  * limitations under the License.
  * 
  ********************************************************************************/
+
 #endregion
 
-using System;
 using IBatisNet.Common.Utilities.Objects.Members;
 using IBatisNet.DataMapper.Configuration.Sql.Dynamic.Elements;
 
-
 namespace IBatisNet.DataMapper.Configuration.Sql.Dynamic.Handlers
 {
-	/// <summary>
-	/// Summary description for IsLessEqualTagHandler.
-	/// </summary>
-	public sealed class IsLessEqualTagHandler : ConditionalTagHandler
-	{
-
+    /// <summary>
+    ///     Summary description for IsLessEqualTagHandler.
+    /// </summary>
+    public sealed class IsLessEqualTagHandler : ConditionalTagHandler
+    {
         /// <summary>
-        /// Initializes a new instance of the <see cref="IsLessEqualTagHandler"/> class.
+        ///     Initializes a new instance of the <see cref="IsLessEqualTagHandler" /> class.
         /// </summary>
         /// <param name="accessorFactory">The accessor factory.</param>
         public IsLessEqualTagHandler(AccessorFactory accessorFactory)
             : base(accessorFactory)
-		{
-		}
+        {
+        }
 
-		/// <summary>
-		/// 
-		/// </summary>
-		/// <param name="ctx"></param>
-		/// <param name="tag"></param>
-		/// <param name="parameterObject"></param>
-		/// <returns></returns>
-		public override bool IsCondition(SqlTagContext ctx, SqlTag tag, object parameterObject)
-		{
-			long x = this.Compare(ctx, tag, parameterObject);
-			return ((x <= 0) && (x != ConditionalTagHandler.NOT_COMPARABLE));
-		}
-	}
+        /// <summary>
+        /// </summary>
+        /// <param name="ctx"></param>
+        /// <param name="tag"></param>
+        /// <param name="parameterObject"></param>
+        /// <returns></returns>
+        public override bool IsCondition(SqlTagContext ctx, SqlTag tag, object parameterObject)
+        {
+            long x = Compare(ctx, tag, parameterObject);
+            return ((x <= 0) && (x != NOT_COMPARABLE));
+        }
+    }
 }

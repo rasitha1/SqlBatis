@@ -1,5 +1,5 @@
-
 #region Apache Notice
+
 /*****************************************************************************
  * $Revision: 405046 $
  * $LastChangedDate: 2006-05-08 15:21:44 +0200 (lun., 08 mai 2006) $
@@ -22,6 +22,7 @@
  * limitations under the License.
  * 
  ********************************************************************************/
+
 #endregion
 
 using IBatisNet.Common.Utilities.Objects;
@@ -30,48 +31,40 @@ using IBatisNet.DataMapper.Configuration.Sql.Dynamic.Elements;
 
 namespace IBatisNet.DataMapper.Configuration.Sql.Dynamic.Handlers
 {
-	/// <summary>
-	/// Summary description for IsNullTagHandler.
-	/// </summary>
-	public class IsNullTagHandler : ConditionalTagHandler
-	{
-
+    /// <summary>
+    ///     Summary description for IsNullTagHandler.
+    /// </summary>
+    public class IsNullTagHandler : ConditionalTagHandler
+    {
         /// <summary>
-        /// Initializes a new instance of the <see cref="IsNullTagHandler"/> class.
+        ///     Initializes a new instance of the <see cref="IsNullTagHandler" /> class.
         /// </summary>
         /// <param name="accessorFactory">The accessor factory.</param>
         public IsNullTagHandler(AccessorFactory accessorFactory)
             : base(accessorFactory)
-		{
-		}
+        {
+        }
 
-		/// <summary>
-		/// 
-		/// </summary>
-		/// <param name="ctx"></param>
-		/// <param name="tag"></param>
-		/// <param name="parameterObject"></param>
-		/// <returns></returns>
-		public override bool IsCondition(SqlTagContext ctx, SqlTag tag, object parameterObject)
-		{
-			if (parameterObject == null) 
-			{
-				return true;
-			} 
-			else 
-			{
-				string propertyName = ((BaseTag)tag).Property;
-				object value;
-				if (propertyName != null && propertyName.Length>0 ) 
-				{
-					value = ObjectProbe.GetMemberValue(parameterObject, propertyName, this.AccessorFactory);
-				} 
-				else 
-				{
-					value = parameterObject;
-				}
-				return (value == null);
-			}		
-		}
-	}
+        /// <summary>
+        /// </summary>
+        /// <param name="ctx"></param>
+        /// <param name="tag"></param>
+        /// <param name="parameterObject"></param>
+        /// <returns></returns>
+        public override bool IsCondition(SqlTagContext ctx, SqlTag tag, object parameterObject)
+        {
+            if (parameterObject == null)
+            {
+                return true;
+            }
+
+            string propertyName = ((BaseTag) tag).Property;
+            object value;
+            if (propertyName != null && propertyName.Length > 0)
+                value = ObjectProbe.GetMemberValue(parameterObject, propertyName, AccessorFactory);
+            else
+                value = parameterObject;
+            return (value == null);
+        }
+    }
 }

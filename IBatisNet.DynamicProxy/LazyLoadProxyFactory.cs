@@ -1,4 +1,5 @@
 ﻿#region Apache Notice
+
 /*****************************************************************************
  * $Revision: 374175 $
  * $LastChangedDate: 2006-04-25 19:40:27 +0200 (mar., 25 avr. 2006) $
@@ -21,6 +22,7 @@
  * limitations under the License.
  * 
  ********************************************************************************/
+
 #endregion
 
 using System;
@@ -34,17 +36,20 @@ using IBatisNet.DataMapper.Proxy;
 namespace IBatisNet.DynamicProxy
 {
     /// <summary>
-    /// This class is responsible of create lazy load proxies for a concrete class with virtual method.
+    ///     This class is responsible of create lazy load proxies for a concrete class with virtual method.
     /// </summary>
     public class LazyLoadProxyFactory : ILazyFactory
     {
         #region Fields
+
         private static readonly ILog _logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+
         #endregion
 
         #region ILazyFactory Members
+
         /// <summary>
-        /// Builds the specified lazy load proxy for a concrete class with virtual method.
+        ///     Builds the specified lazy load proxy for a concrete class with virtual method.
         /// </summary>
         /// <param name="selectStatement">The mapped statement used to build the lazy loaded object.</param>
         /// <param name="param">The parameter object used to build lazy loaded object.</param>
@@ -57,9 +62,8 @@ namespace IBatisNet.DynamicProxy
             Type typeProxified = setAccessor.MemberType;
 
             if (_logger.IsDebugEnabled)
-            {
-                _logger.Debug(string.Format("Statement '{0}', create proxy for member {1}.", selectStatement.Id, setAccessor.MemberType));
-            }
+                _logger.Debug(string.Format("Statement '{0}', create proxy for member {1}.", selectStatement.Id,
+                    setAccessor.MemberType));
 
             // Build the proxy
             IInterceptor handler = new LazyLoadInterceptor(selectStatement, param, target, setAccessor);

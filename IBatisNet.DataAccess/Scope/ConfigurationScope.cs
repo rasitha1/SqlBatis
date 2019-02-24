@@ -1,5 +1,5 @@
-
 #region Apache Notice
+
 /*****************************************************************************
  * $Header: $
  * $Revision: 383115 $
@@ -22,6 +22,7 @@
  * limitations under the License.
  * 
  ********************************************************************************/
+
 #endregion
 
 #region Using
@@ -35,140 +36,77 @@ using IBatisNet.DataAccess.DaoSessionHandlers;
 
 namespace IBatisNet.DataAccess.Scope
 {
-	/// <summary>
-	/// Description résumée de ConfigurationScope.
-	/// </summary>
-	public class ConfigurationScope
-	{
-		#region Fields
-		
-		private ErrorContext _errorContext = null;
-		private HybridDictionary _providers = new HybridDictionary();
-		private NameValueCollection _properties = new NameValueCollection();
-		private HybridDictionary _daoSectionHandlers = new HybridDictionary();
-		private bool _useConfigFileWatcher = false;
-		private XmlDocument _daoConfigDocument = null;
-		private XmlNode _nodeContext = null;
-		private XmlNamespaceManager _nsmgr = null;
+    /// <summary>
+    ///     Description résumée de ConfigurationScope.
+    /// </summary>
+    public class ConfigurationScope
+    {
+        #region Constructors
 
-		#endregion
-	
-		#region Constructors
+        /// <summary>
+        ///     Default constructor
+        /// </summary>
+        public ConfigurationScope()
+        {
+            ErrorContext = new ErrorContext();
 
-		/// <summary>
-		/// Default constructor
-		/// </summary>
-		public ConfigurationScope()
-		{
-			_errorContext = new ErrorContext();
+            Providers.Clear();
+            DaoSectionHandlers.Clear();
 
-			_providers.Clear();
-			_daoSectionHandlers.Clear();
+            DaoSectionHandlers.Add(DomDaoManagerBuilder.DEFAULT_DAOSESSIONHANDLER_NAME,
+                typeof(SimpleDaoSessionHandler));
+            DaoSectionHandlers.Add("ADONET", typeof(SimpleDaoSessionHandler));
+            DaoSectionHandlers.Add("SqlMap", typeof(SqlMapDaoSessionHandler));
+        }
 
-			_daoSectionHandlers.Add(DomDaoManagerBuilder.DEFAULT_DAOSESSIONHANDLER_NAME, typeof(SimpleDaoSessionHandler));
-			_daoSectionHandlers.Add("ADONET", typeof(SimpleDaoSessionHandler));
-			_daoSectionHandlers.Add("SqlMap", typeof(SqlMapDaoSessionHandler));
+        #endregion
 
-		}
-		#endregion 
+        #region Fields
 
-		#region Properties
+        #endregion
 
-		
-		/// <summary>
-		/// XmlNamespaceManager
-		/// </summary>
-		public XmlNamespaceManager XmlNamespaceManager
-		{
-			set { _nsmgr = value; }
-			get { return _nsmgr; }
-		}
+        #region Properties
 
-		/// <summary>
-		/// The current context node we are analizing
-		/// </summary>
-		public XmlNode NodeContext
-		{
-			set
-			{
-				_nodeContext = value;
-			}
-			get
-			{
-				return _nodeContext;
-			}
-		}
+        /// <summary>
+        ///     XmlNamespaceManager
+        /// </summary>
+        public XmlNamespaceManager XmlNamespaceManager { set; get; } = null;
 
-		/// <summary>
-		/// The XML dao config file
-		/// </summary>
-		public XmlDocument DaoConfigDocument
-		{
-			set
-			{
-				_daoConfigDocument = value;
-			}
-			get
-			{
-				return _daoConfigDocument;
-			}
-		}
+        /// <summary>
+        ///     The current context node we are analizing
+        /// </summary>
+        public XmlNode NodeContext { set; get; } = null;
 
-		/// <summary>
-		/// Tell us if we use Configuration File Watcher
-		/// </summary>
-		public bool UseConfigFileWatcher
-		{
-			set
-			{
-				_useConfigFileWatcher = value;
-			}
-			get
-			{
-				return _useConfigFileWatcher;
-			}
-		}
+        /// <summary>
+        ///     The XML dao config file
+        /// </summary>
+        public XmlDocument DaoConfigDocument { set; get; } = null;
 
-		/// <summary>
-		///  Get the request's error context
-		/// </summary>
-		public ErrorContext ErrorContext
-		{
-			get
-			{
-				return _errorContext;
-			}
-		}
+        /// <summary>
+        ///     Tell us if we use Configuration File Watcher
+        /// </summary>
+        public bool UseConfigFileWatcher { set; get; } = false;
 
-		/// <summary>
-		///  List of providers
-		/// </summary>
-		public HybridDictionary Providers
-		{
-			get
-			{
-				return _providers;
-			}
-		}
+        /// <summary>
+        ///     Get the request's error context
+        /// </summary>
+        public ErrorContext ErrorContext { get; }
 
-		/// <summary>
-		///  List of global properties
-		/// </summary>
-		public NameValueCollection Properties
-		{
-			get
-			{
-				return _properties;
-			}
-		}
+        /// <summary>
+        ///     List of providers
+        /// </summary>
+        public HybridDictionary Providers { get; } = new HybridDictionary();
 
-		/// <summary>
-		/// List of Dao Section Handlers
-		/// </summary>
-		public HybridDictionary DaoSectionHandlers
-		{
-			get { return _daoSectionHandlers; }
-		}
-		#endregion 
-	}
+        /// <summary>
+        ///     List of global properties
+        /// </summary>
+        public NameValueCollection Properties { get; } = new NameValueCollection();
+
+        /// <summary>
+        ///     List of Dao Section Handlers
+        /// </summary>
+        public HybridDictionary DaoSectionHandlers { get; } = new HybridDictionary();
+
+        #endregion
+    }
 }

@@ -1,4 +1,5 @@
 #region Apache Notice
+
 /*****************************************************************************
  * $Revision: 374175 $
  * $LastChangedDate: 2006-04-25 19:40:27 +0200 (mar., 25 avr. 2006) $
@@ -21,6 +22,7 @@
  * limitations under the License.
  * 
  ********************************************************************************/
+
 #endregion
 
 using System.Collections;
@@ -30,26 +32,26 @@ using IBatisNet.DataMapper.MappedStatements.PropertStrategy;
 
 namespace IBatisNet.DataMapper.MappedStatements.PropertyStrategy
 {
-	/// <summary>
-	/// Factory to get <see cref="IPropertyStrategy"/> implementation.
-	/// </summary>
-	public sealed class PropertyStrategyFactory
-	{
-		private static IPropertyStrategy _defaultStrategy = null;
-        private static IPropertyStrategy _resultMapStrategy = null;
-        private static IPropertyStrategy _groupByStrategy = null;
+    /// <summary>
+    ///     Factory to get <see cref="IPropertyStrategy" /> implementation.
+    /// </summary>
+    public sealed class PropertyStrategyFactory
+    {
+        private static readonly IPropertyStrategy _defaultStrategy;
+        private static readonly IPropertyStrategy _resultMapStrategy;
+        private static readonly IPropertyStrategy _groupByStrategy;
 
-        private static IPropertyStrategy _selectArrayStrategy = null;
-        private static IPropertyStrategy _selectGenericListStrategy = null;
-        private static IPropertyStrategy _selectListStrategy = null;
-        private static IPropertyStrategy _selectObjectStrategy = null;
+        private static readonly IPropertyStrategy _selectArrayStrategy;
+        private static readonly IPropertyStrategy _selectGenericListStrategy;
+        private static readonly IPropertyStrategy _selectListStrategy;
+        private static readonly IPropertyStrategy _selectObjectStrategy;
 
-		/// <summary>
-		/// Initializes the <see cref="PropertyStrategyFactory"/> class.
-		/// </summary>
-		static PropertyStrategyFactory()
-		{
-			_defaultStrategy = new DefaultStrategy();
+        /// <summary>
+        ///     Initializes the <see cref="PropertyStrategyFactory" /> class.
+        /// </summary>
+        static PropertyStrategyFactory()
+        {
+            _defaultStrategy = new DefaultStrategy();
             _resultMapStrategy = new ResultMapStrategy();
             _groupByStrategy = new GroupByStrategy();
 
@@ -57,53 +59,35 @@ namespace IBatisNet.DataMapper.MappedStatements.PropertyStrategy
             _selectListStrategy = new SelectListStrategy();
             _selectObjectStrategy = new SelectObjectStrategy();
             _selectGenericListStrategy = new SelectGenericListStrategy();
-		}
+        }
 
-		/// <summary>
-		/// Finds the <see cref="IPropertyStrategy"/>.
-		/// </summary>
-		/// <param name="mapping">The <see cref="ResultProperty"/>.</param>
-		/// <returns>The <see cref="IPropertyStrategy"/></returns>
-		public static IPropertyStrategy Get(ResultProperty mapping)
-		{
-			// no 'select' or 'resultMap' attributes
-			if (mapping.Select.Length == 0 && mapping.NestedResultMap == null)
-			{
-				// We have a 'normal' ResultMap
-				return _defaultStrategy;
-			}
-			else if (mapping.NestedResultMap != null) // 'resultMap' attribute
-			{
-                if (mapping.NestedResultMap.GroupByPropertyNames.Count>0)
-                {
-                    return _groupByStrategy; 
-                }
-			    else
-                {
-                    if (mapping.MemberType.IsGenericType &&
-                        typeof(IList<>).IsAssignableFrom(mapping.MemberType.GetGenericTypeDefinition()))
-                    {
-                        return _groupByStrategy; 
-                    }
-                    else
-                        if (typeof(IList).IsAssignableFrom(mapping.MemberType))
-                        {
-                            return _groupByStrategy; 
-                        }
-                        else
-                        {
-                            return _resultMapStrategy; 
-                        }
-                }
-			}
-			else //'select' ResultProperty 
-			{
-				return new SelectStrategy(mapping,
-                    _selectArrayStrategy,
-                    _selectGenericListStrategy,
-                    _selectListStrategy,
-                    _selectObjectStrategy);
-			}
-		}
-	}
+        /// <summary>
+        ///     Finds the <see cref="IPropertyStrategy" />.
+        /// </summary>
+        /// <param name="mapping">The <see cref="ResultProperty" />.</param>
+        /// <returns>The <see cref="IPropertyStrategy" /></returns>
+        public static IPropertyStrategy Get(ResultProperty mapping)
+        {
+            // no 'select' or 'resultMap' attributes
+            if (mapping.Select.Length == 0 && mapping.NestedResultMap == null) return _defaultStrategy;
+
+            if (mapping.NestedResultMap != null) // 'resultMap' attribute
+            {
+                if (mapping.NestedResultMap.GroupByPropertyNames.Count > 0) return _groupByStrategy;
+
+                if (mapping.MemberType.IsGenericType &&
+                    typeof(IList<>).IsAssignableFrom(mapping.MemberType.GetGenericTypeDefinition()))
+                    return _groupByStrategy;
+                if (typeof(IList).IsAssignableFrom(mapping.MemberType))
+                    return _groupByStrategy;
+                return _resultMapStrategy;
+            }
+
+            return new SelectStrategy(mapping,
+                _selectArrayStrategy,
+                _selectGenericListStrategy,
+                _selectListStrategy,
+                _selectObjectStrategy);
+        }
+    }
 }

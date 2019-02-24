@@ -1,5 +1,5 @@
-
 #region Apache Notice
+
 /*****************************************************************************
  * $Header: $
  * $Revision: 383115 $
@@ -22,58 +22,51 @@
  * limitations under the License.
  * 
  ********************************************************************************/
+
 #endregion
 
 #region Imports
-using System;
-using System.Text;
 
+using System.Text;
 using IBatisNet.DataMapper.Configuration.Sql.Dynamic.Elements;
+
 #endregion
 
 
 namespace IBatisNet.DataMapper.Configuration.Sql.Dynamic.Handlers
 {
-	/// <summary>
-	/// Summary description for ISqlTagHandler.
-	/// </summary>
-	public interface ISqlTagHandler
-	{
+    /// <summary>
+    ///     Summary description for ISqlTagHandler.
+    /// </summary>
+    public interface ISqlTagHandler
+    {
+        /// <summary>
+        /// </summary>
+        bool IsPostParseRequired { get; }
 
-		/// <summary>
-		/// 
-		/// </summary>
-		/// <param name="ctx"></param>
-		/// <param name="tag"></param>
-		/// <param name="parameterObject"></param>
-		/// <returns></returns>
-		int DoStartFragment(SqlTagContext ctx, SqlTag tag, object parameterObject);
+        /// <summary>
+        /// </summary>
+        /// <param name="ctx"></param>
+        /// <param name="tag"></param>
+        /// <param name="parameterObject"></param>
+        /// <returns></returns>
+        int DoStartFragment(SqlTagContext ctx, SqlTag tag, object parameterObject);
 
-		/// <summary>
-		/// 
-		/// </summary>
-		/// <param name="ctx"></param>
-		/// <param name="tag"></param>
-		/// <param name="parameterObject"></param>
-		/// <param name="bodyContent"></param>
-		/// <returns></returns>
-		int DoEndFragment(SqlTagContext ctx, SqlTag tag, object parameterObject, StringBuilder bodyContent);
+        /// <summary>
+        /// </summary>
+        /// <param name="ctx"></param>
+        /// <param name="tag"></param>
+        /// <param name="parameterObject"></param>
+        /// <param name="bodyContent"></param>
+        /// <returns></returns>
+        int DoEndFragment(SqlTagContext ctx, SqlTag tag, object parameterObject, StringBuilder bodyContent);
 
-		/// <summary>
-		/// 
-		/// </summary>
-		/// <param name="ctx"></param>
-		/// <param name="tag"></param>
-		/// <param name="parameterObject"></param>
-		/// <param name="bodyContent"></param>
-		void DoPrepend(SqlTagContext ctx, SqlTag tag, object parameterObject, StringBuilder bodyContent);
-
-		/// <summary>
-		/// 
-		/// </summary>
-		bool IsPostParseRequired
-		{
-			get;
-		}
-	}
+        /// <summary>
+        /// </summary>
+        /// <param name="ctx"></param>
+        /// <param name="tag"></param>
+        /// <param name="parameterObject"></param>
+        /// <param name="bodyContent"></param>
+        void DoPrepend(SqlTagContext ctx, SqlTag tag, object parameterObject, StringBuilder bodyContent);
+    }
 }

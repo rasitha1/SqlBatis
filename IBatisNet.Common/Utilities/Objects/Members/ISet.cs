@@ -1,4 +1,5 @@
 #region Apache Notice
+
 /*****************************************************************************
  * $Revision: 374175 $
  * $LastChangedDate: 2006-04-25 19:40:27 +0200 (mar., 25 avr. 2006) $
@@ -21,19 +22,20 @@
  * limitations under the License.
  * 
  ********************************************************************************/
+
 #endregion
 
 
 namespace IBatisNet.Common.Utilities.Objects.Members
 {
     /// <summary>
-    /// The <see cref="ISet"/> interface defines a field/property set contrat to set the
-    /// value on a field or property.
+    ///     The <see cref="ISet" /> interface defines a field/property set contrat to set the
+    ///     value on a field or property.
     /// </summary>
     public interface ISet
     {
         /// <summary>
-        /// Sets the value for the field/property of the specified target.
+        ///     Sets the value for the field/property of the specified target.
         /// </summary>
         /// <param name="target">Object to set the field/property on.</param>
         /// <param name="value">Value.</param>

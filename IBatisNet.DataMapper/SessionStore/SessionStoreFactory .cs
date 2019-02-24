@@ -1,4 +1,5 @@
 #region Apache Notice
+
 /*****************************************************************************
  * $Header: $
  * $Revision: 378715 $
@@ -21,37 +22,32 @@
  * limitations under the License.
  * 
  ********************************************************************************/
+
 #endregion
+
+using System.Web;
 
 namespace IBatisNet.DataMapper.SessionStore
 {
-	/// <summary>
-	/// Build a session container for a Windows or Web context.
-	/// When running in the context of a web application the session object is 
-	/// stored in HttpContext items and has 'per request' lifetime.
-	/// When running in the context of a windows application the session object is 
-	/// stored via CallContext.
-	/// </summary>
-	public sealed class SessionStoreFactory
-	{
-
+    /// <summary>
+    ///     Build a session container for a Windows or Web context.
+    ///     When running in the context of a web application the session object is
+    ///     stored in HttpContext items and has 'per request' lifetime.
+    ///     When running in the context of a windows application the session object is
+    ///     stored via CallContext.
+    /// </summary>
+    public sealed class SessionStoreFactory
+    {
         /// <summary>
-        /// Gets the session store.
+        ///     Gets the session store.
         /// </summary>
         /// <param name="sqlMapperId">The SQL mapper id.</param>
         /// <returns></returns>
         static public ISessionStore GetSessionStore(string sqlMapperId)
-		{
-			if (System.Web.HttpContext.Current == null)
-			{
+        {
+            if (HttpContext.Current == null)
                 return new CallContextSessionStore(sqlMapperId);
-			}
-			else
-			{
-                return new WebSessionStore(sqlMapperId);
-			}
-		}
-
-	}
+            return new WebSessionStore(sqlMapperId);
+        }
+    }
 }
-

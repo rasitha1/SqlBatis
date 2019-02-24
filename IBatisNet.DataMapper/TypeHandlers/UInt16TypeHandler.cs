@@ -1,5 +1,5 @@
-
 #region Apache Notice
+
 /*****************************************************************************
  * $Revision: 408164 $
  * $LastChangedDate: 2006-11-19 17:07:45 +0100 (dim., 19 nov. 2006) $
@@ -22,6 +22,7 @@
  * limitations under the License.
  * 
  ********************************************************************************/
+
 #endregion
 
 #region Using
@@ -30,19 +31,26 @@ using System;
 using System.Data;
 using IBatisNet.DataMapper.Configuration.ResultMapping;
 
-#endregion 
+#endregion
 
 namespace IBatisNet.DataMapper.TypeHandlers
 {
     /// <summary>
-    /// TypeHandler for UInt16 Type
+    ///     TypeHandler for UInt16 Type
     /// </summary>
     public sealed class UInt16TypeHandler : BaseTypeHandler
     {
+        /// <summary>
+        ///     Gets a value indicating whether this instance is simple type.
+        /// </summary>
+        /// <value>
+        ///     <c>true</c> if this instance is simple type; otherwise, <c>false</c>.
+        /// </value>
+        public override bool IsSimpleType => true;
 
 
         /// <summary>
-        /// Gets a column value by the name
+        ///     Gets a column value by the name
         /// </summary>
         /// <param name="mapping"></param>
         /// <param name="dataReader"></param>
@@ -51,38 +59,26 @@ namespace IBatisNet.DataMapper.TypeHandlers
         {
             int index = dataReader.GetOrdinal(mapping.ColumnName);
 
-            if (dataReader.IsDBNull(index) == true)
-            {
+            if (dataReader.IsDBNull(index))
                 return DBNull.Value;
-            }
-            else
-            {
-                // Don't used dataReader.GetInt32 to fix oracle who alwray return decimal type
-                return Convert.ToUInt16(dataReader.GetValue(index));
-            }
+            return Convert.ToUInt16(dataReader.GetValue(index));
         }
 
         /// <summary>
-        /// Gets a column value by the index
+        ///     Gets a column value by the index
         /// </summary>
         /// <param name="mapping"></param>
         /// <param name="dataReader"></param>
         /// <returns></returns>
         public override object GetValueByIndex(ResultProperty mapping, IDataReader dataReader)
         {
-            if (dataReader.IsDBNull(mapping.ColumnIndex) == true)
-            {
+            if (dataReader.IsDBNull(mapping.ColumnIndex))
                 return DBNull.Value;
-            }
-            else
-            {
-                // Don't used dataReader.GetInt32 to fix oracle who alwray return decimal type
-                return Convert.ToUInt16(dataReader.GetValue(mapping.ColumnIndex));
-            }
+            return Convert.ToUInt16(dataReader.GetValue(mapping.ColumnIndex));
         }
 
         /// <summary>
-        /// Retrieve ouput database value of an output parameter
+        ///     Retrieve ouput database value of an output parameter
         /// </summary>
         /// <param name="outputValue">ouput database value</param>
         /// <param name="parameterType">type used in EnumTypeHandler</param>
@@ -93,7 +89,7 @@ namespace IBatisNet.DataMapper.TypeHandlers
         }
 
         /// <summary>
-        /// Converts the String to the type that this handler deals with
+        ///     Converts the String to the type that this handler deals with
         /// </summary>
         /// <param name="type">the tyepe of the property (used only for enum conversion)</param>
         /// <param name="s">the String value</param>
@@ -101,17 +97,6 @@ namespace IBatisNet.DataMapper.TypeHandlers
         public override object ValueOf(Type type, string s)
         {
             return Convert.ToUInt16(s);
-        }
-
-        /// <summary>
-        /// Gets a value indicating whether this instance is simple type.
-        /// </summary>
-        /// <value>
-        /// 	<c>true</c> if this instance is simple type; otherwise, <c>false</c>.
-        /// </value>
-        public override bool IsSimpleType
-        {
-            get { return true; }
         }
 
         //public override object NullValue

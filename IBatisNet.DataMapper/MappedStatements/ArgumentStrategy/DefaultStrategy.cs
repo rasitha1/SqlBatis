@@ -1,4 +1,5 @@
 #region Apache Notice
+
 /*****************************************************************************
  * $Revision: 374175 $
  * $LastChangedDate: 2006-04-25 19:40:27 +0200 (mar., 25 avr. 2006) $
@@ -21,6 +22,7 @@
  * limitations under the License.
  * 
  ********************************************************************************/
+
 #endregion
 
 using System;
@@ -31,54 +33,48 @@ using IBatisNet.DataMapper.TypeHandlers;
 
 namespace IBatisNet.DataMapper.MappedStatements.ArgumentStrategy
 {
-	/// <summary>
-	/// <see cref="IArgumentStrategy"/> implementation when no 'select' or
-	/// 'resultMapping' attribute exists on a <see cref="ResultProperty"/>.
-	/// </summary>
-	public sealed class DefaultStrategy : IArgumentStrategy
-	{
-		#region IArgumentStrategy Members
+    /// <summary>
+    ///     <see cref="IArgumentStrategy" /> implementation when no 'select' or
+    ///     'resultMapping' attribute exists on a <see cref="ResultProperty" />.
+    /// </summary>
+    public sealed class DefaultStrategy : IArgumentStrategy
+    {
+        #region IArgumentStrategy Members
 
         /// <summary>
-        /// Gets the value of an argument constructor.
+        ///     Gets the value of an argument constructor.
         /// </summary>
-        /// <param name="request">The current <see cref="RequestScope"/>.</param>
-        /// <param name="mapping">The <see cref="ResultProperty"/> with the argument infos.</param>
-        /// <param name="reader">The current <see cref="IDataReader"/>.</param>
+        /// <param name="request">The current <see cref="RequestScope" />.</param>
+        /// <param name="mapping">The <see cref="ResultProperty" /> with the argument infos.</param>
+        /// <param name="reader">The current <see cref="IDataReader" />.</param>
         /// <param name="keys">The keys</param>
         /// <returns>The paremeter value.</returns>
-		public object GetValue(RequestScope request, ResultProperty mapping, 
-		                       ref IDataReader reader, object keys)
-		{
-			if (mapping.TypeHandler == null || 
-				mapping.TypeHandler is UnknownTypeHandler) // Find the TypeHandler
-			{
-				lock(mapping) 
-				{
-					if (mapping.TypeHandler == null || mapping.TypeHandler is UnknownTypeHandler)
-					{
-						int columnIndex = 0;
-						if (mapping.ColumnIndex == ResultProperty.UNKNOWN_COLUMN_INDEX) 
-						{
-							columnIndex = reader.GetOrdinal(mapping.ColumnName);
-						} 
-						else 
-						{
-							columnIndex = mapping.ColumnIndex;
-						}
-						Type systemType =((IDataRecord)reader).GetFieldType(columnIndex);
+        public object GetValue(RequestScope request, ResultProperty mapping,
+            ref IDataReader reader, object keys)
+        {
+            if (mapping.TypeHandler == null ||
+                mapping.TypeHandler is UnknownTypeHandler) // Find the TypeHandler
+                lock (mapping)
+                {
+                    if (mapping.TypeHandler == null || mapping.TypeHandler is UnknownTypeHandler)
+                    {
+                        int columnIndex = 0;
+                        if (mapping.ColumnIndex == ResultProperty.UNKNOWN_COLUMN_INDEX)
+                            columnIndex = reader.GetOrdinal(mapping.ColumnName);
+                        else
+                            columnIndex = mapping.ColumnIndex;
+                        Type systemType = reader.GetFieldType(columnIndex);
 
-						mapping.TypeHandler = request.DataExchangeFactory.TypeHandlerFactory.GetTypeHandler(systemType);
-					}
-				}					
-			}
+                        mapping.TypeHandler = request.DataExchangeFactory.TypeHandlerFactory.GetTypeHandler(systemType);
+                    }
+                }
 
-			object dataBaseValue = mapping.GetDataBaseValue( reader );
-			request.IsRowDataFound = request.IsRowDataFound || (dataBaseValue != null);
+            object dataBaseValue = mapping.GetDataBaseValue(reader);
+            request.IsRowDataFound = request.IsRowDataFound || (dataBaseValue != null);
 
-			return dataBaseValue;
-		}
+            return dataBaseValue;
+        }
 
-		#endregion
-	}
+        #endregion
+    }
 }

@@ -1,5 +1,5 @@
-
 #region Apache Notice
+
 /*****************************************************************************
  * $Header: $
  * $Revision: 383115 $
@@ -22,6 +22,7 @@
  * limitations under the License.
  * 
  ********************************************************************************/
+
 #endregion
 
 #region Using
@@ -33,121 +34,98 @@ using System.Text;
 
 namespace IBatisNet.DataMapper.Scope
 {
-	/// <summary>
-	/// An error context to help us create meaningful error messages.
-	/// </summary>
-	public class ErrorContext
-	{
+    /// <summary>
+    ///     An error context to help us create meaningful error messages.
+    /// </summary>
+    public class ErrorContext
+    {
+        #region Fields
 
-		#region Fields
+        #endregion
 
-		private string _resource = string.Empty;
-		private string _activity = string.Empty;
-		private string _objectId = string.Empty;
-		private string _moreInfo = string.Empty;
-		#endregion 
+        #region Properties
 
-		#region Properties
+        /// <summary>
+        ///     The resource causing the problem
+        /// </summary>
+        public string Resource { get; set; } = string.Empty;
 
-		/// <summary>
-		/// The resource causing the problem
-		/// </summary>
-		public string Resource
-		{
-			get { return _resource; }
-			set { _resource = value; }
-		}
+        /// <summary>
+        ///     The activity that was happening when the error happened
+        /// </summary>
+        public string Activity { get; set; } = string.Empty;
 
-		/// <summary>
-		/// The activity that was happening when the error happened
-		/// </summary>
-		public string Activity
-		{
-			get { return _activity; }
-			set { _activity = value; }
-		}
+        /// <summary>
+        ///     The object ID where the problem happened
+        /// </summary>
+        public string ObjectId { get; set; } = string.Empty;
 
-		/// <summary>
-		/// The object ID where the problem happened
-		/// </summary>
-		public string ObjectId
-		{
-			get { return _objectId; }
-			set { _objectId = value; }
-		}
+        /// <summary>
+        ///     More information about the error
+        /// </summary>
+        public string MoreInfo { get; set; } = string.Empty;
 
-		/// <summary>
-		/// More information about the error
-		/// </summary>
-		public string MoreInfo
-		{
-			get { return _moreInfo; }
-			set { _moreInfo = value; }
-		}
+        #endregion
 
-		#endregion 
+        #region Methods
 
-		#region Methods
+        /// <summary>
+        ///     Clear the error context
+        /// </summary>
+        public void Reset()
+        {
+            Resource = string.Empty;
+            Activity = string.Empty;
+            ObjectId = string.Empty;
+            MoreInfo = string.Empty;
+        }
 
-		/// <summary>
-		/// Clear the error context
-		/// </summary>
-		public void Reset() 
-		{
-			_resource = string.Empty;
-			_activity = string.Empty;
-			_objectId = string.Empty;
-			_moreInfo = string.Empty;
-		}
+        /// <summary>
+        /// </summary>
+        /// <returns></returns>
+        public override string ToString()
+        {
+            StringBuilder message = new StringBuilder();
 
-		/// <summary>
-		/// 
-		/// </summary>
-		/// <returns></returns>
-		public override string ToString() 
-		{
-			StringBuilder message = new StringBuilder();
+            // activity
+            if (Activity != null && Activity.Length > 0)
+            {
+                message.Append(Environment.NewLine);
+                message.Append("- The error occurred while ");
+                message.Append(Activity);
+                message.Append(".");
+            }
 
-			// activity
-			if (_activity != null && _activity.Length > 0) 
-			{
-				message.Append(Environment.NewLine);
-				message.Append("- The error occurred while ");
-				message.Append(_activity);
-				message.Append(".");
-			}			
+            // more info
+            if (MoreInfo != null && MoreInfo.Length > 0)
+            {
+                message.Append(Environment.NewLine);
+                message.Append("- ");
+                message.Append(MoreInfo);
+            }
 
-			// more info
-			if (_moreInfo != null && _moreInfo.Length > 0) 
-			{
-				message.Append(Environment.NewLine);
-				message.Append("- ");
-				message.Append(_moreInfo);
-			}
-			
-			// resource
-			if (_resource != null && _resource.Length > 0) 
-			{
-				message.Append(Environment.NewLine);
-				message.Append("- The error occurred in ");
-				message.Append(_resource);
-				message.Append(".");
-			}
+            // resource
+            if (Resource != null && Resource.Length > 0)
+            {
+                message.Append(Environment.NewLine);
+                message.Append("- The error occurred in ");
+                message.Append(Resource);
+                message.Append(".");
+            }
 
-			// object
-			if (_objectId != null && _objectId.Length > 0)
-			{
-				message.Append("  ");
-				message.Append(Environment.NewLine);
-				message.Append("- Check the ");
-				message.Append(_objectId);
-				message.Append(".");
-			}
+            // object
+            if (ObjectId != null && ObjectId.Length > 0)
+            {
+                message.Append("  ");
+                message.Append(Environment.NewLine);
+                message.Append("- Check the ");
+                message.Append(ObjectId);
+                message.Append(".");
+            }
 
-			return message.ToString();
-		}
+            return message.ToString();
+        }
 
-		#endregion 
-
-	}
+        #endregion
+    }
 }

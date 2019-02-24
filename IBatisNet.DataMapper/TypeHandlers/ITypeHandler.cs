@@ -1,5 +1,5 @@
-
 #region Apache Notice
+
 /*****************************************************************************
  * $Revision: 389819 $
  * $LastChangedDate: 2006-03-29 18:15:54 +0200 (mer., 29 mars 2006) $
@@ -22,6 +22,7 @@
  * limitations under the License.
  * 
  ********************************************************************************/
+
 #endregion
 
 #region Using
@@ -30,73 +31,71 @@ using System;
 using System.Data;
 using IBatisNet.DataMapper.Configuration.ResultMapping;
 
-#endregion 
+#endregion
 
 namespace IBatisNet.DataMapper.TypeHandlers
 {
-	/// <summary>
-	/// Summary description for ITypeHandler.
-	/// </summary>
-	public interface ITypeHandler
-	{
-
-		/// <summary>
-		/// 
-		/// </summary>
-		/// <returns></returns>
-		bool IsSimpleType{get;}
-
-		/// <summary>
-		/// Gets a column value by the name
-		/// </summary>
-		/// <param name="mapping"></param>
-		/// <param name="dataReader"></param>
-		/// <returns></returns>
-		object GetValueByName(ResultProperty mapping, IDataReader dataReader);
-
-		/// <summary>
-		/// Gets a column value by the index
-		/// </summary>
-		/// <param name="mapping"></param>
-		/// <param name="dataReader"></param>
-		/// <returns></returns>
-		object GetValueByIndex(ResultProperty mapping, IDataReader dataReader);
-
-		/// <summary>
-		/// Retrieve ouput database value of an output parameter
-		/// </summary>
-		/// <param name="outputValue">ouput database value</param>
-		/// <param name="parameterType">type used in EnumTypeHandler</param>
-		/// <returns></returns>
-		object GetDataBaseValue(object outputValue, Type parameterType);
-
-		/// <summary>
-		///  Sets a parameter on a IDbCommand
-		/// </summary>
-		/// <param name="dataParameter">the parameter</param>
-		/// <param name="parameterValue">the parameter value</param>
-		/// <param name="dbType">the dbType of the parameter</param>
-		void SetParameter(IDataParameter dataParameter, object parameterValue, string dbType);
-
-		/// <summary>
-		/// Converts the String to the type that this handler deals with
-		/// </summary>
-		/// <param name="type">the tyepe of the property (used only for enum conversion)</param>
-		/// <param name="s">the String value</param>
-		/// <returns>the converted value</returns>
-		object ValueOf(Type type, string s);
-
-		/// <summary>
-		///  Compares two values (that this handler deals with) for equality
-		/// </summary>
-		/// <param name="obj">one of the objects</param>
-		/// <param name="str">the other object as a String</param>
-		/// <returns>true if they are equal</returns>
-		 bool Equals(object obj, string str);
+    /// <summary>
+    ///     Summary description for ITypeHandler.
+    /// </summary>
+    public interface ITypeHandler
+    {
+        /// <summary>
+        /// </summary>
+        /// <returns></returns>
+        bool IsSimpleType { get; }
 
         /// <summary>
-        /// The null value for this type
+        ///     The null value for this type
         /// </summary>
-        object NullValue { get;}
-	}
+        object NullValue { get; }
+
+        /// <summary>
+        ///     Gets a column value by the name
+        /// </summary>
+        /// <param name="mapping"></param>
+        /// <param name="dataReader"></param>
+        /// <returns></returns>
+        object GetValueByName(ResultProperty mapping, IDataReader dataReader);
+
+        /// <summary>
+        ///     Gets a column value by the index
+        /// </summary>
+        /// <param name="mapping"></param>
+        /// <param name="dataReader"></param>
+        /// <returns></returns>
+        object GetValueByIndex(ResultProperty mapping, IDataReader dataReader);
+
+        /// <summary>
+        ///     Retrieve ouput database value of an output parameter
+        /// </summary>
+        /// <param name="outputValue">ouput database value</param>
+        /// <param name="parameterType">type used in EnumTypeHandler</param>
+        /// <returns></returns>
+        object GetDataBaseValue(object outputValue, Type parameterType);
+
+        /// <summary>
+        ///     Sets a parameter on a IDbCommand
+        /// </summary>
+        /// <param name="dataParameter">the parameter</param>
+        /// <param name="parameterValue">the parameter value</param>
+        /// <param name="dbType">the dbType of the parameter</param>
+        void SetParameter(IDataParameter dataParameter, object parameterValue, string dbType);
+
+        /// <summary>
+        ///     Converts the String to the type that this handler deals with
+        /// </summary>
+        /// <param name="type">the tyepe of the property (used only for enum conversion)</param>
+        /// <param name="s">the String value</param>
+        /// <returns>the converted value</returns>
+        object ValueOf(Type type, string s);
+
+        /// <summary>
+        ///     Compares two values (that this handler deals with) for equality
+        /// </summary>
+        /// <param name="obj">one of the objects</param>
+        /// <param name="str">the other object as a String</param>
+        /// <returns>true if they are equal</returns>
+        bool Equals(object obj, string str);
+    }
 }

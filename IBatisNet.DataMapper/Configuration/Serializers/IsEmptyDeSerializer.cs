@@ -1,4 +1,5 @@
 #region Apache Notice
+
 /*****************************************************************************
  * $Header: $
  * $Revision: 408164 $
@@ -21,6 +22,7 @@
  * limitations under the License.
  * 
  ********************************************************************************/
+
 #endregion
 
 #region Using
@@ -30,47 +32,45 @@ using System.Xml;
 using IBatisNet.Common.Xml;
 using IBatisNet.DataMapper.Configuration.Sql.Dynamic.Elements;
 using IBatisNet.DataMapper.Scope;
-#endregion 
 
+#endregion
 
 
 namespace IBatisNet.DataMapper.Configuration.Serializers
 {
-	/// <summary>
-	/// Summary description for IsEmptyDeSerializer.
-	/// </summary>
-	public sealed class IsEmptyDeSerializer : IDeSerializer
-	{
+    /// <summary>
+    ///     Summary description for IsEmptyDeSerializer.
+    /// </summary>
+    public sealed class IsEmptyDeSerializer : IDeSerializer
+    {
+        private readonly ConfigurationScope _configScope;
 
-		private ConfigurationScope _configScope = null;
+        /// <summary>
+        /// </summary>
+        /// <param name="configScope"></param>
+        public IsEmptyDeSerializer(ConfigurationScope configScope)
+        {
+            _configScope = configScope;
+        }
 
-		/// <summary>
-		/// 
-		/// </summary>
-		/// <param name="configScope"></param>
-		public IsEmptyDeSerializer(ConfigurationScope configScope)
-		{
-			_configScope = configScope;
-		}
+        #region IDeSerializer Members
 
-		#region IDeSerializer Members
+        /// <summary>
+        ///     Deserialize a IsNotNull object
+        /// </summary>
+        /// <param name="node"></param>
+        /// <returns></returns>
+        public SqlTag Deserialize(XmlNode node)
+        {
+            IsEmpty isEmpty = new IsEmpty(_configScope.DataExchangeFactory.AccessorFactory);
 
-		/// <summary>
-		/// Deserialize a IsNotNull object
-		/// </summary>
-		/// <param name="node"></param>
-		/// <returns></returns>
-		public SqlTag Deserialize(XmlNode node)
-		{
-			IsEmpty isEmpty = new IsEmpty(_configScope.DataExchangeFactory.AccessorFactory);
+            NameValueCollection prop = NodeUtils.ParseAttributes(node, _configScope.Properties);
+            isEmpty.Prepend = NodeUtils.GetStringAttribute(prop, "prepend");
+            isEmpty.Property = NodeUtils.GetStringAttribute(prop, "property");
 
-			NameValueCollection prop = NodeUtils.ParseAttributes(node, _configScope.Properties);
-			isEmpty.Prepend = NodeUtils.GetStringAttribute(prop, "prepend");
-			isEmpty.Property = NodeUtils.GetStringAttribute(prop, "property");
+            return isEmpty;
+        }
 
-			return isEmpty;
-		}
-
-		#endregion
-	}
+        #endregion
+    }
 }

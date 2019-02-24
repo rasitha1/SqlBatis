@@ -1,5 +1,5 @@
-
 #region Apache Notice
+
 /*****************************************************************************
  * $Revision: 476843 $
  * $LastChangedDate: 2006-11-19 17:07:45 +0100 (dim., 19 nov. 2006) $
@@ -22,6 +22,7 @@
  * limitations under the License.
  * 
  ********************************************************************************/
+
 #endregion
 
 #region Imports
@@ -35,67 +36,68 @@ using IBatisNet.DataMapper.Scope;
 
 namespace IBatisNet.DataMapper.Configuration.Sql.Static
 {
-	/// <summary>
-	/// Summary description for StaticSql.
-	/// </summary>
-	public sealed class StaticSql : ISql
-	{
+    /// <summary>
+    ///     Summary description for StaticSql.
+    /// </summary>
+    public sealed class StaticSql : ISql
+    {
+        #region Constructor (s) / Destructor
 
-		#region Fields
+        /// <summary>
+        ///     Constructor
+        /// </summary>
+        /// <param name="statement">The statement.</param>
+        /// <param name="scope"></param>
+        public StaticSql(IScope scope, IStatement statement)
+        {
+            _statement = statement;
 
-		private IStatement _statement = null ;
-		private PreparedStatement _preparedStatement = null ;
-		private DataExchangeFactory _dataExchangeFactory = null;
+            _dataExchangeFactory = scope.DataExchangeFactory;
+        }
 
-		#endregion
+        #endregion
 
-		#region Constructor (s) / Destructor
-		/// <summary>
-		/// Constructor
-		/// </summary>
-		/// <param name="statement">The statement.</param>
-		/// <param name="scope"></param>
-		public StaticSql(IScope scope, IStatement statement)
-		{
-			_statement = statement;
+        #region Fields
 
-			_dataExchangeFactory = scope.DataExchangeFactory;
-		}
-		#endregion
+        private readonly IStatement _statement;
+        private PreparedStatement _preparedStatement;
+        private readonly DataExchangeFactory _dataExchangeFactory;
 
-		#region ISql Members
+        #endregion
 
-		/// <summary>
-		/// Builds a new <see cref="RequestScope"/> and the sql command text to execute.
-		/// </summary>
-		/// <param name="parameterObject">The parameter object (used in DynamicSql)</param>
-		/// <param name="session">The current session</param>
-		/// <param name="mappedStatement">The <see cref="IMappedStatement"/>.</param>
-		/// <returns>A new <see cref="RequestScope"/>.</returns>
-		public RequestScope GetRequestScope(IMappedStatement mappedStatement,
-			object parameterObject, ISqlMapSession session)
-		{
-			RequestScope request = new RequestScope(_dataExchangeFactory, session, _statement);
+        #region ISql Members
 
-			request.PreparedStatement = _preparedStatement;
-			request.MappedStatement = mappedStatement;
+        /// <summary>
+        ///     Builds a new <see cref="RequestScope" /> and the sql command text to execute.
+        /// </summary>
+        /// <param name="parameterObject">The parameter object (used in DynamicSql)</param>
+        /// <param name="session">The current session</param>
+        /// <param name="mappedStatement">The <see cref="IMappedStatement" />.</param>
+        /// <returns>A new <see cref="RequestScope" />.</returns>
+        public RequestScope GetRequestScope(IMappedStatement mappedStatement,
+            object parameterObject, ISqlMapSession session)
+        {
+            RequestScope request = new RequestScope(_dataExchangeFactory, session, _statement);
 
-			return request;
-		}
+            request.PreparedStatement = _preparedStatement;
+            request.MappedStatement = mappedStatement;
 
-		/// <summary>
-		/// Build the PreparedStatement
-		/// </summary>
-		/// <param name="session"></param>
-		/// <param name="sqlStatement"></param>
-		public void BuildPreparedStatement(ISqlMapSession session, string sqlStatement)
-		{
-			RequestScope request = new RequestScope( _dataExchangeFactory, session, _statement);
+            return request;
+        }
 
-			PreparedStatementFactory factory = new PreparedStatementFactory( session, request, _statement, sqlStatement);
-			_preparedStatement = factory.Prepare();
-		}
+        /// <summary>
+        ///     Build the PreparedStatement
+        /// </summary>
+        /// <param name="session"></param>
+        /// <param name="sqlStatement"></param>
+        public void BuildPreparedStatement(ISqlMapSession session, string sqlStatement)
+        {
+            RequestScope request = new RequestScope(_dataExchangeFactory, session, _statement);
 
-		#endregion
-	}
+            PreparedStatementFactory factory = new PreparedStatementFactory(session, request, _statement, sqlStatement);
+            _preparedStatement = factory.Prepare();
+        }
+
+        #endregion
+    }
 }

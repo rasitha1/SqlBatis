@@ -1,5 +1,5 @@
-
 #region Apache Notice
+
 /*****************************************************************************
  * $Header: $
  * $Revision: 383115 $
@@ -22,43 +22,36 @@
  * limitations under the License.
  * 
  ********************************************************************************/
+
 #endregion
 
 using System;
-using System.Data;
 using System.Xml.Serialization;
 
 namespace IBatisNet.DataMapper.Configuration.Statements
 {
-	/// <summary>
-	/// Summary description for Update.
-	/// </summary>
-	[Serializable]
-	[XmlRoot("update", Namespace="http://ibatis.apache.org/mapping")]
-	public class Update : Statement
-	{
+    /// <summary>
+    ///     Summary description for Update.
+    /// </summary>
+    [Serializable]
+    [XmlRoot("update", Namespace = "http://ibatis.apache.org/mapping")]
+    public class Update : Statement
+    {
+        #region Fields
 
-		#region Fields
-		[NonSerialized]
-		private Generate _generate = null;
-		#endregion
+        [NonSerialized] private Generate _generate;
 
-		/// <summary>
-		/// The Generate tag used by a generated update statement.
-		/// (CRUD operation)
-		/// </summary>
-		[XmlElement("generate",typeof(Generate))]
-		public Generate Generate
-		{
-			get { return _generate; }
-			set { _generate = value; }
-		}
+        #endregion
 
-		/// <summary>
-		/// Do not use direclty, only for serialization.
-		/// </summary>
-		public Update():base()
-		{}
-
-	}
+        /// <summary>
+        ///     The Generate tag used by a generated update statement.
+        ///     (CRUD operation)
+        /// </summary>
+        [XmlElement("generate", typeof(Generate))]
+        public Generate Generate
+        {
+            get => _generate;
+            set => _generate = value;
+        }
+    }
 }

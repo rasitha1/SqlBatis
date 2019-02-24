@@ -1,4 +1,5 @@
 #region Apache Notice
+
 /*****************************************************************************
  * $Revision: 374175 $
  * $LastChangedDate: 2006-02-19 12:37:22 +0100 (Sun, 19 Feb 2006) $
@@ -21,26 +22,25 @@
  * limitations under the License.
  * 
  ********************************************************************************/
+
 #endregion
 
 using System;
 using System.Collections;
-using System.Reflection;
 using System.Reflection.Emit;
-using IBatisNet.Common.Exceptions;
 
 namespace IBatisNet.Common.Utilities.Objects
 {
-    /// <summary>  
-    /// Helper class that returns appropriate boxing opcode based on type  
-    /// </summary>  
+    /// <summary>
+    ///     Helper class that returns appropriate boxing opcode based on type
+    /// </summary>
     /// <remarks>From Spring.NET</remarks>
     public sealed class BoxingOpCodes
     {
-        private static IDictionary boxingOpCodes;
+        private static readonly IDictionary boxingOpCodes;
 
         /// <summary>
-        /// Initializes the <see cref="BoxingOpCodes"/> class.
+        ///     Initializes the <see cref="BoxingOpCodes" /> class.
         /// </summary>
         static BoxingOpCodes()
         {
@@ -60,18 +60,14 @@ namespace IBatisNet.Common.Utilities.Objects
         }
 
         /// <summary>
-        /// Gets the <see cref="OpCode"/>.
+        ///     Gets the <see cref="OpCode" />.
         /// </summary>
         /// <param name="type">The type.</param>
         /// <returns></returns>
         public static OpCode GetOpCode(Type type)
         {
-            if (type.IsEnum)
-            {
-                type = Enum.GetUnderlyingType(type);
-            }
-            return (OpCode)boxingOpCodes[type];
+            if (type.IsEnum) type = Enum.GetUnderlyingType(type);
+            return (OpCode) boxingOpCodes[type];
         }
-
     }
 }

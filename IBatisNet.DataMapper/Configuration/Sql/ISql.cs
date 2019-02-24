@@ -1,5 +1,5 @@
-
 #region Apache Notice
+
 /*****************************************************************************
  * $Header: $
  * $Revision: 476843 $
@@ -22,6 +22,7 @@
  * limitations under the License.
  * 
  ********************************************************************************/
+
 #endregion
 
 using System.Data;
@@ -30,25 +31,25 @@ using IBatisNet.DataMapper.Scope;
 
 namespace IBatisNet.DataMapper.Configuration.Sql
 {
-	/// <summary>
-	/// Summary description for ISql.
-	/// </summary>
-	public interface ISql
-	{
+    /// <summary>
+    ///     Summary description for ISql.
+    /// </summary>
+    public interface ISql
+    {
+        #region Methods
 
-		#region Methods
-		/// <summary>
-		/// Builds a new <see cref="RequestScope"/> and the <see cref="IDbCommand"/> text to execute.
-		/// </summary>
-		/// <param name="parameterObject">
-		/// The parameter object (used by DynamicSql/SimpleDynamicSql).
-		/// Use to complete the sql statement.
-		/// </param>
-		/// <param name="session">The current session</param>
-		/// <param name="mappedStatement">The <see cref="IMappedStatement"/>.</param>
-		/// <returns>A new <see cref="RequestScope"/>.</returns>
-		RequestScope GetRequestScope(IMappedStatement mappedStatement, object parameterObject, ISqlMapSession session);
-		#endregion
+        /// <summary>
+        ///     Builds a new <see cref="RequestScope" /> and the <see cref="IDbCommand" /> text to execute.
+        /// </summary>
+        /// <param name="parameterObject">
+        ///     The parameter object (used by DynamicSql/SimpleDynamicSql).
+        ///     Use to complete the sql statement.
+        /// </param>
+        /// <param name="session">The current session</param>
+        /// <param name="mappedStatement">The <see cref="IMappedStatement" />.</param>
+        /// <returns>A new <see cref="RequestScope" />.</returns>
+        RequestScope GetRequestScope(IMappedStatement mappedStatement, object parameterObject, ISqlMapSession session);
 
-	}
+        #endregion
+    }
 }

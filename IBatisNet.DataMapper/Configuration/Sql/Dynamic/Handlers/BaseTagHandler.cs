@@ -1,5 +1,5 @@
-
 #region Apache Notice
+
 /*****************************************************************************
  * $Revision: 405046 $
  * $LastChangedDate: 2006-05-08 15:21:44 +0200 (lun., 08 mai 2006) $
@@ -22,132 +22,118 @@
  * limitations under the License.
  * 
  ********************************************************************************/
+
 #endregion
 
 #region Using
+
 using System.Text;
 using IBatisNet.Common.Utilities.Objects.Members;
 using IBatisNet.DataMapper.Configuration.Sql.Dynamic.Elements;
+
 #endregion
 
 namespace IBatisNet.DataMapper.Configuration.Sql.Dynamic.Handlers
 {
-	/// <summary>
-	/// Description résumée de BaseTagHandler.
-	/// </summary>
-	public abstract class BaseTagHandler : ISqlTagHandler
-	{
-
-		#region Const
-		/// <summary>
-		/// BODY TAG
-		/// </summary>
-		public const int SKIP_BODY = 0;
-		/// <summary>
-		/// 
-		/// </summary>
-		public const int INCLUDE_BODY = 1;
-		/// <summary>
-		/// 
-		/// </summary>
-		public const int REPEAT_BODY = 2;
-		#endregion
-
-        private AccessorFactory _accessorFactory = null;
-
-		/// <summary>
-        /// The factory which build <see cref="IAccessor"/>
-		/// </summary>
-        public AccessorFactory AccessorFactory
-		{
-            get { return _accessorFactory; }
-		}
-
+    /// <summary>
+    ///     Description résumée de BaseTagHandler.
+    /// </summary>
+    public abstract class BaseTagHandler : ISqlTagHandler
+    {
         /// <summary>
-        /// Initializes a new instance of the <see cref="BaseTagHandler"/> class.
+        ///     Initializes a new instance of the <see cref="BaseTagHandler" /> class.
         /// </summary>
         /// <param name="accessorFactory">The accessor factory.</param>
         public BaseTagHandler(AccessorFactory accessorFactory)
-		{
-            _accessorFactory = accessorFactory;
-		}
+        {
+            AccessorFactory = accessorFactory;
+        }
 
-		#region Methods
-		/// <summary>
-		/// 
-		/// </summary>
-		/// <param name="ctx"></param>
-		/// <param name="tag"></param>
-		/// <param name="parameterObject"></param>
-		/// <returns></returns>
-		public virtual int DoStartFragment(SqlTagContext ctx, SqlTag tag, object parameterObject) 
-		{
-			return BaseTagHandler.INCLUDE_BODY;
-		}
+        /// <summary>
+        ///     The factory which build <see cref="IAccessor" />
+        /// </summary>
+        public AccessorFactory AccessorFactory { get; }
 
-		/// <summary>
-		/// 
-		/// </summary>
-		/// <param name="ctx"></param>
-		/// <param name="tag"></param>
-		/// <param name="parameterObject"></param>
-		/// <param name="bodyContent"></param>
-		/// <returns></returns>
-		public virtual int DoEndFragment(SqlTagContext ctx, SqlTag tag, object parameterObject, StringBuilder bodyContent) 
-		{
-			return BaseTagHandler.INCLUDE_BODY;
-		}
+        #region Const
 
-		/// <summary>
-		/// 
-		/// </summary>
-		/// <param name="ctx"></param>
-		/// <param name="tag"></param>
-		/// <param name="parameterObject"></param>
-		/// <param name="bodyContent"></param>
-		public virtual void DoPrepend(SqlTagContext ctx, SqlTag tag, object parameterObject, StringBuilder bodyContent) 
-		{
-			if (tag.IsPrependAvailable) 
-			{
-				if (bodyContent.ToString().Trim().Length > 0) 
-				{
-					if (ctx.IsOverridePrepend && tag == ctx.FirstNonDynamicTagWithPrepend) 
-					{
-						ctx.IsOverridePrepend = false;
-					} 
-					else 
-					{
-						bodyContent.Insert(0, tag.Prepend);
-					}
-				} 
-				else 
-				{
-					if (ctx.FirstNonDynamicTagWithPrepend != null) 
-					{
-						ctx.FirstNonDynamicTagWithPrepend = null;
-						ctx.IsOverridePrepend =true;
-					}
-				}
-			}
-		}
+        /// <summary>
+        ///     BODY TAG
+        /// </summary>
+        public const int SKIP_BODY = 0;
 
-		
-		#region ISqlTagHandler Menbers
+        /// <summary>
+        /// </summary>
+        public const int INCLUDE_BODY = 1;
 
-		/// <summary>
-		/// 
-		/// </summary>
-		public virtual bool IsPostParseRequired
-		{
-			get
-			{
-				return false;
-			}
-		}
+        /// <summary>
+        /// </summary>
+        public const int REPEAT_BODY = 2;
+
+        #endregion
+
+        #region Methods
+
+        /// <summary>
+        /// </summary>
+        /// <param name="ctx"></param>
+        /// <param name="tag"></param>
+        /// <param name="parameterObject"></param>
+        /// <returns></returns>
+        public virtual int DoStartFragment(SqlTagContext ctx, SqlTag tag, object parameterObject)
+        {
+            return INCLUDE_BODY;
+        }
+
+        /// <summary>
+        /// </summary>
+        /// <param name="ctx"></param>
+        /// <param name="tag"></param>
+        /// <param name="parameterObject"></param>
+        /// <param name="bodyContent"></param>
+        /// <returns></returns>
+        public virtual int DoEndFragment(SqlTagContext ctx, SqlTag tag, object parameterObject,
+            StringBuilder bodyContent)
+        {
+            return INCLUDE_BODY;
+        }
+
+        /// <summary>
+        /// </summary>
+        /// <param name="ctx"></param>
+        /// <param name="tag"></param>
+        /// <param name="parameterObject"></param>
+        /// <param name="bodyContent"></param>
+        public virtual void DoPrepend(SqlTagContext ctx, SqlTag tag, object parameterObject, StringBuilder bodyContent)
+        {
+            if (tag.IsPrependAvailable)
+            {
+                if (bodyContent.ToString().Trim().Length > 0)
+                {
+                    if (ctx.IsOverridePrepend && tag == ctx.FirstNonDynamicTagWithPrepend)
+                        ctx.IsOverridePrepend = false;
+                    else
+                        bodyContent.Insert(0, tag.Prepend);
+                }
+                else
+                {
+                    if (ctx.FirstNonDynamicTagWithPrepend != null)
+                    {
+                        ctx.FirstNonDynamicTagWithPrepend = null;
+                        ctx.IsOverridePrepend = true;
+                    }
+                }
+            }
+        }
 
 
-		#endregion
-		#endregion
+        #region ISqlTagHandler Menbers
 
-	}
+        /// <summary>
+        /// </summary>
+        public virtual bool IsPostParseRequired => false;
+
+        #endregion
+
+        #endregion
+    }
 }

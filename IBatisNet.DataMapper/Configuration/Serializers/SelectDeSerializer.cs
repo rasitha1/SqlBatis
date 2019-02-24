@@ -1,4 +1,5 @@
 #region Apache Notice
+
 /*****************************************************************************
  * $Header: $
  * $Revision: 469233 $
@@ -21,6 +22,7 @@
  * limitations under the License.
  * 
  ********************************************************************************/
+
 #endregion
 
 #region Using
@@ -31,51 +33,50 @@ using IBatisNet.Common.Xml;
 using IBatisNet.DataMapper.Configuration.Statements;
 using IBatisNet.DataMapper.Scope;
 
-#endregion 
+#endregion
 
 namespace IBatisNet.DataMapper.Configuration.Serializers
 {
-	/// <summary>
-	/// Summary description for SelectDeSerializer.
-	/// </summary>
-	public sealed class SelectDeSerializer
-	{
-		/// <summary>
-		/// Deserialize a Procedure object
-		/// </summary>
-		/// <param name="node"></param>
-		/// <param name="configScope"></param>
-		/// <returns></returns>
-		public static Select Deserialize(XmlNode node, ConfigurationScope configScope)
-		{
-			Select select = new Select();
-			NameValueCollection prop = NodeUtils.ParseAttributes(node, configScope.Properties);
-						
-			select.CacheModelName = NodeUtils.GetStringAttribute(prop, "cacheModel");
-			select.ExtendStatement = NodeUtils.GetStringAttribute(prop, "extends");
-			select.Id = NodeUtils.GetStringAttribute(prop, "id");
-			select.ListClassName = NodeUtils.GetStringAttribute(prop, "listClass");
-			select.ParameterClassName = NodeUtils.GetStringAttribute(prop, "parameterClass");
-			select.ParameterMapName = NodeUtils.GetStringAttribute(prop, "parameterMap");
-			select.ResultClassName = NodeUtils.GetStringAttribute(prop, "resultClass");
-			select.ResultMapName = NodeUtils.GetStringAttribute(prop, "resultMap");
-			select.AllowRemapping = NodeUtils.GetBooleanAttribute(prop, "remapResults", false); 
+    /// <summary>
+    ///     Summary description for SelectDeSerializer.
+    /// </summary>
+    public sealed class SelectDeSerializer
+    {
+        /// <summary>
+        ///     Deserialize a Procedure object
+        /// </summary>
+        /// <param name="node"></param>
+        /// <param name="configScope"></param>
+        /// <returns></returns>
+        public static Select Deserialize(XmlNode node, ConfigurationScope configScope)
+        {
+            Select select = new Select();
+            NameValueCollection prop = NodeUtils.ParseAttributes(node, configScope.Properties);
 
-			int count = node.ChildNodes.Count;
-			for(int i=0;i<count;i++)
-			{
-				if (node.ChildNodes[i].LocalName=="generate")
-				{
-					Generate generate = new Generate();
-					NameValueCollection props = NodeUtils.ParseAttributes(node.ChildNodes[i], configScope.Properties);
-					
-					generate.By = NodeUtils.GetStringAttribute(props, "by");
-					generate.Table = NodeUtils.GetStringAttribute(props, "table");
+            select.CacheModelName = NodeUtils.GetStringAttribute(prop, "cacheModel");
+            select.ExtendStatement = NodeUtils.GetStringAttribute(prop, "extends");
+            select.Id = NodeUtils.GetStringAttribute(prop, "id");
+            select.ListClassName = NodeUtils.GetStringAttribute(prop, "listClass");
+            select.ParameterClassName = NodeUtils.GetStringAttribute(prop, "parameterClass");
+            select.ParameterMapName = NodeUtils.GetStringAttribute(prop, "parameterMap");
+            select.ResultClassName = NodeUtils.GetStringAttribute(prop, "resultClass");
+            select.ResultMapName = NodeUtils.GetStringAttribute(prop, "resultMap");
+            select.AllowRemapping = NodeUtils.GetBooleanAttribute(prop, "remapResults", false);
 
-					select.Generate = generate;
-				}
-			}
-			return select;
-		}
-	}
+            int count = node.ChildNodes.Count;
+            for (int i = 0; i < count; i++)
+                if (node.ChildNodes[i].LocalName == "generate")
+                {
+                    Generate generate = new Generate();
+                    NameValueCollection props = NodeUtils.ParseAttributes(node.ChildNodes[i], configScope.Properties);
+
+                    generate.By = NodeUtils.GetStringAttribute(props, "by");
+                    generate.Table = NodeUtils.GetStringAttribute(props, "table");
+
+                    select.Generate = generate;
+                }
+
+            return select;
+        }
+    }
 }

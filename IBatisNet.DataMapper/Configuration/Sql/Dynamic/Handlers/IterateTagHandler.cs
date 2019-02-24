@@ -1,5 +1,5 @@
-
 #region Apache Notice
+
 /*****************************************************************************
  * $Revision: 408164 $
  * $LastChangedDate: 2006-05-21 14:27:09 +0200 (dim., 21 mai 2006) $
@@ -22,172 +22,145 @@
  * limitations under the License.
  * 
  ********************************************************************************/
+
 #endregion
 
 #region using
 
 using System.Text;
+using IBatisNet.Common.Utilities.Objects;
 using IBatisNet.Common.Utilities.Objects.Members;
 using IBatisNet.DataMapper.Configuration.Sql.Dynamic.Elements;
-using IBatisNet.Common.Utilities.Objects;
+
 #endregion
 
 
 namespace IBatisNet.DataMapper.Configuration.Sql.Dynamic.Handlers
 {
-	/// <summary>
-	/// Summary description for IterateTagHandler.
-	/// </summary>
-	public sealed class IterateTagHandler : BaseTagHandler
-	{
-
+    /// <summary>
+    ///     Summary description for IterateTagHandler.
+    /// </summary>
+    public sealed class IterateTagHandler : BaseTagHandler
+    {
         /// <summary>
-        /// Initializes a new instance of the <see cref="IterateTagHandler"/> class.
+        ///     Initializes a new instance of the <see cref="IterateTagHandler" /> class.
         /// </summary>
         /// <param name="accessorFactory">The accessor factory.</param>
         public IterateTagHandler(AccessorFactory accessorFactory)
             : base(accessorFactory)
-		{
-		}
+        {
+        }
 
-		/// <summary>
-		/// 
-		/// </summary>
-		/// <param name="ctx"></param>
-		/// <param name="tag"></param>
-		/// <param name="parameterObject"></param>
-		/// <returns></returns>
-		public override int DoStartFragment(SqlTagContext ctx, SqlTag tag, object parameterObject) 
-		{
-			IterateContext iterate = (IterateContext) ctx.GetAttribute(tag);
-			if (iterate == null) 
-			{
-				string propertyName = ((BaseTag)tag).Property;
-				object collection;
-				if (propertyName != null && propertyName.Length>0) 
-				{
-					collection = ObjectProbe.GetMemberValue(parameterObject, propertyName, this.AccessorFactory);
-				} 
-				else 
-				{
-					collection = parameterObject;
-				}
-				iterate = new IterateContext(collection);
-				ctx.AddAttribute(tag, iterate);
-			}
-			if (iterate != null && iterate.HasNext) 
-			{
-				return BaseTagHandler.INCLUDE_BODY;
-			} 
-			else 
-			{
-				return BaseTagHandler.SKIP_BODY;
-			}
-		}
+        /// <summary>
+        /// </summary>
+        public override bool IsPostParseRequired => true;
+
+        /// <summary>
+        /// </summary>
+        /// <param name="ctx"></param>
+        /// <param name="tag"></param>
+        /// <param name="parameterObject"></param>
+        /// <returns></returns>
+        public override int DoStartFragment(SqlTagContext ctx, SqlTag tag, object parameterObject)
+        {
+            IterateContext iterate = (IterateContext) ctx.GetAttribute(tag);
+            if (iterate == null)
+            {
+                string propertyName = ((BaseTag) tag).Property;
+                object collection;
+                if (propertyName != null && propertyName.Length > 0)
+                    collection = ObjectProbe.GetMemberValue(parameterObject, propertyName, AccessorFactory);
+                else
+                    collection = parameterObject;
+                iterate = new IterateContext(collection);
+                ctx.AddAttribute(tag, iterate);
+            }
+
+            if (iterate != null && iterate.HasNext)
+                return INCLUDE_BODY;
+            return SKIP_BODY;
+        }
 
 
-		/// <summary>
-		/// 
-		/// </summary>
-		/// <param name="ctx"></param>
-		/// <param name="tag"></param>
-		/// <param name="parameterObject"></param>
-		/// <param name="bodyContent"></param>
-		public override void DoPrepend(SqlTagContext ctx, SqlTag tag, object parameterObject, StringBuilder bodyContent) 
-		{
-			IterateContext iterate = (IterateContext) ctx.GetAttribute(tag);
-			if (iterate.IsFirst) 
-			{
-				base.DoPrepend(ctx, tag, parameterObject, bodyContent);
-			}
-		}
+        /// <summary>
+        /// </summary>
+        /// <param name="ctx"></param>
+        /// <param name="tag"></param>
+        /// <param name="parameterObject"></param>
+        /// <param name="bodyContent"></param>
+        public override void DoPrepend(SqlTagContext ctx, SqlTag tag, object parameterObject, StringBuilder bodyContent)
+        {
+            IterateContext iterate = (IterateContext) ctx.GetAttribute(tag);
+            if (iterate.IsFirst) base.DoPrepend(ctx, tag, parameterObject, bodyContent);
+        }
 
-		/// <summary>
-		/// 
-		/// </summary>
-		/// <param name="ctx"></param>
-		/// <param name="tag"></param>
-		/// <param name="parameterObject"></param>
-		/// <param name="bodyContent"></param>
-		/// <returns></returns>
-		public override int DoEndFragment(SqlTagContext ctx, SqlTag tag, 
-			object parameterObject, StringBuilder bodyContent) 
-		{
-			IterateContext iterate = (IterateContext) ctx.GetAttribute(tag);
+        /// <summary>
+        /// </summary>
+        /// <param name="ctx"></param>
+        /// <param name="tag"></param>
+        /// <param name="parameterObject"></param>
+        /// <param name="bodyContent"></param>
+        /// <returns></returns>
+        public override int DoEndFragment(SqlTagContext ctx, SqlTag tag,
+            object parameterObject, StringBuilder bodyContent)
+        {
+            IterateContext iterate = (IterateContext) ctx.GetAttribute(tag);
 
-			if (iterate.MoveNext()) 
-			{
-				string propertyName = ((BaseTag)tag).Property;
-				if (propertyName == null) 
-				{
-					propertyName = "";
-				}
+            if (iterate.MoveNext())
+            {
+                string propertyName = ((BaseTag) tag).Property;
+                if (propertyName == null) propertyName = "";
 
-				string find = propertyName + "[]";
-				string replace = propertyName + "[" + iterate.Index + "]";//Parameter-index-Dynamic
-				Replace(bodyContent, find, replace);
+                string find = propertyName + "[]";
+                string replace = propertyName + "[" + iterate.Index + "]"; //Parameter-index-Dynamic
+                Replace(bodyContent, find, replace);
 
-				if (iterate.IsFirst) 
-				{
-					string open = ((Iterate)tag).Open;
-					if (open != null) 
-					{
-						bodyContent.Insert(0,open);
-						bodyContent.Insert(0,' ');
-					}
-				}
-				if (!iterate.IsLast) 
-				{
-					string conjunction = ((Iterate)tag).Conjunction;
-					if (conjunction != null) 
-					{
-						bodyContent.Append(conjunction);
-						bodyContent.Append(' ');
-					}
-				}
-				if (iterate.IsLast) 
-				{
-					string close = ((Iterate)tag).Close;
-					if (close != null) 
-					{
-						bodyContent.Append(close);
-					}
-				}
+                if (iterate.IsFirst)
+                {
+                    string open = ((Iterate) tag).Open;
+                    if (open != null)
+                    {
+                        bodyContent.Insert(0, open);
+                        bodyContent.Insert(0, ' ');
+                    }
+                }
 
-				return BaseTagHandler.REPEAT_BODY;
-			} 
-			else 
-			{
-				return BaseTagHandler.INCLUDE_BODY;
-			}
-		}
+                if (!iterate.IsLast)
+                {
+                    string conjunction = ((Iterate) tag).Conjunction;
+                    if (conjunction != null)
+                    {
+                        bodyContent.Append(conjunction);
+                        bodyContent.Append(' ');
+                    }
+                }
 
-		/// <summary>
-		/// 
-		/// </summary>
-		/// <param name="buffer"></param>
-		/// <param name="find"></param>
-		/// <param name="replace"></param>
-		private static void Replace(StringBuilder buffer, string find, string replace) 
-		{
-			int start = buffer.ToString().IndexOf(find);
-			int length = find.Length;
-			while (start > -1) 
-			{
-				buffer = buffer.Replace(find, replace, start, length);
-				start = buffer.ToString().IndexOf(find);
-			}
-		}
+                if (iterate.IsLast)
+                {
+                    string close = ((Iterate) tag).Close;
+                    if (close != null) bodyContent.Append(close);
+                }
 
-		/// <summary>
-		/// 
-		/// </summary>
-		public override bool IsPostParseRequired
-		{
-			get
-			{
-				return true;
-			}
-		}
-	}
+                return REPEAT_BODY;
+            }
+
+            return INCLUDE_BODY;
+        }
+
+        /// <summary>
+        /// </summary>
+        /// <param name="buffer"></param>
+        /// <param name="find"></param>
+        /// <param name="replace"></param>
+        private static void Replace(StringBuilder buffer, string find, string replace)
+        {
+            int start = buffer.ToString().IndexOf(find);
+            int length = find.Length;
+            while (start > -1)
+            {
+                buffer = buffer.Replace(find, replace, start, length);
+                start = buffer.ToString().IndexOf(find);
+            }
+        }
+    }
 }

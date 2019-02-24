@@ -1,5 +1,5 @@
-
 #region Apache Notice
+
 /*****************************************************************************
  * $Header: $
  * $Revision: 512878 $
@@ -22,6 +22,7 @@
  * limitations under the License.
  * 
  ********************************************************************************/
+
 #endregion
 
 using System;
@@ -32,215 +33,218 @@ using IBatisNet.Common.Exceptions;
 
 namespace IBatisNet.Common.Utilities
 {
-	/// <summary>
-	/// DBHelperParameterCache provides functions to leverage a 
-	/// static cache of procedure parameters, and the
-	/// ability to discover parameters for stored procedures at run-time.
-	/// </summary>
-	public sealed class DBHelperParameterCache
-	{
-		//Since this class provides only static methods, make the default constructor private to prevent 
-		//instances from being created.
-		private DBHelperParameterCache() {}
+    /// <summary>
+    ///     DBHelperParameterCache provides functions to leverage a
+    ///     static cache of procedure parameters, and the
+    ///     ability to discover parameters for stored procedures at run-time.
+    /// </summary>
+    public sealed class DBHelperParameterCache
+    {
+        #region Private fields
 
-		#region Private fields
-		private static Hashtable _paramCache = Hashtable.Synchronized(new Hashtable());
-		#endregion
+        private static readonly Hashtable _paramCache = Hashtable.Synchronized(new Hashtable());
 
-		#region private methods
+        #endregion
 
-		/// <summary>
-		/// Resolve at run time the appropriate set of Parameters for a stored procedure
-		/// </summary>
-		/// <param name="session">An IDalSession object</param>
-		/// <param name="spName">the name of the stored procedure</param>
-		/// <param name="includeReturnValueParameter">whether or not to include their return value parameter</param>
-		/// <returns></returns>
-		private static IDataParameter[] DiscoverSpParameterSet(IDalSession session, string spName, bool includeReturnValueParameter)
-		{
-			return InternalDiscoverSpParameterSet(
+        //Since this class provides only static methods, make the default constructor private to prevent 
+        //instances from being created.
+        private DBHelperParameterCache()
+        {
+        }
+
+        #region private methods
+
+        /// <summary>
+        ///     Resolve at run time the appropriate set of Parameters for a stored procedure
+        /// </summary>
+        /// <param name="session">An IDalSession object</param>
+        /// <param name="spName">the name of the stored procedure</param>
+        /// <param name="includeReturnValueParameter">whether or not to include their return value parameter</param>
+        /// <returns></returns>
+        private static IDataParameter[] DiscoverSpParameterSet(IDalSession session, string spName,
+            bool includeReturnValueParameter)
+        {
+            return InternalDiscoverSpParameterSet(
                 session,
-                spName, 
-                includeReturnValueParameter);	
-		}
+                spName,
+                includeReturnValueParameter);
+        }
 
 
         /// <summary>
-        /// Discover at run time the appropriate set of Parameters for a stored procedure
+        ///     Discover at run time the appropriate set of Parameters for a stored procedure
         /// </summary>
-		/// <param name="session">An IDalSession object</param>
-		/// <param name="spName">Name of the stored procedure.</param>
+        /// <param name="session">An IDalSession object</param>
+        /// <param name="spName">Name of the stored procedure.</param>
         /// <param name="includeReturnValueParameter">if set to <c>true</c> [include return value parameter].</param>
         /// <returns>The stored procedure parameters.</returns>
-		private static IDataParameter[] InternalDiscoverSpParameterSet(IDalSession session, string spName, 
+        private static IDataParameter[] InternalDiscoverSpParameterSet(IDalSession session, string spName,
             bool includeReturnValueParameter)
-		{
-				using (IDbCommand cmd = session.CreateCommand(CommandType.StoredProcedure))
-				{
-					cmd.CommandText = spName;
+        {
+            using (IDbCommand cmd = session.CreateCommand(CommandType.StoredProcedure))
+            {
+                cmd.CommandText = spName;
 
-				    // The session connection object is always created but the connection is not alwys open
-				    // so we try to open it in case.
-					session.OpenConnection();
+                // The session connection object is always created but the connection is not alwys open
+                // so we try to open it in case.
+                session.OpenConnection();
 
-					DeriveParameters(session.DataSource.DbProvider, cmd);
+                DeriveParameters(session.DataSource.DbProvider, cmd);
 
-					if (cmd.Parameters.Count > 0) {
-						IDataParameter firstParameter = (IDataParameter)cmd.Parameters[0];
-						if (firstParameter.Direction == ParameterDirection.ReturnValue) {
-							if (!includeReturnValueParameter) {
-								cmd.Parameters.RemoveAt(0);
-							}
-						}	
-					}
-
-
-					IDataParameter[] discoveredParameters = new IDataParameter[cmd.Parameters.Count];
-					cmd.Parameters.CopyTo(discoveredParameters, 0);
-					return discoveredParameters;
-				}
-		}
-		
-		private static void DeriveParameters(IDbProvider provider, IDbCommand command)
-		{
-			Type commandBuilderType;
-
-			// Find the CommandBuilder
-			if (provider == null)
-				throw new ArgumentNullException("provider");
-			if ((provider.CommandBuilderClass == null) || (provider.CommandBuilderClass.Length < 1))
-				throw new Exception(String.Format(
-					"CommandBuilderClass not defined for provider \"{0}\".",
-					provider.Name));
-			commandBuilderType = provider.CommandBuilderType;
-
-			// Invoke the static DeriveParameter method on the CommandBuilder class
-			// NOTE: OracleCommandBuilder has no DeriveParameter method
-			try
-			{
-				commandBuilderType.InvokeMember("DeriveParameters",
-				                                BindingFlags.Public | BindingFlags.InvokeMethod | BindingFlags.Static, null, null,
-					new object[] {command});
-			}
-			catch(Exception ex)
-			{
-				throw new IBatisNetException("Could not retrieve parameters for the store procedure named "+command.CommandText, ex);
-			}
-		}
-
-		/// <summary>
-		/// Deep copy of cached IDataParameter array.
-		/// </summary>
-		/// <param name="originalParameters"></param>
-		/// <returns></returns>
-		private static IDataParameter[] CloneParameters(IDataParameter[] originalParameters)
-		{
-			IDataParameter[] clonedParameters = new IDataParameter[originalParameters.Length];
-
-			int length = originalParameters.Length;
-			for (int i = 0, j = length; i < j; i++)
-			{
-				clonedParameters[i] = (IDataParameter) ((ICloneable) originalParameters[i]).Clone();
-			}
-
-			return clonedParameters;
-		}
-
-		#endregion private methods, variables, and constructors
-
-		#region caching functions
-
-		/// <summary>
-		/// Add parameter array to the cache
-		/// </summary>
-		/// <param name="connectionString">a valid connection string for an IDbConnection</param>
-		/// <param name="commandText">the stored procedure name or SQL command</param>
-		/// <param name="commandParameters">an array of IDataParameters to be cached</param>
-		public static void CacheParameterSet(string connectionString, string commandText, params IDataParameter[] commandParameters)
-		{
-			string hashKey = connectionString + ":" + commandText;
-
-			_paramCache[hashKey] = commandParameters;
-		}
+                if (cmd.Parameters.Count > 0)
+                {
+                    IDataParameter firstParameter = (IDataParameter) cmd.Parameters[0];
+                    if (firstParameter.Direction == ParameterDirection.ReturnValue)
+                        if (!includeReturnValueParameter)
+                            cmd.Parameters.RemoveAt(0);
+                }
 
 
-		// FM Added
-		/// <summary>
-		/// Clear the parameter cache.
-		/// </summary>
-		public static void Clear()
-		{
-			_paramCache.Clear();
-		}
+                IDataParameter[] discoveredParameters = new IDataParameter[cmd.Parameters.Count];
+                cmd.Parameters.CopyTo(discoveredParameters, 0);
+                return discoveredParameters;
+            }
+        }
 
-		/// <summary>
-		/// retrieve a parameter array from the cache
-		/// </summary>
-		/// <param name="connectionString">a valid connection string for an IDbConnection</param>
-		/// <param name="commandText">the stored procedure name or SQL command</param>
-		/// <returns>an array of IDataParameters</returns>
-		public static IDataParameter[] GetCachedParameterSet(string connectionString, string commandText)
-		{
-			string hashKey = connectionString + ":" + commandText;
+        private static void DeriveParameters(IDbProvider provider, IDbCommand command)
+        {
+            Type commandBuilderType;
 
-			IDataParameter[] cachedParameters = (IDataParameter[]) _paramCache[hashKey];
-			
-			if (cachedParameters == null)
-			{			
-				return null;
-			}
-			else
-			{
-				return CloneParameters(cachedParameters);
-			}
-		}
+            // Find the CommandBuilder
+            if (provider == null)
+                throw new ArgumentNullException("provider");
+            if ((provider.CommandBuilderClass == null) || (provider.CommandBuilderClass.Length < 1))
+                throw new Exception(string.Format(
+                    "CommandBuilderClass not defined for provider \"{0}\".",
+                    provider.Name));
+            commandBuilderType = provider.CommandBuilderType;
 
-		#endregion caching functions
+            // Invoke the static DeriveParameter method on the CommandBuilder class
+            // NOTE: OracleCommandBuilder has no DeriveParameter method
+            try
+            {
+                commandBuilderType.InvokeMember("DeriveParameters",
+                    BindingFlags.Public | BindingFlags.InvokeMethod | BindingFlags.Static, null, null,
+                    new object[] {command});
+            }
+            catch (Exception ex)
+            {
+                throw new IBatisNetException(
+                    "Could not retrieve parameters for the store procedure named " + command.CommandText, ex);
+            }
+        }
 
-		#region Parameter Discovery Functions
+        /// <summary>
+        ///     Deep copy of cached IDataParameter array.
+        /// </summary>
+        /// <param name="originalParameters"></param>
+        /// <returns></returns>
+        private static IDataParameter[] CloneParameters(IDataParameter[] originalParameters)
+        {
+            IDataParameter[] clonedParameters = new IDataParameter[originalParameters.Length];
 
-		/// <summary>
-		/// Retrieves the set of IDataParameters appropriate for the stored procedure
-		/// </summary>
-		/// <remarks>
-		/// This method will query the database for this information, and then store it in a cache for future requests.
-		/// </remarks>
-		/// <param name="session">a valid session</param>
-		/// <param name="spName">the name of the stored procedure</param>
-		/// <returns>an array of IDataParameters</returns>
-		public static IDataParameter[] GetSpParameterSet(IDalSession session, string spName)
-		{
-			return GetSpParameterSet(session, spName, false);
-		}
+            int length = originalParameters.Length;
+            for (int i = 0, j = length; i < j; i++)
+                clonedParameters[i] = (IDataParameter) ((ICloneable) originalParameters[i]).Clone();
 
-		/// <summary>
-		/// Retrieves the set of IDataParameters appropriate for the stored procedure
-		/// </summary>
-		/// <remarks>
-		/// This method will query the database for this information, and then store it in a cache for future requests.
-		/// </remarks>
-		/// <param name="session">a valid session</param>
-		/// <param name="spName">the name of the stored procedure</param>
-		/// <param name="includeReturnValueParameter">a bool value indicating whether the return value parameter should be included in the results</param>
-		/// <returns>an array of IDataParameters</returns>
-		public static IDataParameter[] GetSpParameterSet(IDalSession session, 
-			string spName, bool includeReturnValueParameter)
-		{
-			string hashKey = session.DataSource.ConnectionString + ":" + spName + (includeReturnValueParameter ? ":include ReturnValue Parameter":"");
+            return clonedParameters;
+        }
 
-			IDataParameter[] cachedParameters;
-			
-			cachedParameters = (IDataParameter[]) _paramCache[hashKey];
+        #endregion private methods, variables, and constructors
 
-			if (cachedParameters == null)
-			{
-				_paramCache[hashKey] = DiscoverSpParameterSet(session, spName, includeReturnValueParameter);
-				cachedParameters = (IDataParameter[]) _paramCache[hashKey];
-			}
-			
-			return CloneParameters(cachedParameters);
-		}
+        #region caching functions
 
-		#endregion Parameter Discovery Functions
-	}
+        /// <summary>
+        ///     Add parameter array to the cache
+        /// </summary>
+        /// <param name="connectionString">a valid connection string for an IDbConnection</param>
+        /// <param name="commandText">the stored procedure name or SQL command</param>
+        /// <param name="commandParameters">an array of IDataParameters to be cached</param>
+        public static void CacheParameterSet(string connectionString, string commandText,
+            params IDataParameter[] commandParameters)
+        {
+            string hashKey = connectionString + ":" + commandText;
+
+            _paramCache[hashKey] = commandParameters;
+        }
+
+
+        // FM Added
+        /// <summary>
+        ///     Clear the parameter cache.
+        /// </summary>
+        public static void Clear()
+        {
+            _paramCache.Clear();
+        }
+
+        /// <summary>
+        ///     retrieve a parameter array from the cache
+        /// </summary>
+        /// <param name="connectionString">a valid connection string for an IDbConnection</param>
+        /// <param name="commandText">the stored procedure name or SQL command</param>
+        /// <returns>an array of IDataParameters</returns>
+        public static IDataParameter[] GetCachedParameterSet(string connectionString, string commandText)
+        {
+            string hashKey = connectionString + ":" + commandText;
+
+            IDataParameter[] cachedParameters = (IDataParameter[]) _paramCache[hashKey];
+
+            if (cachedParameters == null)
+                return null;
+            return CloneParameters(cachedParameters);
+        }
+
+        #endregion caching functions
+
+        #region Parameter Discovery Functions
+
+        /// <summary>
+        ///     Retrieves the set of IDataParameters appropriate for the stored procedure
+        /// </summary>
+        /// <remarks>
+        ///     This method will query the database for this information, and then store it in a cache for future requests.
+        /// </remarks>
+        /// <param name="session">a valid session</param>
+        /// <param name="spName">the name of the stored procedure</param>
+        /// <returns>an array of IDataParameters</returns>
+        public static IDataParameter[] GetSpParameterSet(IDalSession session, string spName)
+        {
+            return GetSpParameterSet(session, spName, false);
+        }
+
+        /// <summary>
+        ///     Retrieves the set of IDataParameters appropriate for the stored procedure
+        /// </summary>
+        /// <remarks>
+        ///     This method will query the database for this information, and then store it in a cache for future requests.
+        /// </remarks>
+        /// <param name="session">a valid session</param>
+        /// <param name="spName">the name of the stored procedure</param>
+        /// <param name="includeReturnValueParameter">
+        ///     a bool value indicating whether the return value parameter should be included
+        ///     in the results
+        /// </param>
+        /// <returns>an array of IDataParameters</returns>
+        public static IDataParameter[] GetSpParameterSet(IDalSession session,
+            string spName, bool includeReturnValueParameter)
+        {
+            string hashKey = session.DataSource.ConnectionString + ":" + spName +
+                             (includeReturnValueParameter ? ":include ReturnValue Parameter" : "");
+
+            IDataParameter[] cachedParameters;
+
+            cachedParameters = (IDataParameter[]) _paramCache[hashKey];
+
+            if (cachedParameters == null)
+            {
+                _paramCache[hashKey] = DiscoverSpParameterSet(session, spName, includeReturnValueParameter);
+                cachedParameters = (IDataParameter[]) _paramCache[hashKey];
+            }
+
+            return CloneParameters(cachedParameters);
+        }
+
+        #endregion Parameter Discovery Functions
+    }
 }

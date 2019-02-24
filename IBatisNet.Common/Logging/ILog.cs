@@ -1,5 +1,5 @@
-
 #region Apache Notice
+
 /*****************************************************************************
  * $Header: $
  * $Revision: 474141 $
@@ -22,66 +22,107 @@
  * limitations under the License.
  * 
  ********************************************************************************/
+
 #endregion
 
 using System;
 
 namespace IBatisNet.Common.Logging
 {
-	/// <summary>
-	/// The 7 logging levels used by Log are (in order): 
-	/// </summary>
-	public enum LogLevel
-	{
-		/// <summary>
-		/// 
-		/// </summary>
-		All   = 0,
-		/// <summary>
-		/// 
-		/// </summary>
-		Debug = 1,
-		/// <summary>
-		/// 
-		/// </summary>
-		Info  = 2,
-		/// <summary>
-		/// 
-		/// </summary>
-		Warn  = 3,
-		/// <summary>
-		/// 
-		/// </summary>
-		Error = 4,
-		/// <summary>
-		///
-		/// </summary>
-		Fatal = 5,
-		/// <summary>
-		/// Do not log anything.
-		/// </summary>
-		Off  = 6,
-	}
+    /// <summary>
+    ///     The 7 logging levels used by Log are (in order):
+    /// </summary>
+    public enum LogLevel
+    {
+        /// <summary>
+        /// </summary>
+        All = 0,
 
-	/// <summary>
-	/// A simple logging interface abstracting logging APIs. Inspired by log4net.
-	/// </summary>
-	public interface ILog
-	{
-		/// <summary>
-		/// Log a message object with the <see cref="LogLevel.Debug"/> level.
-		/// </summary>
-		/// <param name="message">The message object to log.</param>
-		void Debug( object message );
+        /// <summary>
+        /// </summary>
+        Debug = 1,
 
-		/// <summary>
-		/// Log a message object with the <see cref="LogLevel.Debug"/> level including
-		/// the stack trace of the <see cref="Exception"/> passed
-		/// as a parameter.
-		/// </summary>
-		/// <param name="message">The message object to log.</param>
-		/// <param name="exception">The exception to log, including its stack trace.</param>
-		void Debug( object message, Exception exception );
+        /// <summary>
+        /// </summary>
+        Info = 2,
+
+        /// <summary>
+        /// </summary>
+        Warn = 3,
+
+        /// <summary>
+        /// </summary>
+        Error = 4,
+
+        /// <summary>
+        /// </summary>
+        Fatal = 5,
+
+        /// <summary>
+        ///     Do not log anything.
+        /// </summary>
+        Off = 6
+    }
+
+    /// <summary>
+    ///     A simple logging interface abstracting logging APIs. Inspired by log4net.
+    /// </summary>
+    public interface ILog
+    {
+//		/// <summary>
+//		/// Logs a formatted message string with the <see cref="LogLevel.Warn"/> level.
+//		/// </summary>
+//		/// <param name="format">A String containing zero or more format items</param>
+//		/// <param name="args">An Object array containing zero or more objects to format</param>
+//		void WarnFormat(string format, params object[] args); 
+//
+//		/// <summary>
+//		/// Logs a formatted message string with the <see cref="LogLevel.Warn"/> level.
+//		/// </summary>
+//		/// <param name="provider">An <see cref="IFormatProvider"/> that supplies culture-specific formatting information</param>
+//		/// <param name="format">A String containing zero or more format items</param>
+//		/// <param name="args">An Object array containing zero or more objects to format</param>
+//		void WarnFormat(IFormatProvider provider, string format, params object[] args);
+
+        /// <summary>
+        ///     Checks if this logger is enabled for the <see cref="LogLevel.Debug" /> level.
+        /// </summary>
+        bool IsDebugEnabled { get; }
+
+        /// <summary>
+        ///     Checks if this logger is enabled for the <see cref="LogLevel.Error" /> level.
+        /// </summary>
+        bool IsErrorEnabled { get; }
+
+        /// <summary>
+        ///     Checks if this logger is enabled for the <see cref="LogLevel.Fatal" /> level.
+        /// </summary>
+        bool IsFatalEnabled { get; }
+
+        /// <summary>
+        ///     Checks if this logger is enabled for the <see cref="LogLevel.Info" /> level.
+        /// </summary>
+        bool IsInfoEnabled { get; }
+
+        /// <summary>
+        ///     Checks if this logger is enabled for the <see cref="LogLevel.Warn" /> level.
+        /// </summary>
+        bool IsWarnEnabled { get; }
+
+        /// <summary>
+        ///     Log a message object with the <see cref="LogLevel.Debug" /> level.
+        /// </summary>
+        /// <param name="message">The message object to log.</param>
+        void Debug(object message);
+
+        /// <summary>
+        ///     Log a message object with the <see cref="LogLevel.Debug" /> level including
+        ///     the stack trace of the <see cref="Exception" /> passed
+        ///     as a parameter.
+        /// </summary>
+        /// <param name="message">The message object to log.</param>
+        /// <param name="exception">The exception to log, including its stack trace.</param>
+        void Debug(object message, Exception exception);
 
 //		/// <summary>
 //		/// Logs a formatted message string with the <see cref="LogLevel.Debug"/> level.
@@ -98,20 +139,20 @@ namespace IBatisNet.Common.Logging
 //		/// <param name="args">An Object array containing zero or more objects to format</param>
 //		void DebugFormat(IFormatProvider provider, string format, params object[] args);
 
-		/// <summary>
-		/// Log a message object with the <see cref="LogLevel.Error"/> level.
-		/// </summary>
-		/// <param name="message">The message object to log.</param>
-		void Error( object message );
+        /// <summary>
+        ///     Log a message object with the <see cref="LogLevel.Error" /> level.
+        /// </summary>
+        /// <param name="message">The message object to log.</param>
+        void Error(object message);
 
-		/// <summary>
-		/// Log a message object with the <see cref="LogLevel.Error"/> level including
-		/// the stack trace of the <see cref="Exception"/> passed
-		/// as a parameter.
-		/// </summary>
-		/// <param name="message">The message object to log.</param>
-		/// <param name="exception">The exception to log, including its stack trace.</param>
-		void Error( object message, Exception exception );
+        /// <summary>
+        ///     Log a message object with the <see cref="LogLevel.Error" /> level including
+        ///     the stack trace of the <see cref="Exception" /> passed
+        ///     as a parameter.
+        /// </summary>
+        /// <param name="message">The message object to log.</param>
+        /// <param name="exception">The exception to log, including its stack trace.</param>
+        void Error(object message, Exception exception);
 
 //		/// <summary>
 //		/// Logs a formatted message string with the <see cref="LogLevel.Error"/> level.
@@ -128,20 +169,20 @@ namespace IBatisNet.Common.Logging
 //		/// <param name="args">An Object array containing zero or more objects to format</param>
 //		void ErrorFormat(IFormatProvider provider, string format, params object[] args);
 
-		/// <summary>
-		/// Log a message object with the <see cref="LogLevel.Fatal"/> level.
-		/// </summary>
-		/// <param name="message">The message object to log.</param>
-		void Fatal( object message );
+        /// <summary>
+        ///     Log a message object with the <see cref="LogLevel.Fatal" /> level.
+        /// </summary>
+        /// <param name="message">The message object to log.</param>
+        void Fatal(object message);
 
-		/// <summary>
-		/// Log a message object with the <see cref="LogLevel.Fatal"/> level including
-		/// the stack trace of the <see cref="Exception"/> passed
-		/// as a parameter.
-		/// </summary>
-		/// <param name="message">The message object to log.</param>
-		/// <param name="exception">The exception to log, including its stack trace.</param>
-		void Fatal( object message, Exception exception );
+        /// <summary>
+        ///     Log a message object with the <see cref="LogLevel.Fatal" /> level including
+        ///     the stack trace of the <see cref="Exception" /> passed
+        ///     as a parameter.
+        /// </summary>
+        /// <param name="message">The message object to log.</param>
+        /// <param name="exception">The exception to log, including its stack trace.</param>
+        void Fatal(object message, Exception exception);
 
 //		/// <summary>
 //		/// Logs a formatted message string with the <see cref="LogLevel.Fatal"/> level.
@@ -158,20 +199,20 @@ namespace IBatisNet.Common.Logging
 //		/// <param name="args">An Object array containing zero or more objects to format</param>
 //		void FatalFormat(IFormatProvider provider, string format, params object[] args);
 
-		/// <summary>
-		/// Log a message object with the <see cref="LogLevel.Info"/> level.
-		/// </summary>
-		/// <param name="message">The message object to log.</param>
-		void Info( object message );
+        /// <summary>
+        ///     Log a message object with the <see cref="LogLevel.Info" /> level.
+        /// </summary>
+        /// <param name="message">The message object to log.</param>
+        void Info(object message);
 
-		/// <summary>
-		/// Log a message object with the <see cref="LogLevel.Info"/> level including
-		/// the stack trace of the <see cref="Exception"/> passed
-		/// as a parameter.
-		/// </summary>
-		/// <param name="message">The message object to log.</param>
-		/// <param name="exception">The exception to log, including its stack trace.</param>
-		void Info( object message, Exception exception );
+        /// <summary>
+        ///     Log a message object with the <see cref="LogLevel.Info" /> level including
+        ///     the stack trace of the <see cref="Exception" /> passed
+        ///     as a parameter.
+        /// </summary>
+        /// <param name="message">The message object to log.</param>
+        /// <param name="exception">The exception to log, including its stack trace.</param>
+        void Info(object message, Exception exception);
 
 //		/// <summary>
 //		/// Logs a formatted message string with the <see cref="LogLevel.Info"/> level.
@@ -188,74 +229,19 @@ namespace IBatisNet.Common.Logging
 //		/// <param name="args">An Object array containing zero or more objects to format</param>
 //		void InfoFormat(IFormatProvider provider, string format, params object[] args);
 
-		/// <summary>
-		/// Log a message object with the <see cref="LogLevel.Warn"/> level.
-		/// </summary>
-		/// <param name="message">The message object to log.</param>
-		void Warn( object message );
+        /// <summary>
+        ///     Log a message object with the <see cref="LogLevel.Warn" /> level.
+        /// </summary>
+        /// <param name="message">The message object to log.</param>
+        void Warn(object message);
 
-		/// <summary>
-		/// Log a message object with the <see cref="LogLevel.Warn"/> level including
-		/// the stack trace of the <see cref="Exception"/> passed
-		/// as a parameter.
-		/// </summary>
-		/// <param name="message">The message object to log.</param>
-		/// <param name="exception">The exception to log, including its stack trace.</param>
-		void Warn( object message, Exception exception );
-
-//		/// <summary>
-//		/// Logs a formatted message string with the <see cref="LogLevel.Warn"/> level.
-//		/// </summary>
-//		/// <param name="format">A String containing zero or more format items</param>
-//		/// <param name="args">An Object array containing zero or more objects to format</param>
-//		void WarnFormat(string format, params object[] args); 
-//
-//		/// <summary>
-//		/// Logs a formatted message string with the <see cref="LogLevel.Warn"/> level.
-//		/// </summary>
-//		/// <param name="provider">An <see cref="IFormatProvider"/> that supplies culture-specific formatting information</param>
-//		/// <param name="format">A String containing zero or more format items</param>
-//		/// <param name="args">An Object array containing zero or more objects to format</param>
-//		void WarnFormat(IFormatProvider provider, string format, params object[] args);
-
-		/// <summary>
-		/// Checks if this logger is enabled for the <see cref="LogLevel.Debug"/> level.
-		/// </summary>
-		bool IsDebugEnabled
-		{
-			get;
-		}
-
-		/// <summary>
-		/// Checks if this logger is enabled for the <see cref="LogLevel.Error"/> level.
-		/// </summary>
-		bool IsErrorEnabled
-		{
-			get;
-		}
-
-		/// <summary>
-		/// Checks if this logger is enabled for the <see cref="LogLevel.Fatal"/> level.
-		/// </summary>
-		bool IsFatalEnabled
-		{
-			get;
-		}
-
-		/// <summary>
-		/// Checks if this logger is enabled for the <see cref="LogLevel.Info"/> level.
-		/// </summary>
-		bool IsInfoEnabled
-		{
-			get;
-		}
-
-		/// <summary>
-		/// Checks if this logger is enabled for the <see cref="LogLevel.Warn"/> level.
-		/// </summary>
-		bool IsWarnEnabled
-		{
-			get;
-		}
-	}
+        /// <summary>
+        ///     Log a message object with the <see cref="LogLevel.Warn" /> level including
+        ///     the stack trace of the <see cref="Exception" /> passed
+        ///     as a parameter.
+        /// </summary>
+        /// <param name="message">The message object to log.</param>
+        /// <param name="exception">The exception to log, including its stack trace.</param>
+        void Warn(object message, Exception exception);
+    }
 }

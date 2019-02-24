@@ -1,5 +1,5 @@
-
 #region Apache Notice
+
 /*****************************************************************************
  * $Header: $
  * $Revision: 474141 $
@@ -22,6 +22,7 @@
  * limitations under the License.
  * 
  ********************************************************************************/
+
 #endregion
 
 using System;
@@ -29,57 +30,56 @@ using System.Collections.Specialized;
 
 namespace IBatisNet.Common.Logging.Impl
 {
-	/// <summary>
-	/// Factory for creating "no operation" loggers that do nothing and whose Is*Enabled properties always 
-	/// return false.
-	/// </summary>
-	/// <remarks>
-	/// This factory creates a single instance of <see cref="NoOpLogger" /> and always returns that 
-	/// instance whenever an <see cref="ILog" /> instance is requested.
-	/// </remarks>
-	public sealed class NoOpLoggerFA : ILoggerFactoryAdapter
-	{
-		private ILog _nopLogger = new NoOpLogger();
+    /// <summary>
+    ///     Factory for creating "no operation" loggers that do nothing and whose Is*Enabled properties always
+    ///     return false.
+    /// </summary>
+    /// <remarks>
+    ///     This factory creates a single instance of <see cref="NoOpLogger" /> and always returns that
+    ///     instance whenever an <see cref="ILog" /> instance is requested.
+    /// </remarks>
+    public sealed class NoOpLoggerFA : ILoggerFactoryAdapter
+    {
+        private readonly ILog _nopLogger = new NoOpLogger();
 
-		/// <summary>
-		/// Constructor
-		/// </summary>
-		public NoOpLoggerFA()
-		{
-			// empty
-		}
+        /// <summary>
+        ///     Constructor
+        /// </summary>
+        public NoOpLoggerFA()
+        {
+            // empty
+        }
 
-		/// <summary>
-		/// Constructor
-		/// </summary>
-		public NoOpLoggerFA(NameValueCollection properties)
-		{
-			// empty
-		}
+        /// <summary>
+        ///     Constructor
+        /// </summary>
+        public NoOpLoggerFA(NameValueCollection properties)
+        {
+            // empty
+        }
 
-		#region ILoggerFactoryAdapter Members
+        #region ILoggerFactoryAdapter Members
 
-		/// <summary>
-		/// Get a ILog instance by type 
-		/// </summary>
-		/// <param name="type"></param>
-		/// <returns></returns>
-		public ILog GetLogger(Type type)
-		{
-			return _nopLogger;
-		}
+        /// <summary>
+        ///     Get a ILog instance by type
+        /// </summary>
+        /// <param name="type"></param>
+        /// <returns></returns>
+        public ILog GetLogger(Type type)
+        {
+            return _nopLogger;
+        }
 
-		/// <summary>
-		/// Get a ILog instance by type name 
-		/// </summary>
-		/// <param name="name"></param>
-		/// <returns></returns>
-		ILog ILoggerFactoryAdapter.GetLogger(string name)
-		{
-			return _nopLogger;
+        /// <summary>
+        ///     Get a ILog instance by type name
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
+        ILog ILoggerFactoryAdapter.GetLogger(string name)
+        {
+            return _nopLogger;
+        }
 
-		}
-
-		#endregion
-	}
+        #endregion
+    }
 }

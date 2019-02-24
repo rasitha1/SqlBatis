@@ -1,4 +1,5 @@
 #region Apache Notice
+
 /*****************************************************************************
  * $Revision: 374175 $
  * $LastChangedDate: 2006-04-25 19:40:27 +0200 (mar., 25 avr. 2006) $
@@ -21,29 +22,28 @@
  * limitations under the License.
  * 
  ********************************************************************************/
+
 #endregion
 
 using System;
 using System.Collections.Generic;
 using System.Reflection;
-
-using IBatisNet.Common;
 using IBatisNet.DataMapper.Scope;
 
 namespace IBatisNet.DataMapper.MappedStatements.PostSelectStrategy
 {
     /// <summary>
-    /// <see cref="IPostSelectStrategy"/> implementation to exceute a query generic list.
+    ///     <see cref="IPostSelectStrategy" /> implementation to exceute a query generic list.
     /// </summary>
     public sealed class GenericListStrategy : IPostSelectStrategy
     {
         #region IPostSelectStrategy Members
 
         /// <summary>
-        /// Executes the specified <see cref="PostBindind"/>.
+        ///     Executes the specified <see cref="PostBindind" />.
         /// </summary>
-        /// <param name="postSelect">The <see cref="PostBindind"/>.</param>
-        /// <param name="request">The <see cref="RequestScope"/></param>
+        /// <param name="postSelect">The <see cref="PostBindind" />.</param>
+        /// <param name="request">The <see cref="RequestScope" /></param>
         public void Execute(PostBindind postSelect, RequestScope request)
         {
             // How to: Examine and Instantiate Generic Types with Reflection  
@@ -56,12 +56,12 @@ namespace IBatisNet.DataMapper.MappedStatements.PostSelectStrategy
 
             Type mappedStatementType = postSelect.Statement.GetType();
 
-            Type[] typeArguments = { typeof(SqlMapSession), typeof(object) };
+            Type[] typeArguments = {typeof(SqlMapSession), typeof(object)};
 
-            MethodInfo[] mis = mappedStatementType.GetMethods(BindingFlags.InvokeMethod | BindingFlags.Public | BindingFlags.Instance);
+            MethodInfo[] mis =
+                mappedStatementType.GetMethods(BindingFlags.InvokeMethod | BindingFlags.Public | BindingFlags.Instance);
             MethodInfo mi = null;
             foreach (MethodInfo m in mis)
-            {
                 if (m.IsGenericMethod &&
                     m.Name == "ExecuteQueryForList" &&
                     m.GetParameters().Length == 2)
@@ -69,12 +69,11 @@ namespace IBatisNet.DataMapper.MappedStatements.PostSelectStrategy
                     mi = m;
                     break;
                 }
-            }
 
             MethodInfo miConstructed = mi.MakeGenericMethod(elementType);
 
             // Invoke the method.
-            object[] args = { request.Session, postSelect.Keys };
+            object[] args = {request.Session, postSelect.Keys};
             object values = miConstructed.Invoke(postSelect.Statement, args);
 
             postSelect.ResultProperty.SetAccessor.Set(postSelect.Target, values);

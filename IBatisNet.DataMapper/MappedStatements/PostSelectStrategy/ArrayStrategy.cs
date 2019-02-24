@@ -1,4 +1,5 @@
 #region Apache Notice
+
 /*****************************************************************************
  * $Revision: 374175 $
  * $LastChangedDate: 2006-04-25 19:40:27 +0200 (mar., 25 avr. 2006) $
@@ -21,6 +22,7 @@
  * limitations under the License.
  * 
  ********************************************************************************/
+
 #endregion
 
 using System;
@@ -29,33 +31,30 @@ using IBatisNet.DataMapper.Scope;
 
 namespace IBatisNet.DataMapper.MappedStatements.PostSelectStrategy
 {
-	/// <summary>
-	/// <see cref="IPostSelectStrategy"/> implementation to exceute a query for <see cref="Array"/>.
-	/// </summary>
+    /// <summary>
+    ///     <see cref="IPostSelectStrategy" /> implementation to exceute a query for <see cref="Array" />.
+    /// </summary>
     public sealed class ArrayStrategy : IPostSelectStrategy
-	{
-		#region IPostSelectStrategy Members
+    {
+        #region IPostSelectStrategy Members
 
-		/// <summary>
-		/// Executes the specified <see cref="PostBindind"/>.
-		/// </summary>
-		/// <param name="postSelect">The <see cref="PostBindind"/>.</param>
-		/// <param name="request">The <see cref="RequestScope"/></param>
-		public void Execute(PostBindind postSelect, RequestScope request)
-		{
-			IList values = postSelect.Statement.ExecuteQueryForList(request.Session, postSelect.Keys);
+        /// <summary>
+        ///     Executes the specified <see cref="PostBindind" />.
+        /// </summary>
+        /// <param name="postSelect">The <see cref="PostBindind" />.</param>
+        /// <param name="request">The <see cref="RequestScope" /></param>
+        public void Execute(PostBindind postSelect, RequestScope request)
+        {
+            IList values = postSelect.Statement.ExecuteQueryForList(request.Session, postSelect.Keys);
             Type elementType = postSelect.ResultProperty.SetAccessor.MemberType.GetElementType();
 
-			Array array = Array.CreateInstance(elementType, values.Count);
-			int count = values.Count;
-			for(int i=0;i<count;i++)
-			{
-				array.SetValue(values[i],i);
-			}
+            Array array = Array.CreateInstance(elementType, values.Count);
+            int count = values.Count;
+            for (int i = 0; i < count; i++) array.SetValue(values[i], i);
 
             postSelect.ResultProperty.SetAccessor.Set(postSelect.Target, array);
-		}
+        }
 
-		#endregion
-	}
+        #endregion
+    }
 }

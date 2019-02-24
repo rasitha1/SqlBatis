@@ -1,5 +1,5 @@
-
 #region Apache Notice
+
 /*****************************************************************************
  * $Header: $
  * $Revision: 383115 $
@@ -22,54 +22,53 @@
  * limitations under the License.
  * 
  ********************************************************************************/
+
 #endregion
 
 #region Imports
-using System;
+
 using System.Collections;
-using System.Collections.Specialized;
+
 #endregion
 
 namespace IBatisNet.DataMapper.Configuration.Cache
 {
-	/// <summary>
-	/// Summary description for ICacheController.
-	/// </summary>
-	public interface ICacheController
-	{
-		#region Properties
-		/// <summary>
-		/// Adds an item with the specified key and value into cached data.
-		/// Gets a cached object with the specified key.
-		/// </summary>
-		/// <value>The cached object or <c>null</c></value>
-		object this [object key] 
-		{
-			get;
-			set;
-		}
-		#endregion
+    /// <summary>
+    ///     Summary description for ICacheController.
+    /// </summary>
+    public interface ICacheController
+    {
+        #region Properties
 
-		#region Methods
-	
-		/// <summary>
-		/// Remove an object from a cache model
-		/// </summary>
-		/// <param name="key">the key to the object</param>
-		/// <returns>the removed object(?)</returns>
-		object Remove(object key);
+        /// <summary>
+        ///     Adds an item with the specified key and value into cached data.
+        ///     Gets a cached object with the specified key.
+        /// </summary>
+        /// <value>The cached object or <c>null</c></value>
+        object this[object key] { get; set; }
 
-		/// <summary>
-		/// Clears all elements from the cache.
-		/// </summary>
-		void Flush ();
+        #endregion
 
-		/// <summary>
-		/// Configures the CacheController
-		/// </summary>
-		/// <param name="properties"></param>
-		void Configure(IDictionary properties);
-		#endregion
+        #region Methods
 
-	}
+        /// <summary>
+        ///     Remove an object from a cache model
+        /// </summary>
+        /// <param name="key">the key to the object</param>
+        /// <returns>the removed object(?)</returns>
+        object Remove(object key);
+
+        /// <summary>
+        ///     Clears all elements from the cache.
+        /// </summary>
+        void Flush();
+
+        /// <summary>
+        ///     Configures the CacheController
+        /// </summary>
+        /// <param name="properties"></param>
+        void Configure(IDictionary properties);
+
+        #endregion
+    }
 }

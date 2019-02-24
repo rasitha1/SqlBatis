@@ -1,5 +1,5 @@
-
 #region Apache Notice
+
 /*****************************************************************************
  * $Header: $
  * $Revision: 501527 $
@@ -22,6 +22,7 @@
  * limitations under the License.
  * 
  ********************************************************************************/
+
 #endregion
 
 #region Using
@@ -35,361 +36,338 @@ using IBatisNet.Common.Utilities;
 using IBatisNet.DataMapper.Configuration.Alias;
 using IBatisNet.DataMapper.Exceptions;
 using IBatisNet.DataMapper.TypeHandlers.Nullables;
-#endregion 
+
+#endregion
 
 namespace IBatisNet.DataMapper.TypeHandlers
 {
-	/// <summary>
-	/// Not much of a suprise, this is a factory class for TypeHandler objects.
-	/// </summary>
-	public class TypeHandlerFactory
-	{
+    /// <summary>
+    ///     Not much of a suprise, this is a factory class for TypeHandler objects.
+    /// </summary>
+    public class TypeHandlerFactory
+    {
+        #region Constructor
 
-		#region Fields
-		
-		private static readonly ILog _logger = LogManager.GetLogger( MethodBase.GetCurrentMethod().DeclaringType );
-		private IDictionary _typeHandlerMap = new HybridDictionary();
-		private ITypeHandler _unknownTypeHandler = null;
-		private const string NULL = "_NULL_TYPE_";
-		//(typeAlias name, type alias)
-		private IDictionary _typeAliasMaps = new HybridDictionary();
-		#endregion 
+        /// <summary>
+        ///     Constructor
+        /// </summary>
+        public TypeHandlerFactory()
+        {
+            ITypeHandler handler = null;
 
-		#region Constructor
+            handler = new DBNullTypeHandler();
+            Register(typeof(DBNull), handler);
 
-		/// <summary>
-		/// Constructor
-		/// </summary>
-		public TypeHandlerFactory() 
-		{
-			ITypeHandler handler = null;
+            handler = new BooleanTypeHandler();
+            Register(typeof(bool), handler); // key= "System.Boolean"
 
-			handler = new DBNullTypeHandler();
-			this.Register(typeof(DBNull), handler);
+            handler = new ByteTypeHandler();
+            Register(typeof(byte), handler);
 
-			handler = new BooleanTypeHandler();
-			this.Register(typeof(bool), handler); // key= "System.Boolean"
+            handler = new CharTypeHandler();
+            Register(typeof(char), handler);
 
-			handler = new ByteTypeHandler();
-			this.Register(typeof(Byte), handler);
+            handler = new DateTimeTypeHandler();
+            Register(typeof(DateTime), handler);
 
-			handler = new CharTypeHandler();
-			this.Register(typeof(Char), handler);
+            handler = new DecimalTypeHandler();
+            Register(typeof(decimal), handler);
 
-			handler = new DateTimeTypeHandler();
-			this.Register(typeof(DateTime), handler);
+            handler = new DoubleTypeHandler();
+            Register(typeof(double), handler);
 
-			handler = new DecimalTypeHandler();
-			this.Register(typeof(Decimal), handler);
+            handler = new Int16TypeHandler();
+            Register(typeof(short), handler);
 
-			handler = new DoubleTypeHandler();
-			this.Register(typeof(Double), handler);
+            handler = new Int32TypeHandler();
+            Register(typeof(int), handler);
 
-			handler = new Int16TypeHandler();
-			this.Register(typeof(Int16), handler);
+            handler = new Int64TypeHandler();
+            Register(typeof(long), handler);
 
-			handler = new Int32TypeHandler();
-			this.Register(typeof(Int32), handler);
+            handler = new SingleTypeHandler();
+            Register(typeof(float), handler);
 
-			handler = new Int64TypeHandler();
-			this.Register(typeof(Int64), handler);
+            handler = new StringTypeHandler();
+            Register(typeof(string), handler);
 
-			handler = new SingleTypeHandler();
-			this.Register(typeof(Single), handler);
+            handler = new GuidTypeHandler();
+            Register(typeof(Guid), handler);
 
-			handler = new StringTypeHandler();
-			this.Register(typeof(String), handler);
+            handler = new TimeSpanTypeHandler();
+            Register(typeof(TimeSpan), handler);
 
-			handler = new GuidTypeHandler();
-			this.Register(typeof(Guid), handler);
+            handler = new ByteArrayTypeHandler();
+            Register(typeof(byte[]), handler);
 
-			handler = new TimeSpanTypeHandler();
-			this.Register(typeof(TimeSpan), handler);
+            handler = new ObjectTypeHandler();
+            Register(typeof(object), handler);
 
-			handler = new ByteArrayTypeHandler();
-			this.Register(typeof(Byte[]), handler);
-
-			handler = new ObjectTypeHandler();
-			this.Register(typeof(object), handler);
-
-			handler = new EnumTypeHandler();
-			this.Register( typeof(System.Enum), handler);
+            handler = new EnumTypeHandler();
+            Register(typeof(Enum), handler);
 
             handler = new UInt16TypeHandler();
-            this.Register(typeof(UInt16), handler);
+            Register(typeof(ushort), handler);
 
             handler = new UInt32TypeHandler();
-            this.Register(typeof(UInt32), handler);
+            Register(typeof(uint), handler);
 
             handler = new UInt64TypeHandler();
-            this.Register(typeof(UInt64), handler);
+            Register(typeof(ulong), handler);
 
             handler = new SByteTypeHandler();
-            this.Register(typeof(SByte), handler);
-		    
+            Register(typeof(sbyte), handler);
+
             handler = new NullableBooleanTypeHandler();
-            this.Register(typeof(bool?), handler);
+            Register(typeof(bool?), handler);
 
             handler = new NullableByteTypeHandler();
-            this.Register(typeof(byte?), handler);
+            Register(typeof(byte?), handler);
 
             handler = new NullableCharTypeHandler();
-            this.Register(typeof(char?), handler);
+            Register(typeof(char?), handler);
 
             handler = new NullableDateTimeTypeHandler();
-            this.Register(typeof(DateTime?), handler);
+            Register(typeof(DateTime?), handler);
 
             handler = new NullableDecimalTypeHandler();
-            this.Register(typeof(decimal?), handler);
+            Register(typeof(decimal?), handler);
 
             handler = new NullableDoubleTypeHandler();
-            this.Register(typeof(double?), handler);
+            Register(typeof(double?), handler);
 
             handler = new NullableGuidTypeHandler();
-            this.Register(typeof(Guid?), handler);
+            Register(typeof(Guid?), handler);
 
             handler = new NullableInt16TypeHandler();
-            this.Register(typeof(Int16?), handler);
-            
+            Register(typeof(short?), handler);
+
             handler = new NullableInt32TypeHandler();
-            this.Register(typeof(Int32?), handler);
+            Register(typeof(int?), handler);
 
             handler = new NullableInt64TypeHandler();
-            this.Register(typeof(Int64?), handler);
+            Register(typeof(long?), handler);
 
             handler = new NullableSingleTypeHandler();
-            this.Register(typeof(Single?), handler);
+            Register(typeof(float?), handler);
 
             handler = new NullableUInt16TypeHandler();
-            this.Register(typeof(UInt16?), handler);
+            Register(typeof(ushort?), handler);
 
             handler = new NullableUInt32TypeHandler();
-            this.Register(typeof(UInt32?), handler);
+            Register(typeof(uint?), handler);
 
             handler = new NullableUInt64TypeHandler();
-            this.Register(typeof(UInt64?), handler);
+            Register(typeof(ulong?), handler);
 
             handler = new NullableSByteTypeHandler();
-            this.Register(typeof(SByte?), handler);
+            Register(typeof(sbyte?), handler);
 
             handler = new NullableTimeSpanTypeHandler();
-            this.Register(typeof(TimeSpan?), handler);
+            Register(typeof(TimeSpan?), handler);
 
 
             _unknownTypeHandler = new UnknownTypeHandler(this);
+        }
 
-		}
+        #endregion
 
-		#endregion 
+        /// <summary>
+        ///     Gets a named TypeAlias from the list of available TypeAlias
+        /// </summary>
+        /// <param name="name">The name of the TypeAlias.</param>
+        /// <returns>The TypeAlias.</returns>
+        internal TypeAlias GetTypeAlias(string name)
+        {
+            if (_typeAliasMaps.Contains(name))
+                return (TypeAlias) _typeAliasMaps[name];
+            return null;
+        }
 
-		#region Methods
+        /// <summary>
+        ///     Gets the type object from the specific class name.
+        /// </summary>
+        /// <param name="className">The supplied class name.</param>
+        /// <returns>
+        ///     The correpsonding type.
+        /// </returns>
+        internal Type GetType(string className)
+        {
+            Type type = null;
+            TypeAlias typeAlias = GetTypeAlias(className);
 
-		/// <summary>
-		/// Get a TypeHandler for a Type
-		/// </summary>
-		/// <param name="type">the Type you want a TypeHandler for</param>
-		/// <returns>the handler</returns>
-		public ITypeHandler GetTypeHandler(Type type)
-		{
-			return GetTypeHandler(type, null);
-		}
-
-		/// <summary>
-		/// Get a TypeHandler for a type
-		/// </summary>
-		/// <param name="type">the type you want a TypeHandler for</param>
-		/// <param name="dbType">the database type</param>
-		/// <returns>the handler</returns>
-		public ITypeHandler GetTypeHandler(Type type, string dbType) 
-		{
-			if (type.IsEnum)
-			{
-				return this.GetPrivateTypeHandler(typeof(System.Enum), dbType);
-			}
-			else
-			{
-				return this.GetPrivateTypeHandler(type, dbType);
-			}
-		}
-
-		/// <summary>
-		///  Get a TypeHandler for a type and a dbType type
-		/// </summary>
-		/// <param name="type">the type</param>
-		/// <param name="dbType">the dbType type</param>
-		/// <returns>the handler</returns>
-		private ITypeHandler GetPrivateTypeHandler(Type type, string dbType) 
-		{
-            IDictionary dbTypeHandlerMap = (IDictionary)_typeHandlerMap[type];
-			ITypeHandler handler = null;
-
-			if (dbTypeHandlerMap != null) 
-			{
-				if (dbType==null)
-				{
-					handler = (ITypeHandler) dbTypeHandlerMap[ NULL ];
-				}
-				else
-				{
-					handler = (ITypeHandler) dbTypeHandlerMap[ dbType ];
-					if (handler == null) 
-					{
-						handler = (ITypeHandler) dbTypeHandlerMap[ NULL ];
-					}					
-				}
-				if (handler==null)
-				{
-					throw new DataMapperException(String.Format("Type handler for {0} not registered.",type.Name));
-				}
-			}
-
-			return handler;
-		}
-
-
-		/// <summary>
-		/// Register (add) a type handler for a type
-		/// </summary>
-		/// <param name="type">the type</param>
-		/// <param name="handler">the handler instance</param>
-		public void Register(Type type, ITypeHandler handler) 
-		{
-			this.Register(type, null, handler);
-		}
-
-		/// <summary>
-		/// Register (add) a type handler for a type and dbType
-		/// </summary>
-		/// <param name="type">the type</param>
-		/// <param name="dbType">the dbType (optional, if dbType is null the handler will be used for all dbTypes)</param>
-		/// <param name="handler">the handler instance</param>
-		public void Register(Type type, string dbType, ITypeHandler handler) 
-		{
-			HybridDictionary map = (HybridDictionary) _typeHandlerMap[ type ];
-			if (map == null) 
-			{
-				map = new HybridDictionary();
-				_typeHandlerMap.Add(type, map)  ;
-			}
-			if (dbType==null)
-			{
-				if (_logger.IsInfoEnabled)
-				{
-					// notify the user that they are no longer using one of the built-in type handlers
-					ITypeHandler oldTypeHandler = (ITypeHandler)map[NULL];
-
-					if (oldTypeHandler != null)
-					{
-						// the replacement will always(?) be a CustomTypeHandler
-						CustomTypeHandler customTypeHandler = handler as CustomTypeHandler;
-						
-						string replacement = string.Empty;
-						
-						if (customTypeHandler != null)
-						{
-							// report the underlying type
-							replacement = customTypeHandler.Callback.ToString();
-						}
-						else
-						{
-							replacement = handler.ToString();
-						}
-
-						// should oldTypeHandler be checked if its a CustomTypeHandler and if so report the Callback property ???
-						_logger.Info("Replacing type handler [" + oldTypeHandler.ToString() + "] with [" + replacement + "].");
-					}
-				}
-
-				map[NULL] = handler;
-			}
-			else
-			{
-				map.Add(dbType, handler);
-			}
-		}
-
-		/// <summary>
-		/// When in doubt, get the "unknown" type handler
-		/// </summary>
-		/// <returns>if I told you, it would not be unknown, would it?</returns>
-		public ITypeHandler GetUnkownTypeHandler() 
-		{
-			return _unknownTypeHandler;
-		}
-
-		/// <summary>
-		/// 
-		/// </summary>
-		/// <param name="type"></param>
-		/// <returns></returns>
-		public bool IsSimpleType(Type type) 
-		{
-			bool result = false;
-			if (type != null) 
-			{
-				ITypeHandler handler = this.GetTypeHandler(type, null);
-				if (handler != null) 
-				{
-					result = handler.IsSimpleType;
-				}
-			}
-			return result;
-		}
-
-		#endregion
-
-		/// <summary>
-		/// Gets a named TypeAlias from the list of available TypeAlias
-		/// </summary>
-		/// <param name="name">The name of the TypeAlias.</param>
-		/// <returns>The TypeAlias.</returns>
-		internal TypeAlias GetTypeAlias(string name) 
-		{
-			if (_typeAliasMaps.Contains(name) == true) 
-			{
-				return (TypeAlias) _typeAliasMaps[name];
-			}
-			else
-			{
-				return null;
-			}
-		}
-
-		/// <summary>
-		/// Gets the type object from the specific class name.
-		/// </summary>
-		/// <param name="className">The supplied class name.</param>
-		/// <returns>The correpsonding type.
-		/// </returns>
-		internal Type GetType(string className) 
-		{
-			Type type = null;
-			TypeAlias typeAlias = this.GetTypeAlias(className) as TypeAlias;
-
-			if (typeAlias != null)
-			{
-				type = typeAlias.Class;
-			}
-			else
-			{
+            if (typeAlias != null)
+                type = typeAlias.Class;
+            else
                 type = TypeUtils.ResolveType(className);
-			}
 
-			return type;
-		}
+            return type;
+        }
 
-		/// <summary>
-		/// Adds a named TypeAlias to the list of available TypeAlias.
-		/// </summary>
-		/// <param name="key">The key name.</param>
-		/// <param name="typeAlias"> The TypeAlias.</param>
-		internal void AddTypeAlias(string key, TypeAlias typeAlias) 
-		{
-			if (_typeAliasMaps.Contains(key) == true) 
-			{
-				throw new DataMapperException(" Alias name conflict occurred.  The type alias '" + key + "' is already mapped to the value '"+typeAlias.ClassName+"'.");
-			}
-			_typeAliasMaps.Add(key, typeAlias);
-		}
-	}
+        /// <summary>
+        ///     Adds a named TypeAlias to the list of available TypeAlias.
+        /// </summary>
+        /// <param name="key">The key name.</param>
+        /// <param name="typeAlias"> The TypeAlias.</param>
+        internal void AddTypeAlias(string key, TypeAlias typeAlias)
+        {
+            if (_typeAliasMaps.Contains(key))
+                throw new DataMapperException(" Alias name conflict occurred.  The type alias '" + key +
+                                              "' is already mapped to the value '" + typeAlias.ClassName + "'.");
+            _typeAliasMaps.Add(key, typeAlias);
+        }
+
+        #region Fields
+
+        private static readonly ILog _logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private readonly IDictionary _typeHandlerMap = new HybridDictionary();
+        private readonly ITypeHandler _unknownTypeHandler;
+
+        private const string NULL = "_NULL_TYPE_";
+
+        //(typeAlias name, type alias)
+        private readonly IDictionary _typeAliasMaps = new HybridDictionary();
+
+        #endregion
+
+        #region Methods
+
+        /// <summary>
+        ///     Get a TypeHandler for a Type
+        /// </summary>
+        /// <param name="type">the Type you want a TypeHandler for</param>
+        /// <returns>the handler</returns>
+        public ITypeHandler GetTypeHandler(Type type)
+        {
+            return GetTypeHandler(type, null);
+        }
+
+        /// <summary>
+        ///     Get a TypeHandler for a type
+        /// </summary>
+        /// <param name="type">the type you want a TypeHandler for</param>
+        /// <param name="dbType">the database type</param>
+        /// <returns>the handler</returns>
+        public ITypeHandler GetTypeHandler(Type type, string dbType)
+        {
+            if (type.IsEnum)
+                return GetPrivateTypeHandler(typeof(Enum), dbType);
+            return GetPrivateTypeHandler(type, dbType);
+        }
+
+        /// <summary>
+        ///     Get a TypeHandler for a type and a dbType type
+        /// </summary>
+        /// <param name="type">the type</param>
+        /// <param name="dbType">the dbType type</param>
+        /// <returns>the handler</returns>
+        private ITypeHandler GetPrivateTypeHandler(Type type, string dbType)
+        {
+            IDictionary dbTypeHandlerMap = (IDictionary) _typeHandlerMap[type];
+            ITypeHandler handler = null;
+
+            if (dbTypeHandlerMap != null)
+            {
+                if (dbType == null)
+                {
+                    handler = (ITypeHandler) dbTypeHandlerMap[NULL];
+                }
+                else
+                {
+                    handler = (ITypeHandler) dbTypeHandlerMap[dbType];
+                    if (handler == null) handler = (ITypeHandler) dbTypeHandlerMap[NULL];
+                }
+
+                if (handler == null)
+                    throw new DataMapperException(string.Format("Type handler for {0} not registered.", type.Name));
+            }
+
+            return handler;
+        }
+
+
+        /// <summary>
+        ///     Register (add) a type handler for a type
+        /// </summary>
+        /// <param name="type">the type</param>
+        /// <param name="handler">the handler instance</param>
+        public void Register(Type type, ITypeHandler handler)
+        {
+            Register(type, null, handler);
+        }
+
+        /// <summary>
+        ///     Register (add) a type handler for a type and dbType
+        /// </summary>
+        /// <param name="type">the type</param>
+        /// <param name="dbType">the dbType (optional, if dbType is null the handler will be used for all dbTypes)</param>
+        /// <param name="handler">the handler instance</param>
+        public void Register(Type type, string dbType, ITypeHandler handler)
+        {
+            HybridDictionary map = (HybridDictionary) _typeHandlerMap[type];
+            if (map == null)
+            {
+                map = new HybridDictionary();
+                _typeHandlerMap.Add(type, map);
+            }
+
+            if (dbType == null)
+            {
+                if (_logger.IsInfoEnabled)
+                {
+                    // notify the user that they are no longer using one of the built-in type handlers
+                    ITypeHandler oldTypeHandler = (ITypeHandler) map[NULL];
+
+                    if (oldTypeHandler != null)
+                    {
+                        // the replacement will always(?) be a CustomTypeHandler
+                        CustomTypeHandler customTypeHandler = handler as CustomTypeHandler;
+
+                        string replacement = string.Empty;
+
+                        if (customTypeHandler != null)
+                            replacement = customTypeHandler.Callback.ToString();
+                        else
+                            replacement = handler.ToString();
+
+                        // should oldTypeHandler be checked if its a CustomTypeHandler and if so report the Callback property ???
+                        _logger.Info("Replacing type handler [" + oldTypeHandler + "] with [" + replacement + "].");
+                    }
+                }
+
+                map[NULL] = handler;
+            }
+            else
+            {
+                map.Add(dbType, handler);
+            }
+        }
+
+        /// <summary>
+        ///     When in doubt, get the "unknown" type handler
+        /// </summary>
+        /// <returns>if I told you, it would not be unknown, would it?</returns>
+        public ITypeHandler GetUnkownTypeHandler()
+        {
+            return _unknownTypeHandler;
+        }
+
+        /// <summary>
+        /// </summary>
+        /// <param name="type"></param>
+        /// <returns></returns>
+        public bool IsSimpleType(Type type)
+        {
+            bool result = false;
+            if (type != null)
+            {
+                ITypeHandler handler = GetTypeHandler(type, null);
+                if (handler != null) result = handler.IsSimpleType;
+            }
+
+            return result;
+        }
+
+        #endregion
+    }
 }

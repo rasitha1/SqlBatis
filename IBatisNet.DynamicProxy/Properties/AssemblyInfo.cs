@@ -1,5 +1,4 @@
-﻿using System;
-using System.Reflection;
+﻿using System.Reflection;
 
 //
 // General Information about an assembly is controlled through the following 
@@ -17,4 +16,3 @@ using System.Reflection;
 [assembly: AssemblyDescription("Dynamic Proxy object used by DataAccess and DataMapper component in iBATIS.Net")]
 
 [assembly: AssemblyVersion("1.6.1")]
-

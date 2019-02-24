@@ -183,6 +183,7 @@
     <None Include="dao_Oracle_OracleClient.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="DataBase-Template.config" />
     <None Include="providers.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

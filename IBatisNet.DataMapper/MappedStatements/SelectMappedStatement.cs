@@ -1,4 +1,5 @@
 #region Apache Notice
+
 /*****************************************************************************
  * $Header: $
  * $Revision: 476843 $
@@ -21,57 +22,57 @@
  * limitations under the License.
  * 
  ********************************************************************************/
+
 #endregion
 
 
-using IBatisNet.DataMapper.Exceptions;
 using IBatisNet.DataMapper.Configuration.Statements;
+using IBatisNet.DataMapper.Exceptions;
 
 namespace IBatisNet.DataMapper.MappedStatements
 {
-	/// <summary>
-	/// Summary description for SelectMappedStatement.
-	/// </summary>
+    /// <summary>
+    ///     Summary description for SelectMappedStatement.
+    /// </summary>
     public sealed class SelectMappedStatement : MappedStatement
-	{
-		/// <summary>
-		/// Constructor
-		/// </summary>
-		/// <param name="sqlMap">An SqlMap</param>
-		/// <param name="statement">An SQL statement</param>
+    {
+        /// <summary>
+        ///     Constructor
+        /// </summary>
+        /// <param name="sqlMap">An SqlMap</param>
+        /// <param name="statement">An SQL statement</param>
         internal SelectMappedStatement(ISqlMapper sqlMap, IStatement statement)
             : base(sqlMap, statement)
-		{ }
+        {
+        }
 
 
-		#region ExecuteInsert
+        #region ExecuteInsert
 
-		/// <summary>
-		/// 
-		/// </summary>
-		/// <param name="session"></param>
-		/// <param name="parameterObject"></param>
-		/// <returns></returns>
-		public override object ExecuteInsert(ISqlMapSession session, object parameterObject )
-		{
-			throw new DataMapperException("Update statements cannot be executed as a query insert.");
-		}
+        /// <summary>
+        /// </summary>
+        /// <param name="session"></param>
+        /// <param name="parameterObject"></param>
+        /// <returns></returns>
+        public override object ExecuteInsert(ISqlMapSession session, object parameterObject)
+        {
+            throw new DataMapperException("Update statements cannot be executed as a query insert.");
+        }
 
-		#endregion
+        #endregion
 
-		#region ExecuteUpdate
+        #region ExecuteUpdate
 
-		/// <summary>
-		/// 
-		/// </summary>
-		/// <param name="session"></param>
-		/// <param name="parameterObject"></param>
-		/// <returns></returns>
+        /// <summary>
+        /// </summary>
+        /// <param name="session"></param>
+        /// <param name="parameterObject"></param>
+        /// <returns></returns>
         public override int ExecuteUpdate(ISqlMapSession session, object parameterObject)
-		{
-			throw new DataMapperException("Insert statements cannot be executed as a update query.");
-		}
+        {
+            throw new DataMapperException("Insert statements cannot be executed as a update query.");
+        }
 
-		#endregion
-	}
+        #endregion
+    }
 }

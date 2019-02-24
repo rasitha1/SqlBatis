@@ -1,5 +1,5 @@
-
 #region Apache Notice
+
 /*****************************************************************************
  * $Revision: 408164 $
  * $LastChangedDate: 2006-05-21 14:27:09 +0200 (dim., 21 mai 2006) $
@@ -22,49 +22,47 @@
  * limitations under the License.
  * 
  ********************************************************************************/
+
 #endregion
 
 #region Imports
-using System;
+
 using IBatisNet.Common.Utilities.Objects.Members;
 using IBatisNet.DataMapper.Configuration.Sql.Dynamic.Elements;
+
 #endregion
 
 namespace IBatisNet.DataMapper.Configuration.Sql.Dynamic.Handlers
 {
-	/// <summary>
-	/// Summary description for DynamicTagHandler.
-	/// </summary>
-	public sealed class DynamicTagHandler : BaseTagHandler
-	{
-
+    /// <summary>
+    ///     Summary description for DynamicTagHandler.
+    /// </summary>
+    public sealed class DynamicTagHandler : BaseTagHandler
+    {
         /// <summary>
-        /// Initializes a new instance of the <see cref="DynamicTagHandler"/> class.
+        ///     Initializes a new instance of the <see cref="DynamicTagHandler" /> class.
         /// </summary>
         /// <param name="accessorFactory">The accessor factory.</param>
         public DynamicTagHandler(AccessorFactory accessorFactory)
             : base(accessorFactory)
-		{
-		}
+        {
+        }
 
-		#region Methods
-		/// <summary>
-		/// 
-		/// </summary>
-		/// <param name="ctx"></param>
-		/// <param name="tag"></param>
-		/// <param name="parameterObject"></param>
-		/// <returns></returns>
-		public override int DoStartFragment(SqlTagContext ctx, SqlTag tag, Object parameterObject) 
-		{
-			ctx.FirstNonDynamicTagWithPrepend = null ;
-			if (tag.IsPrependAvailable) 
-			{
-				ctx.IsOverridePrepend = true;
-			}
-			return BaseTagHandler.INCLUDE_BODY;
-		}
-		#endregion
+        #region Methods
 
-	}
+        /// <summary>
+        /// </summary>
+        /// <param name="ctx"></param>
+        /// <param name="tag"></param>
+        /// <param name="parameterObject"></param>
+        /// <returns></returns>
+        public override int DoStartFragment(SqlTagContext ctx, SqlTag tag, object parameterObject)
+        {
+            ctx.FirstNonDynamicTagWithPrepend = null;
+            if (tag.IsPrependAvailable) ctx.IsOverridePrepend = true;
+            return INCLUDE_BODY;
+        }
+
+        #endregion
+    }
 }

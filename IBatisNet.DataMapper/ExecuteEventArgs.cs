@@ -1,5 +1,5 @@
-
 #region Apache Notice
+
 /*****************************************************************************
  * $Header: $
  * $Revision: 383115 $
@@ -22,32 +22,21 @@
  * limitations under the License.
  * 
  ********************************************************************************/
+
 #endregion
 
 using System;
 
 namespace IBatisNet.DataMapper
 {
-	/// <summary>
-	/// Summary description for ExecuteEventArgs.
-	/// </summary>
-	public class ExecuteEventArgs : EventArgs
-	{
-		private string _statementName = string.Empty;
-
-		/// <summary>
-		/// Set or get the statement name
-		/// </summary>
-		public string StatementName
-		{
-			get 
-			{
-				return _statementName;
-			}
-			set 
-			{
-				_statementName = value;
-			}
-		}
-	}
+    /// <summary>
+    ///     Summary description for ExecuteEventArgs.
+    /// </summary>
+    public class ExecuteEventArgs : EventArgs
+    {
+        /// <summary>
+        ///     Set or get the statement name
+        /// </summary>
+        public string StatementName { get; set; } = string.Empty;
+    }
 }

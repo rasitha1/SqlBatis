@@ -1,4 +1,5 @@
 #region Apache Notice
+
 /*****************************************************************************
  * $Header: $
  * $Revision: 378715 $
@@ -21,6 +22,7 @@
  * limitations under the License.
  * 
  ********************************************************************************/
+
 #endregion
 
 using System.Web;
@@ -28,64 +30,61 @@ using IBatisNet.Common.Exceptions;
 
 namespace IBatisNet.DataMapper.SessionStore
 {
-
-	/// <summary>
-	/// Provides an implementation of <see cref="ISessionStore"/>
-	/// which relies on <c>HttpContext</c>. Suitable for web projects.
-    /// This implementation will get the current session from the current 
-    /// request.
-	/// </summary>
-	public class WebSessionStore : AbstractSessionStore
-	{
-
+    /// <summary>
+    ///     Provides an implementation of <see cref="ISessionStore" />
+    ///     which relies on <c>HttpContext</c>. Suitable for web projects.
+    ///     This implementation will get the current session from the current
+    ///     request.
+    /// </summary>
+    public class WebSessionStore : AbstractSessionStore
+    {
         /// <summary>
-        /// Initializes a new instance of the <see cref="WebSessionStore"/> class.
+        ///     Initializes a new instance of the <see cref="WebSessionStore" /> class.
         /// </summary>
         /// <param name="sqlMapperId">The SQL mapper id.</param>
         public WebSessionStore(string sqlMapperId) : base(sqlMapperId)
-		{}
+        {
+        }
 
-		/// <summary>
-		/// Get the local session
-		/// </summary>
+        /// <summary>
+        ///     Get the local session
+        /// </summary>
         public override ISqlMapSession LocalSession
-		{
-			get
-			{
-				HttpContext currentContext = ObtainSessionContext();
+        {
+            get
+            {
+                HttpContext currentContext = ObtainSessionContext();
                 return currentContext.Items[sessionName] as SqlMapSession;
-			}
-		}
+            }
+        }
 
-		/// <summary>
-		/// Store the specified session.
-		/// </summary>
-		/// <param name="session">The session to store</param>
+        /// <summary>
+        ///     Store the specified session.
+        /// </summary>
+        /// <param name="session">The session to store</param>
         public override void Store(ISqlMapSession session)
-		{
-			HttpContext currentContext = ObtainSessionContext();
-			currentContext.Items[sessionName] = session;
-		}
+        {
+            HttpContext currentContext = ObtainSessionContext();
+            currentContext.Items[sessionName] = session;
+        }
 
-		/// <summary>
-		/// Remove the local session.
-		/// </summary>
-		public override void Dispose()
-		{
-			HttpContext currentContext = ObtainSessionContext();
-			currentContext.Items.Remove(sessionName);
-		}
+        /// <summary>
+        ///     Remove the local session.
+        /// </summary>
+        public override void Dispose()
+        {
+            HttpContext currentContext = ObtainSessionContext();
+            currentContext.Items.Remove(sessionName);
+        }
 
-		
-		private static HttpContext ObtainSessionContext()
-		{
-			HttpContext currentContext = HttpContext.Current;
-	
-			if (currentContext == null)
-			{
-				throw new IBatisNetException("WebSessionStore: Could not obtain reference to HttpContext");
-			}
-			return currentContext;
-		}
-	}
+
+        private static HttpContext ObtainSessionContext()
+        {
+            HttpContext currentContext = HttpContext.Current;
+
+            if (currentContext == null)
+                throw new IBatisNetException("WebSessionStore: Could not obtain reference to HttpContext");
+            return currentContext;
+        }
+    }
 }

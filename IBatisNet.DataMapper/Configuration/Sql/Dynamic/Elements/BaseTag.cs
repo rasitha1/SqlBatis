@@ -1,5 +1,5 @@
-
 #region Apache Notice
+
 /*****************************************************************************
  * $Header: $
  * $Revision: 383115 $
@@ -22,42 +22,38 @@
  * limitations under the License.
  * 
  ********************************************************************************/
+
 #endregion
 
 #region Imports
+
 using System;
 using System.Xml.Serialization;
+
 #endregion
 
 namespace IBatisNet.DataMapper.Configuration.Sql.Dynamic.Elements
 {
-	/// <summary>
-	/// Summary description for BaseTag.
-	/// </summary>
-	[Serializable]
-	public abstract class BaseTag : SqlTag
-	{
-		#region Fields
-		
-		[NonSerialized]
-		private string _property = string.Empty;
+    /// <summary>
+    ///     Summary description for BaseTag.
+    /// </summary>
+    [Serializable]
+    public abstract class BaseTag : SqlTag
+    {
+        #region Fields
 
-		#endregion
+        [NonSerialized] private string _property = string.Empty;
 
-		/// <summary>
-		/// Property attribute
-		/// </summary>
-		[XmlAttribute("property")]
-		public string Property
-		{
-			get
-			{
-				return _property;
-			}
-			set
-			{
-				_property = value;
-			}
-		}
-	}
+        #endregion
+
+        /// <summary>
+        ///     Property attribute
+        /// </summary>
+        [XmlAttribute("property")]
+        public string Property
+        {
+            get => _property;
+            set => _property = value;
+        }
+    }
 }

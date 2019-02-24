@@ -1,4 +1,5 @@
 #region Apache Notice
+
 /*****************************************************************************
  * $Revision: 374175 $
  * $LastChangedDate: 2006-04-25 19:40:27 +0200 (mar., 25 avr. 2006) $
@@ -21,6 +22,7 @@
  * limitations under the License.
  * 
  ********************************************************************************/
+
 #endregion
 
 using System.Data;
@@ -29,55 +31,53 @@ using IBatisNet.DataMapper.Scope;
 
 namespace IBatisNet.DataMapper.MappedStatements.ResultStrategy
 {
-	/// <summary>
-	/// <see cref="IResultStrategy"/> implementation when 
-	/// no 'resultClass' attribute is specified.
-	/// </summary>
+    /// <summary>
+    ///     <see cref="IResultStrategy" /> implementation when
+    ///     no 'resultClass' attribute is specified.
+    /// </summary>
     public sealed class ObjectStrategy : IResultStrategy
     {
         #region IResultStrategy Members
 
         /// <summary>
-        /// Processes the specified <see cref="IDataReader"/> 
-        /// when no resultClass or resultMap attribute are specified.
+        ///     Processes the specified <see cref="IDataReader" />
+        ///     when no resultClass or resultMap attribute are specified.
         /// </summary>
         /// <param name="request">The request.</param>
         /// <param name="reader">The reader.</param>
         /// <param name="resultObject">The result object.</param>
         public object Process(RequestScope request, ref IDataReader reader, object resultObject)
         {
-			object outObject = resultObject; 
+            object outObject = resultObject;
 
-			if (reader.FieldCount == 1)
-			{
-				ResultProperty property = new ResultProperty();
-				property.PropertyName = "value";
-				property.ColumnIndex = 0;
-				property.TypeHandler = request.DataExchangeFactory.TypeHandlerFactory.GetTypeHandler(reader.GetFieldType(0));
-				outObject = property.GetDataBaseValue(reader);
-			}
-			else if (reader.FieldCount > 1)
-			{
-				object[] newOutObject = new object[reader.FieldCount];
-				int count = reader.FieldCount;
-				for (int i = 0; i < count; i++) 
-				{
-					ResultProperty property = new ResultProperty();
-					property.PropertyName = "value";
-					property.ColumnIndex = i;
-					property.TypeHandler = request.DataExchangeFactory.TypeHandlerFactory.GetTypeHandler(reader.GetFieldType(i));
-					newOutObject[i] = property.GetDataBaseValue(reader);
-				}
+            if (reader.FieldCount == 1)
+            {
+                ResultProperty property = new ResultProperty();
+                property.PropertyName = "value";
+                property.ColumnIndex = 0;
+                property.TypeHandler =
+                    request.DataExchangeFactory.TypeHandlerFactory.GetTypeHandler(reader.GetFieldType(0));
+                outObject = property.GetDataBaseValue(reader);
+            }
+            else if (reader.FieldCount > 1)
+            {
+                object[] newOutObject = new object[reader.FieldCount];
+                int count = reader.FieldCount;
+                for (int i = 0; i < count; i++)
+                {
+                    ResultProperty property = new ResultProperty();
+                    property.PropertyName = "value";
+                    property.ColumnIndex = i;
+                    property.TypeHandler =
+                        request.DataExchangeFactory.TypeHandlerFactory.GetTypeHandler(reader.GetFieldType(i));
+                    newOutObject[i] = property.GetDataBaseValue(reader);
+                }
 
-				outObject = newOutObject;
-			}
-			else
-			{
-				// do nothing if 0 fields
-			}   
-     
-			return outObject;
-		}
+                outObject = newOutObject;
+            }
+
+            return outObject;
+        }
 
         #endregion
     }

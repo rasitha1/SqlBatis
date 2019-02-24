@@ -1,5 +1,5 @@
-
 #region Apache Notice
+
 /*****************************************************************************
  * $Header: $
  * $Revision: 383115 $
@@ -22,45 +22,40 @@
  * limitations under the License.
  * 
  ********************************************************************************/
-#endregion
 
-using System;
+#endregion
 
 namespace IBatisNet.DataMapper
 {
-	/// <summary>
-	/// Indicate if the generated key by a selectKey statement
-	///  concern a pre or post-generated key.
-	/// </summary>
-	public enum SelectKeyType : int
-	{
-		/// <summary>
-		/// 
-		/// </summary>
-		pre = 1,
-		/// <summary>
-		/// 
-		/// </summary>
-		post = 2
-	}
+    /// <summary>
+    ///     Indicate if the generated key by a selectKey statement
+    ///     concern a pre or post-generated key.
+    /// </summary>
+    public enum SelectKeyType
+    {
+        /// <summary>
+        /// </summary>
+        pre = 1,
 
-	/// <summary>
-	/// 
-	/// </summary>
-	public enum CacheKeyType : int
-	{
-		/// <summary>
-		/// 
-		/// </summary>
-		Object = 1,
-		/// <summary>
-		/// 
-		/// </summary>
-		List = 2,
-		/// <summary>
-		/// 
-		/// </summary>
-		Map = 3
-	}
+        /// <summary>
+        /// </summary>
+        post = 2
+    }
 
+    /// <summary>
+    /// </summary>
+    public enum CacheKeyType
+    {
+        /// <summary>
+        /// </summary>
+        Object = 1,
+
+        /// <summary>
+        /// </summary>
+        List = 2,
+
+        /// <summary>
+        /// </summary>
+        Map = 3
+    }
 }

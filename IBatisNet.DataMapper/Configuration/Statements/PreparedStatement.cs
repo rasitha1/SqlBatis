@@ -1,5 +1,5 @@
-
 #region Apache Notice
+
 /*****************************************************************************
  * $Header: $
  * $Revision: 477815 $
@@ -22,6 +22,7 @@
  * limitations under the License.
  * 
  ********************************************************************************/
+
 #endregion
 
 #region Using
@@ -29,53 +30,37 @@
 using System.Collections.Specialized;
 using System.Data;
 
-#endregion 
+#endregion
 
 namespace IBatisNet.DataMapper.Configuration.Statements
 {
-	/// <summary>
-	/// Construct the list of IDataParameters for the statement
-	/// and prepare the sql
-	/// </summary>
-	public class PreparedStatement
-	{
-		#region Fields
+    /// <summary>
+    ///     Construct the list of IDataParameters for the statement
+    ///     and prepare the sql
+    /// </summary>
+    public class PreparedStatement
+    {
+        #region Fields
 
-		private string _preparedSsql = string.Empty;
-		private StringCollection  _dbParametersName = new StringCollection ();
-		private IDbDataParameter[] _dbParameters = null;
+        #endregion
 
-		#endregion
+        #region Properties
 
-		#region Properties
+        /// <summary>
+        ///     The list of IDataParameter name used by the PreparedSql.
+        /// </summary>
+        public StringCollection DbParametersName { get; } = new StringCollection();
 
+        /// <summary>
+        ///     The list of IDataParameter to use for the PreparedSql.
+        /// </summary>
+        public IDbDataParameter[] DbParameters { get; set; } = null;
 
-		/// <summary>
-		/// The list of IDataParameter name used by the PreparedSql.
-		/// </summary>
-		public StringCollection DbParametersName
-		{
-			get { return _dbParametersName; }
-		}
+        /// <summary>
+        ///     The prepared statement.
+        /// </summary>
+        public string PreparedSql { get; set; } = string.Empty;
 
-		/// <summary>
-		/// The list of IDataParameter to use for the PreparedSql.
-		/// </summary>
-        public IDbDataParameter[] DbParameters
-		{
-			get { return _dbParameters;}
-			set { _dbParameters =value;}
-		}
-
-		/// <summary>
-		/// The prepared statement.
-		/// </summary>
-		public string PreparedSql
-		{
-			get { return _preparedSsql; }
-			set {_preparedSsql = value;}
-		}
-
-		#endregion
-	}
+        #endregion
+    }
 }

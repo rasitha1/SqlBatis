@@ -1,4 +1,5 @@
 #region Apache Notice
+
 /*****************************************************************************
  * $Revision: 378879 $
  * $LastChangedDate: 2006-11-19 17:07:45 +0100 (dim., 19 nov. 2006) $
@@ -21,48 +22,58 @@
  * limitations under the License.
  * 
  ********************************************************************************/
+
 #endregion
 
 #region Using
+
 using System;
 using System.Data;
-
-using System.Collections.Generic;
-using IBatisNet.DataMapper.Configuration.ParameterMapping;
 using IBatisNet.DataMapper.Configuration.ResultMapping;
+
 #endregion
 
 namespace IBatisNet.DataMapper.TypeHandlers.Nullables
 {
     /// <summary>
-    /// TypeHandler for Nullable UInt64 Type
+    ///     TypeHandler for Nullable UInt64 Type
     /// </summary>
     public sealed class NullableUInt64TypeHandler : BaseTypeHandler
     {
+        /// <summary>
+        ///     Gets a value indicating whether this instance is simple type.
+        /// </summary>
+        /// <value>
+        ///     <c>true</c> if this instance is simple type; otherwise, <c>false</c>.
+        /// </value>
+        public override bool IsSimpleType => true;
+
 
         /// <summary>
-        /// Sets a parameter on a IDbCommand
+        ///     The null value for this type
+        /// </summary>
+        /// <value></value>
+        public override object NullValue => new ulong?();
+
+        /// <summary>
+        ///     Sets a parameter on a IDbCommand
         /// </summary>
         /// <param name="dataParameter">the parameter</param>
         /// <param name="parameterValue">the parameter value</param>
         /// <param name="dbType">the dbType of the parameter</param>
         public override void SetParameter(IDataParameter dataParameter, object parameterValue, string dbType)
         {
-            UInt64? nullableValue = (UInt64?)parameterValue;
+            ulong? nullableValue = (ulong?) parameterValue;
 
             if (nullableValue.HasValue)
-            {
                 dataParameter.Value = nullableValue.Value;
-            }
             else
-            {
                 dataParameter.Value = DBNull.Value;
-            }
         }
 
 
         /// <summary>
-        /// Gets a column value by the name
+        ///     Gets a column value by the name
         /// </summary>
         /// <param name="mapping"></param>
         /// <param name="dataReader"></param>
@@ -71,76 +82,44 @@ namespace IBatisNet.DataMapper.TypeHandlers.Nullables
         {
             int index = dataReader.GetOrdinal(mapping.ColumnName);
 
-            if (dataReader.IsDBNull(index) == true)
-            {
+            if (dataReader.IsDBNull(index))
                 return DBNull.Value;
-            }
-            else
-            {
-                return new UInt64?(Convert.ToUInt64(dataReader.GetValue(index)));
-            }
+            return Convert.ToUInt64(dataReader.GetValue(index));
         }
 
         /// <summary>
-        /// Gets a column value by the index
+        ///     Gets a column value by the index
         /// </summary>
         /// <param name="mapping"></param>
         /// <param name="dataReader"></param>
         /// <returns></returns>
         public override object GetValueByIndex(ResultProperty mapping, IDataReader dataReader)
         {
-            if (dataReader.IsDBNull(mapping.ColumnIndex) == true)
-            {
+            if (dataReader.IsDBNull(mapping.ColumnIndex))
                 return DBNull.Value;
-            }
-            else
-            {
-                return new UInt64?(Convert.ToUInt64(dataReader.GetValue(mapping.ColumnIndex)));
-            }
+            return Convert.ToUInt64(dataReader.GetValue(mapping.ColumnIndex));
         }
 
         /// <summary>
-        /// Retrieve ouput database value of an output parameter
+        ///     Retrieve ouput database value of an output parameter
         /// </summary>
         /// <param name="outputValue">ouput database value</param>
         /// <param name="parameterType">type used in EnumTypeHandler</param>
         /// <returns></returns>
         public override object GetDataBaseValue(object outputValue, Type parameterType)
         {
-            return new UInt64?(Convert.ToUInt64(outputValue));
+            return Convert.ToUInt64(outputValue);
         }
 
         /// <summary>
-        /// Converts the String to the type that this handler deals with
+        ///     Converts the String to the type that this handler deals with
         /// </summary>
         /// <param name="type">the tyepe of the property (used only for enum conversion)</param>
         /// <param name="s">the String value</param>
         /// <returns>the converted value</returns>
         public override object ValueOf(Type type, string s)
         {
-            return new UInt64?(UInt64.Parse(s));
-        }
-
-
-        /// <summary>
-        /// Gets a value indicating whether this instance is simple type.
-        /// </summary>
-        /// <value>
-        /// 	<c>true</c> if this instance is simple type; otherwise, <c>false</c>.
-        /// </value>
-        public override bool IsSimpleType
-        {
-            get { return true; }
-        }
-
-
-        /// <summary>
-        /// The null value for this type
-        /// </summary>
-        /// <value></value>
-        public override object NullValue
-        {
-            get { return new UInt64?(); }
+            return ulong.Parse(s);
         }
 
         //public override bool Equals(object x, object y)

@@ -1,5 +1,5 @@
-
 #region Apache Notice
+
 /*****************************************************************************
  * $Header: $
  * $Revision: 383115 $
@@ -22,6 +22,7 @@
  * limitations under the License.
  * 
  ********************************************************************************/
+
 #endregion
 
 #region Imports
@@ -38,155 +39,150 @@ using IBatisNet.DataAccess.Interfaces;
 
 namespace IBatisNet.DataAccess.Configuration
 {
-	/// <summary>
-	/// Summary description for DaoProxy.
-	/// </summary>
-	[CLSCompliant(false)]
-	public class DaoProxy : IInterceptor	
-	{
-		#region Fields
-		private static ArrayList _passthroughMethods = new ArrayList();
-		private Dao _daoImplementation;
-		private static readonly ILog _logger = LogManager.GetLogger( MethodBase.GetCurrentMethod().DeclaringType );
-		#endregion
+    /// <summary>
+    ///     Summary description for DaoProxy.
+    /// </summary>
+    [CLSCompliant(false)]
+    public class DaoProxy : IInterceptor
+    {
+        #region Methods
 
-		#region Constructor (s) / Destructor
-		/// <summary>
-		/// Constructor for a DaoProxy
-		/// </summary>
-		static DaoProxy()
-		{
-			_passthroughMethods.Add("GetType");
-			_passthroughMethods.Add("ToString");
-		}
+        /// <summary>
+        /// </summary>
+        /// <param name="dao"></param>
+        /// <returns></returns>
+        public static IDao NewInstance(Dao dao)
+        {
+            ProxyGenerator proxyGenerator = new ProxyGenerator();
+            IInterceptor handler = new DaoProxy(dao);
+            Type[] interfaces = {typeof(IDao)};
 
-		/// <summary>
-		/// Create a new proxy for the Dao
-		/// </summary>
-		/// <param name="dao">The dao object to proxy</param>
-		public DaoProxy(Dao dao)
-		{
-			_daoImplementation = dao;
-		}
-		#endregion
+            return (proxyGenerator.CreateInterfaceProxyWithTargetInterface(dao.DaoInterface, interfaces,
+                dao.DaoInstance, handler) as IDao);
+        }
 
-		#region Methods
-		/// <summary>
-		/// 
-		/// </summary>
-		/// <param name="dao"></param>
-		/// <returns></returns>
-		public static IDao NewInstance(Dao dao) 
-		{
-			ProxyGenerator proxyGenerator = new ProxyGenerator();
-			IInterceptor handler = new DaoProxy(dao);
-			Type[] interfaces = { typeof(IDao)};
+        #endregion
 
-			return (proxyGenerator.CreateInterfaceProxyWithTargetInterface(dao.DaoInterface, interfaces, dao.DaoInstance, handler) as IDao);
-		}
-		#endregion
+        #region Fields
 
-		#region IInterceptor menbers
+        private static readonly ArrayList _passthroughMethods = new ArrayList();
+        private readonly Dao _daoImplementation;
+        private static readonly ILog _logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
-		/// <summary>
-		/// 
-		/// </summary>
-		/// <param name="invocation"></param>
-		/// <param name="arguments"></param>
-		/// <returns></returns>
-		public void Intercept(IInvocation invocation)
-		{
-			Object result = null;
+        #endregion
 
-			#region Logging
-			if (_logger.IsDebugEnabled) 
-			{
-				_logger.Debug("Dao Proxy call to " + invocation.Method.Name);
-			}
-			#endregion
+        #region Constructor (s) / Destructor
 
-			if (_passthroughMethods.Contains(invocation.Method.Name)) 
-			{
-				try 
-				{
-					result = invocation.Method.Invoke( _daoImplementation.DaoInstance, invocation.Arguments);
-				} 
-				catch (Exception e) 
-				{
-					throw UnWrapException(e, invocation.Method.Name);
-				}
-			} 
-			else 
-			{
-				DaoManager daoManager = _daoImplementation.DaoManager;
-				if ( daoManager.IsDaoSessionStarted() ) 
-				{
-					try 
-					{
-						result = invocation.Method.Invoke(_daoImplementation.DaoInstance, invocation.Arguments);
-					} 
-					catch (Exception e) 
-					{
-						throw UnWrapException(e, invocation.Method.Name);
-					}
-				} 
-				else 
-				{
-					#region Logging
-					if (_logger.IsDebugEnabled) 
-					{
-						_logger.Debug("Dao Proxy, Open a connection ");
-					}
-					#endregion
-					// Open a connection
-					try 
-					{
-						daoManager.OpenConnection();
-						result = invocation.Method.Invoke(_daoImplementation.DaoInstance, invocation.Arguments);
-					} 
-					catch (Exception e) 
-					{
-						throw UnWrapException(e, invocation.Method.Name);
-					} 
-					finally 
-					{
-						daoManager.CloseConnection();
-					}
-				}
-			}
+        /// <summary>
+        ///     Constructor for a DaoProxy
+        /// </summary>
+        static DaoProxy()
+        {
+            _passthroughMethods.Add("GetType");
+            _passthroughMethods.Add("ToString");
+        }
 
-			#region Logging
-			if (_logger.IsDebugEnabled) 
-			{
-				_logger.Debug("End of proxyfied call to " + invocation.Method.Name);
-			}
-			#endregion
+        /// <summary>
+        ///     Create a new proxy for the Dao
+        /// </summary>
+        /// <param name="dao">The dao object to proxy</param>
+        public DaoProxy(Dao dao)
+        {
+            _daoImplementation = dao;
+        }
 
-			invocation.ReturnValue = result;
-		}
+        #endregion
 
-		private Exception UnWrapException(Exception ex, string methodName) 
-		{
-			Exception e = ex;
-			while (true) 
-			{
-				if (typeof(DataAccessException).IsInstanceOfType(e))
-				{
-					return e;
-				}
-				else if (e.InnerException != null)
-				{
-					e = e.InnerException;
-				}
-				else
-				{
-					e = new DataAccessException( string.Format("DaoProxy : unable to intercept method name '{0}', cause : {1}", methodName, e.Message), e);
-				}			
-			}
-		}
+        #region IInterceptor menbers
 
-		#endregion
+        /// <summary>
+        /// </summary>
+        /// <param name="invocation"></param>
+        /// <param name="arguments"></param>
+        /// <returns></returns>
+        public void Intercept(IInvocation invocation)
+        {
+            object result = null;
 
+            #region Logging
 
-	}
+            if (_logger.IsDebugEnabled) _logger.Debug("Dao Proxy call to " + invocation.Method.Name);
+
+            #endregion
+
+            if (_passthroughMethods.Contains(invocation.Method.Name))
+            {
+                try
+                {
+                    result = invocation.Method.Invoke(_daoImplementation.DaoInstance, invocation.Arguments);
+                }
+                catch (Exception e)
+                {
+                    throw UnWrapException(e, invocation.Method.Name);
+                }
+            }
+            else
+            {
+                DaoManager daoManager = _daoImplementation.DaoManager;
+                if (daoManager.IsDaoSessionStarted())
+                {
+                    try
+                    {
+                        result = invocation.Method.Invoke(_daoImplementation.DaoInstance, invocation.Arguments);
+                    }
+                    catch (Exception e)
+                    {
+                        throw UnWrapException(e, invocation.Method.Name);
+                    }
+                }
+                else
+                {
+                    #region Logging
+
+                    if (_logger.IsDebugEnabled) _logger.Debug("Dao Proxy, Open a connection ");
+
+                    #endregion
+
+                    // Open a connection
+                    try
+                    {
+                        daoManager.OpenConnection();
+                        result = invocation.Method.Invoke(_daoImplementation.DaoInstance, invocation.Arguments);
+                    }
+                    catch (Exception e)
+                    {
+                        throw UnWrapException(e, invocation.Method.Name);
+                    }
+                    finally
+                    {
+                        daoManager.CloseConnection();
+                    }
+                }
+            }
+
+            #region Logging
+
+            if (_logger.IsDebugEnabled) _logger.Debug("End of proxyfied call to " + invocation.Method.Name);
+
+            #endregion
+
+            invocation.ReturnValue = result;
+        }
+
+        private Exception UnWrapException(Exception ex, string methodName)
+        {
+            Exception e = ex;
+            while (true)
+                if (typeof(DataAccessException).IsInstanceOfType(e))
+                    return e;
+                else if (e.InnerException != null)
+                    e = e.InnerException;
+                else
+                    e = new DataAccessException(
+                        string.Format("DaoProxy : unable to intercept method name '{0}', cause : {1}", methodName,
+                            e.Message), e);
+        }
+
+        #endregion
+    }
 }

@@ -1,5 +1,5 @@
-
 #region Apache Notice
+
 /*****************************************************************************
  * $Revision: 408164 $
  * $LastChangedDate: 2006-05-21 14:27:09 +0200 (dim., 21 mai 2006) $
@@ -22,6 +22,7 @@
  * limitations under the License.
  * 
  ********************************************************************************/
+
 #endregion
 
 using System;
@@ -31,21 +32,20 @@ using IBatisNet.DataMapper.Configuration.Sql.Dynamic.Handlers;
 
 namespace IBatisNet.DataMapper.Configuration.Sql.Dynamic.Elements
 {
-	/// <summary>
-	/// Represent an isGreaterEqual sql tag element.
-	/// </summary>
-	[Serializable]
-	[XmlRoot("isGreaterEqual", Namespace="http://ibatis.apache.org/mapping")]
-	public sealed class IsGreaterEqual : Conditional
-	{
-
+    /// <summary>
+    ///     Represent an isGreaterEqual sql tag element.
+    /// </summary>
+    [Serializable]
+    [XmlRoot("isGreaterEqual", Namespace = "http://ibatis.apache.org/mapping")]
+    public sealed class IsGreaterEqual : Conditional
+    {
         /// <summary>
-        /// Initializes a new instance of the <see cref="IsGreaterEqual"/> class.
+        ///     Initializes a new instance of the <see cref="IsGreaterEqual" /> class.
         /// </summary>
         /// <param name="accessorFactory">The accessor factory.</param>
         public IsGreaterEqual(AccessorFactory accessorFactory)
-		{
-            this.Handler = new IsGreaterEqualTagHandler(accessorFactory);
-		}
-	}
+        {
+            Handler = new IsGreaterEqualTagHandler(accessorFactory);
+        }
+    }
 }

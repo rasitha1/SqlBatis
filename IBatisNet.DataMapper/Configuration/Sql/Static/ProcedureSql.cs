@@ -1,4 +1,5 @@
 #region Apache Notice
+
 /*****************************************************************************
  * $Revision: 476843 $
  * $LastChangedDate: 2006-11-19 17:07:45 +0100 (dim., 19 nov. 2006) $
@@ -21,10 +22,11 @@
  * limitations under the License.
  * 
  ********************************************************************************/
+
 #endregion
 
 #region Using
-using System;
+
 using IBatisNet.DataMapper.Configuration.Statements;
 using IBatisNet.DataMapper.DataExchange;
 using IBatisNet.DataMapper.MappedStatements;
@@ -34,79 +36,82 @@ using IBatisNet.DataMapper.Scope;
 
 namespace IBatisNet.DataMapper.Configuration.Sql.Static
 {
-	/// <summary>
-	/// Summary description for ProcedureSql.
-	/// </summary>
-	public sealed class ProcedureSql : ISql
-	{
-		#region Fields
+    /// <summary>
+    ///     Summary description for ProcedureSql.
+    /// </summary>
+    public sealed class ProcedureSql : ISql
+    {
+        #region Constructor (s) / Destructor
 
-		private IStatement _statement = null ;
-		private PreparedStatement _preparedStatement = null ;
-		private string _sqlStatement = string.Empty;
-		private object _synRoot = new Object();
-		private DataExchangeFactory _dataExchangeFactory = null;
+        /// <summary>
+        ///     Constructor
+        /// </summary>
+        /// <param name="statement">The statement.</param>
+        /// <param name="sqlStatement"></param>
+        /// <param name="scope"></param>
+        public ProcedureSql(IScope scope, string sqlStatement, IStatement statement)
+        {
+            _sqlStatement = sqlStatement;
+            _statement = statement;
 
-		#endregion
+            _dataExchangeFactory = scope.DataExchangeFactory;
+        }
 
-		#region Constructor (s) / Destructor
-		/// <summary>
-		/// Constructor
-		/// </summary>
-		/// <param name="statement">The statement.</param>
-		/// <param name="sqlStatement"></param>
-		/// <param name="scope"></param>
-		public ProcedureSql(IScope scope, string sqlStatement, IStatement statement)
-		{
-			_sqlStatement = sqlStatement;
-			_statement = statement;
+        #endregion
 
-			_dataExchangeFactory = scope.DataExchangeFactory;
-		}
-		#endregion
+        #region Fields
 
-		#region ISql Members
+        private readonly IStatement _statement;
+        private PreparedStatement _preparedStatement;
+        private readonly string _sqlStatement = string.Empty;
+        private readonly object _synRoot = new object();
+        private readonly DataExchangeFactory _dataExchangeFactory;
 
-		/// <summary>
-		/// Builds a new <see cref="RequestScope"/> and the sql command text to execute.
-		/// </summary>
-		/// <param name="parameterObject">The parameter object (used in DynamicSql)</param>
-		/// <param name="session">The current session</param>
-		/// <param name="mappedStatement">The <see cref="IMappedStatement"/>.</param>
-		/// <returns>A new <see cref="RequestScope"/>.</returns>
-		public RequestScope GetRequestScope(IMappedStatement mappedStatement, 
-			object parameterObject, ISqlMapSession session)
-		{
-			RequestScope request = new RequestScope(_dataExchangeFactory, session, _statement);
+        #endregion
 
-			request.PreparedStatement = BuildPreparedStatement(session, request, _sqlStatement);
-			request.MappedStatement = mappedStatement;
+        #region ISql Members
 
-			return request;
-		}
+        /// <summary>
+        ///     Builds a new <see cref="RequestScope" /> and the sql command text to execute.
+        /// </summary>
+        /// <param name="parameterObject">The parameter object (used in DynamicSql)</param>
+        /// <param name="session">The current session</param>
+        /// <param name="mappedStatement">The <see cref="IMappedStatement" />.</param>
+        /// <returns>A new <see cref="RequestScope" />.</returns>
+        public RequestScope GetRequestScope(IMappedStatement mappedStatement,
+            object parameterObject, ISqlMapSession session)
+        {
+            RequestScope request = new RequestScope(_dataExchangeFactory, session, _statement);
 
-		/// <summary>
-		/// Build the PreparedStatement
-		/// </summary>
-		/// <param name="session"></param>
-		/// <param name="commandText"></param>
-		/// <param name="request"></param>
-		public PreparedStatement BuildPreparedStatement(ISqlMapSession session, RequestScope request, string commandText)
-		{
-			if ( _preparedStatement == null )
-			{
-				lock(_synRoot)
-				{
-					if (_preparedStatement==null)
-					{
-						PreparedStatementFactory factory = new PreparedStatementFactory( session, request, _statement, commandText);
-						_preparedStatement = factory.Prepare();
-					}
-				}
-			}
-			return _preparedStatement;
-		}
+            request.PreparedStatement = BuildPreparedStatement(session, request, _sqlStatement);
+            request.MappedStatement = mappedStatement;
 
-		#endregion
-	}
+            return request;
+        }
+
+        /// <summary>
+        ///     Build the PreparedStatement
+        /// </summary>
+        /// <param name="session"></param>
+        /// <param name="commandText"></param>
+        /// <param name="request"></param>
+        public PreparedStatement BuildPreparedStatement(ISqlMapSession session, RequestScope request,
+            string commandText)
+        {
+            if (_preparedStatement == null)
+                lock (_synRoot)
+                {
+                    if (_preparedStatement == null)
+                    {
+                        PreparedStatementFactory factory =
+                            new PreparedStatementFactory(session, request, _statement, commandText);
+                        _preparedStatement = factory.Prepare();
+                    }
+                }
+
+            return _preparedStatement;
+        }
+
+        #endregion
+    }
 }
