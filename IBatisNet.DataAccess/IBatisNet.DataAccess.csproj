@@ -1,0 +1,197 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build">
+  <PropertyGroup>
+    <ProjectType>Local</ProjectType>
+    <ProductVersion>7.10.3077</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{BEFC4A45-7DF9-40E4-942C-82DC1BA5E708}</ProjectGuid>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ApplicationIcon />
+    <AssemblyKeyContainerName />
+    <AssemblyName>IBatisNet.DataAccess</AssemblyName>
+    <AssemblyOriginatorKeyFile />
+    <DefaultClientScript>JScript</DefaultClientScript>
+    <DefaultHTMLPageLayout>Grid</DefaultHTMLPageLayout>
+    <DefaultTargetSchema>IE50</DefaultTargetSchema>
+    <DelaySign>false</DelaySign>
+    <OutputType>Library</OutputType>
+    <RootNamespace>IBatisNet.DataAccess</RootNamespace>
+    <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
+    <StartupObject />
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>0.0</OldToolsVersion>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <BaseAddress>285212672</BaseAddress>
+    <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
+    <ConfigurationOverrideFile />
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DocumentationFile>IBatisNet.DataAccess.xml</DocumentationFile>
+    <DebugSymbols>true</DebugSymbols>
+    <FileAlignment>4096</FileAlignment>
+    <NoStdLib>false</NoStdLib>
+    <NoWarn />
+    <Optimize>false</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>4</WarningLevel>
+    <DebugType>full</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <BaseAddress>285212672</BaseAddress>
+    <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
+    <ConfigurationOverrideFile />
+    <DefineConstants>TRACE;STRONG</DefineConstants>
+    <DocumentationFile>IBatisNet.DataAccess.xml</DocumentationFile>
+    <DebugSymbols>false</DebugSymbols>
+    <FileAlignment>4096</FileAlignment>
+    <NoStdLib>false</NoStdLib>
+    <NoWarn />
+    <Optimize>true</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>4</WarningLevel>
+    <DebugType>none</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\IBatisNet.Common\IBatisNet.Common.csproj">
+      <Name>IBatisNet.Common</Name>
+      <Project>{BBC8DA4A-EA88-41D9-8B93-929B8F3ADADE}</Project>
+      <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
+    </ProjectReference>
+    <ProjectReference Include="..\IBatisNet.DataMapper\IBatisNet.DataMapper.csproj">
+      <Name>IBatisNet.DataMapper</Name>
+      <Project>{72F70057-B2E1-4DAD-BA6C-E2962745EEA5}</Project>
+      <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
+    </ProjectReference>
+    <Reference Include="Castle.DynamicProxy">
+      <Name>Castle.DynamicProxy</Name>
+      <HintPath>..\External-Bin\Net\1.1\Castle.DynamicProxy.dll</HintPath>
+    </Reference>
+    <Reference Include="System">
+      <Name>System</Name>
+    </Reference>
+    <Reference Include="System.Data">
+      <Name>System.Data</Name>
+    </Reference>
+    <Reference Include="System.Web">
+      <Name>System.Web</Name>
+    </Reference>
+    <Reference Include="System.Xml">
+      <Name>System.XML</Name>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\CommonAssemblyInfo.cs">
+      <Link>CommonAssemblyInfo.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Configuration\Dao.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Configuration\DaoProxy.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Configuration\DaoSessionHandler.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Configuration\DomDaoManagerBuilder.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Configuration\Serializers\DaoDeSerializer.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Configuration\Serializers\DaoSessionHandlerDeSerializer.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DaoManager.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DaoSession.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DaoSessionHandlers\SimpleDaoSession.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DaoSessionHandlers\SimpleDaoSessionHandler.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DaoSessionHandlers\SqlMapDaoSession.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DaoSessionHandlers\SqlMapDaoSessionHandler.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Exceptions\DataAccessException.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="IDaoManager.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Interfaces\IDao.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Interfaces\IDaoSessionHandler.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="MessageManager.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Scope\ConfigurationScope.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Scope\ErrorContext.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="SessionHolder.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="SessionStore\AbstractSessionStore.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="SessionStore\CallContextSessionStore.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="SessionStore\HybridWebThreadSessionStore.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="SessionStore\ISessionStore.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="SessionStore\SessionStoreFactory .cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="SessionStore\WebSessionStore.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Content Include="ChangeLog.txt" />
+    <Content Include="DaoConfig.xsd" />
+    <Content Include="licence.txt" />
+    <Content Include="notice.txt" />
+    <None Include="IBatisNet.DataAccess.build" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent />
+    <PostBuildEvent />
+  </PropertyGroup>
+</Project>

@@ -1,0 +1,5 @@
+IBatisNet DataAccess test Change Log
+
+------------------------------
+1.5.* - XX/XX/XXXX
+------------------------------

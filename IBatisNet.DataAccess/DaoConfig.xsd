@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema 
+targetNamespace="http://ibatis.apache.org/dataAccess" 
+elementFormDefault="qualified" 
+xmlns:mstns="http://tempuri.org/XMLSchema.xsd" 
+xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+xmlns="http://ibatis.apache.org/dataAccess"
+xmlns:vs="http://schemas.microsoft.com/Visual-Studio-Intellisense" 
+vs:friendlyname="iBATIS.NET DataAccess file Configuration Schema" 
+vs:ishtmlschema="false" 
+vs:iscasesensitive="true" 
+vs:requireattributequotes="true" 
+vs:defaultnamespacequalifier="" 
+vs:defaultnsprefix="" >
+
+	<xs:element name="providers">
+		<xs:complexType>
+			<xs:attribute name="resource" type="xs:string"/>
+			<xs:attribute name="url" type="xs:string"/>
+			<xs:attribute name="embedded" type="xs:string"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="context">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="properties" minOccurs="0"/>
+				<xs:element ref="database"/>
+				<xs:element ref="daoSessionHandler" minOccurs="0"/>
+				<xs:element ref="daoFactory"/>
+			</xs:sequence>
+			<xs:attribute name="id" type="xs:string" use="required"/>
+			<xs:attribute name="default" type="xs:boolean"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="dao">
+		<xs:complexType>
+			<xs:attribute name="interface" type="xs:string" use="required"/>
+			<xs:attribute name="implementation" type="xs:string" use="required"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="daoConfig">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="daoSessionHandlers" minOccurs="0"/>
+				<xs:element ref="providers" minOccurs="0"  maxOccurs="1"/>
+				<xs:element ref="context" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="daoSessionHandlers">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="handler"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="handler">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="xs:string">
+					<xs:attribute name="id" type="xs:string" use="required"/>
+					<xs:attribute name="implementation" type="xs:string" use="required"/>
+				</xs:extension>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="daoFactory">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="dao" minOccurs="1" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="daoSessionHandler">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="property" maxOccurs="unbounded"/>
+			</xs:sequence>
+			<xs:attribute name="id" type="xs:string" use="required"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="dataSource">
+		<xs:complexType>
+			<xs:attribute name="name" type="xs:string" use="required"/>
+			<xs:attribute name="connectionString" type="xs:string" use="required"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="database">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="provider" minOccurs="0"/>
+				<xs:element ref="dataSource"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="properties">
+		<xs:complexType>
+			<xs:attribute name="resource" type="xs:string"/>
+			<xs:attribute name="url" type="xs:string"/>
+			<xs:attribute name="embedded" type="xs:string"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="property">
+		<xs:complexType>
+			<xs:attribute name="name" type="xs:string" use="required"/>
+			<xs:attribute name="value" type="xs:string" use="required"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="provider">
+		<xs:complexType>
+			<xs:attribute name="name" type="xs:string" use="required"/>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

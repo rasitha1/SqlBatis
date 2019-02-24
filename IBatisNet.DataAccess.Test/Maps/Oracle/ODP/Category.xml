@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<sqlMap namespace="Category" xmlns="http://ibatis.apache.org/mapping" 
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+	
+	<alias>
+		<typeAlias alias="Category" type="IBatisNet.DataAccess.Test.Domain.Category, IBatisNet.DataAccess.Test"/>
+	</alias>
+	
+	<statements>
+	
+		<select id="GetCategory" parameterClass="int" resultClass="Category">
+			select
+			Category_ID as Id,
+			Category_Name as Name,
+			Category_Guid as GuidString
+			from Categories  
+			where Category_ID = #value:Int32# 
+		</select>
+		
+		<insert id="InsertCategory" parameterClass="Category" resultClass="int">
+			<selectKey property="Id" type="pre" resultClass="int">
+				select s_categories.nextval as value from dual
+            </selectKey>		
+			insert into Categories  
+				(Category_Id, Category_Name, Category_Guid) 
+			values 
+				(#Id:Int32#, #Name#, #GuidString:VarChar2#)
+		</insert>
+		
+		<!--  
+		Note: Use a parameterMap for statements with string parameters!
+		-->
+		<insert id="InsertCategoryViaInsertStatement" parameterMap="InsertCategoryViaInsertStatementParamMap" >
+			<selectKey property="Id" type="pre" resultClass="int">
+				select s_categories.nextval as value from dual
+            </selectKey>		
+            insert into Categories  
+				(Category_Id, Category_Name, Category_Guid) 
+			values 
+				(?, ?, ?)
+		</insert>
+		
+		<insert id="InsertCategoryViaParameterMap" parameterMap="InsertParam" resultClass="int">
+			<selectKey property="Id" type="pre" resultClass="int">
+				select s_categories.nextval as value from dual
+            </selectKey>	
+			insert into Categories  
+				(Category_Id, Category_Name, Category_Guid)
+			values 
+				(?,?,?)
+		</insert>
+
+		<insert id="InsertCategoryNull" parameterMap="insert-null-params" resultClass="int">
+			<selectKey property="Id" type="pre" resultClass="int">
+				select s_categories.nextval as value from dual
+            </selectKey>	
+			insert into Categories  
+				(Category_Id, Category_Name, Category_Guid)
+			values 
+				(?,?,?)
+		</insert>
+		
+		<!--
+		Throws OracleException Illegal variable name/number
+		
+		WorkAround:
+		Use a specific parameterMap for the UPDATE
+		or use a parameterClass instead of an extended parameterMap		
+		-->
+		<update id="UpdateCategoryViaParameterMap" parameterMap="UpdateParam">
+			update Categories set
+			Category_Id = ?,
+			Category_Name =?,
+			Category_Guid = ?
+			where
+			Category_Id = ?
+		</update>
+
+		<!--
+		NOTE: ODP.NET does not have a DeriveParameters method 
+		to allow iBAITS.NET to dynamically infer the stored procedure's parameters.
+		You cannot use the <procedure> statement.
+		
+		This was an attempt at a workaround for using 
+		a stored proc with 2 Input and 1 Output parameter in a <statement>.
+		
+		Unfortunately, the retrieving the output parameters doesn't work
+		since the procedure param name that iBATIS gets is p_Category_Id, 
+		but since this is a <statement> the actual param name is :Id!
+		
+		To get around this property name to paramMap name to proc param name issue,
+		use the same name for all, and this should work!
+		
+		Found in MappedStatement.RetrieveOutputParameters():
+		object dataBaseValue = mapping.TypeHandler.GetDataBaseValue( ((IDataParameter)command.Parameters[parameterName]).Value, result.GetType() );		
+		-->
+		<statement id="InsertCategoryViaStoreProcedure" parameterMap="stored-proc-insert-params">
+			call prc_InsertCategory(?, ?, ?)
+		</statement>
+				
+		<insert id="InsertCategoryGenerate" parameterMap="insert-generate-params">
+			<selectKey property="Id" type="post" resultClass="int">
+				select s_categories.nextval as value from dual
+            </selectKey>
+            <generate table="Categories" />
+		</insert>
+		
+		<!--
+		See OracleClient issues for UpdateCategoryGenerate 
+		and SelectByPKCategoryGenerate
+		-->
+		<update id="UpdateCategoryGenerate" parameterMap="update-generate-params">
+			<generate table="Categories" by="Category_Id"/>
+		</update>
+		
+		<delete id="DeleteCategoryGenerate" parameterMap="delete-generate-params">
+			<generate table="Categories" by="Category_Id, Category_Name"/>
+		</delete>
+
+		<!--
+		See OracleClient issues for UpdateCategoryGenerate 
+		and SelectByPKCategoryGenerate
+		-->		
+		<select id="SelectByPKCategoryGenerate" resultClass="Category" parameterClass="Category" parameterMap="select-generate-params">
+			<generate table="Categories" by="Category_Id"/> 
+		</select>
+		
+		<select id="SelectAllCategoryGenerate" resultClass="Category" parameterMap="select-generate-params">
+			<generate table="Categories" /> 
+		</select>
+		
+		<statement id="DynamicGuid" 
+			resultClass="Category" 
+			parameterClass="Category">
+			select
+			Category_ID as Id,
+			Category_Name as Name,
+			Category_Guid as GuidString
+			from Categories  
+			<dynamic prepend="where">
+				<isNotEqual prepend="and" property="Guid" compareProperty="EmptyGuid">
+					Category_Guid=#GuidString:VarChar2#
+				</isNotEqual>
+			</dynamic>
+		</statement>
+	</statements>
+	
+	<parameterMaps>
+	
+		<parameterMap id="InsertCategoryViaInsertStatementParamMap">
+			<parameter property="Id" column="p_Category_Id" dbType="Int32" />
+			<parameter property="Name" column="p_Category_Name" dbType="VarChar2" size="32"/>
+			<parameter property="GuidString" column="p_Category_Guid" dbType="VarChar2" size="36"/>
+		</parameterMap>
+
+		<parameterMap id="stored-proc-insert-params">
+			<parameter property="Name" direction="Input" column="p_Category_Name" dbType="VarChar2" size="32"/>
+			<parameter property="GuidString" direction="Input" column="p_Category_Guid" dbType="VarChar2" size="36"/>
+			<parameter property="Id" direction="Output" column="p_Category_Id" dbType="Int32" />
+		</parameterMap>
+		
+		<parameterMap id="InsertParam">
+			<parameter property="Id"   column="Category_Id" dbType="Int32" />
+			<parameter property="Name" column="Category_Name" dbType="VarChar2" size="32"/>
+			<parameter property="GuidString" column="Category_Guid" dbType="VarChar2" size="36"/>
+		</parameterMap>
+		
+		<parameterMap id="insert-null-params">
+			<parameter property="Id"   column="Category_Id" dbType="Int32" />
+			<parameter property="Name" column="Category_Name" dbType="VarChar2" size="32"/>
+			<parameter property="GuidString" column="Category_Guid" nullValue="00000000-0000-0000-0000-000000000000" dbType="VarChar2" size="36"/>
+		</parameterMap>
+		
+		<parameterMap id="UpdateParam" extends="InsertParam">
+			<parameter property="Id" column="Category_Id" dbType="Int32"/>
+		</parameterMap>
+		
+		<!-- Used by generated statement -->
+		
+		<parameterMap id="insert-generate-params">
+			<parameter property="Id"   column="Category_Id" dbType="Int32" />		
+			<parameter property="Name" column="Category_Name"/>
+			<parameter property="GuidString" column="Category_Guid" dbType="VarChar2"/>
+		</parameterMap>
+		
+		<parameterMap id="update-generate-params" extends="insert-generate-params">
+			<parameter property="Id" column="Category_Id" dbType="Int32"/>
+		</parameterMap>
+		
+		<parameterMap id="delete-generate-params">
+			<parameter property="Id" column="Category_Id" dbType="Int32"/>
+			<parameter property="Name" column="Category_Name"/>
+		</parameterMap>
+		
+		<parameterMap id="select-generate-params">
+			<parameter property="Id" column="Category_Id" dbType="Int32"/>
+			<parameter property="Name" column="Category_Name"/>
+			<parameter property="GuidString" column="Category_Guid" dbType="VarChar2"/>
+		</parameterMap>
+		
+	</parameterMaps>
+	
+</sqlMap>

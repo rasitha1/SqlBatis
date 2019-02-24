@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<sqlMap namespace="Other" 
+xmlns="http://ibatis.apache.org/mapping" 
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+	
+	<alias>
+		<typeAlias alias="Other" type="IBatisNet.DataAccess.Test.Domain.Other, IBatisNet.DataAccess.Test"/>
+	</alias>
+	
+	<resultMaps>                                    
+		<resultMap id="other-result"  class="Other" >
+			<result property="Int"		column="Other_Int"/>
+			<result property="Long"		column="Other_Long"/>
+		</resultMap>
+	</resultMaps>
+	
+	<statements>
+	
+		<statement id="DynamicSelectByIntLong" 
+			parameterClass="Hashtable" 
+			resultMap="other-result">
+			select
+				Other_Int,
+				Other_Long
+			from Others  
+			<dynamic prepend="WHERE"> 
+				<isNotEqual prepend="AND" property="year" compareValue="0"> 
+				Other_Int = #year#  
+				</isNotEqual> 
+				 
+				<isNotEqual prepend="AND" property="areaid" compareValue="0"> 
+				Other_Long = #areaid# 
+				</isNotEqual>  
+			</dynamic> 
+		</statement>
+				
+	</statements>
+	
+</sqlMap>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?> 
+<sqlMap namespace="Complex" 
+xmlns="http://ibatis.apache.org" 
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://ibatis.apache.org
+http://ibatis.apache.org/xsd/SqlMap.xsd">
+	
+	<statements>
+		<statement id="ComplexMap"
+			resultClass="int" >
+			select Account_ID from Accounts where Account_ID = #obj.Map.Id#
+		</statement>
+		
+	</statements>
+
+	
+</sqlMap>

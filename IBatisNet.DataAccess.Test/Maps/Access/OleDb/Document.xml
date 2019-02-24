@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-8" ?> 
+<sqlMap namespace="Document" 
+xmlns="http://ibatis.apache.org/mapping" 
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+
+	<alias>
+		<typeAlias alias="Document" type="IBatisNet.DataAccess.Test.Domain.Document, IBatisNet.DataAccess.Test" />
+		<typeAlias alias="Book" type="IBatisNet.DataAccess.Test.Domain.Book, IBatisNet.DataAccess.Test" />
+		<typeAlias alias="Newspaper" type="IBatisNet.DataAccess.Test.Domain.Newspaper, IBatisNet.DataAccess.Test" />
+		<typeAlias alias="MyFormula" type="IBatisNet.DataAccess.Test.Domain.MyFormula, IBatisNet.DataAccess.Test" />
+	</alias>
+	
+	<resultMaps>  	
+		<resultMap id="document" class="Document">
+			<result property="Id"			column="Document_ID"/>
+			<result property="Title"			column="Document_Title"/>
+			<discriminator column="Document_Type"  /> 
+			<subMap value="Book" resultMapping="book" />
+			<subMap value="Newspaper" resultMapping="newspaper" />
+		</resultMap>
+		
+		<resultMap id="document-custom-formula" class="Document">
+			<result property="Id"			column="Document_ID"/>
+			<result property="Title"			column="Document_Title"/>
+			<discriminator formula="MyFormula"  /> 
+			<subMap value="Book" resultMapping="book" />
+			<subMap value="Newspaper" resultMapping="newspaper" />
+		</resultMap>
+		
+		<resultMap id="book" class="Book" extends="document">
+			<result property="PageNumber"		column="Document_PageNumber"/>
+		</resultMap>
+		
+		<resultMap id="newspaper" class="Newspaper"  extends="document">
+			<result property="City"			column="Document_City"/>
+		</resultMap>
+		
+	</resultMaps>  
+	
+	<statements>
+		
+		<statement id="GetAllDocument"
+			resultMap="document">
+			select 
+				*
+			from Documents 
+			order by Document_Type, Document_Id
+		</statement>
+		
+		<statement id="GetAllDocumentWithFormula"
+			resultMap="document-custom-formula">
+			select
+				*
+			from Documents 
+			order by Document_Type, Document_Id
+		</statement>
+		
+  </statements>
+	
+
+</sqlMap>

@@ -1,0 +1,337 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build">
+  <PropertyGroup>
+    <ProjectType>Local</ProjectType>
+    <ProductVersion>7.10.6030</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{BBC8DA4A-EA88-41D9-8B93-929B8F3ADADE}</ProjectGuid>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ApplicationIcon />
+    <AssemblyKeyContainerName />
+    <AssemblyName>IBatisNet.Common</AssemblyName>
+    <AssemblyOriginatorKeyFile />
+    <DefaultClientScript>JScript</DefaultClientScript>
+    <DefaultHTMLPageLayout>Grid</DefaultHTMLPageLayout>
+    <DefaultTargetSchema>IE50</DefaultTargetSchema>
+    <DelaySign>false</DelaySign>
+    <OutputType>Library</OutputType>
+    <RootNamespace>IBatisNet.Common</RootNamespace>
+    <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
+    <StartupObject />
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>0.0</OldToolsVersion>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <BaseAddress>285212672</BaseAddress>
+    <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
+    <ConfigurationOverrideFile />
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DocumentationFile>IBatisNet.Common.xml</DocumentationFile>
+    <DebugSymbols>true</DebugSymbols>
+    <FileAlignment>4096</FileAlignment>
+    <NoStdLib>false</NoStdLib>
+    <NoWarn />
+    <Optimize>false</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>4</WarningLevel>
+    <DebugType>full</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <BaseAddress>285212672</BaseAddress>
+    <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
+    <ConfigurationOverrideFile />
+    <DefineConstants>TRACE;STRONG</DefineConstants>
+    <DocumentationFile>IBatisNet.Common.xml</DocumentationFile>
+    <DebugSymbols>false</DebugSymbols>
+    <FileAlignment>4096</FileAlignment>
+    <NoStdLib>false</NoStdLib>
+    <NoWarn />
+    <Optimize>true</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>4</WarningLevel>
+    <DebugType>none</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Castle.DynamicProxy">
+      <Name>Castle.DynamicProxy</Name>
+      <HintPath>..\External-Bin\Net\1.1\Castle.DynamicProxy.dll</HintPath>
+    </Reference>
+    <Reference Include="System">
+      <Name>System</Name>
+    </Reference>
+    <Reference Include="System.Data">
+      <Name>System.Data</Name>
+    </Reference>
+    <Reference Include="System.EnterpriseServices">
+      <Name>System.EnterpriseServices</Name>
+    </Reference>
+    <Reference Include="System.Web">
+      <Name>System.Web</Name>
+    </Reference>
+    <Reference Include="System.Xml">
+      <Name>System.XML</Name>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\CommonAssemblyInfo.cs">
+      <Link>CommonAssemblyInfo.cs</Link>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DataSource.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DataSourceDeSerializer.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DbProvider.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Exceptions\ConfigurationException.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Exceptions\ForeignKeyException.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Exceptions\IBatisNetException.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Exceptions\ProbeException.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="IDalSession.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="IDataSource.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="IDbProvider.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Logging\ConfigurationSectionHandler.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Logging\ILog.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Logging\ILoggerFactoryAdapter.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Logging\Impl\AbstractLogger.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Logging\Impl\ConsoleOutLogger.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Logging\Impl\ConsoleOutLoggerFA.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Logging\Impl\NoOpLogger.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Logging\Impl\NoOpLoggerFA.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Logging\Impl\TraceLogger.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Logging\Impl\TraceLoggerFA.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Logging\LogManager.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Logging\LogSetting.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Pagination\IPaginatedList.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Pagination\PaginatedArrayList.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ProviderDeSerializer.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Transaction\IsolationLevel.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Transaction\TransactionOptions.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Transaction\TransactionScope.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Transaction\TransactionScopeOptions.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Utilities\ConfigWatcherHandler.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Utilities\DBHelperParameterCache.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Utilities\HashCodeProvider.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Utilities\Objects\AbstractFactory.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Utilities\Objects\ActivatorFactory.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Utilities\Objects\ActivatorObjectFactory.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Utilities\Objects\BoxingOpCodes.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Utilities\Objects\EmitObjectFactory.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Utilities\Objects\FactoryBuilder.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Utilities\Objects\FactoryLogAdapter.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Utilities\Objects\IFactory.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Utilities\Objects\IObjectFactory.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Utilities\Objects\Members\AccessorFactory.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Utilities\Objects\Members\BaseAccessor.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Utilities\Objects\Members\EmitFieldGetAccessor.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Utilities\Objects\Members\EmitFieldSetAccessor.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Utilities\Objects\Members\EmitPropertyGetAccessor.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Utilities\Objects\Members\EmitPropertySetAccessor.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Utilities\Objects\Members\GetAccessorFactory.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Utilities\Objects\Members\IAccessor.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Utilities\Objects\Members\IGet.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Utilities\Objects\Members\IGetAccessor.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Utilities\Objects\Members\IGetAccessorFactory.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Utilities\Objects\Members\ISet.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Utilities\Objects\Members\ISetAccessor.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Utilities\Objects\Members\ISetAccessorFactory.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Utilities\Objects\Members\ReflectionFieldGetAccessor.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Utilities\Objects\Members\ReflectionFieldSetAccessor.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Utilities\Objects\Members\ReflectionPropertyGetAccessor.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Utilities\Objects\Members\ReflectionPropertySetAccessor.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Utilities\Objects\Members\SetAccessorFactory.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Utilities\Objects\ObjectFactory.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Utilities\Objects\ObjectProbe.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Utilities\Objects\ReflectionInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Utilities\Proxy\CachedProxyGenerator.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Utilities\Proxy\IProxyGenerator.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Utilities\Proxy\ProxyGeneratorFactory.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Utilities\Resources.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Utilities\ScriptRunner.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Utilities\StringTokenizer.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Utilities\TypesResolver\CachedTypeResolver.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Utilities\TypesResolver\ITypeResolver.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Utilities\TypesResolver\TypeRegistry.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Utilities\TypesResolver\TypeResolver.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Utilities\TypeUtils.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Xml\NodeUtils.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Content Include="ChangeLog.txt" />
+    <Content Include="licence.txt" />
+    <Content Include="notice.txt" />
+    <Content Include="provider.xsd" />
+    <None Include="IBatisNet.Common.build" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent />
+    <PostBuildEvent />
+  </PropertyGroup>
+</Project>
