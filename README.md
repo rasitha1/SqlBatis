@@ -1,7 +1,7 @@
 # IBatisNet.Standard
 IBatisNet rev513437 refactored and migrated to .NET Standard
 
-# Changes
+## Changes
 
 1. Decoupled Dynamic Proxy by dynamically loading `ILazyFactory` implementation via a new `settings` 
 attribute called `lazyFactoryType` and splitting `ProxyGeneratorFactory` and `CachedProxyGenerator` to
