@@ -1,16 +1,17 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build">
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="15.0">
   <PropertyGroup>
     <ProjectType>Local</ProjectType>
-    <ProductVersion>7.10.3077</ProductVersion>
+    <ProductVersion>8.0.50727</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{72F70057-B2E1-4DAD-BA6C-E2962745EEA5}</ProjectGuid>
+    <ProjectGuid>{F3E45F39-3224-4EAD-B138-EB5CC0E32824}</ProjectGuid>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ApplicationIcon />
-    <AssemblyKeyContainerName />
+    <ApplicationIcon>
+    </ApplicationIcon>
+    <AssemblyKeyContainerName>
+    </AssemblyKeyContainerName>
     <AssemblyName>IBatisNet.DataMapper</AssemblyName>
-    <AssemblyOriginatorKeyFile />
+    <AssemblyOriginatorKeyFile>AssemblyKey.snk</AssemblyOriginatorKeyFile>
     <DefaultClientScript>JScript</DefaultClientScript>
     <DefaultHTMLPageLayout>Grid</DefaultHTMLPageLayout>
     <DefaultTargetSchema>IE50</DefaultTargetSchema>
@@ -18,13 +19,14 @@
     <OutputType>Library</OutputType>
     <RootNamespace>IBatisNet.DataMapper</RootNamespace>
     <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
-    <StartupObject />
+    <StartupObject>
+    </StartupObject>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
-    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <UpgradeBackupLocation>
     </UpgradeBackupLocation>
-    <OldToolsVersion>0.0</OldToolsVersion>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -32,13 +34,15 @@
     <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
     <BaseAddress>285212672</BaseAddress>
     <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
-    <ConfigurationOverrideFile />
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ConfigurationOverrideFile>
+    </ConfigurationOverrideFile>
+    <DefineConstants>TRACE;DEBUG;dotnet2</DefineConstants>
     <DocumentationFile>IBatisNet.DataMapper.xml</DocumentationFile>
     <DebugSymbols>true</DebugSymbols>
     <FileAlignment>4096</FileAlignment>
     <NoStdLib>false</NoStdLib>
-    <NoWarn />
+    <NoWarn>
+    </NoWarn>
     <Optimize>false</Optimize>
     <RegisterForComInterop>false</RegisterForComInterop>
     <RemoveIntegerChecks>false</RemoveIntegerChecks>
@@ -53,13 +57,15 @@
     <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
     <BaseAddress>285212672</BaseAddress>
     <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
-    <ConfigurationOverrideFile />
-    <DefineConstants>TRACE;STRONG</DefineConstants>
+    <ConfigurationOverrideFile>
+    </ConfigurationOverrideFile>
+    <DefineConstants>TRACE;dotnet2</DefineConstants>
     <DocumentationFile>IBatisNet.DataMapper.xml</DocumentationFile>
     <DebugSymbols>false</DebugSymbols>
     <FileAlignment>4096</FileAlignment>
     <NoStdLib>false</NoStdLib>
-    <NoWarn />
+    <NoWarn>
+    </NoWarn>
     <Optimize>true</Optimize>
     <RegisterForComInterop>false</RegisterForComInterop>
     <RemoveIntegerChecks>false</RemoveIntegerChecks>
@@ -69,19 +75,17 @@
     <ErrorReport>prompt</ErrorReport>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
   <ItemGroup>
-    <ProjectReference Include="..\IBatisNet.Common\IBatisNet.Common.csproj">
-      <Name>IBatisNet.Common</Name>
-      <Project>{BBC8DA4A-EA88-41D9-8B93-929B8F3ADADE}</Project>
-      <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
-    </ProjectReference>
-    <Reference Include="Castle.DynamicProxy">
-      <Name>Castle.DynamicProxy</Name>
-      <HintPath>..\External-Bin\Net\1.1\Castle.DynamicProxy.dll</HintPath>
+    <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.1.2.10\lib\2.0\log4net.dll</HintPath>
     </Reference>
     <Reference Include="System">
       <Name>System</Name>
     </Reference>
+    <Reference Include="System.configuration" />
     <Reference Include="System.Data">
       <Name>System.Data</Name>
     </Reference>
@@ -95,26 +99,18 @@
   <ItemGroup>
     <Compile Include="..\CommonAssemblyInfo.cs">
       <Link>CommonAssemblyInfo.cs</Link>
-      <SubType>Code</SubType>
     </Compile>
     <Compile Include="AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Commands\DataReaderDecorator.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Commands\DataReaderTransformer.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Commands\DbCommandDecorator.cs">
-      <SubType>Code</SubType>
-    </Compile>
+    <Compile Include="Commands\DataReaderDecorator.cs" />
+    <Compile Include="Commands\DataReaderTransformer.cs" />
+    <Compile Include="Commands\DbCommandDecorator.cs" />
     <Compile Include="Commands\DefaultPreparedCommand.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Commands\InMemoryDataReader.cs">
-      <SubType>Code</SubType>
-    </Compile>
+    <Compile Include="Commands\IDbDataParameterCollection.cs" />
+    <Compile Include="Commands\InMemoryDataReader.cs" />
     <Compile Include="Commands\IPreparedCommand.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -163,42 +159,26 @@
     <Compile Include="Configuration\ParameterMapping\ParameterProperty.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Configuration\ParameterMapping\ParameterPropertyCollection.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Configuration\ResultMapping\ArgumentProperty.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Configuration\ResultMapping\AutoResultMap.cs">
-      <SubType>Code</SubType>
-    </Compile>
+    <Compile Include="Configuration\ParameterMapping\ParameterPropertyCollection.cs" />
+    <Compile Include="Configuration\ResultMapping\ArgumentProperty.cs" />
+    <Compile Include="Configuration\ResultMapping\AutoResultMap.cs" />
     <Compile Include="Configuration\ResultMapping\Discriminator.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Configuration\ResultMapping\IResultMap.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Configuration\ResultMapping\NullResultMap.cs">
-      <SubType>Code</SubType>
-    </Compile>
+    <Compile Include="Configuration\ResultMapping\IResultMap.cs" />
+    <Compile Include="Configuration\ResultMapping\NullResultMap.cs" />
     <Compile Include="Configuration\ResultMapping\ResultMap.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Configuration\ResultMapping\ResultMapCollection.cs">
-      <SubType>Code</SubType>
-    </Compile>
+    <Compile Include="Configuration\ResultMapping\ResultMapCollection.cs" />
     <Compile Include="Configuration\ResultMapping\ResultProperty.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Configuration\ResultMapping\ResultPropertyCollection.cs">
-      <SubType>Code</SubType>
-    </Compile>
+    <Compile Include="Configuration\ResultMapping\ResultPropertyCollection.cs" />
     <Compile Include="Configuration\ResultMapping\SubMap.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Configuration\Serializers\ArgumentPropertyDeSerializer.cs">
-      <SubType>Code</SubType>
-    </Compile>
+    <Compile Include="Configuration\Serializers\ArgumentPropertyDeSerializer.cs" />
     <Compile Include="Configuration\Serializers\CacheModelDeSerializer.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -283,9 +263,7 @@
     <Compile Include="Configuration\Serializers\SelectDeSerializer.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Configuration\Serializers\SqlDeSerializer.cs">
-      <SubType>Code</SubType>
-    </Compile>
+    <Compile Include="Configuration\Serializers\SqlDeSerializer.cs" />
     <Compile Include="Configuration\Serializers\StatementDeSerializer.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -481,33 +459,15 @@
     <Compile Include="Configuration\Statements\Update.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="DataExchange\BaseDataExchange.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="DataExchange\ComplexDataExchange.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="DataExchange\DataExchangeFactory.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="DataExchange\DictionaryDataExchange.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="DataExchange\DotNetObjectDataExchange.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="DataExchange\IDataExchange.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="DataExchange\ListDataExchange.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="DataExchange\PrimitiveDataExchange.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Delegates.cs">
-      <SubType>Code</SubType>
-    </Compile>
+    <Compile Include="DataExchange\BaseDataExchange.cs" />
+    <Compile Include="DataExchange\ComplexDataExchange.cs" />
+    <Compile Include="DataExchange\DataExchangeFactory.cs" />
+    <Compile Include="DataExchange\DictionaryDataExchange.cs" />
+    <Compile Include="DataExchange\DotNetObjectDataExchange.cs" />
+    <Compile Include="DataExchange\IDataExchange.cs" />
+    <Compile Include="DataExchange\ListDataExchange.cs" />
+    <Compile Include="DataExchange\PrimitiveDataExchange.cs" />
+    <Compile Include="Delegates.cs" />
     <Compile Include="Enumeration.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -517,39 +477,18 @@
     <Compile Include="ExecuteEventArgs.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="ISqlMapper.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="ISqlMapSession.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="MappedStatements\ArgumentStrategy\ArgumentStrategyFactory.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="MappedStatements\ArgumentStrategy\DefaultStrategy.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="MappedStatements\ArgumentStrategy\IArgumentStrategy.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="MappedStatements\ArgumentStrategy\ResultMapStrategy.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="MappedStatements\ArgumentStrategy\SelectArrayStrategy.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="MappedStatements\ArgumentStrategy\SelectListStrategy.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="MappedStatements\ArgumentStrategy\SelectObjectStrategy.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="MappedStatements\ArgumentStrategy\SelectStrategy.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="MappedStatements\BaseStrategy.cs">
-      <SubType>Code</SubType>
-    </Compile>
+    <Compile Include="ISqlMapper.cs" />
+    <Compile Include="ISqlMapSession.cs" />
+    <Compile Include="MappedStatements\ArgumentStrategy\ArgumentStrategyFactory.cs" />
+    <Compile Include="MappedStatements\ArgumentStrategy\DefaultStrategy.cs" />
+    <Compile Include="MappedStatements\ArgumentStrategy\IArgumentStrategy.cs" />
+    <Compile Include="MappedStatements\ArgumentStrategy\ResultMapStrategy.cs" />
+    <Compile Include="MappedStatements\ArgumentStrategy\SelectArrayStrategy.cs" />
+    <Compile Include="MappedStatements\ArgumentStrategy\SelectGenericListStrategy.cs" />
+    <Compile Include="MappedStatements\ArgumentStrategy\SelectListStrategy.cs" />
+    <Compile Include="MappedStatements\ArgumentStrategy\SelectObjectStrategy.cs" />
+    <Compile Include="MappedStatements\ArgumentStrategy\SelectStrategy.cs" />
+    <Compile Include="MappedStatements\BaseStrategy.cs" />
     <Compile Include="MappedStatements\CachingStatement.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -568,93 +507,36 @@
     <Compile Include="MappedStatements\PaginatedList.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="MappedStatements\PostBindind.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="MappedStatements\PostSelectStrategy\ArrayStrategy.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="MappedStatements\PostSelectStrategy\IPostSelectStrategy.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="MappedStatements\PostSelectStrategy\ListStrategy.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="MappedStatements\PostSelectStrategy\ObjectStrategy.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="MappedStatements\PostSelectStrategy\PostSelectStrategyFactory.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="MappedStatements\PostSelectStrategy\StrongTypedListStrategy.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="MappedStatements\PropertStrategy\DefaultStrategy.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="MappedStatements\PropertStrategy\GroupByStrategy.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="MappedStatements\PropertStrategy\IPropertyStrategy.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="MappedStatements\PropertStrategy\PropertyStrategyFactory.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="MappedStatements\PropertStrategy\ResultMapStrategy.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="MappedStatements\PropertStrategy\SelectArrayStrategy.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="MappedStatements\PropertStrategy\SelectListStrategy.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="MappedStatements\PropertStrategy\SelectObjectStrategy.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="MappedStatements\PropertStrategy\SelectStrategy.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="MappedStatements\ReaderAutoMapper.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="MappedStatements\ResultStrategy\AutoMapStrategy.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="MappedStatements\ResultStrategy\BaseResultStrategy.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="MappedStatements\ResultStrategy\DictionaryStrategy.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="MappedStatements\ResultStrategy\GroupByStrategy.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="MappedStatements\ResultStrategy\IResultStrategy.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="MappedStatements\ResultStrategy\ListStrategy.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="MappedStatements\ResultStrategy\MapStrategy.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="MappedStatements\ResultStrategy\ObjectStrategy.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="MappedStatements\ResultStrategy\ResultClassStrategy.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="MappedStatements\ResultStrategy\ResultMapStrategy.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="MappedStatements\ResultStrategy\ResultStrategyFactory.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="MappedStatements\ResultStrategy\SimpleTypeStrategy.cs">
-      <SubType>Code</SubType>
-    </Compile>
+    <Compile Include="MappedStatements\PostBindind.cs" />
+    <Compile Include="MappedStatements\PostSelectStrategy\ArrayStrategy.cs" />
+    <Compile Include="MappedStatements\PostSelectStrategy\GenericListStrategy.cs" />
+    <Compile Include="MappedStatements\PostSelectStrategy\IPostSelectStrategy.cs" />
+    <Compile Include="MappedStatements\PostSelectStrategy\ListStrategy.cs" />
+    <Compile Include="MappedStatements\PostSelectStrategy\ObjectStrategy.cs" />
+    <Compile Include="MappedStatements\PostSelectStrategy\PostSelectStrategyFactory.cs" />
+    <Compile Include="MappedStatements\PostSelectStrategy\StrongTypedListStrategy.cs" />
+    <Compile Include="MappedStatements\PropertStrategy\DefaultStrategy.cs" />
+    <Compile Include="MappedStatements\PropertStrategy\GroupByStrategy.cs" />
+    <Compile Include="MappedStatements\PropertStrategy\IPropertyStrategy.cs" />
+    <Compile Include="MappedStatements\PropertStrategy\PropertyStrategyFactory.cs" />
+    <Compile Include="MappedStatements\PropertStrategy\ResultMapStrategy.cs" />
+    <Compile Include="MappedStatements\PropertStrategy\SelectArrayStrategy.cs" />
+    <Compile Include="MappedStatements\PropertStrategy\SelectGenericListStrategy.cs" />
+    <Compile Include="MappedStatements\PropertStrategy\SelectListStrategy.cs" />
+    <Compile Include="MappedStatements\PropertStrategy\SelectObjectStrategy.cs" />
+    <Compile Include="MappedStatements\PropertStrategy\SelectStrategy.cs" />
+    <Compile Include="MappedStatements\ReaderAutoMapper.cs" />
+    <Compile Include="MappedStatements\ResultStrategy\AutoMapStrategy.cs" />
+    <Compile Include="MappedStatements\ResultStrategy\DictionaryStrategy.cs" />
+    <Compile Include="MappedStatements\ResultStrategy\GroupByStrategy.cs" />
+    <Compile Include="MappedStatements\ResultStrategy\IResultStrategy.cs" />
+    <Compile Include="MappedStatements\ResultStrategy\ListStrategy.cs" />
+    <Compile Include="MappedStatements\ResultStrategy\MapStrategy.cs" />
+    <Compile Include="MappedStatements\ResultStrategy\ObjectStrategy.cs" />
+    <Compile Include="MappedStatements\ResultStrategy\ResultClassStrategy.cs" />
+    <Compile Include="MappedStatements\ResultStrategy\ResultMapStrategy.cs" />
+    <Compile Include="MappedStatements\ResultStrategy\ResultStrategyFactory.cs" />
+    <Compile Include="MappedStatements\ResultStrategy\SimpleTypeStrategy.cs" />
     <Compile Include="MappedStatements\SelectMappedStatement.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -664,63 +546,35 @@
     <Compile Include="Mapper.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Proxy\ILazyFactory.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Proxy\LazyFactoryBuilder.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Proxy\LazyList.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Proxy\LazyListFactory.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Proxy\LazyLoadInterceptor.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Proxy\LazyLoadProxyFactory.cs">
-      <SubType>Code</SubType>
-    </Compile>
+    <Compile Include="Proxy\ILazyFactory.cs" />
+    <Compile Include="Proxy\LazyFactoryBuilder.cs" />
+    <Compile Include="Proxy\LazyList.cs" />
+    <Compile Include="Proxy\LazyListFactory.cs" />
+    <Compile Include="Proxy\LazyListGeneric.cs" />
+    <Compile Include="Proxy\LazyListGenericFactory.cs" />
     <Compile Include="Scope\ConfigurationScope.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Scope\ErrorContext.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Scope\IScope.cs">
-      <SubType>Code</SubType>
-    </Compile>
+    <Compile Include="Scope\IScope.cs" />
     <Compile Include="Scope\RequestScope.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="SessionStore\AbstractSessionStore.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="SessionStore\CallContextSessionStore.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="SessionStore\HybridWebThreadSessionStore.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="SessionStore\ISessionStore.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="SessionStore\SessionStoreFactory .cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="SessionStore\WebSessionStore.cs">
-      <SubType>Code</SubType>
-    </Compile>
+    <Compile Include="SessionStore\AbstractSessionStore.cs" />
+    <Compile Include="SessionStore\CallContextSessionStore.cs" />
+    <Compile Include="SessionStore\HybridWebThreadSessionStore.cs" />
+    <Compile Include="SessionStore\ISessionStore.cs" />
+    <Compile Include="SessionStore\SessionStoreFactory .cs" />
+    <Compile Include="SessionStore\WebSessionStore.cs" />
     <Compile Include="SqlMapper.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="SqlMapSession.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="TypeHandlers\AnsiStringTypeHandler.cs">
-      <SubType>Code</SubType>
-    </Compile>
+    <Compile Include="TypeHandlers\AnsiStringTypeHandler.cs" />
     <Compile Include="TypeHandlers\BaseTypeHandler.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -742,9 +596,7 @@
     <Compile Include="TypeHandlers\DateTimeTypeHandler.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="TypeHandlers\DBNullTypeHandler.cs">
-      <SubType>Code</SubType>
-    </Compile>
+    <Compile Include="TypeHandlers\DBNullTypeHandler.cs" />
     <Compile Include="TypeHandlers\DecimalTypeHandler.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -778,6 +630,22 @@
     <Compile Include="TypeHandlers\ITypeHandlerCallback.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="TypeHandlers\Nullables\NullableBooleanTypeHandler.cs" />
+    <Compile Include="TypeHandlers\Nullables\NullableByteTypeHandler.cs" />
+    <Compile Include="TypeHandlers\Nullables\NullableCharTypeHandler.cs" />
+    <Compile Include="TypeHandlers\Nullables\NullableDateTimeTypeHandler.cs" />
+    <Compile Include="TypeHandlers\Nullables\NullableDecimalTypeHandler.cs" />
+    <Compile Include="TypeHandlers\Nullables\NullableDoubleTypeHandler.cs" />
+    <Compile Include="TypeHandlers\Nullables\NullableGuidTypeHandler.cs" />
+    <Compile Include="TypeHandlers\Nullables\NullableInt16TypeHandler.cs" />
+    <Compile Include="TypeHandlers\Nullables\NullableInt32TypeHandler.cs" />
+    <Compile Include="TypeHandlers\Nullables\NullableInt64TypeHandler.cs" />
+    <Compile Include="TypeHandlers\Nullables\NullableSByteTypeHandler.cs" />
+    <Compile Include="TypeHandlers\Nullables\NullableSingleTypeHandler.cs" />
+    <Compile Include="TypeHandlers\Nullables\NullableTimeSpanTypeHandler.cs" />
+    <Compile Include="TypeHandlers\Nullables\NullableUInt16TypeHandler.cs" />
+    <Compile Include="TypeHandlers\Nullables\NullableUInt32TypeHandler.cs" />
+    <Compile Include="TypeHandlers\Nullables\NullableUInt64TypeHandler.cs" />
     <Compile Include="TypeHandlers\ObjectTypeHandler.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -787,9 +655,7 @@
     <Compile Include="TypeHandlers\ResultGetterImpl.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="TypeHandlers\SByteTypeHandler.cs">
-      <SubType>Code</SubType>
-    </Compile>
+    <Compile Include="TypeHandlers\SByteTypeHandler.cs" />
     <Compile Include="TypeHandlers\SingleTypeHandler.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -802,15 +668,9 @@
     <Compile Include="TypeHandlers\TypeHandlerFactory.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="TypeHandlers\UInt16TypeHandler.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="TypeHandlers\UInt32TypeHandler.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="TypeHandlers\UInt64TypeHandler.cs">
-      <SubType>Code</SubType>
-    </Compile>
+    <Compile Include="TypeHandlers\UInt16TypeHandler.cs" />
+    <Compile Include="TypeHandlers\UInt32TypeHandler.cs" />
+    <Compile Include="TypeHandlers\UInt64TypeHandler.cs" />
     <Compile Include="TypeHandlers\UnknownTypeHandler.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -818,13 +678,28 @@
     <Content Include="licence.txt" />
     <Content Include="notice.txt" />
     <Content Include="ReadMe.txt" />
-    <EmbeddedResource Include="SqlMap.xsd" />
-    <EmbeddedResource Include="SqlMapConfig.xsd" />
+    <None Include="AssemblyKey.snk" />
     <None Include="IBatisNet.DataMapper.build" />
+    <None Include="MappedStatements\ResultStrategy\ClassDiagram.cd" />
+    <EmbeddedResource Include="SqlMap.xsd">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SqlMapConfig.xsd">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <None Include="packages.config" />
   </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <ProjectReference Include="..\IBatisNet.Common\IBatisNet.Common.csproj">
+      <Project>{BBC8DA4A-EA88-41D9-8B93-929B8F3ADADE}</Project>
+      <Name>IBatisNet.Common</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PreBuildEvent />
-    <PostBuildEvent />
+    <PreBuildEvent>
+    </PreBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
   </PropertyGroup>
 </Project>

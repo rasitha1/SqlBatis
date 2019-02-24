@@ -1,16 +1,17 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build">
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="15.0">
   <PropertyGroup>
     <ProjectType>Local</ProjectType>
-    <ProductVersion>7.10.3077</ProductVersion>
+    <ProductVersion>8.0.50727</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{BEFC4A45-7DF9-40E4-942C-82DC1BA5E708}</ProjectGuid>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ApplicationIcon />
-    <AssemblyKeyContainerName />
+    <ApplicationIcon>
+    </ApplicationIcon>
+    <AssemblyKeyContainerName>
+    </AssemblyKeyContainerName>
     <AssemblyName>IBatisNet.DataAccess</AssemblyName>
-    <AssemblyOriginatorKeyFile />
+    <AssemblyOriginatorKeyFile>AssemblyKey.snk</AssemblyOriginatorKeyFile>
     <DefaultClientScript>JScript</DefaultClientScript>
     <DefaultHTMLPageLayout>Grid</DefaultHTMLPageLayout>
     <DefaultTargetSchema>IE50</DefaultTargetSchema>
@@ -18,13 +19,14 @@
     <OutputType>Library</OutputType>
     <RootNamespace>IBatisNet.DataAccess</RootNamespace>
     <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
-    <StartupObject />
+    <StartupObject>
+    </StartupObject>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
-    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <UpgradeBackupLocation>
     </UpgradeBackupLocation>
-    <OldToolsVersion>0.0</OldToolsVersion>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <OldToolsVersion>2.0</OldToolsVersion>
     <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -32,13 +34,15 @@
     <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
     <BaseAddress>285212672</BaseAddress>
     <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
-    <ConfigurationOverrideFile />
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ConfigurationOverrideFile>
+    </ConfigurationOverrideFile>
+    <DefineConstants>TRACE;DEBUG;dotnet2</DefineConstants>
     <DocumentationFile>IBatisNet.DataAccess.xml</DocumentationFile>
     <DebugSymbols>true</DebugSymbols>
     <FileAlignment>4096</FileAlignment>
     <NoStdLib>false</NoStdLib>
-    <NoWarn />
+    <NoWarn>
+    </NoWarn>
     <Optimize>false</Optimize>
     <RegisterForComInterop>false</RegisterForComInterop>
     <RemoveIntegerChecks>false</RemoveIntegerChecks>
@@ -53,13 +57,15 @@
     <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
     <BaseAddress>285212672</BaseAddress>
     <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
-    <ConfigurationOverrideFile />
-    <DefineConstants>TRACE;STRONG</DefineConstants>
+    <ConfigurationOverrideFile>
+    </ConfigurationOverrideFile>
+    <DefineConstants>TRACE;dotnet2</DefineConstants>
     <DocumentationFile>IBatisNet.DataAccess.xml</DocumentationFile>
     <DebugSymbols>false</DebugSymbols>
     <FileAlignment>4096</FileAlignment>
     <NoStdLib>false</NoStdLib>
-    <NoWarn />
+    <NoWarn>
+    </NoWarn>
     <Optimize>true</Optimize>
     <RegisterForComInterop>false</RegisterForComInterop>
     <RemoveIntegerChecks>false</RemoveIntegerChecks>
@@ -69,24 +75,17 @@
     <ErrorReport>prompt</ErrorReport>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
   <ItemGroup>
-    <ProjectReference Include="..\IBatisNet.Common\IBatisNet.Common.csproj">
-      <Name>IBatisNet.Common</Name>
-      <Project>{BBC8DA4A-EA88-41D9-8B93-929B8F3ADADE}</Project>
-      <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
-    </ProjectReference>
-    <ProjectReference Include="..\IBatisNet.DataMapper\IBatisNet.DataMapper.csproj">
-      <Name>IBatisNet.DataMapper</Name>
-      <Project>{72F70057-B2E1-4DAD-BA6C-E2962745EEA5}</Project>
-      <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
-    </ProjectReference>
-    <Reference Include="Castle.DynamicProxy">
-      <Name>Castle.DynamicProxy</Name>
-      <HintPath>..\External-Bin\Net\1.1\Castle.DynamicProxy.dll</HintPath>
+    <Reference Include="Castle.Core, Version=4.0.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <HintPath>..\packages\Castle.Core.4.3.1\lib\net45\Castle.Core.dll</HintPath>
     </Reference>
     <Reference Include="System">
       <Name>System</Name>
     </Reference>
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Data">
       <Name>System.Data</Name>
     </Reference>
@@ -100,7 +99,6 @@
   <ItemGroup>
     <Compile Include="..\CommonAssemblyInfo.cs">
       <Link>CommonAssemblyInfo.cs</Link>
-      <SubType>Code</SubType>
     </Compile>
     <Compile Include="AssemblyInfo.cs">
       <SubType>Code</SubType>
@@ -144,9 +142,7 @@
     <Compile Include="Exceptions\DataAccessException.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="IDaoManager.cs">
-      <SubType>Code</SubType>
-    </Compile>
+    <Compile Include="IDaoManager.cs" />
     <Compile Include="Interfaces\IDao.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -162,36 +158,37 @@
     <Compile Include="Scope\ErrorContext.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="SessionHolder.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="SessionStore\AbstractSessionStore.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="SessionStore\CallContextSessionStore.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="SessionStore\HybridWebThreadSessionStore.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="SessionStore\ISessionStore.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="SessionStore\SessionStoreFactory .cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="SessionStore\WebSessionStore.cs">
-      <SubType>Code</SubType>
-    </Compile>
+    <Compile Include="SessionStore\AbstractSessionStore.cs" />
+    <Compile Include="SessionStore\CallContextSessionStore.cs" />
+    <Compile Include="SessionStore\HybridWebThreadSessionStore.cs" />
+    <Compile Include="SessionStore\ISessionStore.cs" />
+    <Compile Include="SessionStore\SessionStoreFactory .cs" />
+    <Compile Include="SessionStore\WebSessionStore.cs" />
     <Content Include="ChangeLog.txt" />
-    <Content Include="DaoConfig.xsd" />
+    <EmbeddedResource Include="DaoConfig.xsd">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <Content Include="licence.txt" />
     <Content Include="notice.txt" />
+    <None Include="AssemblyKey.snk" />
     <None Include="IBatisNet.DataAccess.build" />
+    <None Include="packages.config" />
   </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <ProjectReference Include="..\IBatisNet.Common\IBatisNet.Common.csproj">
+      <Project>{bbc8da4a-ea88-41d9-8b93-929b8f3adade}</Project>
+      <Name>IBatisNet.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\IBatisNet.DataMapper\IBatisNet.DataMapper.csproj">
+      <Project>{f3e45f39-3224-4ead-b138-eb5cc0e32824}</Project>
+      <Name>IBatisNet.DataMapper</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PreBuildEvent />
-    <PostBuildEvent />
+    <PreBuildEvent>
+    </PreBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
   </PropertyGroup>
 </Project>

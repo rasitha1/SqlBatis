@@ -1,16 +1,17 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build">
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="15.0">
   <PropertyGroup>
     <ProjectType>Local</ProjectType>
-    <ProductVersion>7.10.6030</ProductVersion>
+    <ProductVersion>8.0.50727</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{BBC8DA4A-EA88-41D9-8B93-929B8F3ADADE}</ProjectGuid>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ApplicationIcon />
-    <AssemblyKeyContainerName />
+    <ApplicationIcon>
+    </ApplicationIcon>
+    <AssemblyKeyContainerName>
+    </AssemblyKeyContainerName>
     <AssemblyName>IBatisNet.Common</AssemblyName>
-    <AssemblyOriginatorKeyFile />
+    <AssemblyOriginatorKeyFile>AssemblyKey.snk</AssemblyOriginatorKeyFile>
     <DefaultClientScript>JScript</DefaultClientScript>
     <DefaultHTMLPageLayout>Grid</DefaultHTMLPageLayout>
     <DefaultTargetSchema>IE50</DefaultTargetSchema>
@@ -18,13 +19,14 @@
     <OutputType>Library</OutputType>
     <RootNamespace>IBatisNet.Common</RootNamespace>
     <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
-    <StartupObject />
+    <StartupObject>
+    </StartupObject>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
-    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <UpgradeBackupLocation>
     </UpgradeBackupLocation>
-    <OldToolsVersion>0.0</OldToolsVersion>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -32,13 +34,15 @@
     <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
     <BaseAddress>285212672</BaseAddress>
     <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
-    <ConfigurationOverrideFile />
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ConfigurationOverrideFile>
+    </ConfigurationOverrideFile>
+    <DefineConstants>TRACE;DEBUG;dotnet2</DefineConstants>
     <DocumentationFile>IBatisNet.Common.xml</DocumentationFile>
     <DebugSymbols>true</DebugSymbols>
     <FileAlignment>4096</FileAlignment>
     <NoStdLib>false</NoStdLib>
-    <NoWarn />
+    <NoWarn>
+    </NoWarn>
     <Optimize>false</Optimize>
     <RegisterForComInterop>false</RegisterForComInterop>
     <RemoveIntegerChecks>false</RemoveIntegerChecks>
@@ -53,13 +57,15 @@
     <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
     <BaseAddress>285212672</BaseAddress>
     <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
-    <ConfigurationOverrideFile />
-    <DefineConstants>TRACE;STRONG</DefineConstants>
+    <ConfigurationOverrideFile>
+    </ConfigurationOverrideFile>
+    <DefineConstants>TRACE;dotnet2</DefineConstants>
     <DocumentationFile>IBatisNet.Common.xml</DocumentationFile>
     <DebugSymbols>false</DebugSymbols>
     <FileAlignment>4096</FileAlignment>
     <NoStdLib>false</NoStdLib>
-    <NoWarn />
+    <NoWarn>
+    </NoWarn>
     <Optimize>true</Optimize>
     <RegisterForComInterop>false</RegisterForComInterop>
     <RemoveIntegerChecks>false</RemoveIntegerChecks>
@@ -69,14 +75,15 @@
     <ErrorReport>prompt</ErrorReport>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Castle.DynamicProxy">
-      <Name>Castle.DynamicProxy</Name>
-      <HintPath>..\External-Bin\Net\1.1\Castle.DynamicProxy.dll</HintPath>
+    <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.1.2.10\lib\2.0\log4net.dll</HintPath>
     </Reference>
-    <Reference Include="System">
-      <Name>System</Name>
-    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Data">
       <Name>System.Data</Name>
     </Reference>
@@ -93,7 +100,6 @@
   <ItemGroup>
     <Compile Include="..\CommonAssemblyInfo.cs">
       <Link>CommonAssemblyInfo.cs</Link>
-      <SubType>Code</SubType>
     </Compile>
     <Compile Include="AssemblyInfo.cs">
       <SubType>Code</SubType>
@@ -137,13 +143,13 @@
     <Compile Include="Logging\ILoggerFactoryAdapter.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Logging\Impl\AbstractLogger.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="Logging\Impl\ConsoleOutLogger.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Logging\Impl\ConsoleOutLoggerFA.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Logging\Impl\AbstractLogger.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Logging\Impl\NoOpLogger.cs">
@@ -194,106 +200,48 @@
     <Compile Include="Utilities\HashCodeProvider.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Utilities\Objects\AbstractFactory.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Utilities\Objects\ActivatorFactory.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Utilities\Objects\ActivatorObjectFactory.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Utilities\Objects\BoxingOpCodes.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Utilities\Objects\EmitObjectFactory.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Utilities\Objects\FactoryBuilder.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Utilities\Objects\FactoryLogAdapter.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Utilities\Objects\IFactory.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Utilities\Objects\IObjectFactory.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Utilities\Objects\Members\AccessorFactory.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Utilities\Objects\Members\BaseAccessor.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Utilities\Objects\Members\EmitFieldGetAccessor.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Utilities\Objects\Members\EmitFieldSetAccessor.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Utilities\Objects\Members\EmitPropertyGetAccessor.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Utilities\Objects\Members\EmitPropertySetAccessor.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Utilities\Objects\Members\GetAccessorFactory.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Utilities\Objects\Members\IAccessor.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Utilities\Objects\Members\IGet.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Utilities\Objects\Members\IGetAccessor.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Utilities\Objects\Members\IGetAccessorFactory.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Utilities\Objects\Members\ISet.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Utilities\Objects\Members\ISetAccessor.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Utilities\Objects\Members\ISetAccessorFactory.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Utilities\Objects\Members\ReflectionFieldGetAccessor.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Utilities\Objects\Members\ReflectionFieldSetAccessor.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Utilities\Objects\Members\ReflectionPropertyGetAccessor.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Utilities\Objects\Members\ReflectionPropertySetAccessor.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Utilities\Objects\Members\SetAccessorFactory.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Utilities\Objects\ObjectFactory.cs">
-      <SubType>Code</SubType>
-    </Compile>
+    <Compile Include="Utilities\Objects\AbstractFactory.cs" />
+    <Compile Include="Utilities\Objects\ActivatorFactory.cs" />
+    <Compile Include="Utilities\Objects\ActivatorObjectFactory.cs" />
+    <Compile Include="Utilities\Objects\BoxingOpCodes.cs" />
+    <Compile Include="Utilities\Objects\DelegateObjectFactory.cs" />
+    <Compile Include="Utilities\Objects\DelegateFactory.cs" />
+    <Compile Include="Utilities\Objects\EmitObjectFactory.cs" />
+    <Compile Include="Utilities\Objects\FactoryBuilder.cs" />
+    <Compile Include="Utilities\Objects\FactoryLogAdapter.cs" />
+    <Compile Include="Utilities\Objects\IFactory.cs" />
+    <Compile Include="Utilities\Objects\IObjectFactory.cs" />
+    <Compile Include="Utilities\Objects\Members\AccessorFactory.cs" />
+    <Compile Include="Utilities\Objects\Members\BaseAccessor.cs" />
+    <Compile Include="Utilities\Objects\Members\DelegateGetFieldAccessor.cs" />
+    <Compile Include="Utilities\Objects\Members\DelegatePropertyGetAccessor.cs" />
+    <Compile Include="Utilities\Objects\Members\DelegatePropertySetAccessor.cs" />
+    <Compile Include="Utilities\Objects\Members\DelegateSetFieldAccessor.cs" />
+    <Compile Include="Utilities\Objects\Members\EmitFieldGetAccessor.cs" />
+    <Compile Include="Utilities\Objects\Members\EmitFieldSetAccessor.cs" />
+    <Compile Include="Utilities\Objects\Members\EmitPropertyGetAccessor.cs" />
+    <Compile Include="Utilities\Objects\Members\EmitPropertySetAccessor.cs" />
+    <Compile Include="Utilities\Objects\Members\GetAccessorFactory.cs" />
+    <Compile Include="Utilities\Objects\Members\IAccessor.cs" />
+    <Compile Include="Utilities\Objects\Members\IGet.cs" />
+    <Compile Include="Utilities\Objects\Members\IGetAccessor.cs" />
+    <Compile Include="Utilities\Objects\Members\IGetAccessorFactory.cs" />
+    <Compile Include="Utilities\Objects\Members\ISet.cs" />
+    <Compile Include="Utilities\Objects\Members\ISetAccessor.cs" />
+    <Compile Include="Utilities\Objects\Members\ISetAccessorFactory.cs" />
+    <Compile Include="Utilities\Objects\Members\ReflectionFieldGetAccessor.cs" />
+    <Compile Include="Utilities\Objects\Members\ReflectionFieldSetAccessor.cs" />
+    <Compile Include="Utilities\Objects\Members\ReflectionPropertyGetAccessor.cs" />
+    <Compile Include="Utilities\Objects\Members\ReflectionPropertySetAccessor.cs" />
+    <Compile Include="Utilities\Objects\Members\SetAccessorFactory.cs" />
+    <Compile Include="Utilities\Objects\ObjectFactory.cs" />
     <Compile Include="Utilities\Objects\ObjectProbe.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Utilities\Objects\ReflectionInfo.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Utilities\Proxy\CachedProxyGenerator.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="Utilities\Proxy\IProxyGenerator.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Utilities\Proxy\ProxyGeneratorFactory.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Utilities\Resources.cs">
@@ -308,30 +256,32 @@
     <Compile Include="Utilities\TypesResolver\CachedTypeResolver.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Utilities\TypesResolver\ITypeResolver.cs">
-      <SubType>Code</SubType>
-    </Compile>
+    <Compile Include="Utilities\TypesResolver\ITypeResolver.cs" />
     <Compile Include="Utilities\TypesResolver\TypeRegistry.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Utilities\TypesResolver\TypeResolver.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Utilities\TypeUtils.cs">
-      <SubType>Code</SubType>
-    </Compile>
+    <Compile Include="Utilities\TypeUtils.cs" />
     <Compile Include="Xml\NodeUtils.cs">
       <SubType>Code</SubType>
     </Compile>
     <Content Include="ChangeLog.txt" />
     <Content Include="licence.txt" />
     <Content Include="notice.txt" />
-    <Content Include="provider.xsd" />
+    <Content Include="provider.xsd">
+      <SubType>Designer</SubType>
+    </Content>
+    <None Include="AssemblyKey.snk" />
     <None Include="IBatisNet.Common.build" />
+    <None Include="packages.config" />
   </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PreBuildEvent />
-    <PostBuildEvent />
+    <PreBuildEvent>
+    </PreBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
   </PropertyGroup>
 </Project>

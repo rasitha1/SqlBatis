@@ -61,13 +61,13 @@
     <Compile Include="ProxyGeneratorFactory.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\IBatisNet.Common\IBatisNet.Common.2005.csproj">
+    <ProjectReference Include="..\IBatisNet.Common\IBatisNet.Common.csproj">
       <Project>{bbc8da4a-ea88-41d9-8b93-929b8f3adade}</Project>
-      <Name>IBatisNet.Common.2005</Name>
+      <Name>IBatisNet.Common</Name>
     </ProjectReference>
-    <ProjectReference Include="..\IBatisNet.DataMapper\IBatisNet.DataMapper.20005.csproj">
+    <ProjectReference Include="..\IBatisNet.DataMapper\IBatisNet.DataMapper.csproj">
       <Project>{f3e45f39-3224-4ead-b138-eb5cc0e32824}</Project>
-      <Name>IBatisNet.DataMapper.20005</Name>
+      <Name>IBatisNet.DataMapper</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
