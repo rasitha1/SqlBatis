@@ -1,6 +1,4 @@
-#if dotnet2
 using System.Collections.Generic;
-#endif
 using System.Collections;
 
 namespace IBatisNet.DataMapper.Test.Domain
@@ -28,20 +26,11 @@ namespace IBatisNet.DataMapper.Test.Domain
             set { role = value; }
         }
 
-#if dotnet2
         private IList<ApplicationUser> users;
         public IList<ApplicationUser> Users
         {
             get { return users; }
             set { users = value; }
         }
-#else
-        private IList users;
-        public IList Users
-        {
-            get { return users; }
-            set { roles = users; }
-        }        
-#endif
     }
 }

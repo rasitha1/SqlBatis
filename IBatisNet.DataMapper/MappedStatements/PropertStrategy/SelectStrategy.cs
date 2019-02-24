@@ -25,9 +25,7 @@
 
 using System;
 using System.Collections;
-#if dotnet2
 using System.Collections.Generic;
-#endif
 using System.Data;
 using IBatisNet.DataMapper.Configuration.ResultMapping;
 using IBatisNet.DataMapper.Exceptions;
@@ -63,13 +61,11 @@ namespace IBatisNet.DataMapper.MappedStatements.PropertyStrategy
 			{
                 _selectStrategy = selectArrayStrategy;
 			}
-#if dotnet2
             else if (mapping.SetAccessor.MemberType.IsGenericType &&
                  typeof(IList<>).IsAssignableFrom(mapping.SetAccessor.MemberType.GetGenericTypeDefinition()) )
             {
                 _selectStrategy = selectGenericListStrategy;
             }
-#endif			
             // Check if the object to Map implement 'IList' or is IList type
 			// If yes the ResultProperty is map to a IList object
             else if (typeof(IList).IsAssignableFrom(mapping.SetAccessor.MemberType))

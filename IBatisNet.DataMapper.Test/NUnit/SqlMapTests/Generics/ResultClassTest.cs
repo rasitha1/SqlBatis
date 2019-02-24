@@ -1,4 +1,3 @@
-#if dotnet2
 using System;
 
 using NUnit.Framework;
@@ -175,4 +174,3 @@ namespace IBatisNet.DataMapper.Test.NUnit.SqlMapTests.Generics
 		#endregion
 	}
 }
-#endif

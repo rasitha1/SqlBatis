@@ -1,9 +1,7 @@
 using System;
 using System.Collections;
 
-#if dotnet2
 using System.Collections.Generic;
-#endif
 
 namespace IBatisNet.DataMapper.Test.Domain.Petshop
 {
@@ -18,21 +16,12 @@ namespace IBatisNet.DataMapper.Test.Domain.Petshop
         private string _description;
         private IList _products = new ArrayList();
         
-#if dotnet2
         private IList<Product> _genericList;
         public IList<Product> GenericProducts
         {
             get { return _genericList; }
             set { _genericList = value; }
         }
-#else
-        private IList _genericList;
-        public IList GenericProducts
-        {
-            get { return _genericList; }
-            set { _genericList = value; }
-        }
-#endif
 
         #region Properties
         public string Id

@@ -25,9 +25,7 @@
 
 using System;
 using System.Collections;
-#if dotnet2
 using System.Collections.Generic;
-#endif
 using System.Data;
 using IBatisNet.Common.Utilities.Objects;
 using IBatisNet.DataMapper.Configuration.ResultMapping;

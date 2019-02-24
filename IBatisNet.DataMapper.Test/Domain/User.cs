@@ -1,6 +1,4 @@
-#if dotnet2
 using System.Collections.Generic;
-#endif
 using System.Collections;
 
 namespace IBatisNet.DataMapper.Test.Domain
@@ -35,20 +33,11 @@ namespace IBatisNet.DataMapper.Test.Domain
             set { isActive = value; }
         }
 
-#if dotnet2
         private IList<Role> roles;
         public IList<Role> Roles
         {
             get { return roles; }
             set { roles = value; }
         }
-#else
-        private IList roles;
-        public IList Roles
-        {
-            get { return roles; }
-            set { roles = value; }
-        }        
-#endif
     }
 }

@@ -75,10 +75,8 @@ namespace IBatisNet.Common.Test.NUnit.CommonTests.Utilities
             enumSetAccessor = factorySet.CreateSetAccessor(typeof(Property), "Day");
             enumGetAccessor = factoryGet.CreateGetAccessor(typeof(Property), "Day");
 
-#if dotnet2
             nullableSetAccessor = factorySet.CreateSetAccessor(typeof(Property), "IntNullable");
             nullableGetAccessor = factoryGet.CreateGetAccessor(typeof(Property), "IntNullable");
-#endif
         }
 
 
@@ -274,7 +272,6 @@ namespace IBatisNet.Common.Test.NUnit.CommonTests.Utilities
             Assert.AreEqual(-99 * 2, accessorGet.Get(son));
         }
 
-#if dotnet2
 
         /// <summary>
         /// Test getter access to Public Generic Property
@@ -413,7 +410,6 @@ namespace IBatisNet.Common.Test.NUnit.CommonTests.Utilities
             Assert.AreEqual(account, referenceAccount.Value);
             Assert.AreEqual(account.Id, referenceAccount.Value.Id);
         }
-#endif
     }
 
 }

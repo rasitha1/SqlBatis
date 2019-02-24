@@ -1,4 +1,3 @@
-#if dotnet2
 using System.Collections.Generic;
 
 namespace IBatisNet.Common.Test.Domain
@@ -7,4 +6,4 @@ namespace IBatisNet.Common.Test.Domain
     {
     }
 }
-#endif
+

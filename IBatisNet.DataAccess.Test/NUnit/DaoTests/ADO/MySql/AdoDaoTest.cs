@@ -18,13 +18,8 @@ namespace IBatisNet.DataAccess.Test.NUnit.DaoTests.Ado.MySql
 		public void FixtureSetUp() 
 		{
 			DomDaoManagerBuilder builder = new DomDaoManagerBuilder();
-#if dotnet2		    
 			builder.Configure( "dao_MySql_"
                  + ConfigurationManager.AppSettings["providerType"] + ".config");
-#else
-				builder.Configure( "dao_MySql_"
-				 + ConfigurationSettings.AppSettings["providerType"] + ".config" );	    
-#endif
             daoManager = DaoManager.GetInstance();
 
 		}

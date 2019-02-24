@@ -28,9 +28,7 @@
 
 using System;
 using System.Collections;
-#if dotnet2
 using System.Collections.Generic;
-#endif
 
 using System.Data;
 
@@ -162,13 +160,11 @@ namespace IBatisNet.DataMapper.Configuration.Statements
         /// </summary>
         /// <returns>An object which implement IList.</returns>
         IList CreateInstanceOfListClass();
-#if dotnet2
         /// <summary>
         /// Create an instance of a generic 'IList' class.
         /// </summary>
         /// <returns>An object which implement IList.</returns>
         IList<T> CreateInstanceOfGenericListClass<T>();
-#endif
         #endregion
 
     }

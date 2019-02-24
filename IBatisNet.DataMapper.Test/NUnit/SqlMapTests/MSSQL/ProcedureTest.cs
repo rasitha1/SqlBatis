@@ -42,7 +42,6 @@ namespace IBatisNet.DataMapper.Test.NUnit.SqlMapTests.MSSQL
 
 		#region Specific statement store procedure tests for sql server
 
-#if dotnet2
 	    /// <summary>
         /// Test an insert with via a store procedure and getting the generatedKey from a t-sql return statement
         /// </summary>
@@ -70,7 +69,6 @@ namespace IBatisNet.DataMapper.Test.NUnit.SqlMapTests.MSSQL
             Assert.AreEqual ( categoryID, category4.Id );
             Assert.AreEqual ( category.Name, category4.Name );
         }
-#endif
 
         /// <summary>
         /// Test get an account via a store procedure.

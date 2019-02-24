@@ -1,8 +1,6 @@
 using System;
 using System.Collections;
-#if dotnet2
 using System.Collections.Generic;
-#endif
 
 namespace IBatisNet.DataMapper.Test.Domain
 {
@@ -58,7 +56,6 @@ namespace IBatisNet.DataMapper.Test.Domain
 		}
 
 
-#if dotnet2
         private IList<LineItem> _genericList;
         public IList<LineItem> LineItemsGenericList
         {
@@ -82,30 +79,6 @@ namespace IBatisNet.DataMapper.Test.Domain
         {
             _genericCollection = collection;
         }
-#else
-        private IList _genericList;
-        public IList LineItemsGenericList
-        {
-            get { return _genericList; }
-            set { _genericList = value; }
-        }
-
-		public LineItemCollection LineItemsCollection2
-		{
-			get { return _collection; }
-			set { _collection = value; }
-		}
-
-        public Order(IList lineItems)
-        {
-            _genericList = lineItems;
-        }
-
-        public Order(LineItemCollection collection)
-        {
-            _collection = collection;
-        }
-#endif
 
         public LineItem FavouriteLineItem
 		{

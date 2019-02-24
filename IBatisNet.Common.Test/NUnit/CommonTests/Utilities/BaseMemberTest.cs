@@ -72,10 +72,8 @@ namespace IBatisNet.Common.Test.NUnit.CommonTests.Utilities
 
         protected ISetAccessor enumSetAccessor = null;
         protected IGetAccessor enumGetAccessor = null;
-#if dotnet2
         protected ISetAccessor nullableSetAccessor = null;
         protected IGetAccessor nullableGetAccessor = null;
-#endif
 
 
         /// <summary>
@@ -928,7 +926,6 @@ namespace IBatisNet.Common.Test.NUnit.CommonTests.Utilities
             Assert.AreEqual(test, enumGetAccessor.Get(prop));
         }
 
-#if dotnet2
         /// <summary>
         /// Test the setting null on a nullable int property.
         /// </summary>
@@ -972,6 +969,5 @@ namespace IBatisNet.Common.Test.NUnit.CommonTests.Utilities
             Assert.AreEqual(test, prop.IntNullable);
 
         }
-#endif
     }
 }

@@ -1,8 +1,6 @@
 
 using System.Collections;
-#if dotnet2
 using System.Collections.Generic;
-#endif
 using IBatisNet.DataMapper.Test.Domain;
 using NUnit.Framework;
 
@@ -41,7 +39,6 @@ namespace IBatisNet.DataMapper.Test.NUnit.SqlMapTests
         }
         #endregion
 
-#if dotnet2
         [Test]
         public void TestBobHanson ()
         {
@@ -65,7 +62,6 @@ namespace IBatisNet.DataMapper.Test.NUnit.SqlMapTests
             Assert.AreEqual("Admin", application.Users[1].Roles[0].Name);
 
         }
-#endif
 
         [Test]
         public void TestGroupByWithNullSon() 
@@ -119,7 +115,6 @@ namespace IBatisNet.DataMapper.Test.NUnit.SqlMapTests
             Assert.AreEqual(2, product.Items.Count);
         }
 
-#if dotnet2
 
         [Test]
         public void TestGenericFish()
@@ -167,7 +162,6 @@ namespace IBatisNet.DataMapper.Test.NUnit.SqlMapTests
             Domain.Petshop.Product product = cat.GenericProducts[0];
             Assert.AreEqual(2, product.GenericItems.Count);
         }
-#endif
         
         [Test]
         public void TestGroupByNull()
@@ -214,7 +208,6 @@ namespace IBatisNet.DataMapper.Test.NUnit.SqlMapTests
             Assert.IsNull(order.Account);
         }
 
-#if dotnet2
         /// <summary>
         /// Test GroupBy With use of Inheritance
         /// </summary>
@@ -238,6 +231,5 @@ namespace IBatisNet.DataMapper.Test.NUnit.SqlMapTests
             InitScript(sqlMap.DataSource, ScriptDirectory + "petstore-schema.sql");
             InitScript(sqlMap.DataSource, ScriptDirectory + "petstore-init.sql");
         }
-#endif
     }
 }

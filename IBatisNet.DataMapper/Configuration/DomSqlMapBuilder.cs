@@ -611,11 +611,7 @@ namespace IBatisNet.DataMapper.Configuration
 		/// <param name="schemaFileName">Schema file name.</param>
 		private void ValidateSchema( XmlNode section, string schemaFileName )
 		{
-#if dotnet2
             XmlReader validatingReader = null;
-#else
-            XmlValidatingReader validatingReader = null;
-#endif
             Stream xsdFile = null; 
 
 			_configScope.ErrorContext.Activity = "Validate SqlMap config";
@@ -632,7 +628,6 @@ namespace IBatisNet.DataMapper.Configuration
 				
 				XmlSchema schema = XmlSchema.Read( xsdFile, new ValidationEventHandler(ValidationCallBack) );
 
-#if dotnet2
                 XmlReaderSettings settings = new XmlReaderSettings();
                 settings.ValidationType = ValidationType.Schema;
 
@@ -646,16 +641,6 @@ namespace IBatisNet.DataMapper.Configuration
 				// Wire up the call back.  The ValidationEvent is fired when the
 				// XmlValidatingReader hits an issue validating a section of the xml
                 settings.ValidationEventHandler += new ValidationEventHandler(ValidationCallBack);
-#else
-                validatingReader = new XmlValidatingReader(new XmlTextReader(new StringReader(section.OuterXml)));
-                validatingReader.ValidationType = ValidationType.Schema;
-
-                validatingReader.Schemas.Add(schema);
-
-                // Wire up the call back.  The ValidationEvent is fired when the
-                // XmlValidatingReader hits an issue validating a section of the xml
-                validatingReader.ValidationEventHandler += new ValidationEventHandler(ValidationCallBack);
-#endif
                 // Validate the document
 				while (validatingReader.Read()){}
 

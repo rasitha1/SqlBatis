@@ -44,9 +44,7 @@ namespace IBatisNet.DataMapper.MappedStatements.PostSelectStrategy
 			_strategies.Add(PostBindind.ExecuteMethod.ExecuteQueryForIList, new ListStrategy());
 			_strategies.Add(PostBindind.ExecuteMethod.ExecuteQueryForObject, new ObjectStrategy());
 			_strategies.Add(PostBindind.ExecuteMethod.ExecuteQueryForStrongTypedIList, new StrongTypedListStrategy());
-#if dotnet2           
 			_strategies.Add(PostBindind.ExecuteMethod.ExecuteQueryForGenericIList, new GenericListStrategy());
-#endif
 		}
 
 

@@ -52,11 +52,7 @@ namespace IBatisNet.Common.Test.NUnit.CommonTests.Transaction
 			ScriptDirectory = Path.Combine(
 				Path.Combine(
 				Path.Combine(
-#if dotnet2
                 Path.Combine(Resources.ApplicationBase, ".."), ".."), "Scripts"), ConfigurationManager.AppSettings["database"]) + Path.DirectorySeparatorChar;
-#else
-				Path.Combine(Resources.ApplicationBase, ".."), ".."), "Scripts"), ConfigurationSettings.AppSettings["database"]) + Path.DirectorySeparatorChar;
-#endif		
         }
 
 		/// <summary>
@@ -68,13 +64,8 @@ namespace IBatisNet.Common.Test.NUnit.CommonTests.Transaction
 
 			ConfigureHandler handler = new ConfigureHandler( Configure );
 			DomSqlMapBuilder builder = new DomSqlMapBuilder();
-#if dotnet2
             sqlMap = builder.ConfigureAndWatch("sqlmap" + "_" + ConfigurationManager.AppSettings["database"] + "_"
                 + ConfigurationManager.AppSettings["providerType"] + ".config", handler);
-#else
-			sqlMap = builder.ConfigureAndWatch( "sqlmap"+ "_" +  ConfigurationSettings.AppSettings["database"] + "_"
-				+ ConfigurationSettings.AppSettings["providerType"] +".config", handler );
-#endif
 
             //string loadTime = DateTime.Now.Subtract(start).ToString();
             //Console.WriteLine("Loading configuration time :"+loadTime);

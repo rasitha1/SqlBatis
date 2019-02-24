@@ -75,23 +75,8 @@ namespace IBatisNet.Common.Utilities
 		private static IDataParameter[] InternalDiscoverSpParameterSet(IDalSession session, string spName, 
             bool includeReturnValueParameter)
 		{
-#if !dotnet2
-        	// SqlCommandBuilder.DeriveParameters(<command>) does not support transactions. 
-        	// If the command is within a transaction, you will get the following error: 
-			// “SqlCommandBuilder Execute requires the command to have a transaction object 
-        	// when the connection assigned to the command is in a pending local transaction” 
-        	// even when the command object does in fact have a transaction object. 
-			using (IDbConnection connection = session.DataSource.DbProvider.CreateConnection())
-			{
-				connection.ConnectionString = session.DataSource.ConnectionString;
-				connection.Open();
-				using (IDbCommand cmd = connection.CreateCommand())
-				{
-				cmd.CommandType = CommandType.StoredProcedure;
-#else
 				using (IDbCommand cmd = session.CreateCommand(CommandType.StoredProcedure))
 				{
-#endif
 					cmd.CommandText = spName;
 
 				    // The session connection object is always created but the connection is not alwys open
@@ -114,9 +99,6 @@ namespace IBatisNet.Common.Utilities
 					cmd.Parameters.CopyTo(discoveredParameters, 0);
 					return discoveredParameters;
 				}
-#if !dotnet2
-			}
-#endif
 		}
 		
 		private static void DeriveParameters(IDbProvider provider, IDbCommand command)

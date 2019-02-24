@@ -52,12 +52,7 @@ namespace IBatisNet.DataMapper.Test.NUnit.SqlMapTests
          And in fact it does not. The .NET 2.0 CLR uses a different algorithm for string hashing than the .NET 1.1 CLR. 
         */
 
-#if dotnet2
             Assert.Ignore("The .NET 2.0 CLR uses a different algorithm for string hashing than the .NET 1.1 CLR.");
-#else
-			Assert.AreEqual( key1.GetHashCode(), key2.GetHashCode(), "Expect same hashcode.");
-			Assert.IsFalse( key1.Equals(key2),"Expect not equal");
-#endif
         }
 
 		[Test]
@@ -74,12 +69,7 @@ namespace IBatisNet.DataMapper.Test.NUnit.SqlMapTests
 			key2.Update("HS1D4001");
 			key2.Update("HS1CS001");
 
-#if dotnet2
             Assert.Ignore("The .NET 2.0 CLR uses a different algorithm for string hashing than the .NET 1.1 CLR.");
-#else
-			Assert.AreEqual(key1.GetHashCode(), key2.GetHashCode(), "Expect same hashcode.");
-			Assert.IsFalse(key1.Equals(key2), "Expect not equal");
-#endif
         }
 
 	}

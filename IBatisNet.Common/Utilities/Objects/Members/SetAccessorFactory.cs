@@ -61,10 +61,8 @@ namespace IBatisNet.Common.Utilities.Objects.Members
                 // Detect runtime environment and create the appropriate factory
                 if (Environment.Version.Major >= 2)
                 {
-#if dotnet2
                     _createPropertySetAccessor = new CreatePropertySetAccessor(CreateDynamicPropertySetAccessor);
                     _createFieldSetAccessor = new CreateFieldSetAccessor(CreateDynamicFieldSetAccessor);
-#endif
                 }
                 else
                 {
@@ -86,7 +84,6 @@ namespace IBatisNet.Common.Utilities.Objects.Members
             }
         }
 
-#if dotnet2
 
         /// <summary>
         /// Create a Dynamic ISetAccessor instance for a property
@@ -102,11 +99,7 @@ namespace IBatisNet.Common.Utilities.Objects.Members
             if (propertyInfo.CanWrite)
             {
                 MethodInfo methodInfo = null;
-#if dotnet2
                 methodInfo = propertyInfo.GetSetMethod();
-#else
-                methodInfo = targetType.GetMethod("set_" + propertyName);
-#endif
                 if (methodInfo!=null)// == visibilty public
                 {
                     return new DelegatePropertySetAccessor(targetType, propertyName);
@@ -144,7 +137,6 @@ namespace IBatisNet.Common.Utilities.Objects.Members
                 return new ReflectionFieldSetAccessor(targetType, fieldName);
             }
         }
-#endif
 
 
         /// <summary>
@@ -161,15 +153,7 @@ namespace IBatisNet.Common.Utilities.Objects.Members
             if (propertyInfo.CanWrite)
             {
                 MethodInfo methodInfo = null;
-#if dotnet2
                 methodInfo = propertyInfo.GetSetMethod();
-#else
-                methodInfo = targetType.GetMethod("set_" + propertyName,BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly);
-				if (methodInfo == null)
-				{
-					methodInfo =  targetType.GetMethod("set_" + propertyName);
-				}
-#endif
                 if (methodInfo != null)// == visibilty public
                 {
                     return new EmitPropertySetAccessor(targetType, propertyName, _assemblyBuilder, _moduleBuilder);

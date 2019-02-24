@@ -122,11 +122,7 @@ namespace IBatisNet.Common.Logging
 			LogSetting setting = null;
 			try
 			{
-#if dotnet2
                 setting = (LogSetting)ConfigurationManager.GetSection(IBATIS_SECTION_LOGGING );
-#else
-				setting = (LogSetting)ConfigurationSettings.GetConfig( IBATIS_SECTION_LOGGING );
-#endif
 			}
 			catch ( Exception ex )
 			{

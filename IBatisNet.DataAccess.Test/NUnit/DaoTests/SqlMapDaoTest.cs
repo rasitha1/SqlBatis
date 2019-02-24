@@ -16,13 +16,8 @@ namespace IBatisNet.DataAccess.Test.NUnit.DaoTests
 		public void FixtureSetUp() 
 		{
 			DomDaoManagerBuilder builder = new DomDaoManagerBuilder();
-#if dotnet2
             builder.Configure("dao" + "_" + ConfigurationManager.AppSettings["database"] + "_"
                 + ConfigurationManager.AppSettings["providerType"] + ".config"); 
-#else
-			builder.Configure( "dao"+ "_" + ConfigurationSettings.AppSettings["database"] + "_"
-				+ ConfigurationSettings.AppSettings["providerType"] + ".config" );
-#endif
 			daoManager = DaoManager.GetInstance("SqlMapDao");		
 		}
 

@@ -54,7 +54,6 @@ namespace IBatisNet.DataMapper.Test.NUnit.SqlMapTests
 			AssertAccount1(account);
 		}
 
-#if dotnet2
         /// <summary>
         /// Test argument nullable constructor mapping
         /// </summary>
@@ -95,7 +94,6 @@ namespace IBatisNet.DataMapper.Test.NUnit.SqlMapTests
             Assert.AreEqual(1234567890123456789, clazz.TestInt64);
             Assert.AreEqual(4578.46445454112f, clazz.TestSingle);
         }
-#endif
 
         /// <summary>
         /// Test constructor injection using a resultMapping where
@@ -228,7 +226,6 @@ namespace IBatisNet.DataMapper.Test.NUnit.SqlMapTests
             Assert.AreEqual(3, order.LineItemsCollection.Count);
 		}
 
-#if dotnet2
         /// <summary>
         /// Test constructor with select attribute on generic list argument
         /// </remarks>
@@ -254,7 +251,6 @@ namespace IBatisNet.DataMapper.Test.NUnit.SqlMapTests
             Assert.IsNotNull(order.LineItemsCollection2);
             Assert.AreEqual(3, order.LineItemsCollection2.Count);
         }
-#endif
 		#endregion
 	}
 }

@@ -48,9 +48,7 @@ namespace IBatisNet.Common.Utilities.Objects
 				// Detect runtime environment and create the appropriate factory
 				if (Environment.Version.Major >= 2)
 				{
-#if dotnet2
                     _objectFactory = new DelegateObjectFactory();
-#endif					
 				}
 				else
 				{

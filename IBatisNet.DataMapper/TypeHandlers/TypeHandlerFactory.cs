@@ -34,9 +34,7 @@ using IBatisNet.Common.Logging;
 using IBatisNet.Common.Utilities;
 using IBatisNet.DataMapper.Configuration.Alias;
 using IBatisNet.DataMapper.Exceptions;
-#if dotnet2
 using IBatisNet.DataMapper.TypeHandlers.Nullables;
-#endif
 #endregion 
 
 namespace IBatisNet.DataMapper.TypeHandlers
@@ -129,7 +127,6 @@ namespace IBatisNet.DataMapper.TypeHandlers
             handler = new SByteTypeHandler();
             this.Register(typeof(SByte), handler);
 		    
-#if dotnet2
             handler = new NullableBooleanTypeHandler();
             this.Register(typeof(bool?), handler);
 
@@ -178,7 +175,6 @@ namespace IBatisNet.DataMapper.TypeHandlers
             handler = new NullableTimeSpanTypeHandler();
             this.Register(typeof(TimeSpan?), handler);
 
-#endif
 
             _unknownTypeHandler = new UnknownTypeHandler(this);
 

@@ -1,9 +1,7 @@
 
 using System;
 using System.Collections;
-#if dotnet2
 using System.Collections.Generic;
-#endif
 using IBatisNet.DataMapper.Test.Domain;
 
 using NUnit.Framework;
@@ -119,7 +117,6 @@ namespace IBatisNet.DataMapper.Test.NUnit.SqlMapTests
             Assert.AreEqual(2, list.Count);
         }
 
-#if dotnet2
         
         /// <summary>
         /// Test Multiple Document
@@ -131,6 +128,5 @@ namespace IBatisNet.DataMapper.Test.NUnit.SqlMapTests
 
             Assert.AreEqual(3, list.Count);
         }
-#endif        
     }
 }

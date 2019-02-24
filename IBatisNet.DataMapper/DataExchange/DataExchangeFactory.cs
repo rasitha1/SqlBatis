@@ -28,10 +28,7 @@ using System.Collections;
 using IBatisNet.Common.Utilities.Objects;
 using IBatisNet.Common.Utilities.Objects.Members;
 using IBatisNet.DataMapper.TypeHandlers;
-
-#if dotnet2
 using System.Collections.Generic;
-#endif
 
 namespace IBatisNet.DataMapper.DataExchange
 {

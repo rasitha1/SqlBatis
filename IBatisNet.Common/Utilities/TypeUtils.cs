@@ -24,9 +24,7 @@
 #endregion
 
 using System;
-#if dotnet2
 using System.Collections.Generic;
-#endif
 using IBatisNet.Common.Utilities.TypesResolver;
 
 namespace IBatisNet.Common.Utilities
@@ -147,7 +145,6 @@ namespace IBatisNet.Common.Utilities
             return resultObject;
         }
 
-#if dotnet2
         /// <summary>
         /// Instantiate a Nullable Type.
         /// </summary>
@@ -251,6 +248,5 @@ namespace IBatisNet.Common.Utilities
             }
             return ret;
         } 
-#endif
     }
 }

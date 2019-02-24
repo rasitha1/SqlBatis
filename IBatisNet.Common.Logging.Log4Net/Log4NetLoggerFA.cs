@@ -65,20 +65,12 @@ namespace IBatisNet.Common.Logging.Impl
 			{
                 if (configFile == string.Empty)
                 {
-#if dotnet2
                     throw new ConfigurationErrorsException("Configration property 'configFile' must be set for log4Net configuration of type 'FILE'.");
- #else       
-                    throw new ConfigurationException("Configration property 'configFile' must be set for log4Net configuration of type 'FILE'.");
-#endif
                 }
 
                 if (!File.Exists(configFile))
                 {
-#if dotnet2
                     throw new ConfigurationErrorsException("log4net configuration file '" + configFile + "' does not exists");
-#else       
-                    throw new ConfigurationException("log4net configuration file '" + configFile + "' does not exists");
-#endif
                 }
 			}
 

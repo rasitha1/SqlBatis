@@ -34,9 +34,7 @@ using IBatisNet.Common.Logging;
 using IBatisNet.Common.Utilities.Objects.Members;
 using IBatisNet.DataMapper;
 using IBatisNet.DataMapper.MappedStatements;
-#if dotnet2
 
-#endif
 #endregion
 
 namespace IBatisNet.DynamicProxy

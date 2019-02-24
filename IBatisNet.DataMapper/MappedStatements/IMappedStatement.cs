@@ -26,9 +26,7 @@
 
 #region Imports
 using System.Collections;
-#if dotnet2
 using System.Collections.Generic;
-#endif
 using IBatisNet.DataMapper.Commands;
 using IBatisNet.DataMapper.Configuration.Statements;
 #endregion
@@ -111,7 +109,6 @@ namespace IBatisNet.DataMapper.MappedStatements
 		#endregion
 
         #region ExecuteQueryForMap .NET 2.0
-#if dotnet2
         /// <summary>
         /// Executes the SQL and retuns all rows selected in a map that is keyed on the property named
         /// in the keyProperty parameter.  The value at each key will be the value of the property specified
@@ -139,7 +136,6 @@ namespace IBatisNet.DataMapper.MappedStatements
         IDictionary<K, V> ExecuteQueryForDictionary<K, V>(ISqlMapSession session, object parameterObject, string keyProperty, string valueProperty, DictionaryRowDelegate<K, V> rowDelegate);
 
 
-#endif
         #endregion
 
 		#region ExecuteUpdate
@@ -200,7 +196,6 @@ namespace IBatisNet.DataMapper.MappedStatements
 		#endregion
 
         #region ExecuteQueryForList .NET 2.0
-#if dotnet2
         /// <summary>
         /// Executes the SQL and and fill a strongly typed collection.
         /// </summary>
@@ -227,7 +222,6 @@ namespace IBatisNet.DataMapper.MappedStatements
         /// <param name="parameterObject">The object used to set the parameters in the SQL.</param>
         /// <returns>A List of result objects.</returns>
         IList<T> ExecuteQueryForList<T>(ISqlMapSession session, object parameterObject);
-#endif
         #endregion
 
 		#region ExecuteForObject
@@ -253,7 +247,6 @@ namespace IBatisNet.DataMapper.MappedStatements
 		#endregion
 
         #region ExecuteForObject .NET 2.0
-#if dotnet2
 
         /// <summary>
         /// Executes an SQL statement that returns a single row as an Object.
@@ -272,7 +265,6 @@ namespace IBatisNet.DataMapper.MappedStatements
         /// <param name="resultObject">The result object.</param>
         /// <returns>The object</returns>
         T ExecuteQueryForObject<T>(ISqlMapSession session, object parameterObject, T resultObject);
-#endif
         #endregion
 
 		#region Delegate
@@ -304,7 +296,6 @@ namespace IBatisNet.DataMapper.MappedStatements
 		#endregion 
 		
         #region ExecuteQueryForRowDelegate .NET 2.0
-#if dotnet2
         /// <summary>
         /// Runs a query with a custom object that gets a chance 
         /// to deal with each row as it is processed.
@@ -314,7 +305,6 @@ namespace IBatisNet.DataMapper.MappedStatements
         /// <param name="rowDelegate"></param>param>
         /// <returns></returns>
         IList<T> ExecuteQueryForRowDelegate<T>(ISqlMapSession session, object parameterObject, RowDelegate<T> rowDelegate);
-#endif
         #endregion
 	    
 	    

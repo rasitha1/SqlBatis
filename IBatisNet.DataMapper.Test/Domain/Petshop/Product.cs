@@ -1,9 +1,7 @@
 using System;
 using System.Collections;
 
-#if dotnet2
 using System.Collections.Generic;
-#endif
 
 namespace IBatisNet.DataMapper.Test.Domain.Petshop
 {
@@ -23,21 +21,12 @@ namespace IBatisNet.DataMapper.Test.Domain.Petshop
 
         #endregion
 
-#if dotnet2
         private IList<Item> _genericList = new List<Item>();
         public IList<Item> GenericItems
         {
             get { return _genericList; }
             set { _genericList = value; }
         }
-#else
-        private IList _genericList;
-        public IList GenericItems
-        {
-            get { return _genericList; }
-            set { _genericList = value; }
-        }        
-#endif
 
         #region Properties
 

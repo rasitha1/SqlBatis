@@ -26,9 +26,7 @@
 #region using
 using System;
 using System.Collections;
-#if dotnet2
 using System.Collections.Generic;
-#endif
 using System.Collections.Specialized;
 using System.Data;
 
@@ -477,7 +475,6 @@ namespace IBatisNet.DataMapper
         /// <returns>The number of rows effected.</returns>
         int Update(string statementName, object parameterObject);
 
-#if dotnet2
 
         /// <summary>
         /// Executes the SQL and retuns all rows selected in a map that is keyed on the property named
@@ -591,6 +588,5 @@ namespace IBatisNet.DataMapper
         /// <returns>A List of result objects.</returns>
         IList<T> QueryWithRowDelegate<T>(string statementName, object parameterObject, RowDelegate<T> rowDelegate);
 
-#endif
     }
 }

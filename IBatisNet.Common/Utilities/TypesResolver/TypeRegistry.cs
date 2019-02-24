@@ -202,7 +202,6 @@ namespace IBatisNet.Common.Utilities.TypesResolver
 		/// </summary>
 		public const string TimeSpanAlias = "timespan";
 
-#if dotnet2
         /// <summary>
         /// The alias around the 'int?' type.
         /// </summary>
@@ -312,7 +311,6 @@ namespace IBatisNet.Common.Utilities.TypesResolver
         /// The alias around the 'bool?[]' array type.
         /// </summary>
         public const string NullableBoolArrayAlias = "bool?[]";
-#endif
 		#endregion
 
 		#region Fields
@@ -388,7 +386,6 @@ namespace IBatisNet.Common.Utilities.TypesResolver
 
 			_types[TimeSpanAlias] = typeof (string);
 
-#if dotnet2
             _types[NullableInt32Alias] = typeof(int?);
             _types[NullableInt32ArrayAlias] = typeof(int?[]);
 
@@ -421,7 +418,6 @@ namespace IBatisNet.Common.Utilities.TypesResolver
 
             _types[NullableBoolAlias] = typeof(bool?);
             _types[NullableBoolArrayAlias] = typeof(bool?[]);
-#endif
         }
 		#endregion
 

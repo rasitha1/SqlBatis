@@ -28,12 +28,9 @@
 
 using System;
 using System.Collections;
-#if dotnet2
 using System.Configuration;
-#endif
 using System.Reflection;
 using System.Xml.Serialization;
-
 using IBatisNet.Common.Exceptions;
 using IBatisNet.Common.Utilities;
 using IBatisNet.DataMapper.MappedStatements.ArgumentStrategy;
@@ -154,11 +151,7 @@ namespace IBatisNet.DataMapper.Configuration.ResultMapping
 				}
 				catch (Exception e) 
 				{
-#if dotnet2
                     throw new ConfigurationErrorsException("Error occurred during custom type handler configuration.  Cause: " + e.Message, e);
-#else       
-					throw new ConfigurationException("Error occurred during custom type handler configuration.  Cause: " + e.Message, e);
-#endif
 				}
 			}
 			else
@@ -199,11 +192,7 @@ namespace IBatisNet.DataMapper.Configuration.ResultMapping
 					} 
 					catch (Exception e) 
 					{
-#if dotnet2
                         throw new ConfigurationErrorsException("Error. Could not set TypeHandler.  Cause: " + e.Message, e);
-#else       
-						throw new ConfigurationException("Error. Could not set TypeHandler.  Cause: " + e.Message, e);
-#endif
 					}
 				}
 			}
@@ -228,11 +217,7 @@ namespace IBatisNet.DataMapper.Configuration.ResultMapping
 					} 
 					catch (Exception e) 
 					{
-#if dotnet2
                         throw new ConfigurationErrorsException("Error. Could not set TypeHandler.  Cause: " + e.Message, e);
-#else       
-						throw new ConfigurationException("Error. Could not set TypeHandler.  Cause: " + e.Message, e);
-#endif
 					}
 				}
 			}

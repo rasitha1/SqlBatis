@@ -28,9 +28,7 @@
 
 using System;
 using System.Collections;
-#if dotnet2
 using System.Collections.Generic;
-#endif
 using System.Data;
 using System.Xml.Serialization;
 using IBatisNet.Common.Utilities.Objects;
@@ -353,7 +351,6 @@ namespace IBatisNet.DataMapper.Configuration.Statements
         {
             return (IList)_listClassFactory.CreateInstance(null); 
         }
-#if dotnet2
         /// <summary>
         /// Create an instance of a generic 'IList' class.
         /// </summary>
@@ -362,7 +359,6 @@ namespace IBatisNet.DataMapper.Configuration.Statements
         {
             return (IList<T>)_listClassFactory.CreateInstance(null); 
         }
-#endif
         #endregion
 
     }

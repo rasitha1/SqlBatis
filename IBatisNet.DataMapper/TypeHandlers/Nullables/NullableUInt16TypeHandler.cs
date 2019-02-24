@@ -23,7 +23,6 @@
  ********************************************************************************/
 #endregion
 
-#if dotnet2
 
 #region Using
 using System;
@@ -155,4 +154,3 @@ namespace IBatisNet.DataMapper.TypeHandlers.Nullables
     }
 }
 
-#endif

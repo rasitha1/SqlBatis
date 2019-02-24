@@ -70,10 +70,8 @@ namespace IBatisNet.Common.Test.NUnit.CommonTests.Utilities
 
         protected ISetAccessor enumSetAccessor = null;
         protected IGetAccessor enumGetAccessor = null;
-#if dotnet2
         protected ISetAccessor nullableSetAccessor = null;
         protected IGetAccessor nullableGetAccessor = null;
-#endif
 
         #region SetUp & TearDown
 
@@ -140,10 +138,8 @@ namespace IBatisNet.Common.Test.NUnit.CommonTests.Utilities
             enumSetAccessor = factorySet.CreateSetAccessor(typeof(Property), "protectedDay");
             enumGetAccessor = factoryGet.CreateGetAccessor(typeof(Property), "protectedDay");
 
-#if dotnet2
             nullableSetAccessor = factorySet.CreateSetAccessor(typeof(Property), "protectedintNullable");
             nullableGetAccessor = factoryGet.CreateGetAccessor(typeof(Property), "protectedintNullable");
-#endif
         }
 
 
@@ -1070,7 +1066,6 @@ namespace IBatisNet.Common.Test.NUnit.CommonTests.Utilities
             Assert.AreEqual(test, enumGetAccessor.Get(prop));
         }
 
-#if dotnet2
         /// <summary>
         /// Test the setting null on a nullable int Field.
         /// </summary>
@@ -1117,7 +1112,6 @@ namespace IBatisNet.Common.Test.NUnit.CommonTests.Utilities
             Assert.AreEqual(test, fieldInfo.GetValue(prop));
 
         }
-#endif
     }
 }
 

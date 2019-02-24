@@ -1,8 +1,6 @@
 using System;
 using System.Collections;
-#if dotnet2
 using System.Collections.Generic;
-#endif
 
 namespace IBatisNet.DataMapper.Test.Domain
 {
@@ -21,21 +19,12 @@ namespace IBatisNet.DataMapper.Test.Domain
 		private bool _cartOption = false;
 	    private Document _document = null;
 
-        #if dotnet2
         protected IList<Document> documents = new List<Document>();
 
         public IList<Document> Documents
         {
             get { return documents; }
         }
-        #else
-        protected IList documents = new ArrayList();
-
-        public IList Documents
-        {
-            get { return documents; }
-        }
-        #endif
 
         public Account()
 		{}

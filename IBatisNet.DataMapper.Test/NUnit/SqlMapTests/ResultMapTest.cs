@@ -500,7 +500,6 @@ namespace IBatisNet.DataMapper.Test.NUnit.SqlMapTests
 
             Assert.AreEqual(System.DateTime.MinValue, orderTest.Date);
         }
-        //#if dotnet2
 
 
 
@@ -524,7 +523,6 @@ namespace IBatisNet.DataMapper.Test.NUnit.SqlMapTests
         //                Assert.IsNotNull(item);
         //            }
         //        }
-        //#endif
         #endregion
 
     }

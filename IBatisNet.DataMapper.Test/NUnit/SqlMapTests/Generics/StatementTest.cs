@@ -23,7 +23,6 @@
  ********************************************************************************/
 #endregion
 
-#if dotnet2
 
 using System;
 using System.Collections;
@@ -615,5 +614,3 @@ namespace IBatisNet.DataMapper.Test.NUnit.SqlMapTests.Generics
         #endregion
     }
 }
-
-#endif

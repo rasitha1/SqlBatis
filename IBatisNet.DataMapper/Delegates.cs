@@ -25,9 +25,7 @@
 #endregion
 
 using System.Collections;
-#if dotnet2
 using System.Collections.Generic;
-#endif
 
 
 namespace IBatisNet.DataMapper
@@ -41,7 +39,6 @@ namespace IBatisNet.DataMapper
     /// <param name="list">The IList that will be returned to the caller.</param>
     public delegate void RowDelegate(object obj, object parameterObject, IList list);
 
-#if dotnet2
     /// <summary>
     /// A delegate called once per row in the QueryWithRowDelegate method
     /// </summary>
@@ -58,7 +55,6 @@ namespace IBatisNet.DataMapper
     /// <param name="parameterObject">The optional parameter object passed into the QueryForMapWithRowDelegate method.</param>
     /// <param name="dictionary">The IDictionary that will be returned to the caller.</param>
     public delegate void DictionaryRowDelegate<K, V>(K key, V value, object parameterObject, IDictionary<K, V> dictionary);
-#endif
 
     /// <summary>
     /// A delegate called once per row in the QueryForMapWithRowDelegate method

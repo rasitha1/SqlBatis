@@ -78,7 +78,6 @@ namespace IBatisNet.Common.Test.Domain
         protected Account protectedAccount = null;
         protected Days protectedDay;
 
-#if dotnet2
         private Int32? _intNullable = null;
         public Int32? publicintNullable = null;
         protected Int32? protectedintNullable = null;
@@ -88,7 +87,6 @@ namespace IBatisNet.Common.Test.Domain
             get { return _intNullable; }
             set { _intNullable = value; }
         }
-#endif
 
 		public Property()
         {
@@ -223,11 +221,7 @@ namespace IBatisNet.Common.Test.Domain
         public int Index
         {
             get { return _int; }
-#if dotnet2
             protected set { _int = value; }
-#else
-			set { _int = value; }
-#endif
         }
 
         public override Account Account
@@ -254,18 +248,15 @@ namespace IBatisNet.Common.Test.Domain
             set { _float = value*2; }
         }
 
-#if dotnet2
         private SpecialReference<Account> _referenceAccount = null;
         public SpecialReference<Account> ReferenceAccount
         {
             get { return _referenceAccount; }
             set { _referenceAccount = value; }
         }
-#endif
         
     }
     
-#if dotnet2
     public class SpecialReference<T> where T : class
     {
         private T _value =null;
@@ -276,6 +267,5 @@ namespace IBatisNet.Common.Test.Domain
             set { _value = value; }
         }
     }
-#endif
     
 }

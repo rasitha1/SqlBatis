@@ -24,9 +24,7 @@
 #endregion
 
 using System.Collections;
-#if dotnet2
 using System.Collections.Generic;
-#endif
 using IBatisNet.DataMapper.Configuration.ResultMapping;
 using IBatisNet.DataMapper.MappedStatements.PropertStrategy;
 
@@ -58,9 +56,7 @@ namespace IBatisNet.DataMapper.MappedStatements.PropertyStrategy
             _selectArrayStrategy = new SelectArrayStrategy();
             _selectListStrategy = new SelectListStrategy();
             _selectObjectStrategy = new SelectObjectStrategy();
-#if dotnet2
             _selectGenericListStrategy = new SelectGenericListStrategy();
-#endif
 		}
 
 		/// <summary>
@@ -84,14 +80,12 @@ namespace IBatisNet.DataMapper.MappedStatements.PropertyStrategy
                 }
 			    else
                 {
-#if dotnet2
                     if (mapping.MemberType.IsGenericType &&
                         typeof(IList<>).IsAssignableFrom(mapping.MemberType.GetGenericTypeDefinition()))
                     {
                         return _groupByStrategy; 
                     }
                     else
-#endif
                         if (typeof(IList).IsAssignableFrom(mapping.MemberType))
                         {
                             return _groupByStrategy; 

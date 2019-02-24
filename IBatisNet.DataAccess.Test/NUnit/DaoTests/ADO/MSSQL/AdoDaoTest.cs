@@ -17,15 +17,9 @@ namespace IBatisNet.DataAccess.Test.NUnit.DaoTests.Ado.MSSQL
 		public void FixtureSetUp() 
 		{
 			DomDaoManagerBuilder builder = new DomDaoManagerBuilder();
-#if dotnet2		    
 			builder.Configure( "dao_MSSQL_"
                  + ConfigurationManager.AppSettings["providerType"] + ".config");
 			daoManager = DaoManager.GetInstance();
-#else
-			builder.Configure( "dao_MSSQL_"
-				 + ConfigurationSettings.AppSettings["providerType"] + ".config" );
-			daoManager = DaoManager.GetInstance();
-#endif
 
         }
 

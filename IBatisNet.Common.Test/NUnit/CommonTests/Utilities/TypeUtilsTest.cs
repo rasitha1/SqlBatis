@@ -1,9 +1,7 @@
 
-#if dotnet2
 using System;
 using System.Collections;
 using System.Collections.Generic;
-#endif
 using IBatisNet.Common.Test.Domain;
 using IBatisNet.Common.Utilities;
 using NUnit.Framework;
@@ -14,7 +12,6 @@ namespace IBatisNet.Common.Test.NUnit.CommonTests.Utilities
     public class TypeUtilsTest
     {
         
-#if dotnet2        
 
 
         /// <summary>
@@ -83,6 +80,5 @@ namespace IBatisNet.Common.Test.NUnit.CommonTests.Utilities
 
             Assert.IsFalse(isGenericIList);
         }
-#endif
     }
 }

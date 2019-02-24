@@ -61,10 +61,8 @@ namespace IBatisNet.Common.Utilities.Objects.Members
                 // Detect runtime environment and create the appropriate factory
                 if (Environment.Version.Major >= 2)
                 {
-#if dotnet2
                     _createPropertyGetAccessor = new CreatePropertyGetAccessor(CreateDynamicPropertyGetAccessor);
                     _createFieldGetAccessor = new CreateFieldGetAccessor(CreateDynamicFieldGetAccessor);
-#endif
                 }
                 else
                 {
@@ -86,7 +84,6 @@ namespace IBatisNet.Common.Utilities.Objects.Members
             }
         }
 
-#if dotnet2
 
 
         /// <summary>
@@ -103,11 +100,7 @@ namespace IBatisNet.Common.Utilities.Objects.Members
             if (propertyInfo.CanRead)
             {
                 MethodInfo methodInfo = null;
-#if dotnet2
                 methodInfo = propertyInfo.GetGetMethod();
-#else
-                methodInfo = targetType.GetMethod("get_" + propertyName);
-#endif
                 if (methodInfo != null)// == visibilty public
                 {
                     return new DelegatePropertyGetAccessor(targetType, propertyName);
@@ -145,7 +138,6 @@ namespace IBatisNet.Common.Utilities.Objects.Members
                 return new ReflectionFieldGetAccessor(targetType, fieldName);
             }
         }
-#endif
 
 
         /// <summary>
@@ -162,15 +154,7 @@ namespace IBatisNet.Common.Utilities.Objects.Members
             if (propertyInfo.CanRead)
             {
                 MethodInfo methodInfo = null;
-#if dotnet2
                 methodInfo = propertyInfo.GetGetMethod();
-#else
-				methodInfo = targetType.GetMethod("get_" + propertyName,BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly);
-				if (methodInfo == null)
-				{
-					methodInfo =  targetType.GetMethod("get_" + propertyName);
-				}
-#endif
                 if (methodInfo != null)// == visibilty public
                 {
                     return new EmitPropertyGetAccessor(targetType, propertyName, _assemblyBuilder, _moduleBuilder);

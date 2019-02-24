@@ -50,9 +50,7 @@ namespace IBatisNet.DataMapper.MappedStatements.ArgumentStrategy
             _selectArrayStrategy = new SelectArrayStrategy();
             _selectListStrategy = new SelectListStrategy();
             _selectObjectStrategy = new SelectObjectStrategy();
-#if dotnet2
             _selectGenericListStrategy = new SelectGenericListStrategy();
-#endif
 		}
 
 		/// <summary>

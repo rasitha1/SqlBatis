@@ -45,13 +45,8 @@ namespace IBatisNet.DataMapper.Test.NUnit.SqlMapTests
         static BaseTest()
         {
             
-#if dotnet2
             ScriptDirectory = Path.Combine(Path.Combine(Path.Combine(Path.Combine(TestContext.CurrentContext.TestDirectory, ".."), ".."), "Scripts"),
                 ConfigurationManager.AppSettings["database"]) + Path.DirectorySeparatorChar;
-#else
-            ScriptDirectory = Path.Combine(Path.Combine(Path.Combine(Path.Combine(Resources.ApplicationBase, ".."), ".."), "Scripts"), 
-                ConfigurationSettings.AppSettings["database"]) + Path.DirectorySeparatorChar;
-#endif
         }
 
         protected virtual void ChildSetupProperties(NameValueCollection nvc)
@@ -67,7 +62,6 @@ namespace IBatisNet.DataMapper.Test.NUnit.SqlMapTests
             //DateTime start = DateTime.Now;
 
             DomSqlMapBuilder builder = new DomSqlMapBuilder();
-#if dotnet2
             NameValueCollection properties = new NameValueCollection();
             properties.Add("collection2Namespace", "IBatisNet.DataMapper.Test.Domain.LineItemCollection2, IBatisNet.DataMapper.Test");
             properties.Add("nullableInt", "int?");
@@ -75,14 +69,6 @@ namespace IBatisNet.DataMapper.Test.NUnit.SqlMapTests
             builder.Properties = properties;
 
             string fileName = "sqlmap" + "_" + ConfigurationManager.AppSettings["database"] + "_" + ConfigurationManager.AppSettings["providerType"] + ".config";
-#else
-            NameValueCollection properties = new NameValueCollection();
-            properties.Add("collection2Namespace","IBatisNet.DataMapper.Test.Domain.LineItemCollection, IBatisNet.DataMapper.Test");
-            properties.Add("nullableInt", "int");
-            builder.Properties = properties;
-
-			string fileName = "sqlmap" + "_" + ConfigurationSettings.AppSettings["database"] + "_" + ConfigurationSettings.AppSettings["providerType"] + ".config";
-#endif
             try
             {
                 sqlMap = builder.Configure(fileName);

@@ -28,9 +28,7 @@
 
 using System;
 using System.Collections;
-#if dotnet2
 using System.Collections.Generic;
-#endif
 using System.Data;
 using System.Text;
 
@@ -272,7 +270,6 @@ namespace IBatisNet.DataMapper.MappedStatements
         #endregion
 
         #region ExecuteForObject .NET 2.0
-#if dotnet2
 
         /// <summary>
         /// Executes an SQL statement that returns a single row as an Object.
@@ -358,7 +355,6 @@ namespace IBatisNet.DataMapper.MappedStatements
 
             return result;
         }
-#endif
         #endregion
 
         #region ExecuteQueryForList
@@ -604,7 +600,6 @@ namespace IBatisNet.DataMapper.MappedStatements
         #endregion
 
         #region ExecuteQueryForList .NET 2.0
-#if dotnet2
 
         /// <summary>
         /// Runs a query with a custom object that gets a chance 
@@ -815,7 +810,6 @@ namespace IBatisNet.DataMapper.MappedStatements
             RunQueryForList<T>(request, session, parameterObject, resultObject, null);
         }
 
-#endif
         #endregion
 
         #region ExecuteUpdate, ExecuteInsert
@@ -1027,7 +1021,6 @@ namespace IBatisNet.DataMapper.MappedStatements
 
         }
 
-#if dotnet2
         /// <summary>
         /// Executes the SQL and retuns all rows selected in a map that is keyed on the property named
         /// in the keyProperty parameter.  The value at each key will be the value of the property specified
@@ -1153,7 +1146,6 @@ namespace IBatisNet.DataMapper.MappedStatements
             return map;
 
         }
-#endif
         
         #endregion
 

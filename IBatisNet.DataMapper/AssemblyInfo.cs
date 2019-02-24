@@ -7,20 +7,14 @@ using System.Reflection;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 //
-#if dotnet2
-
 #if DEBUG
 #else
-#if dotnet2
 [assembly: AssemblyConfiguration("net-2.0.win32; Release")]
-#else
-[assembly: AssemblyConfiguration("net-1.1.win32; Release")]
-#endif
 [assembly: AssemblyDelaySign(false)]
 [assembly: AssemblyKeyFile("..\\..\\..\\AssemblyKey.snk")]
 #endif
 
-#endif
+
 
 //
 // General Information about an assembly is controlled through the following 

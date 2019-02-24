@@ -25,9 +25,7 @@
 #endregion
 
 #region Using
-#if dotnet2
 using System.Collections.Generic;
-#endif
 using System;
 using System.Collections;
 using System.Collections.Specialized;
@@ -577,7 +575,6 @@ namespace IBatisNet.DataMapper
         #endregion
 
         #region QueryForObject .NET 2.0
-#if dotnet2
         /// <summary>
         /// Executes a Sql SELECT statement that returns that returns data 
         /// to populate a single object instance.
@@ -659,7 +656,6 @@ namespace IBatisNet.DataMapper
 
             return result;
         }
-#endif      
         #endregion
 
         #region QueryForMap, QueryForDictionary
@@ -886,9 +882,8 @@ namespace IBatisNet.DataMapper
 		#endregion
         
         #region QueryForList .NET 2.0
-#if dotnet2
 	    
-	            /// <summary>
+        /// <summary>
         /// Executes the SQL and retuns all rows selected in a map that is keyed on the property named
         /// in the keyProperty parameter.  The value at each key will be the value of the property specified
         /// in the valueProperty parameter.  If valueProperty is null, the entire result object will be entered.
@@ -1120,7 +1115,6 @@ namespace IBatisNet.DataMapper
                 }
             }
         }
-#endif
         #endregion
 
 		#region QueryForPaginatedList
@@ -1185,7 +1179,6 @@ namespace IBatisNet.DataMapper
 			return list;
 		}
 
-#if dotnet2
         /// <summary>
         /// Runs a query for list with a custom object that gets a chance to deal 
         /// with each row as it is processed.
@@ -1228,7 +1221,6 @@ namespace IBatisNet.DataMapper
 
             return list;
         }
-#endif
 
 		/// <summary>
 		/// Runs a query with a custom object that gets a chance to deal 

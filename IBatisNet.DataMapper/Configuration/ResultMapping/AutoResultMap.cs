@@ -222,12 +222,10 @@ namespace IBatisNet.DataMapper.Configuration.ResultMapping
                     {
                         return new TimeSpan(0);
                     }
-#if dotnet2
                     else if (_resultClass.IsGenericType && typeof(Nullable<>).IsAssignableFrom(_resultClass.GetGenericTypeDefinition()))
                     {
                         return TypeUtils.InstantiateNullableType(_resultClass);
                     }
-#endif
                     else
                     {
                         throw new NotImplementedException("Unable to instanciate value type");

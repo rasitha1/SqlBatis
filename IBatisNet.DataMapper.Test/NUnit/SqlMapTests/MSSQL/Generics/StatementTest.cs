@@ -1,4 +1,3 @@
-#if dotnet2
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -190,4 +189,4 @@ namespace IBatisNet.DataMapper.Test.NUnit.SqlMapTests.MSSQL.Generics
 
 	}
 }
-#endif
+

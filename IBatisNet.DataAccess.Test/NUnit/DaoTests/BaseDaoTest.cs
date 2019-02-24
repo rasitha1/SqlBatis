@@ -34,12 +34,7 @@ namespace IBatisNet.DataAccess.Test.NUnit.DaoTests
 		/// </summary>
 		static BaseDaoTest()
 		{
-		    #if dotnet2
-            ScriptDirectory = Path.Combine(Path.Combine(Path.Combine(Path.Combine(Resources.ApplicationBase, ".."), ".."), "Scripts"), ConfigurationManager.AppSettings["database"]) + Path.DirectorySeparatorChar;
-		    
-		    #else
-			ScriptDirectory = Path.Combine(Path.Combine(Path.Combine(Path.Combine(Resources.ApplicationBase, ".."), ".."), "Scripts"), ConfigurationSettings.AppSettings["database"]) + Path.DirectorySeparatorChar;
-            #endif
+            ScriptDirectory = Path.Combine(Path.Combine(Path.Combine(Path.Combine(Resources.ApplicationBase, ".."), ".."), "Scripts"), ConfigurationManager.AppSettings["database"]) + Path.DirectorySeparatorChar;		    
            }
 
 

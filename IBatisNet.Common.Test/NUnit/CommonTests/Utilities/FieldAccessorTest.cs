@@ -79,10 +79,8 @@ namespace IBatisNet.Common.Test.NUnit.CommonTests.Utilities
             enumSetAccessor = factorySet.CreateSetAccessor(typeof(Property), "_day");
             enumGetAccessor = factoryGet.CreateGetAccessor(typeof(Property), "_day");
 
-#if dotnet2
             nullableSetAccessor = factorySet.CreateSetAccessor(typeof(Property), "_intNullable");
             nullableGetAccessor = factoryGet.CreateGetAccessor(typeof(Property), "_intNullable");
-#endif
 		}
 
 
@@ -96,7 +94,6 @@ namespace IBatisNet.Common.Test.NUnit.CommonTests.Utilities
 
         #endregion
 
-#if dotnet2
 
         private T GetDefault<T>()
         {
@@ -115,7 +112,6 @@ namespace IBatisNet.Common.Test.NUnit.CommonTests.Utilities
             Console.WriteLine("Guid : " + GetDefault<Guid>());
             Console.WriteLine("Decimal : " + GetDefault<Decimal>());
         }
-#endif
         ///// <summary>
         ///// Test setting null on integer public field.
         ///// </summary>
