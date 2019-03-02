@@ -11,15 +11,68 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="nunit" Version="3.10.1" />
+    <None Remove="SqlMap_MSSQL_SqlClient.config" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="SqlMap_MSSQL_SqlClient.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="nunit" Version="3.11.0" />
     <PackageReference Include="NUnit3TestAdapter" Version="3.10.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.8.0" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.6.0" />
+    <PackageReference Include="System.Drawing.Common" Version="4.5.1" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\IBatisNet.Standard.Common\IBatisNet.Standard.Common.csproj" />
+    <ProjectReference Include="..\..\src\IBatisNet.Standard.DataAccess\IBatisNet.Standard.DataAccess.csproj" />
     <ProjectReference Include="..\..\src\IBatisNet.Standard.DataMapper\IBatisNet.Standard.DataMapper.csproj" />
     <ProjectReference Include="..\..\src\IBatisNet.Standard.DynamicProxy\IBatisNet.Standard.DynamicProxy.csproj" />
+    <ProjectReference Include="..\IBatisNet.Standard.Common.Test\IBatisNet.Standard.Common.Test.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="cool.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="providers.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="ReadMe.txt">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Update="SqlMap_Access_OleDb.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="SqlMap_MSSQL_Odbc.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="SqlMap_MSSQL_OleDb.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="SqlMap_MySql_ByteFx.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="SqlMap_MySql_MySql.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="SqlMap_Oracle_ODP.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="SqlMap_Oracle_OracleClient.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="SqlMap_PostgreSQL_Npgsql.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="test.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

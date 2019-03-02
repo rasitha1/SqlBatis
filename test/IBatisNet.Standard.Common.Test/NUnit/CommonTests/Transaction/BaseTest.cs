@@ -18,6 +18,7 @@ using IBatisNet.DataMapper; // SqlMap API
 using IBatisNet.Common.Test.Domain;
 using Microsoft.Extensions.Configuration;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 
 //[assembly:log4net.Config.XmlConfigurator(Watch=true)]
 
@@ -53,7 +54,7 @@ namespace IBatisNet.Common.Test.NUnit.CommonTests.Transaction
 		    ConfigurationBuilder builder = new ConfigurationBuilder();
 		    builder.AddInMemoryCollection(DefaultConfigurationStrings);
 		    Configuration = builder.Build();
-
+		    //LogManager.Adapter = new ConsoleOutLoggerFA(new NameValueCollection());
 
             ScriptDirectory = Path.Combine(
 				Path.Combine(

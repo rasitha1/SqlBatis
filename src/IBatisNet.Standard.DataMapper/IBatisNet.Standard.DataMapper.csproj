@@ -16,6 +16,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="SqlMapConfig.xsd" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="SqlMapConfig.xsd" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\IBatisNet.Standard.Common\IBatisNet.Standard.Common.csproj" />
   </ItemGroup>
 
