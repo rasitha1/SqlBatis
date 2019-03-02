@@ -1,0 +1,74 @@
+IBatisNet DataAccess Change Log
+
+------------------------------
+1.6.1 - 01/March/2007 BETA 
+------------------------------
+- Support for DataMapper 1.6.1 
+ 
+------------------------------
+1.6.0 - 01/Feb/2007 BETA 
+------------------------------
+- Support for DataMapper 1.6.0
+
+------------------------------
+1.8.1 - 27/07/2006 GA
+------------------------------
+- Support for DataMapper 1.5.1 
+
+------------------------------
+1.8 - 05/07/2006 BETA
+------------------------------
+- Added IDaoManager interface to simplify mock or stub, methods returning DaoManager instance now return IDaoManager DaoManager.
+
+------------------------------
+1.7 - 15/12/2005
+------------------------------
+- Updated to log4net V1.2.9
+- Updated to Castle.DynamicProxy V1.1.5.0
+- Re-add signing on assembly 
+- Added custom logger support, IBATIS now need a custom section in your application config file
+    Exemple (for log4NET) :
+	<configSections>
+		<sectionGroup name="iBATIS">
+			<section name="logging" type="IBatisNet.Common.Logging.Impl.LocationInfoLog4NetLoggerFA, IBatisNet.Common.Logging.Log4Net" />
+		</sectionGroup>	
+		<section name="log4net" type="log4net.Config.Log4NetConfigurationSectionHandler, log4net" />
+	</configSections>
+	
+	<iBATIS>
+		<logging>		
+			<logFactoryAdapter type="IBatisNet.Common.Logging.Impl.Log4NetLoggerFA, IBatisNet.Common">
+				<arg key="configType" value="inline" />
+			</logFactoryAdapter>
+		</logging>
+	</iBATIS>
+- Removes use of Xml serilization for loading config, boost init
+- IBATISNET-102 Calling DaoManager in different threads causes an Exception
+- Allow Intellisense in Visual Studio 2003 for Dao.config file
+- Updated schemas header
+  dao.config
+  <daoConfig  xmlns="http://ibatis.apache.org/dataAccess" 
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  providers.config
+  <providers xmlns="http://ibatis.apache.org/providers" 
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+     
+------------------------------
+1.6.1 - 10-June-2005
+------------------------------
+- Fixed JIRA-38 Removed use of innerXml since properties node could be null/missing
+- Improvement JIRA-75/63
+  <properties> 
+     <propertie resource="sqlmap-config.xml"/> 
+     <propertie resource="${root}Resources/Query/database.xml"/> 
+     <propertie key="Hello" value="World" /> ( To resolve IBATISNET-63 ) 
+  <properties> 
+- Added new API to DomDaoManagerBuilder.Configure(...)[old API DaoManager.Configure(...) are marked as obsolete]
+- Added New syntax to configure daoSessionHandler (old is too supported)
+  <daoSessionHandler id="SqlMap">
+      <property name="resource" value="SqlMap_MSSQL_SqlClient.config"/>
+      <property name="url" value="E:\Projet\iBatis\trunk\cs\mapper\IBatisNet.DataAccess.Test\bin\Debug\SqlMap_MSSQL_SqlClient.config"/>
+     <property name="embedded" value="bin.Debug.SqlMap_MSSQL_SqlClient.config, IBatisNet.DataAccess.Test"/> 			
+  </daoSessionHandler>
+- Re-Add providers tag (optional) in Dao.Config
+- Fixed JIRA-69 Added support for global setting in ressource and url attribute (JIRA-69)

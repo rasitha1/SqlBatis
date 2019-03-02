@@ -184,6 +184,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="DataBase-Template.config" />
+    <None Include="AppSettings.json" />
     <None Include="providers.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
