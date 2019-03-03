@@ -6,6 +6,8 @@
     <RootNamespace>IBatisNet.DynamicProxy</RootNamespace>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Version>2.0.0</Version>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>AssemblyKey.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
 
   <ItemGroup>

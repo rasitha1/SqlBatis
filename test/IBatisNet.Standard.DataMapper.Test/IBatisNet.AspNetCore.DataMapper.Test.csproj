@@ -26,6 +26,7 @@
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.8.0" />
     <PackageReference Include="System.Data.SqlClient" Version="4.6.0" />
     <PackageReference Include="System.Drawing.Common" Version="4.5.1" />
+    <PackageReference Include="System.Security.Permissions" Version="4.5.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -33,11 +34,14 @@
     <ProjectReference Include="..\..\src\IBatisNet.Standard.DataAccess\IBatisNet.Standard.DataAccess.csproj" />
     <ProjectReference Include="..\..\src\IBatisNet.Standard.DataMapper\IBatisNet.Standard.DataMapper.csproj" />
     <ProjectReference Include="..\..\src\IBatisNet.Standard.DynamicProxy\IBatisNet.Standard.DynamicProxy.csproj" />
-    <ProjectReference Include="..\IBatisNet.Standard.Common.Test\IBatisNet.Standard.Common.Test.csproj" />
+    <ProjectReference Include="..\IBatisNet.Standard.Common.Test\IBatisNet.AspNetCore.Common.Test.csproj" />
   </ItemGroup>
 
   <ItemGroup>
     <None Update="cool.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="DataBase.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="providers.config">

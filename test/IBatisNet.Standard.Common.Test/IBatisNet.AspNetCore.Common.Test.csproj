@@ -59,6 +59,9 @@
     <None Update="OctopusService.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="providers.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="SqlMap_Access_OleDb.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

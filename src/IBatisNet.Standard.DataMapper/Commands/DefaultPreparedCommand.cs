@@ -51,9 +51,6 @@ namespace IBatisNet.DataMapper.Commands
         #region Fields
 
         private static readonly ILog _logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
-        private readonly StringBuilder _paramLogList = new StringBuilder(); // Log info
-        private readonly StringBuilder _typeLogList = new StringBuilder(); // Log info
-
         #endregion
 
         #region IPreparedCommand Members
@@ -96,6 +93,10 @@ namespace IBatisNet.DataMapper.Commands
         (ISqlMapSession session, IDbCommand command,
             RequestScope request, IStatement statement, object parameterObject)
         {
+            StringBuilder _paramLogList = new StringBuilder(); // Log info
+            StringBuilder _typeLogList = new StringBuilder(); // Log info
+
+
             StringCollection properties = request.PreparedStatement.DbParametersName;
             IDbDataParameter[] parameters = request.PreparedStatement.DbParameters;
 

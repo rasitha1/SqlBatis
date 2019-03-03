@@ -689,9 +689,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\IBatisNet.Common\IBatisNet.Common.csproj">
-      <Project>{BBC8DA4A-EA88-41D9-8B93-929B8F3ADADE}</Project>
-      <Name>IBatisNet.Common</Name>
+    <ProjectReference Include="..\src\IBatisNet.Standard.Common\IBatisNet.Standard.Common.csproj">
+      <Project>{5ee98d8b-f749-4207-bc39-3237afd72421}</Project>
+      <Name>IBatisNet.Standard.Common</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

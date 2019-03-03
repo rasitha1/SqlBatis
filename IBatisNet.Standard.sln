@@ -40,9 +40,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IBatisNet.Standard.DataAcce
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IBatisNet.Standard.DynamicProxy", "src\IBatisNet.Standard.DynamicProxy\IBatisNet.Standard.DynamicProxy.csproj", "{071F4E18-3305-4EEB-9F0E-492780385C12}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IBatisNet.Standard.Common.Test", "test\IBatisNet.Standard.Common.Test\IBatisNet.Standard.Common.Test.csproj", "{C7356820-48D8-47F6-8978-D615F3B68593}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IBatisNet.AspNetCore.Common.Test", "test\IBatisNet.Standard.Common.Test\IBatisNet.AspNetCore.Common.Test.csproj", "{C7356820-48D8-47F6-8978-D615F3B68593}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IBatisNet.Standard.DataMapper.Test", "test\IBatisNet.Standard.DataMapper.Test\IBatisNet.Standard.DataMapper.Test.csproj", "{B3B1F9DA-7509-471C-B5E6-9200CB01B48E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IBatisNet.AspNetCore.DataMapper.Test", "test\IBatisNet.Standard.DataMapper.Test\IBatisNet.AspNetCore.DataMapper.Test.csproj", "{B3B1F9DA-7509-471C-B5E6-9200CB01B48E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IBatisNet.AspNetCore", "src\IBatisNet.AspNetCore\IBatisNet.AspNetCore.csproj", "{59AE698F-AF5F-4B79-AAE4-B70D9D4DE952}"
 EndProject

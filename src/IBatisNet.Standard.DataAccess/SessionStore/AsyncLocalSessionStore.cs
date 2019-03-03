@@ -12,7 +12,7 @@ namespace IBatisNet.DataAccess.SessionStore
     /// </remarks>
     public class AsyncLocalSessionStore : AbstractSessionStore
     {
-        private static AsyncLocal<Dictionary<string, IDalSession>> _store = new AsyncLocal<Dictionary<string, IDalSession>>();
+        private static readonly AsyncLocal<Dictionary<string, IDalSession>> LocalStore = new AsyncLocal<Dictionary<string, IDalSession>>();
         /// <summary>
         ///     Initializes a new instance of the <see cref="AsyncLocalSessionStore" /> class.
         /// </summary>
@@ -24,7 +24,7 @@ namespace IBatisNet.DataAccess.SessionStore
         /// <summary>
         ///     Get the local session
         /// </summary>
-        public override IDalSession LocalSession => _store.Value.TryGetValue(sessionName, out var session) ? session : null;
+        public override IDalSession LocalSession => LocalStore.Value != null && LocalStore.Value.TryGetValue(sessionName, out var session) ? session : null;
 
         /// <summary>
         ///     Store the specified session.
@@ -32,7 +32,12 @@ namespace IBatisNet.DataAccess.SessionStore
         /// <param name="session">The session to store</param>
         public override void Store(IDalSession session)
         {
-            _store.Value[sessionName] = session;
+            if (LocalStore.Value == null)
+            {
+                LocalStore.Value = new Dictionary<string, IDalSession>();
+            }
+
+            LocalStore.Value[sessionName] = session;
         }
 
         /// <summary>
@@ -40,7 +45,7 @@ namespace IBatisNet.DataAccess.SessionStore
         /// </summary>
         public override void Dispose()
         {
-            _store.Value = null;
+            LocalStore.Value = null;
         }
     }
 }

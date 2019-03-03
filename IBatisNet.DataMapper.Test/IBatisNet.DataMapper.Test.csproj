@@ -92,9 +92,22 @@
     <Reference Include="System.Data">
       <Name>System.Data</Name>
     </Reference>
+    <Reference Include="System.Data.OracleClient" />
     <Reference Include="System.Drawing">
       <Name>System.Drawing</Name>
     </Reference>
+    <Reference Include="System.Net" />
+    <Reference Include="System.Security.AccessControl, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.AccessControl.4.5.0\lib\net461\System.Security.AccessControl.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Permissions, Version=4.0.1.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Permissions.4.5.0\lib\net461\System.Security.Permissions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Principal.Windows, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Security.Principal.Windows.4.5.0\lib\net461\System.Security.Principal.Windows.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ServiceProcess" />
+    <Reference Include="System.Transactions" />
     <Reference Include="System.Xml">
       <Name>System.XML</Name>
     </Reference>
@@ -544,10 +557,6 @@
       <Project>{023FE8D7-7E1A-4DDF-A0EA-8FB0E1B3122B}</Project>
       <Name>IBatisNet.Common.Logging.Log4Net</Name>
     </ProjectReference>
-    <ProjectReference Include="..\IBatisNet.Common\IBatisNet.Common.csproj">
-      <Project>{BBC8DA4A-EA88-41D9-8B93-929B8F3ADADE}</Project>
-      <Name>IBatisNet.Common</Name>
-    </ProjectReference>
     <ProjectReference Include="..\IBatisNet.DataMapper\IBatisNet.DataMapper.csproj">
       <Project>{F3E45F39-3224-4EAD-B138-EB5CC0E32824}</Project>
       <Name>IBatisNet.DataMapper</Name>
@@ -555,6 +564,10 @@
     <ProjectReference Include="..\IBatisNet.DynamicProxy\IBatisNet.DynamicProxy.csproj">
       <Project>{ac5db2b2-afc4-4911-b0ab-ccf0b46bdf41}</Project>
       <Name>IBatisNet.DynamicProxy</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\src\IBatisNet.Standard.Common\IBatisNet.Standard.Common.csproj">
+      <Project>{5ee98d8b-f749-4207-bc39-3237afd72421}</Project>
+      <Name>IBatisNet.Standard.Common</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

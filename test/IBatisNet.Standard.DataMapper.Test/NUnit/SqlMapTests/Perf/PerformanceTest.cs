@@ -503,7 +503,7 @@ namespace IBatisNet.DataMapper.Test.NUnit.SqlMapTests.Perf
 
 			public void Start()
 			{
-				Thread.Sleep(0);
+				//Thread.Sleep(0);
 				QueryPerformanceCounter(out startTime);
 			}
 

@@ -11,7 +11,7 @@ namespace IBatisNet.DataMapper.SessionStore
     /// </remarks>
     public class AsyncLocalSessionStore : AbstractSessionStore
     {
-        private static AsyncLocal<Dictionary<string, ISqlMapSession>> _store = new AsyncLocal<Dictionary<string, ISqlMapSession>>();
+        private static readonly AsyncLocal<Dictionary<string, ISqlMapSession>> LocalStore = new AsyncLocal<Dictionary<string, ISqlMapSession>>();
         /// <summary>
         ///     Initializes a new instance of the <see cref="AsyncLocalSessionStore" /> class.
         /// </summary>
@@ -23,7 +23,7 @@ namespace IBatisNet.DataMapper.SessionStore
         /// <summary>
         ///     Get the local session
         /// </summary>
-        public override ISqlMapSession LocalSession => _store.Value.TryGetValue(sessionName, out var session) ? session : null;
+        public override ISqlMapSession LocalSession => LocalStore.Value != null && LocalStore.Value.TryGetValue(sessionName, out var session) ? session : null;
 
         /// <summary>
         ///     Store the specified session.
@@ -31,7 +31,11 @@ namespace IBatisNet.DataMapper.SessionStore
         /// <param name="session">The session to store</param>
         public override void Store(ISqlMapSession session)
         {
-            _store.Value[sessionName] = session;
+            if (LocalStore.Value == null)
+            {
+                LocalStore.Value = new Dictionary<string, ISqlMapSession>();
+            }
+            LocalStore.Value[sessionName] = session;
         }
 
         /// <summary>
@@ -39,7 +43,7 @@ namespace IBatisNet.DataMapper.SessionStore
         /// </summary>
         public override void Dispose()
         {
-            _store.Value = null;
+            LocalStore.Value = null;
         }
     }
 }

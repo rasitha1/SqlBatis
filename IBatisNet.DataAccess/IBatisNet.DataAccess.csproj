@@ -174,13 +174,13 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\IBatisNet.Common\IBatisNet.Common.csproj">
-      <Project>{bbc8da4a-ea88-41d9-8b93-929b8f3adade}</Project>
-      <Name>IBatisNet.Common</Name>
-    </ProjectReference>
     <ProjectReference Include="..\IBatisNet.DataMapper\IBatisNet.DataMapper.csproj">
       <Project>{f3e45f39-3224-4ead-b138-eb5cc0e32824}</Project>
       <Name>IBatisNet.DataMapper</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\src\IBatisNet.Standard.Common\IBatisNet.Standard.Common.csproj">
+      <Project>{5ee98d8b-f749-4207-bc39-3237afd72421}</Project>
+      <Name>IBatisNet.Standard.Common</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

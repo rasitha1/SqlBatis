@@ -46,9 +46,9 @@ namespace IBatisNet.DataMapper.Test.NUnit.SqlMapTests
             builder.AddInMemoryCollection(DefaultConfigurationStrings);
             Configuration = builder.Build();
 
-            LogManager.Adapter = new ConsoleOutLoggerFA(new NameValueCollection());
+            //LogManager.Adapter = new ConsoleOutLoggerFA(new NameValueCollection());
 
-            ScriptDirectory = Path.Combine(Path.Combine(Path.Combine(Path.Combine(TestContext.CurrentContext.TestDirectory, ".."), ".."), "Scripts"),
+            ScriptDirectory = Path.Combine(Path.Combine(Path.Combine(Path.Combine(Path.Combine(TestContext.CurrentContext.TestDirectory, ".."), ".."), ".."), "Scripts"),
                                   Configuration["database"]) + Path.DirectorySeparatorChar;
 
         }
