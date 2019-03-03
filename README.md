@@ -18,3 +18,7 @@ a separate project called IBatisNet.DynamicProxy. You only need this if you have
 
 
 ## Test Setup
+
+1. Requires a SqlServer instance (Express works) 
+2. Run DBCreation.sql and DataBase.sql to setup the database
+3. SqlServer tests run fine. (Oracle, MySql, PostgreSQL ignored)
