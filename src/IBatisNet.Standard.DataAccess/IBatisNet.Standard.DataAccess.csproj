@@ -14,11 +14,12 @@
     <PackageProjectUrl>https://github.com/rasitha1/IBatisNet.Standard</PackageProjectUrl>
     <RepositoryUrl>https://github.com/rasitha1/IBatisNet.Standard</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
-    <Authors>IBatisNet</Authors>
+    <Authors>IBatisNet,rasitha1</Authors>
     <PackageReleaseNotes>Converted to .net standard. 
 https://github.com/rasitha1/IBatisNet.Standard/blob/master/README.md
 </PackageReleaseNotes>
     <PackageTags>ibatis dataaccess</PackageTags>
+    <Company>IBatisNet</Company>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

@@ -17,7 +17,8 @@
     <PackageTags>ibatis dotnet core</PackageTags>
     <PackageReleaseNotes>Converted to .net standard. 
 https://github.com/rasitha1/IBatisNet.Standard/blob/master/README.md</PackageReleaseNotes>
-    <Authors>IBatisNet</Authors>
+    <Authors>IBatisNet,rasitha1</Authors>
+    <Company>IBatisNet</Company>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

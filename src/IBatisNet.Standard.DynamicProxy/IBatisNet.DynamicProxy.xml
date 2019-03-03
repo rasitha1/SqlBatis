@@ -1,0 +1,69 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>IBatisNet.DynamicProxy</name>
+    </assembly>
+    <members>
+        <member name="T:IBatisNet.DynamicProxy.CachedProxyGenerator">
+            <summary>
+                An ProxyGenerator with cache that uses the Castle.DynamicProxy library.
+            </summary>
+        </member>
+        <member name="M:IBatisNet.DynamicProxy.CachedProxyGenerator.#ctor">
+            <summary>
+                Cosntructor
+            </summary>
+        </member>
+        <member name="T:IBatisNet.DynamicProxy.LazyLoadInterceptor">
+            <summary>
+                Default implementation of the interceptor reponsible of load the lazy element
+                Could load collections and single objects
+            </summary>
+        </member>
+        <member name="M:IBatisNet.DynamicProxy.LazyLoadInterceptor.Intercept(Castle.DynamicProxy.IInvocation)">
+            <summary>
+                Intercepts the specified invocation.
+            </summary>
+            <param name="invocation">The invocation.</param>
+            <param name="arguments">The target arguments.</param>
+            <returns></returns>
+        </member>
+        <member name="M:IBatisNet.DynamicProxy.LazyLoadInterceptor.#cctor">
+            <summary>
+                Static Constructor for a lazy list loader
+            </summary>
+        </member>
+        <member name="M:IBatisNet.DynamicProxy.LazyLoadInterceptor.#ctor(IBatisNet.DataMapper.MappedStatements.IMappedStatement,System.Object,System.Object,IBatisNet.Common.Utilities.Objects.Members.ISetAccessor)">
+            <summary>
+                Constructor for a lazy list loader
+            </summary>
+            <param name="mappedSatement">The mapped statement used to build the list</param>
+            <param name="param">The parameter object used to build the list</param>
+            <param name="setAccessor">The proxified member accessor.</param>
+            <param name="target">The target object which contains the property proxydied.</param>
+        </member>
+        <member name="T:IBatisNet.DynamicProxy.LazyLoadProxyFactory">
+            <summary>
+                This class is responsible of create lazy load proxies for a concrete class with virtual method.
+            </summary>
+        </member>
+        <member name="M:IBatisNet.DynamicProxy.LazyLoadProxyFactory.CreateProxy(IBatisNet.DataMapper.MappedStatements.IMappedStatement,System.Object,System.Object,IBatisNet.Common.Utilities.Objects.Members.ISetAccessor)">
+            <summary>
+                Builds the specified lazy load proxy for a concrete class with virtual method.
+            </summary>
+            <param name="selectStatement">The mapped statement used to build the lazy loaded object.</param>
+            <param name="param">The parameter object used to build lazy loaded object.</param>
+            <param name="target">The target object which contains the property proxydied..</param>
+            <param name="setAccessor">The proxified member accessor.</param>
+            <returns>Return a proxy object</returns>
+        </member>
+        <member name="T:IBatisNet.DynamicProxy.ProxyGeneratorFactory">
+            <summary>
+                A Factory for getting the ProxyGenerator.
+            </summary>
+        </member>
+        <member name="M:IBatisNet.DynamicProxy.ProxyGeneratorFactory.GetProxyGenerator">
+            <summary></summary>
+        </member>
+    </members>
+</doc>

@@ -8,14 +8,19 @@
     <Version>2.0.0</Version>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>AssemblyKey.snk</AssemblyOriginatorKeyFile>
-    <Authors>IBatisNet</Authors>
-    <Description>LazyLoad support for IBatisNet.DataMapper using Castle DynamicProxy</Description>
+    <Authors>IBatisNet,rasitha1</Authors>
+    <Description>LazyLoad support for IBatisNet.DataMapper using Castle DynamicProxy.</Description>
     <PackageProjectUrl>https://github.com/rasitha1/IBatisNet.Standard</PackageProjectUrl>
     <RepositoryUrl>https://github.com/rasitha1/IBatisNet.Standard</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageTags>ibatis lazyload dynamic proxy</PackageTags>
     <PackageReleaseNotes>Converted to .net standard. 
 https://github.com/rasitha1/IBatisNet.Standard/blob/master/README.md</PackageReleaseNotes>
+    <Company>IBatisNet</Company>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile>IBatisNet.DynamicProxy.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
