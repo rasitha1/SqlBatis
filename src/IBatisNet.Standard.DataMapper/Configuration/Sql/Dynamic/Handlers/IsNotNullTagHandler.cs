@@ -1,5 +1,5 @@
-#region Apache Notice
 
+#region Apache Notice
 /*****************************************************************************
  * $Revision: 408164 $
  * $LastChangedDate: 2006-05-21 14:27:09 +0200 (dim., 21 mai 2006) $
@@ -22,37 +22,40 @@
  * limitations under the License.
  * 
  ********************************************************************************/
-
 #endregion
 
+using System;
 using IBatisNet.Common.Utilities.Objects.Members;
 using IBatisNet.DataMapper.Configuration.Sql.Dynamic.Elements;
 
 namespace IBatisNet.DataMapper.Configuration.Sql.Dynamic.Handlers
 {
-    /// <summary>
-    ///     Summary description for IsNotNullTagHandler.
-    /// </summary>
-    public sealed class IsNotNullTagHandler : IsNullTagHandler
-    {
+	/// <summary>
+	/// Summary description for IsNotNullTagHandler.
+	/// </summary>
+	public sealed class IsNotNullTagHandler : IsNullTagHandler
+	{
+
+
         /// <summary>
-        ///     Initializes a new instance of the <see cref="IsNotNullTagHandler" /> class.
+        /// Initializes a new instance of the <see cref="IsNotNullTagHandler"/> class.
         /// </summary>
         /// <param name="accessorFactory">The accessor factory.</param>
         public IsNotNullTagHandler(AccessorFactory accessorFactory)
             : base(accessorFactory)
-        {
-        }
+		{
+		}
 
-        /// <summary>
-        /// </summary>
-        /// <param name="ctx"></param>
-        /// <param name="tag"></param>
-        /// <param name="parameterObject"></param>
-        /// <returns></returns>
-        public override bool IsCondition(SqlTagContext ctx, SqlTag tag, object parameterObject)
-        {
-            return !base.IsCondition(ctx, tag, parameterObject);
-        }
-    }
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="ctx"></param>
+		/// <param name="tag"></param>
+		/// <param name="parameterObject"></param>
+		/// <returns></returns>
+		public override bool IsCondition(SqlTagContext ctx, SqlTag tag, object parameterObject)
+		{
+			return !base.IsCondition(ctx, tag, parameterObject);
+		}
+	}
 }

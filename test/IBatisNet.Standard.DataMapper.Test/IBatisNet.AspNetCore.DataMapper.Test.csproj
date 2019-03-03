@@ -31,7 +31,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\IBatisNet.Standard.Common\IBatisNet.Standard.Common.csproj" />
-    <ProjectReference Include="..\..\src\IBatisNet.Standard.DataAccess\IBatisNet.Standard.DataAccess.csproj" />
     <ProjectReference Include="..\..\src\IBatisNet.Standard.DataMapper\IBatisNet.Standard.DataMapper.csproj" />
     <ProjectReference Include="..\..\src\IBatisNet.Standard.DynamicProxy\IBatisNet.Standard.DynamicProxy.csproj" />
     <ProjectReference Include="..\IBatisNet.Standard.Common.Test\IBatisNet.AspNetCore.Common.Test.csproj" />

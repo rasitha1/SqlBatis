@@ -1,5 +1,5 @@
-#region Apache Notice
 
+#region Apache Notice
 /*****************************************************************************
  * $Header: $
  * $Revision: 476843 $
@@ -22,435 +22,576 @@
  * limitations under the License.
  * 
  ********************************************************************************/
-
 #endregion
 
 using System;
 using System.Collections;
+
 using IBatisNet.Common.Pagination;
 using IBatisNet.DataMapper.Exceptions;
 
 namespace IBatisNet.DataMapper.MappedStatements
 {
-    /// <summary>
-    ///     Summary description for PaginatedDataList.
-    /// </summary>
-    public class PaginatedList : IPaginatedList
-    {
-        /// <summary>
-        ///     Constructor
-        /// </summary>
-        /// <param name="mappedStatement"></param>
-        /// <param name="parameterObject"></param>
-        /// <param name="pageSize"></param>
-        public PaginatedList(IMappedStatement mappedStatement, object parameterObject, int pageSize)
-        {
-            _mappedStatement = mappedStatement;
-            _parameterObject = parameterObject;
-            PageSize = pageSize;
-            PageIndex = 0;
-            PageTo(0);
-        }
+	/// <summary>
+	/// Summary description for PaginatedDataList.
+	/// </summary>
+	public class PaginatedList : IPaginatedList 
+	{
+
+		#region Fields
+		
+		private int _pageSize = 0;
+		private int _index = 0;
+
+		private IList _prevPageList = null;
+		private IList _currentPageList = null;
+		private IList _nextPageList = null;
+
+		private IMappedStatement _mappedStatement = null;
+		private object _parameterObject = null;
+
+		#endregion
+
+		/// <summary>
+		/// Constructor
+		/// </summary>
+		/// <param name="mappedStatement"></param>
+		/// <param name="parameterObject"></param>
+		/// <param name="pageSize"></param>
+		public PaginatedList(IMappedStatement mappedStatement, object parameterObject, int pageSize)
+		{
+			_mappedStatement = mappedStatement;
+			_parameterObject = parameterObject;
+			_pageSize = pageSize;
+			_index = 0;
+			PageTo(0);
+		}
 
 
-        /// <summary>
-        /// </summary>
-        public bool IsEmpty => (_currentPageList.Count == 0);
+		/// <summary>
+		/// 
+		/// </summary>
+		private void PageForward() 
+		{
+			try 
+			{
+				_prevPageList = _currentPageList;
+				_currentPageList = _nextPageList;
+				_nextPageList = GetList(_index + 1, _pageSize);
+			} 
+			catch (DataMapperException e) 
+			{
+				throw new DataMapperException("Unexpected error while repaginating paged list.  Cause: " + e.Message, e);
+			}
+		}
 
-        #region IEnumerable Members
+		/// <summary>
+		/// 
+		/// </summary>
+		private void PageBack() 
+		{
+			try 
+			{
+				_nextPageList = _currentPageList;
+				_currentPageList = _prevPageList;
+				if (_index > 0) 
+				{
+					_prevPageList = GetList(_index - 1, _pageSize);
+				} 
+				else 
+				{
+					_prevPageList = new ArrayList();
+				}
+			} 
+			catch (DataMapperException e) 
+			{
+				throw new DataMapperException("Unexpected error while repaginating paged list.  Cause: " + e.Message, e);
+			}
+		}
 
-        /// <summary>
-        /// </summary>
-        /// <returns></returns>
-        public IEnumerator GetEnumerator()
-        {
-            return _currentPageList.GetEnumerator();
-        }
-
-        #endregion
-
-
-        /// <summary>
-        /// </summary>
-        private void PageForward()
-        {
-            try
-            {
-                _prevPageList = _currentPageList;
-                _currentPageList = _nextPageList;
-                _nextPageList = GetList(PageIndex + 1, PageSize);
-            }
-            catch (DataMapperException e)
-            {
-                throw new DataMapperException("Unexpected error while repaginating paged list.  Cause: " + e.Message,
-                    e);
-            }
-        }
-
-        /// <summary>
-        /// </summary>
-        private void PageBack()
-        {
-            try
-            {
-                _nextPageList = _currentPageList;
-                _currentPageList = _prevPageList;
-                if (PageIndex > 0)
-                    _prevPageList = GetList(PageIndex - 1, PageSize);
-                else
-                    _prevPageList = new ArrayList();
-            }
-            catch (DataMapperException e)
-            {
-                throw new DataMapperException("Unexpected error while repaginating paged list.  Cause: " + e.Message,
-                    e);
-            }
-        }
-
-        /// <summary>
-        /// </summary>
-        /// <param name="index"></param>
-        private void SafePageTo(int index)
-        {
-            try
-            {
-                PageTo(index);
-            }
-            catch (DataMapperException e)
-            {
-                throw new DataMapperException("Unexpected error while repaginating paged list.  Cause: " + e.Message,
-                    e);
-            }
-        }
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="index"></param>
+		private void SafePageTo(int index) 
+		{
+			try 
+			{
+				PageTo(index);
+			} 
+			catch (DataMapperException e) 
+			{
+				throw new DataMapperException("Unexpected error while repaginating paged list.  Cause: " + e.Message, e);
+			}
+		}
 
 
-        /// <summary>
-        /// </summary>
-        /// <param name="index"></param>
-        public void PageTo(int index)
-        {
-            PageIndex = index;
-            IList list = null;
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="index"></param>
+		public void PageTo(int index) 
+		{
+			_index = index;
+			IList list = null;
 
-            if (index < 1)
-                list = GetList(PageIndex, PageSize * 2);
-            else
-                list = GetList(index - 1, PageSize * 3);
+			if (index < 1) 
+			{
+				list = GetList(_index, _pageSize * 2);
+			} 
+			else 
+			{
+				list = GetList(index - 1, _pageSize * 3);
+			}
 
-            if (list.Count < 1)
-            {
-                _prevPageList = new ArrayList();
-                _currentPageList = new ArrayList();
-                _nextPageList = new ArrayList();
-            }
-            else
-            {
-                if (index < 1)
-                {
-                    _prevPageList = new ArrayList();
-                    if (list.Count <= PageSize)
-                    {
-                        _currentPageList = SubList(list, 0, list.Count);
-                        _nextPageList = new ArrayList();
-                    }
-                    else
-                    {
-                        _currentPageList = SubList(list, 0, PageSize);
-                        _nextPageList = SubList(list, PageSize, list.Count);
-                    }
-                }
-                else
-                {
-                    if (list.Count <= PageSize)
-                    {
-                        _prevPageList = SubList(list, 0, list.Count);
-                        _currentPageList = new ArrayList();
-                        _nextPageList = new ArrayList();
-                    }
-                    else if (list.Count <= PageSize * 2)
-                    {
-                        _prevPageList = SubList(list, 0, PageSize);
-                        _currentPageList = SubList(list, PageSize, list.Count);
-                        _nextPageList = new ArrayList();
-                    }
-                    else
-                    {
-                        _prevPageList = SubList(list, 0, PageSize);
-                        _currentPageList = SubList(list, PageSize, PageSize * 2);
-                        _nextPageList = SubList(list, PageSize * 2, list.Count);
-                    }
-                }
-            }
-        }
-
-
-        /// <summary>
-        /// </summary>
-        /// <param name="index"></param>
-        /// <param name="localPageSize"></param>
-        /// <returns></returns>
-        private IList GetList(int index, int localPageSize)
-        {
-            bool isSessionLocal = false;
-
-            ISqlMapSession session = _mappedStatement.SqlMap.LocalSession;
-
-            if (session == null)
-            {
-                session = new SqlMapSession(_mappedStatement.SqlMap);
-                session.OpenConnection();
-                isSessionLocal = true;
-            }
-
-            IList list = null;
-            try
-            {
-                list = _mappedStatement.ExecuteQueryForList(session, _parameterObject, (index) * PageSize,
-                    localPageSize);
-            }
-            finally
-            {
-                if (isSessionLocal) session.CloseConnection();
-            }
-
-            return list;
-        }
+			if (list.Count < 1) 
+			{
+				_prevPageList = new ArrayList();
+				_currentPageList = new ArrayList();
+				_nextPageList = new ArrayList();
+			} 
+			else 
+			{
+				if (index < 1) 
+				{
+					_prevPageList = new ArrayList();
+					if (list.Count <= _pageSize) 
+					{
+						_currentPageList = SubList(list, 0, list.Count);
+						_nextPageList = new ArrayList();
+					} 
+					else 
+					{
+						_currentPageList = SubList(list, 0, _pageSize);
+						_nextPageList = SubList(list, _pageSize, list.Count);
+					}
+				} 
+				else 
+				{
+					if (list.Count <= _pageSize) 
+					{
+						_prevPageList = SubList(list, 0, list.Count);
+						_currentPageList = new ArrayList();
+						_nextPageList = new ArrayList();
+					} 
+					else if (list.Count <= _pageSize * 2) 
+					{
+						_prevPageList = SubList(list, 0, _pageSize);
+						_currentPageList = SubList(list, _pageSize, list.Count);
+						_nextPageList = new ArrayList();
+					} 
+					else 
+					{
+						_prevPageList = SubList(list,0, _pageSize);
+						_currentPageList = SubList(list ,_pageSize, _pageSize * 2);
+						_nextPageList = SubList(list ,_pageSize * 2, list.Count);
+					}
+				}
+			}
+		}
 
 
-        /// <summary>
-        ///     Provides a view of the IList pramaeter
-        ///     from the specified position <paramref name="fromIndex" />
-        ///     to the specified position <paramref name="toIndex" />.
-        /// </summary>
-        /// <param name="list">The IList elements.</param>
-        /// <param name="fromIndex">Starting position for the view of elements. </param>
-        /// <param name="toIndex">Ending position for the view of elements. </param>
-        /// <returns>
-        ///     A view of list.
-        /// </returns>
-        /// <remarks>
-        ///     The list that is returned is just a view, it is still backed
-        ///     by the orignal list.  Any changes you make to it will be
-        ///     reflected in the orignal list.
-        /// </remarks>
-        private IList SubList(IList list, int fromIndex, int toIndex)
-        {
-            return ((ArrayList) list).GetRange(fromIndex, toIndex - fromIndex);
-        }
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="index"></param>
+		/// <param name="localPageSize"></param>
+		/// <returns></returns>
+		private IList GetList(int index, int localPageSize) 
+		{
+			bool isSessionLocal = false;
 
-        #region Fields
+			ISqlMapSession session = _mappedStatement.SqlMap.LocalSession;
 
-        private IList _prevPageList;
-        private IList _currentPageList;
-        private IList _nextPageList;
+			if (session == null) 
+			{
+				session = new SqlMapSession(_mappedStatement.SqlMap);
+				session.OpenConnection();
+				isSessionLocal = true;
+			}
 
-        private readonly IMappedStatement _mappedStatement;
-        private readonly object _parameterObject;
+			IList list = null;
+			try 
+			{
+				list = _mappedStatement.ExecuteQueryForList(session, _parameterObject, (index) * _pageSize, localPageSize);
+			} 
+			catch
+			{
+				throw;
+			}
+			finally
+			{
+				if ( isSessionLocal )
+				{
+					session.CloseConnection();
+				}
+			}
 
-        #endregion
+			return list;
+		}
 
-        #region IPaginatedList Members
 
-        /// <summary>
-        /// </summary>
-        public int PageIndex { get; private set; }
+		/// <summary>
+		/// 
+		/// </summary>
+		public bool IsEmpty
+		{
+			get
+			{
+				return (_currentPageList.Count == 0);
+			}
+		}
 
-        /// <summary>
-        /// </summary>
-        public bool IsPreviousPageAvailable => (_prevPageList.Count > 0);
 
-        /// <summary>
-        /// </summary>
-        public bool IsFirstPage => (PageIndex == 0);
+		/// <summary>
+		/// Provides a view of the IList pramaeter 
+		/// from the specified position <paramref name="fromIndex"/> 
+		/// to the specified position <paramref name="toIndex"/>. 
+		/// </summary>
+		/// <param name="list">The IList elements.</param>
+		/// <param name="fromIndex">Starting position for the view of elements. </param>
+		/// <param name="toIndex">Ending position for the view of elements. </param>
+		/// <returns> A view of list.
+		/// </returns>
+		/// <remarks>
+		/// The list that is returned is just a view, it is still backed
+		/// by the orignal list.  Any changes you make to it will be 
+		/// reflected in the orignal list.
+		/// </remarks>
+		private IList SubList(IList list, int fromIndex, int toIndex)
+		{
+			return ((ArrayList)list).GetRange(fromIndex, toIndex-fromIndex);
+		}
 
-        /// <summary>
-        /// </summary>
-        /// <param name="pageIndex"></param>
-        public void GotoPage(int pageIndex)
-        {
-            SafePageTo(pageIndex);
-        }
+		#region IPaginatedList Members
 
-        /// <summary>
-        /// </summary>
-        public int PageSize { get; }
+		/// <summary>
+		/// 
+		/// </summary>
+		public int PageIndex
+		{
+			get
+			{
+				return _index;
+			}
+		}
 
-        /// <summary>
-        /// </summary>
-        /// <returns></returns>
-        public bool NextPage()
-        {
-            if (IsNextPageAvailable)
-            {
-                PageIndex++;
-                PageForward();
-                return true;
-            }
+		/// <summary>
+		/// 
+		/// </summary>
+		public bool IsPreviousPageAvailable
+		{
+			get
+			{
+				return (_prevPageList.Count > 0);
+			}
+		}
 
-            return false;
-        }
+		/// <summary>
+		/// 
+		/// </summary>
+		public bool IsFirstPage
+		{
+			get
+			{
+				return (_index == 0);
+			}
+		}
 
-        /// <summary>
-        /// </summary>
-        public bool IsMiddlePage => !(IsFirstPage || IsLastPage);
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="pageIndex"></param>
+		public void GotoPage(int pageIndex)
+		{
+			SafePageTo(pageIndex);
+		}
 
-        /// <summary>
-        /// </summary>
-        /// <returns></returns>
-        public bool PreviousPage()
-        {
-            if (IsPreviousPageAvailable)
-            {
-                PageIndex--;
-                PageBack();
-                return true;
-            }
+		/// <summary>
+		/// 
+		/// </summary>
+		public int PageSize
+		{
+			get
+			{
+				return _pageSize;
+			}
+		}
 
-            return false;
-        }
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <returns></returns>
+		public bool NextPage()
+		{
+			if (this.IsNextPageAvailable == true) 
+			{
+				_index++;
+				PageForward();
+				return true;
+			} 
+			else 
+			{
+				return false;
+			}
+		}
 
-        /// <summary>
-        /// </summary>
-        public bool IsNextPageAvailable => (_nextPageList.Count > 0);
+		/// <summary>
+		/// 
+		/// </summary>
+		public bool IsMiddlePage
+		{
+			get
+			{
+				return !(this.IsFirstPage || this.IsLastPage);
 
-        /// <summary>
-        /// </summary>
-        public bool IsLastPage => (_nextPageList.Count < 1);
+			}
+		}
 
-        #endregion
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <returns></returns>
+		public bool PreviousPage()
+		{
+			if (this.IsPreviousPageAvailable == true) 
+			{
+				_index--;
+				PageBack();
+				return true;
+			} 
+			else 
+			{
+				return false;
+			}
+		}
 
-        #region IList Members
+		/// <summary>
+		/// 
+		/// </summary>
+		public bool IsNextPageAvailable
+		{
+			get
+			{
+				return (_nextPageList.Count > 0);
+			}
+		}
 
-        /// <summary>
-        /// </summary>
-        public bool IsReadOnly => _currentPageList.IsReadOnly;
+		/// <summary>
+		/// 
+		/// </summary>
+		public bool IsLastPage
+		{
+			get
+			{
+				return (_nextPageList.Count < 1);
+			}
+		}
 
-        /// <summary>
-        /// </summary>
-        public object this[int index]
-        {
-            get => _currentPageList[index];
-            set => _currentPageList[index] = value;
-        }
+		#endregion
 
-        /// <summary>
-        /// </summary>
-        /// <param name="index"></param>
-        public void RemoveAt(int index)
-        {
-            _currentPageList.RemoveAt(index);
-        }
+		#region IList Members
 
-        /// <summary>
-        /// </summary>
-        /// <param name="index"></param>
-        /// <param name="value"></param>
-        public void Insert(int index, object value)
-        {
-            _currentPageList.Insert(index, value);
-        }
+		/// <summary>
+		/// 
+		/// </summary>
+		public bool IsReadOnly
+		{
+			get
+			{
+				return _currentPageList.IsReadOnly;
+			}
+		}
 
-        /// <summary>
-        /// </summary>
-        /// <param name="value"></param>
-        public void Remove(object value)
-        {
-            _currentPageList.Remove(value);
-        }
+		/// <summary>
+		/// 
+		/// </summary>
+		public object this[int index]
+		{
+			get
+			{
+				return _currentPageList[index];
+			}
+			set
+			{
+				_currentPageList[index] = value;
+			}
+		}
 
-        /// <summary>
-        /// </summary>
-        /// <param name="value"></param>
-        /// <returns></returns>
-        public bool Contains(object value)
-        {
-            return _currentPageList.Contains(value);
-        }
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="index"></param>
+		public void RemoveAt(int index)
+		{
+			_currentPageList.RemoveAt(index);
+		}
 
-        /// <summary>
-        /// </summary>
-        public void Clear()
-        {
-            _currentPageList.Clear();
-        }
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="index"></param>
+		/// <param name="value"></param>
+		public void Insert(int index, object value)
+		{
+			_currentPageList.Insert(index, value);
+		}
 
-        /// <summary>
-        /// </summary>
-        /// <param name="value"></param>
-        /// <returns></returns>
-        public int IndexOf(object value)
-        {
-            return _currentPageList.IndexOf(value);
-        }
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="value"></param>
+		public void Remove(object value)
+		{
+			_currentPageList.Remove(value);
+		}
 
-        /// <summary>
-        /// </summary>
-        /// <param name="value"></param>
-        /// <returns></returns>
-        public int Add(object value)
-        {
-            return _currentPageList.Add(value);
-        }
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="value"></param>
+		/// <returns></returns>
+		public bool Contains(object value)
+		{
+			return _currentPageList.Contains(value);
+		}
 
-        /// <summary>
-        /// </summary>
-        public bool IsFixedSize => _currentPageList.IsFixedSize;
+		/// <summary>
+		/// 
+		/// </summary>
+		public void Clear()
+		{
+			_currentPageList.Clear();
+		}
 
-        #endregion
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="value"></param>
+		/// <returns></returns>
+		public int IndexOf(object value)
+		{
+			return _currentPageList.IndexOf(value);
+		}
 
-        #region ICollection Members
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="value"></param>
+		/// <returns></returns>
+		public int Add(object value)
+		{
+			return _currentPageList.Add(value);
+		}
 
-        /// <summary>
-        /// </summary>
-        public bool IsSynchronized => _currentPageList.IsSynchronized;
+		/// <summary>
+		/// 
+		/// </summary>
+		public bool IsFixedSize
+		{
+			get
+			{
+				return _currentPageList.IsFixedSize;
+			}
+		}
 
-        /// <summary>
-        /// </summary>
-        public int Count => _currentPageList.Count;
+		#endregion
 
-        /// <summary>
-        /// </summary>
-        /// <param name="array"></param>
-        /// <param name="index"></param>
-        public void CopyTo(Array array, int index)
-        {
-            _currentPageList.CopyTo(array, index);
-        }
+		#region ICollection Members
 
-        /// <summary>
-        /// </summary>
-        public object SyncRoot => _currentPageList.SyncRoot;
+		/// <summary>
+		/// 
+		/// </summary>
+		public bool IsSynchronized
+		{
+			get
+			{
+				return _currentPageList.IsSynchronized;
+			}
+		}
 
-        #endregion
+		/// <summary>
+		/// 
+		/// </summary>
+		public int Count
+		{
+			get
+			{
+				return _currentPageList.Count;
+			}
+		}
 
-        #region IEnumerator Members
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="array"></param>
+		/// <param name="index"></param>
+		public void CopyTo(Array array, int index)
+		{
+			_currentPageList.CopyTo(array, index);
+		}
 
-        /// <summary>
-        ///     Sets the enumerator to its initial position,
-        ///     which is before the first element in the collection.
-        /// </summary>
-        public void Reset()
-        {
-            _currentPageList.GetEnumerator().Reset();
-        }
+		/// <summary>
+		/// 
+		/// </summary>
+		public object SyncRoot
+		{
+			get
+			{
+				return _currentPageList.SyncRoot;
+			}
+		}
 
-        /// <summary>
-        ///     Gets the current element in the page.
-        /// </summary>
-        public object Current => _currentPageList.GetEnumerator().Current;
+		#endregion
 
-        /// <summary>
-        ///     Advances the enumerator to the next element of the collection.
-        /// </summary>
-        /// <returns>
-        ///     true if the enumerator was successfully advanced to the next element;
-        ///     false if the enumerator has passed the end of the collection.
-        /// </returns>
-        public bool MoveNext()
-        {
-            return _currentPageList.GetEnumerator().MoveNext();
-        }
+		#region IEnumerable Members
 
-        #endregion
-    }
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <returns></returns>
+		public IEnumerator GetEnumerator()
+		{
+			return _currentPageList.GetEnumerator();
+
+		}
+
+		#endregion
+	
+		#region IEnumerator Members
+
+		/// <summary>
+		/// Sets the enumerator to its initial position, 
+		/// which is before the first element in the collection.
+		/// </summary>
+		public void Reset()
+		{
+			_currentPageList.GetEnumerator().Reset();
+		}
+
+		/// <summary>
+		/// Gets the current element in the page.
+		/// </summary>
+		public object Current
+		{
+			get
+			{
+				return _currentPageList.GetEnumerator().Current;
+			}
+		}
+
+		/// <summary>
+		/// Advances the enumerator to the next element of the collection.
+		/// </summary>
+		/// <returns>
+		/// true if the enumerator was successfully advanced to the next element; 
+		/// false if the enumerator has passed the end of the collection.
+		/// </returns>
+		public bool MoveNext()
+		{
+			return _currentPageList.GetEnumerator().MoveNext();
+		}
+
+		#endregion
+	}
 }

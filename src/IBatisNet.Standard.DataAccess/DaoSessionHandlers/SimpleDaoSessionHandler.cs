@@ -1,5 +1,5 @@
-#region Apache Notice
 
+#region Apache Notice
 /*****************************************************************************
  * $Header: $
  * $Revision: 383115 $
@@ -22,7 +22,6 @@
  * limitations under the License.
  * 
  ********************************************************************************/
-
 #endregion
 
 #region Using
@@ -37,44 +36,49 @@ using IBatisNet.DataAccess.Interfaces;
 
 namespace IBatisNet.DataAccess.DaoSessionHandlers
 {
-    /// <summary>
-    ///     Summary description for SimpleDaoSessionHandler.
-    /// </summary>
-    public class SimpleDaoSessionHandler : IDaoSessionHandler
-    {
-        #region Fields
+	/// <summary>
+	/// Summary description for SimpleDaoSessionHandler.
+	/// </summary>
+	public class SimpleDaoSessionHandler : IDaoSessionHandler
+	{
+		#region Fields
+		private DataSource _dataSource;
+		#endregion
 
-        private DataSource _dataSource;
+		#region Constructor (s) / Destructor
+		/// <summary>
+		/// 
+		/// </summary>
+		public SimpleDaoSessionHandler()
+		{
+		}
+		#endregion
 
-        #endregion
+		#region Methods
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="properties"></param>
+		/// <param name="resources"></param>
+		public void Configure(NameValueCollection properties, IDictionary resources)
+		{
+			_dataSource = (DataSource) resources["DataSource"];
+		}
 
-        #region Constructor (s) / Destructor
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="daoManager"></param>
+		/// <returns></returns>
+		public DaoSession GetDaoSession(DaoManager daoManager)
+		{
+			if (_dataSource == null) 
+			{
+				throw new DataAccessException("Source is null in DaoSessionHandler (check the context source configurationin config).");
+			}
+			return (new SimpleDaoSession(daoManager,_dataSource));
+		}
+		#endregion
 
-        #endregion
-
-        #region Methods
-
-        /// <summary>
-        /// </summary>
-        /// <param name="properties"></param>
-        /// <param name="resources"></param>
-        public void Configure(NameValueCollection properties, IDictionary resources)
-        {
-            _dataSource = (DataSource) resources["DataSource"];
-        }
-
-        /// <summary>
-        /// </summary>
-        /// <param name="daoManager"></param>
-        /// <returns></returns>
-        public DaoSession GetDaoSession(DaoManager daoManager)
-        {
-            if (_dataSource == null)
-                throw new DataAccessException(
-                    "Source is null in DaoSessionHandler (check the context source configurationin config).");
-            return (new SimpleDaoSession(daoManager, _dataSource));
-        }
-
-        #endregion
-    }
+	}
 }

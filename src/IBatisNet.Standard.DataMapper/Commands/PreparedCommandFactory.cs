@@ -1,5 +1,5 @@
-#region Apache Notice
 
+#region Apache Notice
 /*****************************************************************************
  * $Header: $
  * $Revision: 512878 $
@@ -21,27 +21,28 @@
  * limitations under the License.
  * 
  ********************************************************************************/
-
 #endregion
 
 #region Using
+
+
 
 #endregion
 
 namespace IBatisNet.DataMapper.Commands
 {
-    /// <summary>
-    ///     Summary description for PreparedCommandFactory.
-    /// </summary>
-    internal sealed class PreparedCommandFactory
-    {
-        /// <summary>
-        ///     Get an IPreparedCommand.
-        /// </summary>
-        /// <returns></returns>
-        static public IPreparedCommand GetPreparedCommand(bool isEmbedStatementParams)
-        {
-            IPreparedCommand preparedCommand = null;
+	/// <summary>
+	/// Summary description for PreparedCommandFactory.
+	/// </summary>
+	internal sealed class PreparedCommandFactory
+	{
+		/// <summary>
+		/// Get an IPreparedCommand.
+		/// </summary>
+		/// <returns></returns>
+		static public IPreparedCommand GetPreparedCommand(bool isEmbedStatementParams)
+		{
+			IPreparedCommand preparedCommand = null;
 
 //			if (isEmbedStatementParams)
 //			{
@@ -49,10 +50,11 @@ namespace IBatisNet.DataMapper.Commands
 //			}
 //			else
 //			{
-            preparedCommand = new DefaultPreparedCommand();
+				preparedCommand = new DefaultPreparedCommand();
 //			}
 
-            return preparedCommand;
-        }
-    }
+			return preparedCommand;
+		}
+
+	}
 }

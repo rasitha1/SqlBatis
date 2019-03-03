@@ -1,5 +1,4 @@
 #region Apache Notice
-
 /*****************************************************************************
  * $Header: $
  * $Revision: 383115 $
@@ -22,7 +21,6 @@
  * limitations under the License.
  * 
  ********************************************************************************/
-
 #endregion
 
 #region Using
@@ -32,31 +30,31 @@ using System.Xml;
 using IBatisNet.Common.Xml;
 using IBatisNet.DataAccess.Scope;
 
-#endregion
+#endregion 
 
 namespace IBatisNet.DataAccess.Configuration.Serializers
 {
-    /// <summary>
-    ///     Summary description for DaoSessionHandlerDeSerializer.
-    /// </summary>
-    public class DaoSessionHandlerDeSerializer
-    {
-        /// <summary>
-        ///     Deserialize a Dao object
-        /// </summary>
-        /// <param name="node"></param>
-        /// <param name="configScope"></param>
-        /// <returns></returns>
-        public static DaoSessionHandler Deserialize(XmlNode node, ConfigurationScope configScope)
-        {
-            DaoSessionHandler daoSessionHandler = new DaoSessionHandler();
+	/// <summary>
+	/// Summary description for DaoSessionHandlerDeSerializer.
+	/// </summary>
+	public class DaoSessionHandlerDeSerializer
+	{
+		/// <summary>
+		/// Deserialize a Dao object
+		/// </summary>
+		/// <param name="node"></param>
+		/// <param name="configScope"></param>
+		/// <returns></returns>
+		public static DaoSessionHandler Deserialize(XmlNode node, ConfigurationScope configScope)
+		{
+			DaoSessionHandler daoSessionHandler = new DaoSessionHandler();
 
-            NameValueCollection prop = NodeUtils.ParseAttributes(node, configScope.Properties);
-            daoSessionHandler.Implementation = NodeUtils.GetStringAttribute(prop, "implementation");
-            daoSessionHandler.Name = NodeUtils.GetStringAttribute(prop, "id");
-            daoSessionHandler.IsDefault = NodeUtils.GetBooleanAttribute(prop, "default", false);
+			NameValueCollection prop = NodeUtils.ParseAttributes(node, configScope.Properties);
+			daoSessionHandler.Implementation = NodeUtils.GetStringAttribute(prop, "implementation");
+			daoSessionHandler.Name = NodeUtils.GetStringAttribute(prop, "id");
+			daoSessionHandler.IsDefault = NodeUtils.GetBooleanAttribute(prop, "default", false);
 
-            return daoSessionHandler;
-        }
-    }
+			return daoSessionHandler;
+		}
+	}
 }

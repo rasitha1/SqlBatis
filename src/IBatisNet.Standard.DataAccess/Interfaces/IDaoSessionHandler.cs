@@ -1,5 +1,5 @@
-#region Apache Notice
 
+#region Apache Notice
 /*****************************************************************************
  * $Header: $
  * $Revision: 383115 $
@@ -22,7 +22,6 @@
  * limitations under the License.
  * 
  ********************************************************************************/
-
 #endregion
 
 #region Using
@@ -35,21 +34,23 @@ using System.Collections.Specialized;
 
 namespace IBatisNet.DataAccess.Interfaces
 {
-    /// <summary>
-    ///     Description résumée de IDaoSessionHandler.
-    /// </summary>
-    public interface IDaoSessionHandler
-    {
-        /// <summary>
-        /// </summary>
-        /// <param name="daoManager"></param>
-        /// <returns></returns>
-        DaoSession GetDaoSession(DaoManager daoManager);
+	/// <summary>
+	/// Description résumée de IDaoSessionHandler.
+	/// </summary>
+	public interface IDaoSessionHandler
+	{
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="daoManager"></param>
+		/// <returns></returns>
+		DaoSession GetDaoSession(DaoManager daoManager);
 
-        /// <summary>
-        /// </summary>
-        /// <param name="properties">The properties scope</param>
-        /// <param name="resources">A collection of object useful to init</param>
-        void Configure(NameValueCollection properties, IDictionary resources);
-    }
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="properties">The properties scope</param>
+		/// <param name="resources">A collection of object useful to init</param>
+		void Configure(NameValueCollection properties, IDictionary resources);
+	}
 }

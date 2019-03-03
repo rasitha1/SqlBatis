@@ -1,9 +1,8 @@
 #region Apache Notice
-
 /*****************************************************************************
  * $Header: $
- * $Revision: 383115 $
- * $Date: 2006-03-04 15:21:51 +0100 (sam., 04 mars 2006) $
+ * $Revision: 638571 $
+ * $Date: 2008-03-18 22:11:57 +0100 (mar., 18 mars 2008) $
  * 
  * iBATIS.NET Data Mapper
  * Copyright (C) 2004 - Gilles Bayon
@@ -22,27 +21,26 @@
  * limitations under the License.
  * 
  ********************************************************************************/
-
 #endregion
 
 #region Using
 
 using System.Xml;
 using IBatisNet.DataMapper.Configuration.Sql.Dynamic.Elements;
-
-#endregion
+#endregion 
 
 namespace IBatisNet.DataMapper.Configuration.Serializers
 {
-    /// <summary>
-    ///     Summary description for IDeSerializer.
-    /// </summary>
-    public interface IDeSerializer
-    {
-        /// <summary>
-        /// </summary>
-        /// <param name="node"></param>
-        /// <returns></returns>
-        SqlTag Deserialize(XmlNode node);
-    }
+	/// <summary>
+	/// Summary description for IDeSerializer.
+	/// </summary>
+	public interface IDeSerializer
+	{
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="node"></param>
+		/// <returns></returns>
+		SqlTag Deserialize(XmlNode node);
+	}
 }

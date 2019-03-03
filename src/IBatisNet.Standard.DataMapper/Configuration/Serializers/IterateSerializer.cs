@@ -1,5 +1,4 @@
 #region Apache Notice
-
 /*****************************************************************************
  * $Header: $
  * $Revision: 408164 $
@@ -22,7 +21,6 @@
  * limitations under the License.
  * 
  ********************************************************************************/
-
 #endregion
 
 #region Using
@@ -33,47 +31,48 @@ using IBatisNet.Common.Xml;
 using IBatisNet.DataMapper.Configuration.Sql.Dynamic.Elements;
 using IBatisNet.DataMapper.Scope;
 
-#endregion
+#endregion 
 
 
 namespace IBatisNet.DataMapper.Configuration.Serializers
 {
-    /// <summary>
-    ///     Summary description for IterateSerializer.
-    /// </summary>
-    public sealed class IterateSerializer : IDeSerializer
-    {
-        private readonly ConfigurationScope _configScope;
+	/// <summary>
+	/// Summary description for IterateSerializer.
+	/// </summary>
+	public sealed class IterateSerializer : IDeSerializer
+	{
+		private ConfigurationScope _configScope = null;
 
-        /// <summary>
-        /// </summary>
-        /// <param name="configScope"></param>
-        public IterateSerializer(ConfigurationScope configScope)
-        {
-            _configScope = configScope;
-        }
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="configScope"></param>
+		public IterateSerializer(ConfigurationScope configScope)
+		{
+			_configScope = configScope;
+		}
 
-        #region IDeSerializer Members
+		#region IDeSerializer Members
 
-        /// <summary>
-        ///     Deserialize a Iterate object
-        /// </summary>
-        /// <param name="node"></param>
-        /// <returns></returns>
-        public SqlTag Deserialize(XmlNode node)
-        {
-            Iterate iterate = new Iterate(_configScope.DataExchangeFactory.AccessorFactory);
+		/// <summary>
+		/// Deserialize a Iterate object
+		/// </summary>
+		/// <param name="node"></param>
+		/// <returns></returns>
+		public SqlTag Deserialize(XmlNode node)
+		{
+			Iterate iterate = new Iterate(_configScope.DataExchangeFactory.AccessorFactory);
 
-            NameValueCollection prop = NodeUtils.ParseAttributes(node, _configScope.Properties);
-            iterate.Prepend = NodeUtils.GetStringAttribute(prop, "prepend");
-            iterate.Property = NodeUtils.GetStringAttribute(prop, "property");
-            iterate.Close = NodeUtils.GetStringAttribute(prop, "close");
-            iterate.Conjunction = NodeUtils.GetStringAttribute(prop, "conjunction");
-            iterate.Open = NodeUtils.GetStringAttribute(prop, "open");
+			NameValueCollection prop = NodeUtils.ParseAttributes(node, _configScope.Properties);
+			iterate.Prepend = NodeUtils.GetStringAttribute(prop, "prepend");
+			iterate.Property = NodeUtils.GetStringAttribute(prop, "property");
+			iterate.Close = NodeUtils.GetStringAttribute(prop, "close");
+			iterate.Conjunction = NodeUtils.GetStringAttribute(prop, "conjunction");
+			iterate.Open = NodeUtils.GetStringAttribute(prop, "open");
 
-            return iterate;
-        }
+			return iterate;
+		}
 
-        #endregion
-    }
+		#endregion
+	}
 }

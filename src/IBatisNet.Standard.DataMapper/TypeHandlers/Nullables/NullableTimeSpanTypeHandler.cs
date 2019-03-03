@@ -1,8 +1,7 @@
 #region Apache Notice
-
 /*****************************************************************************
  * $Revision: 378879 $
- * $LastChangedDate: 2006-11-19 17:07:45 +0100 (dim., 19 nov. 2006) $
+ * $LastChangedDate: 2007-09-15 12:40:19 +0200 (sam., 15 sept. 2007) $
  * $LastChangedBy: gbayon $
  * 
  * iBATIS.NET Data Mapper
@@ -22,57 +21,45 @@
  * limitations under the License.
  * 
  ********************************************************************************/
-
 #endregion
 
 #region Using
-
 using System;
 using System.Data;
 using IBatisNet.DataMapper.Configuration.ResultMapping;
-
 #endregion
 
 namespace IBatisNet.DataMapper.TypeHandlers.Nullables
 {
     /// <summary>
-    ///     TypeHandler for Nullable TimeSpan Type
+    /// TypeHandler for Nullable TimeSpan Type
     /// </summary>
     public sealed class NullableTimeSpanTypeHandler : BaseTypeHandler
     {
-        /// <summary>
-        ///     Gets a value indicating whether this instance is simple type.
-        /// </summary>
-        /// <value>
-        ///     <c>true</c> if this instance is simple type; otherwise, <c>false</c>.
-        /// </value>
-        public override bool IsSimpleType => true;
 
         /// <summary>
-        ///     The null value for this type
-        /// </summary>
-        /// <value></value>
-        public override object NullValue => new TimeSpan?();
-
-        /// <summary>
-        ///     Sets a parameter on a IDbCommand
+        ///  Sets a parameter on a IDbCommand
         /// </summary>
         /// <param name="dataParameter">the parameter</param>
         /// <param name="parameterValue">the parameter value</param>
         /// <param name="dbType">the dbType of the parameter</param>
         public override void SetParameter(IDataParameter dataParameter, object parameterValue, string dbType)
         {
-            TimeSpan? nullableValue = (TimeSpan?) parameterValue;
+            TimeSpan? nullableValue = (TimeSpan?)parameterValue;
 
             if (nullableValue.HasValue)
-                dataParameter.Value = nullableValue.Value;
+            {
+                dataParameter.Value = nullableValue.Value.Ticks; //nullableValue.Value;
+            }
             else
+            {
                 dataParameter.Value = DBNull.Value;
+            }
         }
 
 
         /// <summary>
-        ///     Gets a column value by the name
+        /// Gets a column value by the name
         /// </summary>
         /// <param name="mapping"></param>
         /// <param name="dataReader"></param>
@@ -81,45 +68,77 @@ namespace IBatisNet.DataMapper.TypeHandlers.Nullables
         {
             int index = dataReader.GetOrdinal(mapping.ColumnName);
 
-            if (dataReader.IsDBNull(index))
+            if (dataReader.IsDBNull(index) == true)
+            {
                 return DBNull.Value;
-            return new TimeSpan(Convert.ToInt64(dataReader.GetValue(index)));
+            }
+            else
+            {
+                return new TimeSpan?(new TimeSpan(Convert.ToInt64(dataReader.GetValue(index))));
+            }
         }
 
 
         /// <summary>
-        ///     Gets a column value by the index
+        /// Gets a column value by the index
         /// </summary>
         /// <param name="mapping"></param>
         /// <param name="dataReader"></param>
         /// <returns></returns>
         public override object GetValueByIndex(ResultProperty mapping, IDataReader dataReader)
         {
-            if (dataReader.IsDBNull(mapping.ColumnIndex))
+            if (dataReader.IsDBNull(mapping.ColumnIndex) == true)
+            {
                 return DBNull.Value;
-            return new TimeSpan(Convert.ToInt64(dataReader.GetValue(mapping.ColumnIndex)));
+            }
+            else
+            {
+                return new TimeSpan?(new TimeSpan(Convert.ToInt64(dataReader.GetValue(mapping.ColumnIndex))));
+            }
         }
 
         /// <summary>
-        ///     Retrieve ouput database value of an output parameter
+        /// Retrieve ouput database value of an output parameter
         /// </summary>
         /// <param name="outputValue">ouput database value</param>
         /// <param name="parameterType">type used in EnumTypeHandler</param>
         /// <returns></returns>
         public override object GetDataBaseValue(object outputValue, Type parameterType)
         {
-            return new TimeSpan(Convert.ToInt64(outputValue));
+            
+            return new TimeSpan?(new TimeSpan(Convert.ToInt64(outputValue)));
         }
 
         /// <summary>
-        ///     Converts the String to the type that this handler deals with
+        /// Converts the String to the type that this handler deals with
         /// </summary>
         /// <param name="type">the tyepe of the property (used only for enum conversion)</param>
         /// <param name="s">the String value</param>
         /// <returns>the converted value</returns>
         public override object ValueOf(Type type, string s)
         {
-            return TimeSpan.Parse(s);
+            return new TimeSpan?(TimeSpan.Parse(s));
+        }
+
+
+        /// <summary>
+        /// Gets a value indicating whether this instance is simple type.
+        /// </summary>
+        /// <value>
+        /// 	<c>true</c> if this instance is simple type; otherwise, <c>false</c>.
+        /// </value>
+        public override bool IsSimpleType
+        {
+            get { return true; }
+        }
+
+        /// <summary>
+        /// The null value for this type
+        /// </summary>
+        /// <value></value>
+        public override object NullValue
+        {
+            get { return new TimeSpan?(); }
         }
     }
 }

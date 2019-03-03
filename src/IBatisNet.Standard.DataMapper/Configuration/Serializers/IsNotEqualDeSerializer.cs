@@ -1,5 +1,4 @@
 #region Apache Notice
-
 /*****************************************************************************
  * $Header: $
  * $Revision: 408164 $
@@ -22,7 +21,6 @@
  * limitations under the License.
  * 
  ********************************************************************************/
-
 #endregion
 
 #region Using
@@ -33,46 +31,48 @@ using IBatisNet.Common.Xml;
 using IBatisNet.DataMapper.Configuration.Sql.Dynamic.Elements;
 using IBatisNet.DataMapper.Scope;
 
-#endregion
+#endregion 
 
 
 namespace IBatisNet.DataMapper.Configuration.Serializers
 {
-    /// <summary>
-    ///     Summary description for IsNotEqualDeSerializer.
-    /// </summary>
-    public sealed class IsNotEqualDeSerializer : IDeSerializer
-    {
-        private readonly ConfigurationScope _configScope;
+	/// <summary>
+	/// Summary description for IsNotEqualDeSerializer.
+	/// </summary>
+	public sealed class IsNotEqualDeSerializer : IDeSerializer
+	{
 
-        /// <summary>
-        /// </summary>
-        /// <param name="configScope"></param>
-        public IsNotEqualDeSerializer(ConfigurationScope configScope)
-        {
-            _configScope = configScope;
-        }
+		private ConfigurationScope _configScope = null;
 
-        #region IDeSerializer Members
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="configScope"></param>
+		public IsNotEqualDeSerializer(ConfigurationScope configScope)
+		{
+			_configScope = configScope;
+		}
 
-        /// <summary>
-        ///     Deserialize a Dynamic object
-        /// </summary>
-        /// <param name="node"></param>
-        /// <returns></returns>
-        public SqlTag Deserialize(XmlNode node)
-        {
-            IsNotEqual isNotEqual = new IsNotEqual(_configScope.DataExchangeFactory.AccessorFactory);
+		#region IDeSerializer Members
 
-            NameValueCollection prop = NodeUtils.ParseAttributes(node, _configScope.Properties);
-            isNotEqual.Prepend = NodeUtils.GetStringAttribute(prop, "prepend");
-            isNotEqual.Property = NodeUtils.GetStringAttribute(prop, "property");
-            isNotEqual.CompareProperty = NodeUtils.GetStringAttribute(prop, "compareProperty");
-            isNotEqual.CompareValue = NodeUtils.GetStringAttribute(prop, "compareValue");
+		/// <summary>
+		/// Deserialize a Dynamic object
+		/// </summary>
+		/// <param name="node"></param>
+		/// <returns></returns>
+		public SqlTag Deserialize(XmlNode node)
+		{
+			IsNotEqual isNotEqual = new IsNotEqual(_configScope.DataExchangeFactory.AccessorFactory);
 
-            return isNotEqual;
-        }
+			NameValueCollection prop = NodeUtils.ParseAttributes(node, _configScope.Properties);
+			isNotEqual.Prepend = NodeUtils.GetStringAttribute(prop, "prepend");
+			isNotEqual.Property = NodeUtils.GetStringAttribute(prop, "property");
+			isNotEqual.CompareProperty = NodeUtils.GetStringAttribute(prop, "compareProperty");
+			isNotEqual.CompareValue = NodeUtils.GetStringAttribute(prop, "compareValue");
 
-        #endregion
-    }
+			return isNotEqual;
+		}
+
+		#endregion
+	}
 }

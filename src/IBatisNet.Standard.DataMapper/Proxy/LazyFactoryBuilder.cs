@@ -1,5 +1,4 @@
 #region Apache Notice
-
 /*****************************************************************************
  * $Revision: 374175 $
  * $LastChangedDate: 2007-01-04 22:28:10 +0100 (jeu., 04 janv. 2007) $
@@ -22,27 +21,26 @@
  * limitations under the License.
  * 
  ********************************************************************************/
-
 #endregion
 
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.Collections.Generic;
 using IBatisNet.DataMapper.Exceptions;
 
 namespace IBatisNet.DataMapper.Proxy
 {
     /// <summary>
-    ///     Gets <see cref="ILazyFactory" /> instance.
+    /// Gets <see cref="ILazyFactory"/> instance.
     /// </summary>
     public class LazyFactoryBuilder
     {
         private readonly Type _implType;
-        private readonly IDictionary _factory = new HybridDictionary();
+        private IDictionary _factory = new HybridDictionary();
 
         /// <summary>
-        ///     Initializes a new instance of the <see cref="LazyFactoryBuilder" /> class.
+        /// Initializes a new instance of the <see cref="LazyFactoryBuilder"/> class.
         /// </summary>
         public LazyFactoryBuilder(Type implType)
         {
@@ -51,20 +49,20 @@ namespace IBatisNet.DataMapper.Proxy
             _factory[typeof(IList<>)] = new LazyListGenericFactory();
         }
 
-
+        
         /// <summary>
-        ///     Register (add) a lazy load Proxy for a type and member type
+        /// Register (add) a lazy load Proxy for a type and member type
         /// </summary>
         /// <param name="type">The target type which contains the member proxyfied</param>
         /// <param name="memberName">The member name the proxy must emulate</param>
-        /// <param name="factory">The <see cref="ILazyFactory" />.</param>
+        /// <param name="factory">The <see cref="ILazyFactory"/>.</param>
         public void Register(Type type, string memberName, ILazyFactory factory)
         {
             // To use for further used, support for custom proxy
         }
 
         /// <summary>
-        ///     Get a ILazyLoadProxy for a type, member name
+        /// Get a ILazyLoadProxy for a type, member name
         /// </summary>
         /// <param name="type">The target type which contains the member proxyfied</param>
         /// <returns>Return the ILazyLoadProxy instance</returns>
@@ -72,17 +70,23 @@ namespace IBatisNet.DataMapper.Proxy
         {
             if (type.IsInterface)
             {
-                if (type.IsGenericType && (type.GetGenericTypeDefinition() == typeof(IList<>)))
-                    return _factory[type.GetGenericTypeDefinition()] as ILazyFactory;
-                if (type == typeof(IList))
+                if (type.IsGenericType && (type.GetGenericTypeDefinition() == typeof(IList<>)) )
+                {
+                    return _factory[ type.GetGenericTypeDefinition() ] as ILazyFactory;
+                }
+                else if (type == typeof(IList))
+                {
                     return _factory[type] as ILazyFactory;
-                throw new DataMapperException("Cannot proxy others interfaces than IList or IList<>.");
+                }
+                else
+                {
+                    throw new DataMapperException("Cannot proxy others interfaces than IList or IList<>.");
+                }
             }
-
             if (_implType == null)
                 throw new DataMapperException(
                     "Cannot find a factory type for Lazy Loading. Use settings/lazyFactoryType to setup a value for this");
-            return (ILazyFactory) Activator.CreateInstance(_implType);
+            return (ILazyFactory)Activator.CreateInstance(_implType);
             // if you want to proxy concrete classes, there are also two requirements: 
             // the class can not be sealed and only virtual methods can be intercepted. 
             // The reason is that DynamicProxy will create a subclass of your class overriding all methods 

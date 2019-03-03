@@ -1,5 +1,4 @@
 #region Apache Notice
-
 /*****************************************************************************
  * $Header: $
  * $Revision: 408164 $
@@ -22,7 +21,6 @@
  * limitations under the License.
  * 
  ********************************************************************************/
-
 #endregion
 
 #region Using
@@ -33,43 +31,44 @@ using IBatisNet.Common.Xml;
 using IBatisNet.DataMapper.Configuration.Sql.Dynamic.Elements;
 using IBatisNet.DataMapper.Scope;
 
-#endregion
+#endregion 
 
 namespace IBatisNet.DataMapper.Configuration.Serializers
 {
-    /// <summary>
-    ///     Summary description for IsNotParameterPresentDeSerializer.
-    /// </summary>
-    public sealed class IsNotParameterPresentDeSerializer : IDeSerializer
-    {
-        private readonly ConfigurationScope _configScope;
+	/// <summary>
+	/// Summary description for IsNotParameterPresentDeSerializer.
+	/// </summary>
+	public sealed class IsNotParameterPresentDeSerializer : IDeSerializer
+	{
+		private ConfigurationScope _configScope = null;
 
-        /// <summary>
-        /// </summary>
-        /// <param name="configScope"></param>
-        public IsNotParameterPresentDeSerializer(ConfigurationScope configScope)
-        {
-            _configScope = configScope;
-        }
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="configScope"></param>
+		public IsNotParameterPresentDeSerializer(ConfigurationScope configScope)
+		{
+			_configScope = configScope;
 
-        #region IDeSerializer Members
+		}
 
-        /// <summary>
-        ///     Deserialize a Dynamic object
-        /// </summary>
-        /// <param name="node"></param>
-        /// <returns></returns>
-        public SqlTag Deserialize(XmlNode node)
-        {
-            IsNotParameterPresent isNotParameterPresent =
-                new IsNotParameterPresent(_configScope.DataExchangeFactory.AccessorFactory);
+		#region IDeSerializer Members
 
-            NameValueCollection prop = NodeUtils.ParseAttributes(node, _configScope.Properties);
-            isNotParameterPresent.Prepend = NodeUtils.GetStringAttribute(prop, "prepend");
+		/// <summary>
+		/// Deserialize a Dynamic object
+		/// </summary>
+		/// <param name="node"></param>
+		/// <returns></returns>
+		public SqlTag Deserialize(XmlNode node)
+		{
+			IsNotParameterPresent isNotParameterPresent = new IsNotParameterPresent(_configScope.DataExchangeFactory.AccessorFactory);
 
-            return isNotParameterPresent;
-        }
+			NameValueCollection prop = NodeUtils.ParseAttributes(node, _configScope.Properties);
+			isNotParameterPresent.Prepend = NodeUtils.GetStringAttribute(prop, "prepend");
 
-        #endregion
-    }
+			return isNotParameterPresent;
+		}
+
+		#endregion
+	}
 }

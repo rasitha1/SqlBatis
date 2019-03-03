@@ -1,5 +1,5 @@
-#region Apache Notice
 
+#region Apache Notice
 /*****************************************************************************
  * $Revision: 469233 $
  * $LastChangedDate: 2006-10-30 20:09:11 +0100 (lun., 30 oct. 2006) $
@@ -22,7 +22,6 @@
  * limitations under the License.
  * 
  ********************************************************************************/
-
 #endregion
 
 #region Using
@@ -31,99 +30,141 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Data;
-using IBatisNet.DataMapper.Configuration.Cache;
-using IBatisNet.DataMapper.Configuration.ParameterMapping;
-using IBatisNet.DataMapper.Configuration.ResultMapping;
-using IBatisNet.DataMapper.Configuration.Sql;
 
+using IBatisNet.DataMapper.Configuration.ResultMapping;
+using IBatisNet.DataMapper.Configuration.ParameterMapping;
+using IBatisNet.DataMapper.Configuration.Cache;
+using IBatisNet.DataMapper.Configuration.Sql;
 #endregion
 
 namespace IBatisNet.DataMapper.Configuration.Statements
 {
     /// <summary>
-    ///     Summary description for ISql.
+    /// Summary description for ISql.
     /// </summary>
     public interface IStatement
     {
+
         #region Properties
 
         /// <summary>
-        ///     Allow remapping of dynamic SQL
+        /// Allow remapping of dynamic SQL
         /// </summary>
-        bool AllowRemapping { get; set; }
+        bool AllowRemapping
+        {
+            get;
+            set;
+        }
 
         /// <summary>
-        ///     Identifier used to identify the statement amongst the others.
+        /// Identifier used to identify the statement amongst the others.
         /// </summary>
-        string Id { get; set; }
+        string Id
+        {
+            get;
+            set;
+        }
 
         /// <summary>
-        ///     The type of the statement (text or procedure).
+        /// The type of the statement (text or procedure).
         /// </summary>
-        CommandType CommandType { get; }
+        CommandType CommandType
+        {
+            get;
+        }
 
         /// <summary>
-        ///     Extend statement attribute
+        /// Extend statement attribute
         /// </summary>
-        string ExtendStatement { get; set; }
+        string ExtendStatement
+        {
+            get;
+            set;
+        }
 
         /// <summary>
-        ///     The sql statement to execute.
+        /// The sql statement to execute.
         /// </summary>
-        ISql Sql { get; set; }
+        ISql Sql
+        {
+            get;
+            set;
+        }
 
         /// <summary>
-        ///     The ResultMaps used by the statement.
+        /// The ResultMaps used by the statement.
         /// </summary>
-        ResultMapCollection ResultsMap { get; }
+        ResultMapCollection ResultsMap
+        {
+            get;
+        }
 
 
         /// <summary>
-        ///     The parameterMap used by the statement.
+        /// The parameterMap used by the statement.
         /// </summary>
-        ParameterMap ParameterMap { get; set; }
+        ParameterMap ParameterMap
+        {
+            get;
+            set;
+        }
 
         /// <summary>
-        ///     The CacheModel used by this statement.
+        /// The CacheModel used by this statement.
         /// </summary>
-        CacheModel CacheModel { get; set; }
+        CacheModel CacheModel
+        {
+            get;
+            set;
+        }
 
         /// <summary>
-        ///     The CacheModel name to use.
+        /// The CacheModel name to use.
         /// </summary>
-        string CacheModelName { get; set; }
+        string CacheModelName
+        {
+            get;
+            set;
+        }
 
         /// <summary>
-        ///     The list class type to use for strongly typed collection.
+        /// The list class type to use for strongly typed collection.
         /// </summary>
-        Type ListClass { get; }
+        Type ListClass
+        {
+            get;
+        }
 
         /// <summary>
-        ///     The result class type to used.
+        /// The result class type to used.
         /// </summary>
-        Type ResultClass { get; }
+        Type ResultClass
+        {
+            get;
+        }
 
         /// <summary>
-        ///     The parameter class type to used.
+        /// The parameter class type to used.
         /// </summary>
-        Type ParameterClass { get; }
-
+        Type ParameterClass
+        {
+            get;
+        }
         #endregion
 
         #region Methods
 
         /// <summary>
-        ///     Create an instance of 'IList' class.
+        /// Create an instance of 'IList' class.
         /// </summary>
         /// <returns>An object which implement IList.</returns>
         IList CreateInstanceOfListClass();
-
         /// <summary>
-        ///     Create an instance of a generic 'IList' class.
+        /// Create an instance of a generic 'IList' class.
         /// </summary>
         /// <returns>An object which implement IList.</returns>
         IList<T> CreateInstanceOfGenericListClass<T>();
-
         #endregion
+
     }
 }

@@ -1,5 +1,4 @@
 #region Apache Notice
-
 /*****************************************************************************
  * $Revision: 408099 $
  * $LastChangedDate: 2006-05-20 23:56:36 +0200 (sam., 20 mai 2006) $
@@ -22,13 +21,10 @@
  * limitations under the License.
  * 
  ********************************************************************************/
-
 #endregion
 
 #region Remarks
-
 // Inpspired from Spring.NET
-
 #endregion
 
 #region Imports
@@ -42,54 +38,64 @@ using System.Collections.Specialized;
 namespace IBatisNet.Common.Utilities.TypesResolver
 {
     /// <summary>
-    ///     Resolves (instantiates) a <see cref="System.Type" /> by it's (possibly
-    ///     assembly qualified) name, and caches the <see cref="System.Type" />
-    ///     instance against the type name.
+    /// Resolves (instantiates) a <see cref="System.Type"/> by it's (possibly
+    /// assembly qualified) name, and caches the <see cref="System.Type"/>
+    /// instance against the type name.
     /// </summary>
-    public class CachedTypeResolver : ITypeResolver
+	public class CachedTypeResolver : ITypeResolver
     {
-        #region Constructor (s) / Destructor
-
+        #region Fields
         /// <summary>
-        ///     Creates a new instance of the <see cref="IBatisNet.Common.Utilities.TypesResolver.CachedTypeResolver" /> class.
+        /// The cache, mapping type names (<see cref="System.String"/> instances) against
+        /// <see cref="System.Type"/> instances.
+        /// </summary>
+        private IDictionary _typeCache = new HybridDictionary();
+
+        private ITypeResolver _typeResolver = null;
+        #endregion
+
+        #region Constructor (s) / Destructor
+        /// <summary>
+        /// Creates a new instance of the <see cref="IBatisNet.Common.Utilities.TypesResolver.CachedTypeResolver"/> class.
         /// </summary>
         /// <param name="typeResolver">
-        ///     The <see cref="IBatisNet.Common.Utilities.TypesResolver.ITypeResolver" /> that this instance will delegate
-        ///     actual <see cref="System.Type" /> resolution to if a <see cref="System.Type" />
-        ///     cannot be found in this instance's <see cref="System.Type" /> cache.
+        /// The <see cref="IBatisNet.Common.Utilities.TypesResolver.ITypeResolver"/> that this instance will delegate
+        /// actual <see cref="System.Type"/> resolution to if a <see cref="System.Type"/>
+        /// cannot be found in this instance's <see cref="System.Type"/> cache.
         /// </param>
         /// <exception cref="System.ArgumentNullException">
-        ///     If the supplied <paramref name="typeResolver" /> is <see langword="null" />.
+        /// If the supplied <paramref name="typeResolver"/> is <see langword="null"/>.
         /// </exception>
         public CachedTypeResolver(ITypeResolver typeResolver)
         {
             _typeResolver = typeResolver;
         }
-
         #endregion
 
         #region ITypeResolver Members
 
         /// <summary>
-        ///     Resolves the supplied <paramref name="typeName" /> to a
-        ///     <see cref="System.Type" />
-        ///     instance.
+        /// Resolves the supplied <paramref name="typeName"/> to a
+        /// <see cref="System.Type"/>
+        /// instance.
         /// </summary>
         /// <param name="typeName">
-        ///     The (possibly partially assembly qualified) name of a
-        ///     <see cref="System.Type" />.
+        /// The (possibly partially assembly qualified) name of a
+        /// <see cref="System.Type"/>.
         /// </param>
         /// <returns>
-        ///     A resolved <see cref="System.Type" /> instance.
+        /// A resolved <see cref="System.Type"/> instance.
         /// </returns>
         /// <exception cref="System.TypeLoadException">
-        ///     If the supplied <paramref name="typeName" /> could not be resolved
-        ///     to a <see cref="System.Type" />.
+        /// If the supplied <paramref name="typeName"/> could not be resolved
+        /// to a <see cref="System.Type"/>.
         /// </exception>
         public Type Resolve(string typeName)
         {
             if (typeName == null || typeName.Trim().Length == 0)
+            {
                 throw new TypeLoadException("Could not load type from string value '" + typeName + "'.");
+            }
             Type type = null;
             try
             {
@@ -102,24 +108,15 @@ namespace IBatisNet.Common.Utilities.TypesResolver
             }
             catch (Exception ex)
             {
-                if (ex is TypeLoadException) throw;
+                if (ex is TypeLoadException)
+                {
+                    throw;
+                }
                 throw new TypeLoadException("Could not load type from string value '" + typeName + "'.", ex);
             }
-
             return type;
         }
 
-        #endregion
-
-        #region Fields
-
-        /// <summary>
-        ///     The cache, mapping type names (<see cref="System.String" /> instances) against
-        ///     <see cref="System.Type" /> instances.
-        /// </summary>
-        private readonly IDictionary _typeCache = new HybridDictionary();
-
-        private readonly ITypeResolver _typeResolver;
 
         #endregion
     }

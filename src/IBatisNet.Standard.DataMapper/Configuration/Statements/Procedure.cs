@@ -1,5 +1,5 @@
-#region Apache Notice
 
+#region Apache Notice
 /*****************************************************************************
  * $Header: $
  * $Revision: 443064 $
@@ -22,63 +22,74 @@
  * limitations under the License.
  * 
  ********************************************************************************/
-
 #endregion
 
 #region Using
-
 using System;
 using System.Data;
 using System.Xml.Serialization;
-using IBatisNet.DataMapper.Scope;
 
+using IBatisNet.Common.Exceptions;
+using IBatisNet.DataMapper.Configuration.ParameterMapping;
+using IBatisNet.DataMapper.Exceptions;
+using IBatisNet.DataMapper.Scope;
 #endregion
 
 namespace IBatisNet.DataMapper.Configuration.Statements
 {
-    /// <summary>
-    ///     Represent a store Procedure.
-    /// </summary>
-    [Serializable]
-    [XmlRoot("procedure", Namespace = "http://ibatis.apache.org/mapping")]
-    public class Procedure : Statement
-    {
-        #region Constructor (s) / Destructor
+	/// <summary>
+	/// Represent a store Procedure.
+	/// </summary>
+	[Serializable]
+	[XmlRoot("procedure", Namespace="http://ibatis.apache.org/mapping")]
+	public class Procedure : Statement
+	{
 
-        #endregion
+		#region Properties
+		/// <summary>
+		/// The type of the statement StoredProcedure.
+		/// </summary>
+		[XmlIgnoreAttribute]
+		public override CommandType CommandType
+		{
+			get { return CommandType.StoredProcedure; }
+		}
 
-        #region Methods
+		/// <summary>
+		/// Extend statement attribute
+		/// </summary>
+		[XmlIgnoreAttribute]
+		public override string ExtendStatement
+		{
+			get { return string.Empty;  }
+			set {  }
+		}
+		#endregion
 
-        /// <summary>
-        /// </summary>
-        /// <param name="configurationScope">The scope of the configuration</param>
-        override internal void Initialize(ConfigurationScope configurationScope)
-        {
-            base.Initialize(configurationScope);
-            if (ParameterMap == null)
-                ParameterMap = configurationScope.SqlMapper.GetParameterMap(ConfigurationScope.EMPTY_PARAMETER_MAP);
-        }
+		#region Constructor (s) / Destructor
+		/// <summary>
+		/// Do not use direclty, only for serialization.
+		/// </summary>
+		public Procedure():base()
+		{
+		}
+		#endregion
 
-        #endregion
+		#region Methods
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="configurationScope">The scope of the configuration</param>
+		override internal void Initialize(ConfigurationScope configurationScope)
+		{
+			base.Initialize( configurationScope );
+			if (this.ParameterMap == null)
+			{
+				//throw new ConfigurationException("The parameterMap attribute is required in the procedure tag named '"+ this.Id +"'.");
+                this.ParameterMap = configurationScope.SqlMapper.GetParameterMap(ConfigurationScope.EMPTY_PARAMETER_MAP);
+			}
+		}
+		#endregion
 
-        #region Properties
-
-        /// <summary>
-        ///     The type of the statement StoredProcedure.
-        /// </summary>
-        [XmlIgnore]
-        public override CommandType CommandType => CommandType.StoredProcedure;
-
-        /// <summary>
-        ///     Extend statement attribute
-        /// </summary>
-        [XmlIgnore]
-        public override string ExtendStatement
-        {
-            get => string.Empty;
-            set { }
-        }
-
-        #endregion
-    }
+	}
 }

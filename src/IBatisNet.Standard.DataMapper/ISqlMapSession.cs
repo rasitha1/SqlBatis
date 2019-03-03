@@ -1,5 +1,4 @@
 #region Apache Notice
-
 /*****************************************************************************
  * $Revision: 474910 $
  * $LastChangedDate: 2006-11-14 19:33:12 +0100 (mar., 14 nov. 2006) $
@@ -22,7 +21,6 @@
  * limitations under the License.
  * 
  ********************************************************************************/
-
 #endregion
 
 using IBatisNet.Common;
@@ -30,23 +28,24 @@ using IBatisNet.Common;
 namespace IBatisNet.DataMapper
 {
     /// <summary>
-    ///     SqlMap Session contract
+    /// SqlMap Session contract
     /// </summary>
     public interface ISqlMapSession : IDalSession
     {
+
         /// <summary>
-        ///     Gets the SQL mapper.
+        /// Gets the SQL mapper.
         /// </summary>
         /// <value>The SQL mapper.</value>
         ISqlMapper SqlMapper { get; }
 
         /// <summary>
-        ///     Create the connection
+        /// Create the connection
         /// </summary>
         void CreateConnection();
 
         /// <summary>
-        ///     Create the connection
+        /// Create the connection
         /// </summary>
         void CreateConnection(string connectionString);
     }

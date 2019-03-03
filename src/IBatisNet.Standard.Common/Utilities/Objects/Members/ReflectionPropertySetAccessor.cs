@@ -1,5 +1,4 @@
 #region Apache Notice
-
 /*****************************************************************************
  * $Revision: 374175 $
  * $LastChangedDate: 2006-04-30 10:41:07 +0200 (dim., 30 avr. 2006) $
@@ -22,7 +21,6 @@
  * limitations under the License.
  * 
  ********************************************************************************/
-
 #endregion
 
 using System;
@@ -31,59 +29,69 @@ using System.Reflection;
 namespace IBatisNet.Common.Utilities.Objects.Members
 {
     /// <summary>
-    ///     The <see cref="ReflectionPropertySetAccessor" /> class provides an reflection set access
-    ///     to a property of a specified target class.
+    /// The <see cref="ReflectionPropertySetAccessor"/> class provides an reflection set access   
+    /// to a property of a specified target class.
     /// </summary>
     public sealed class ReflectionPropertySetAccessor : ISetAccessor
     {
-        private readonly PropertyInfo _propertyInfo;
-        private readonly string _propertyName = string.Empty;
-        private readonly Type _targetType;
+        private PropertyInfo _propertyInfo = null;
+		private string _propertyName = string.Empty;
+		private Type _targetType = null;
 
         /// <summary>
-        ///     Initializes a new instance of the <see cref="ReflectionPropertySetAccessor" /> class.
+        /// Initializes a new instance of the <see cref="ReflectionPropertySetAccessor"/> class.
         /// </summary>
         /// <param name="targetType">Type of the target.</param>
         /// <param name="propertyName">Name of the property.</param>
-        public ReflectionPropertySetAccessor(Type targetType, string propertyName)
-        {
-            ReflectionInfo reflectionCache = ReflectionInfo.GetInstance(targetType);
-            _propertyInfo = (PropertyInfo) reflectionCache.GetSetter(propertyName);
+		public ReflectionPropertySetAccessor(Type targetType, string propertyName)
+		{
+			ReflectionInfo reflectionCache = ReflectionInfo.GetInstance( targetType );
+            _propertyInfo = (PropertyInfo)reflectionCache.GetSetter(propertyName);
 
-            _targetType = targetType;
-            _propertyName = propertyName;
+			_targetType = targetType;
+			_propertyName = propertyName;
         }
-
-        #region ISet Members
-
-        /// <summary>
-        ///     Sets the value for the property of the specified target.
-        /// </summary>
-        /// <param name="target">Object to set the property on.</param>
-        /// <param name="value">Property value.</param>
-        public void Set(object target, object value)
-        {
-            if (_propertyInfo.CanWrite)
-                _propertyInfo.SetValue(target, value, null);
-            else
-                throw new NotSupportedException(
-                    string.Format("Property \"{0}\" on type "
-                                  + "{1} doesn't have a set method.", _propertyName, _targetType));
-        }
-
-        #endregion
 
         #region IAccessor Members
 
         /// <summary>
-        ///     Gets the property name.
+        /// Gets the property name.
         /// </summary>
-        public string Name => _propertyInfo.Name;
+        public string Name
+        {
+            get { return _propertyInfo.Name; }
+        }
 
         /// <summary>
-        ///     Gets the type of this property.
+        /// Gets the type of this property.
         /// </summary>
-        public Type MemberType => _propertyInfo.PropertyType;
+        public Type MemberType
+        {
+            get { return _propertyInfo.PropertyType; }
+        }
+
+        #endregion
+
+        #region ISet Members
+        
+        /// <summary>
+		/// Sets the value for the property of the specified target.
+		/// </summary>
+		/// <param name="target">Object to set the property on.</param>
+		/// <param name="value">Property value.</param>
+		public void Set(object target, object value)
+		{
+			if (_propertyInfo.CanWrite)
+			{
+				_propertyInfo.SetValue(target, value, null);
+			}
+			else
+			{
+				throw new NotSupportedException(
+					string.Format("Property \"{0}\" on type "
+					+ "{1} doesn't have a set method.", _propertyName, _targetType));
+			}
+		}
 
         #endregion
     }

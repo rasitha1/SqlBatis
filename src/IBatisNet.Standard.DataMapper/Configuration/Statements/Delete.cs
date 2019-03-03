@@ -1,9 +1,9 @@
-#region Apache Notice
 
+#region Apache Notice
 /*****************************************************************************
  * $Header: $
- * $Revision: 383115 $
- * $Date: 2006-03-04 15:21:51 +0100 (sam., 04 mars 2006) $
+ * $Revision: 638571 $
+ * $Date: 2008-03-18 22:11:57 +0100 (mar., 18 mars 2008) $
  * 
  * iBATIS.NET Data Mapper
  * Copyright (C) 2004 - Gilles Bayon
@@ -22,41 +22,46 @@
  * limitations under the License.
  * 
  ********************************************************************************/
-
 #endregion
 
 #region Imports
-
 using System;
+using System.Data;
 using System.Xml.Serialization;
-
 #endregion
 
 
 namespace IBatisNet.DataMapper.Configuration.Statements
 {
-    /// <summary>
-    ///     Summary description for delete.
-    /// </summary>
-    [Serializable]
-    [XmlRoot("delete", Namespace = "http://ibatis.apache.org/mapping")]
-    public class Delete : Statement
-    {
-        #region Fields
+	/// <summary>
+	/// Summary description for delete.
+	/// </summary>
+	[Serializable]
+	[XmlRoot("delete", Namespace="http://ibatis.apache.org/mapping")]
+	public class Delete : Statement
+	{
+		
+		#region Fields
+		[NonSerialized]
+		private Generate _generate = null;
+		#endregion
 
-        [NonSerialized] private Generate _generate;
+		/// <summary>
+		/// The Generate tag used by a generated delete statement.
+		/// (CRUD operation)
+		/// </summary>
+		[XmlElement("generate",typeof(Generate))]
+		public Generate Generate
+		{
+			get { return _generate; }
+			set { _generate = value; }
+		}
 
-        #endregion
+		/// <summary>
+		/// Do not use direclty, only for serialization.
+		/// </summary>
+		public Delete():base()
+		{}
 
-        /// <summary>
-        ///     The Generate tag used by a generated delete statement.
-        ///     (CRUD operation)
-        /// </summary>
-        [XmlElement("generate", typeof(Generate))]
-        public Generate Generate
-        {
-            get => _generate;
-            set => _generate = value;
-        }
-    }
+	}
 }

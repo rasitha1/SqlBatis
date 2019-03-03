@@ -1,5 +1,4 @@
 #region Apache Notice
-
 /*****************************************************************************
  * $Header: $
  * $Revision: 469233 $
@@ -22,7 +21,6 @@
  * limitations under the License.
  * 
  ********************************************************************************/
-
 #endregion
 
 #region Using
@@ -33,17 +31,17 @@ using IBatisNet.Common.Exceptions;
 using IBatisNet.Common.Xml;
 using IBatisNet.DataMapper.Scope;
 
-#endregion
+#endregion 
 
 namespace IBatisNet.DataMapper.Configuration.Serializers
 {
     /// <summary>
-    ///     Summary description for ArgumentPropertyDeSerializer.
+    /// Summary description for ArgumentPropertyDeSerializer.
     /// </summary>
     public sealed class SqlDeSerializer
     {
         /// <summary>
-        ///     Deserialize a sql tag
+        /// Deserialize a sql tag
         /// </summary>
         /// <param name="node"></param>
         /// <param name="configScope"></param>
@@ -54,10 +52,18 @@ namespace IBatisNet.DataMapper.Configuration.Serializers
 
             string id = NodeUtils.GetStringAttribute(prop, "id");
 
-            if (configScope.UseStatementNamespaces) id = configScope.ApplyNamespace(id);
+            if (configScope.UseStatementNamespaces)
+            {
+                id = configScope.ApplyNamespace(id);
+            }
             if (configScope.SqlIncludes.Contains(id))
+            {
                 throw new ConfigurationException("Duplicate <sql>-include '" + id + "' found.");
-            configScope.SqlIncludes.Add(id, node);
+            }
+            else
+            {
+                configScope.SqlIncludes.Add(id, node);
+            }
         }
     }
 }

@@ -1,5 +1,4 @@
 #region Apache Notice
-
 /*****************************************************************************
  * $Header: $
  * $Revision: 513429 $
@@ -22,66 +21,67 @@
  * limitations under the License.
  * 
  ********************************************************************************/
-
 #endregion
 
 using IBatisNet.Common.Utilities;
+using IBatisNet.DataMapper;
 using IBatisNet.DataMapper.Configuration;
 
 namespace IBatisNet.DataMapper
 {
-    /// <summary>
-    ///     A singleton class to access the default SqlMapper defined by the SqlMap.Config
-    /// </summary>
-    public sealed class Mapper
-    {
-        #region Fields
+	/// <summary>
+	/// A singleton class to access the default SqlMapper defined by the SqlMap.Config
+	/// </summary>
+	public sealed class Mapper
+	{
+		#region Fields
+        private static volatile ISqlMapper _mapper = null;
+		#endregion
 
-        private static volatile ISqlMapper _mapper;
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="obj"></param>
+		public static void Configure (object obj)
+		{
+			_mapper = null;
+		}
 
-        #endregion
+		/// <summary>
+		/// Init the 'default' SqlMapper defined by the SqlMap.Config file.
+		/// </summary>
+		public static void InitMapper()
+		{
+			ConfigureHandler handler = new ConfigureHandler (Configure);
+			DomSqlMapBuilder builder = new DomSqlMapBuilder();
+			_mapper = builder.ConfigureAndWatch (handler);		}
 
-        /// <summary>
-        /// </summary>
-        /// <param name="obj"></param>
-        public static void Configure(object obj)
-        {
-            _mapper = null;
-        }
-
-        /// <summary>
-        ///     Init the 'default' SqlMapper defined by the SqlMap.Config file.
-        /// </summary>
-        public static void InitMapper()
-        {
-            ConfigureHandler handler = Configure;
-            DomSqlMapBuilder builder = new DomSqlMapBuilder();
-            _mapper = builder.ConfigureAndWatch(handler);
-        }
-
-        /// <summary>
-        ///     Get the instance of the SqlMapper defined by the SqlMap.Config file.
-        /// </summary>
-        /// <returns>A SqlMapper initalized via the SqlMap.Config file.</returns>
+		/// <summary>
+		/// Get the instance of the SqlMapper defined by the SqlMap.Config file.
+		/// </summary>
+		/// <returns>A SqlMapper initalized via the SqlMap.Config file.</returns>
         public static ISqlMapper Instance()
-        {
-            if (_mapper == null)
-                lock (typeof(SqlMapper))
-                {
-                    if (_mapper == null) // double-check
-                        InitMapper();
-                }
-
-            return _mapper;
-        }
-
-        /// <summary>
-        ///     Get the instance of the SqlMapper defined by the SqlMap.Config file. (Convenience form of Instance method.)
-        /// </summary>
-        /// <returns>A SqlMapper initalized via the SqlMap.Config file.</returns>
+		{
+			if (_mapper == null)
+			{
+				lock (typeof (SqlMapper))
+				{
+					if (_mapper == null) // double-check
+					{	
+						InitMapper();
+					}
+				}
+			}
+			return _mapper;
+		}
+		
+		/// <summary>
+		/// Get the instance of the SqlMapper defined by the SqlMap.Config file. (Convenience form of Instance method.)
+		/// </summary>
+		/// <returns>A SqlMapper initalized via the SqlMap.Config file.</returns>
         public static ISqlMapper Get()
-        {
-            return Instance();
-        }
-    }
+		{
+			return Instance();
+		}
+	}
 }

@@ -1,5 +1,4 @@
 #region Apache Notice
-
 /*****************************************************************************
  * $Header: $
  * $Revision: 469233 $
@@ -22,7 +21,6 @@
  * limitations under the License.
  * 
  ********************************************************************************/
-
 #endregion
 
 #region Using
@@ -33,37 +31,37 @@ using IBatisNet.Common.Xml;
 using IBatisNet.DataMapper.Configuration.Statements;
 using IBatisNet.DataMapper.Scope;
 
-#endregion
+#endregion 
 
 namespace IBatisNet.DataMapper.Configuration.Serializers
 {
-    /// <summary>
-    ///     Summary description for StatementDeSerializer.
-    /// </summary>
-    public sealed class StatementDeSerializer
-    {
-        /// <summary>
-        ///     Deserialize a Procedure object
-        /// </summary>
-        /// <param name="node"></param>
-        /// <param name="configScope"></param>
-        /// <returns></returns>
-        public static Statement Deserialize(XmlNode node, ConfigurationScope configScope)
-        {
-            Statement statement = new Statement();
-            NameValueCollection prop = NodeUtils.ParseAttributes(node, configScope.Properties);
+	/// <summary>
+	/// Summary description for StatementDeSerializer.
+	/// </summary>
+	public sealed class StatementDeSerializer
+	{
+		/// <summary>
+		/// Deserialize a Procedure object
+		/// </summary>
+		/// <param name="node"></param>
+		/// <param name="configScope"></param>
+		/// <returns></returns>
+		public static Statement Deserialize(XmlNode node, ConfigurationScope configScope)
+		{
+			Statement statement = new Statement();
+			NameValueCollection prop = NodeUtils.ParseAttributes(node, configScope.Properties);
+						
+			statement.CacheModelName = NodeUtils.GetStringAttribute(prop, "cacheModel");
+			statement.ExtendStatement = NodeUtils.GetStringAttribute(prop, "extends");
+			statement.Id = NodeUtils.GetStringAttribute(prop, "id");
+			statement.ListClassName = NodeUtils.GetStringAttribute(prop, "listClass");
+			statement.ParameterClassName = NodeUtils.GetStringAttribute(prop, "parameterClass");
+			statement.ParameterMapName = NodeUtils.GetStringAttribute(prop, "parameterMap");
+			statement.ResultClassName = NodeUtils.GetStringAttribute(prop, "resultClass");
+			statement.ResultMapName = NodeUtils.GetStringAttribute(prop, "resultMap");
+			statement.AllowRemapping = NodeUtils.GetBooleanAttribute(prop, "remapResults", false); 
 
-            statement.CacheModelName = NodeUtils.GetStringAttribute(prop, "cacheModel");
-            statement.ExtendStatement = NodeUtils.GetStringAttribute(prop, "extends");
-            statement.Id = NodeUtils.GetStringAttribute(prop, "id");
-            statement.ListClassName = NodeUtils.GetStringAttribute(prop, "listClass");
-            statement.ParameterClassName = NodeUtils.GetStringAttribute(prop, "parameterClass");
-            statement.ParameterMapName = NodeUtils.GetStringAttribute(prop, "parameterMap");
-            statement.ResultClassName = NodeUtils.GetStringAttribute(prop, "resultClass");
-            statement.ResultMapName = NodeUtils.GetStringAttribute(prop, "resultMap");
-            statement.AllowRemapping = NodeUtils.GetBooleanAttribute(prop, "remapResults", false);
-
-            return statement;
-        }
-    }
+			return statement;
+		}
+	}
 }

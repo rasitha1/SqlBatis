@@ -1,9 +1,9 @@
-#region Apache Notice
 
+#region Apache Notice
 /*****************************************************************************
  * $Header: $
- * $Revision: 383115 $
- * $Date: 2006-03-04 15:21:51 +0100 (sam., 04 mars 2006) $
+ * $Revision: 638571 $
+ * $Date: 2008-03-18 22:11:57 +0100 (mar., 18 mars 2008) $
  * 
  * iBATIS.NET Data Mapper
  * Copyright (C) 2004 - Gilles Bayon
@@ -22,19 +22,19 @@
  * limitations under the License.
  * 
  ********************************************************************************/
-
 #endregion
 
 #region Imports
-
+using System;
 #endregion
 
 namespace IBatisNet.DataMapper.Configuration.Sql.Dynamic
 {
-    /// <summary>
-    ///     Summary description for ISqlChild.
-    /// </summary>
-    public interface ISqlChild
-    {
-    }
+	/// <summary>
+	/// Summary description for ISqlChild.
+	/// </summary>
+	public interface ISqlChild
+	{
+
+	}
 }

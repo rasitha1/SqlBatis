@@ -1,5 +1,5 @@
-#region Apache Notice
 
+#region Apache Notice
 /*****************************************************************************
  * $Revision: 408164 $
  * $LastChangedDate: 2006-05-21 14:27:09 +0200 (dim., 21 mai 2006) $
@@ -22,47 +22,47 @@
  * limitations under the License.
  * 
  ********************************************************************************/
-
 #endregion
 
 #region Imports
-
+using System;
 using IBatisNet.Common.Utilities.Objects.Members;
 using IBatisNet.DataMapper.Configuration.Sql.Dynamic.Elements;
-
 #endregion
 
 
 namespace IBatisNet.DataMapper.Configuration.Sql.Dynamic.Handlers
 {
-    /// <summary>
-    ///     Summary description for IsGreaterEqualTagHandler.
-    /// </summary>
-    public sealed class IsGreaterEqualTagHandler : ConditionalTagHandler
-    {
+
+	/// <summary>
+	/// Summary description for IsGreaterEqualTagHandler.
+	/// </summary>
+	public sealed class IsGreaterEqualTagHandler : ConditionalTagHandler
+	{
+
         /// <summary>
-        ///     Initializes a new instance of the <see cref="IsGreaterEqualTagHandler" /> class.
+        /// Initializes a new instance of the <see cref="IsGreaterEqualTagHandler"/> class.
         /// </summary>
         /// <param name="accessorFactory">The accessor factory.</param>
         public IsGreaterEqualTagHandler(AccessorFactory accessorFactory)
             : base(accessorFactory)
-        {
-        }
+		{
+		}
 
-        #region Methods
+		#region Methods
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="ctx"></param>
+		/// <param name="tag"></param>
+		/// <param name="parameterObject"></param>
+		/// <returns></returns>
+		public override bool IsCondition(SqlTagContext ctx, SqlTag tag, object parameterObject)
+		{
+			long x = this.Compare(ctx, tag, parameterObject);
+			return ((x >= 0) && (x != ConditionalTagHandler.NOT_COMPARABLE));
+		}
+		#endregion
+	}
 
-        /// <summary>
-        /// </summary>
-        /// <param name="ctx"></param>
-        /// <param name="tag"></param>
-        /// <param name="parameterObject"></param>
-        /// <returns></returns>
-        public override bool IsCondition(SqlTagContext ctx, SqlTag tag, object parameterObject)
-        {
-            long x = Compare(ctx, tag, parameterObject);
-            return ((x >= 0) && (x != NOT_COMPARABLE));
-        }
-
-        #endregion
-    }
 }

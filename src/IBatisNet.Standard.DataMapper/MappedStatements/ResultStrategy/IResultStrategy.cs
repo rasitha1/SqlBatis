@@ -1,5 +1,4 @@
 #region Apache Notice
-
 /*****************************************************************************
  * $Revision: 374175 $
  * $LastChangedDate: 2006-04-25 19:40:27 +0200 (mar., 25 avr. 2006) $
@@ -22,7 +21,6 @@
  * limitations under the License.
  * 
  ********************************************************************************/
-
 #endregion
 
 using System.Data;
@@ -31,12 +29,13 @@ using IBatisNet.DataMapper.Scope;
 namespace IBatisNet.DataMapper.MappedStatements.ResultStrategy
 {
     /// <summary>
-    ///     <see cref="IResultStrategy" /> contract to process the <see cref="IDataReader" />.
-    /// </summary>
+	/// <see cref="IResultStrategy"/> contract to process the <see cref="IDataReader"/>.
+	/// </summary>
     public interface IResultStrategy
     {
+
         /// <summary>
-        ///     Processes the specified <see cref="IDataReader" />.
+        /// Processes the specified <see cref="IDataReader"/>.
         /// </summary>
         /// <param name="request">The request.</param>
         /// <param name="reader">The reader.</param>

@@ -1,5 +1,5 @@
-#region Apache Notice
 
+#region Apache Notice
 /*****************************************************************************
  * $Header: $
  * $Revision: 417269 $
@@ -22,7 +22,6 @@
  * limitations under the License.
  * 
  ********************************************************************************/
-
 #endregion
 
 #region Using
@@ -42,84 +41,96 @@ using IBatisNet.DataMapper.Configuration;
 
 namespace IBatisNet.DataAccess.DaoSessionHandlers
 {
-    /// <summary>
-    ///     Summary description for SqlMapDaoSessionHandler.
-    /// </summary>
-    public class SqlMapDaoSessionHandler : IDaoSessionHandler
-    {
-        #region Fields
+	/// <summary>
+	/// Summary description for SqlMapDaoSessionHandler.
+	/// </summary>
+	public class SqlMapDaoSessionHandler : IDaoSessionHandler
+	{
+		#region Fields
+        private ISqlMapper _sqlMap;
+		#endregion
 
-        #endregion
+		#region Properties
+		/// <summary>
+		/// 
+		/// </summary>
+        public ISqlMapper SqlMap
+		{
+			get { return _sqlMap; }
+		}
+		#endregion
 
-        #region Constructor (s) / Destructor
+		#region Constructor (s) / Destructor
+		/// <summary>
+		/// 
+		/// </summary>
+		public SqlMapDaoSessionHandler()
+		{
+		}
+		#endregion
+		
+		#region Methods
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="properties"></param>
+		/// <param name="resources"></param>
+		public void Configure(NameValueCollection properties, IDictionary resources)
+		{
+			DomSqlMapBuilder builder = new DomSqlMapBuilder();
+			XmlDocument document = null;
 
-        #endregion
+			try
+			{
+				DataSource dataSource = (DataSource) resources["DataSource"];
+				bool useConfigFileWatcher = (bool) resources["UseConfigFileWatcher"];
+				
+				if (resources.Contains("resource")||resources.Contains("sqlMapConfigFile"))
+				{
+					string fileName = string.Empty;
+					if (resources.Contains("resource"))
+					{
+						fileName = (string) resources["resource"];
+					}else
+					{
+						fileName = (string) resources["sqlMapConfigFile"];
+					}
+					if (useConfigFileWatcher == true)
+					{
+						ConfigWatcherHandler.AddFileToWatch( Resources.GetFileInfo( fileName ) );
+					}
+					document = Resources.GetResourceAsXmlDocument(fileName);
+				}
+				else if ( resources.Contains("url") )
+				{
+					document = Resources.GetUrlAsXmlDocument( (string) resources["url"] );	
+				}
+				else if ( resources.Contains("embedded") )
+				{
+					document = Resources.GetEmbeddedResourceAsXmlDocument( (string) resources["embedded"] );	
+				}
+				else
+				{
+					throw new ConfigurationException("Invalid attribute on daoSessionHandler/property ");
+				}
+				_sqlMap = builder.Build( document, dataSource, useConfigFileWatcher, properties);
+			}
+			catch(Exception e)
+			{
+				throw new ConfigurationException(string.Format("DaoManager could not configure SqlMapDaoSessionHandler.Cause: {0}", e.Message),e);
+			}
+		}
 
-        #region Properties
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="daoManager"></param>
+		/// <returns></returns>
+		public DaoSession GetDaoSession(DaoManager daoManager)
+		{
+			return (new SqlMapDaoSession(daoManager, _sqlMap));
+		}
+		#endregion
 
-        /// <summary>
-        /// </summary>
-        public ISqlMapper SqlMap { get; private set; }
-
-        #endregion
-
-        #region Methods
-
-        /// <summary>
-        /// </summary>
-        /// <param name="properties"></param>
-        /// <param name="resources"></param>
-        public void Configure(NameValueCollection properties, IDictionary resources)
-        {
-            DomSqlMapBuilder builder = new DomSqlMapBuilder();
-            XmlDocument document = null;
-
-            try
-            {
-                DataSource dataSource = (DataSource) resources["DataSource"];
-                bool useConfigFileWatcher = (bool) resources["UseConfigFileWatcher"];
-
-                if (resources.Contains("resource") || resources.Contains("sqlMapConfigFile"))
-                {
-                    string fileName = string.Empty;
-                    if (resources.Contains("resource"))
-                        fileName = (string) resources["resource"];
-                    else
-                        fileName = (string) resources["sqlMapConfigFile"];
-                    if (useConfigFileWatcher) ConfigWatcherHandler.AddFileToWatch(Resources.GetFileInfo(fileName));
-                    document = Resources.GetResourceAsXmlDocument(fileName);
-                }
-                else if (resources.Contains("url"))
-                {
-                    document = Resources.GetUrlAsXmlDocument((string) resources["url"]);
-                }
-                else if (resources.Contains("embedded"))
-                {
-                    document = Resources.GetEmbeddedResourceAsXmlDocument((string) resources["embedded"]);
-                }
-                else
-                {
-                    throw new ConfigurationException("Invalid attribute on daoSessionHandler/property ");
-                }
-
-                SqlMap = builder.Build(document, dataSource, useConfigFileWatcher, properties);
-            }
-            catch (Exception e)
-            {
-                throw new ConfigurationException(
-                    string.Format("DaoManager could not configure SqlMapDaoSessionHandler.Cause: {0}", e.Message), e);
-            }
-        }
-
-        /// <summary>
-        /// </summary>
-        /// <param name="daoManager"></param>
-        /// <returns></returns>
-        public DaoSession GetDaoSession(DaoManager daoManager)
-        {
-            return (new SqlMapDaoSession(daoManager, SqlMap));
-        }
-
-        #endregion
-    }
+	}
 }

@@ -1,0 +1,29 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net472</TargetFramework>
+    <AssemblyName>IBatisNet.Common.Logging.Log4Net</AssemblyName>
+    <RootNamespace>IBatisNet.Common.Logging.Log4Net</RootNamespace>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Authors>IBatisNet,rasitha1</Authors>
+    <Company>IBatisNet</Company>
+    <Description>IBatisNet Logging support with Log4Net</Description>
+    <PackageProjectUrl>https://github.com/rasitha1/IBatisNet.Standard</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/rasitha1/IBatisNet.Standard</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>ibatisnet log4net</PackageTags>
+    <PackageReleaseNotes>Converted to .net standard. 
+https://github.com/rasitha1/IBatisNet.Standard/blob/master/README.md</PackageReleaseNotes>
+    <Version>2.0.1</Version>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="log4net" Version="2.0.8" />
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="4.5.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\IBatisNet.Standard.Common\IBatisNet.Standard.Common.csproj" />
+  </ItemGroup>
+
+</Project>

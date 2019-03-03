@@ -1,5 +1,4 @@
 #region Apache Notice
-
 /*****************************************************************************
  * $Header: $
  * $Revision: 408164 $
@@ -22,7 +21,6 @@
  * limitations under the License.
  * 
  ********************************************************************************/
-
 #endregion
 
 #region Using
@@ -32,45 +30,47 @@ using System.Xml;
 using IBatisNet.Common.Xml;
 using IBatisNet.DataMapper.Configuration.Sql.Dynamic.Elements;
 using IBatisNet.DataMapper.Scope;
+#endregion 
 
-#endregion
 
 
 namespace IBatisNet.DataMapper.Configuration.Serializers
 {
-    /// <summary>
-    ///     Summary description for IsEmptyDeSerializer.
-    /// </summary>
-    public sealed class IsEmptyDeSerializer : IDeSerializer
-    {
-        private readonly ConfigurationScope _configScope;
+	/// <summary>
+	/// Summary description for IsEmptyDeSerializer.
+	/// </summary>
+	public sealed class IsEmptyDeSerializer : IDeSerializer
+	{
 
-        /// <summary>
-        /// </summary>
-        /// <param name="configScope"></param>
-        public IsEmptyDeSerializer(ConfigurationScope configScope)
-        {
-            _configScope = configScope;
-        }
+		private ConfigurationScope _configScope = null;
 
-        #region IDeSerializer Members
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="configScope"></param>
+		public IsEmptyDeSerializer(ConfigurationScope configScope)
+		{
+			_configScope = configScope;
+		}
 
-        /// <summary>
-        ///     Deserialize a IsNotNull object
-        /// </summary>
-        /// <param name="node"></param>
-        /// <returns></returns>
-        public SqlTag Deserialize(XmlNode node)
-        {
-            IsEmpty isEmpty = new IsEmpty(_configScope.DataExchangeFactory.AccessorFactory);
+		#region IDeSerializer Members
 
-            NameValueCollection prop = NodeUtils.ParseAttributes(node, _configScope.Properties);
-            isEmpty.Prepend = NodeUtils.GetStringAttribute(prop, "prepend");
-            isEmpty.Property = NodeUtils.GetStringAttribute(prop, "property");
+		/// <summary>
+		/// Deserialize a IsNotNull object
+		/// </summary>
+		/// <param name="node"></param>
+		/// <returns></returns>
+		public SqlTag Deserialize(XmlNode node)
+		{
+			IsEmpty isEmpty = new IsEmpty(_configScope.DataExchangeFactory.AccessorFactory);
 
-            return isEmpty;
-        }
+			NameValueCollection prop = NodeUtils.ParseAttributes(node, _configScope.Properties);
+			isEmpty.Prepend = NodeUtils.GetStringAttribute(prop, "prepend");
+			isEmpty.Property = NodeUtils.GetStringAttribute(prop, "property");
 
-        #endregion
-    }
+			return isEmpty;
+		}
+
+		#endregion
+	}
 }

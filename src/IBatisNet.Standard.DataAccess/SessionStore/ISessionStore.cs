@@ -1,5 +1,4 @@
 #region Apache Notice
-
 /*****************************************************************************
  * $Header: $
  * $Revision: 378715 $
@@ -22,32 +21,35 @@
  * limitations under the License.
  * 
  ********************************************************************************/
-
 #endregion
 
 using IBatisNet.Common;
 
 namespace IBatisNet.DataAccess.SessionStore
 {
-    /// <summary>
-    ///     Provides the contract for implementors who want to store session.
-    /// </summary>
-    public interface ISessionStore
-    {
-        /// <summary>
-        ///     Get the local session
-        /// </summary>
-        IDalSession LocalSession { get; }
 
-        /// <summary>
-        ///     Store the specified session.
-        /// </summary>
-        /// <param name="session">The session to store</param>
-        void Store(IDalSession session);
+	/// <summary>
+	/// Provides the contract for implementors who want to store session.
+	/// </summary>
+	public interface ISessionStore
+	{
+		/// <summary>
+		/// Get the local session
+		/// </summary>
+		IDalSession LocalSession
+		{
+			get; 
+		}
 
-        /// <summary>
-        ///     Remove the local session from the storage.
-        /// </summary>
-        void Dispose();
-    }
+		/// <summary>
+		/// Store the specified session.
+		/// </summary>
+		/// <param name="session">The session to store</param>
+		void Store(IDalSession session);
+
+		/// <summary>
+		/// Remove the local session from the storage.
+		/// </summary>
+		void Dispose();
+	}
 }

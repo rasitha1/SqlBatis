@@ -5,10 +5,8 @@
     <RootNamespace>IBatisNet.Common</RootNamespace>
     <AssemblyName>IBatisNet.Common</AssemblyName>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <AssemblyVersion>2.0.0.0</AssemblyVersion>
-    <FileVersion>2.0.0.0</FileVersion>
     <Description>Common object used by DataAccess and DataMapper component in iBATIS.Net</Description>
-    <Version>2.0.0</Version>
+    <Version>2.0.1</Version>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>AssemblyKey.snk</AssemblyOriginatorKeyFile>
     <RepositoryUrl>https://github.com/rasitha1/IBatisNet.Standard</RepositoryUrl>

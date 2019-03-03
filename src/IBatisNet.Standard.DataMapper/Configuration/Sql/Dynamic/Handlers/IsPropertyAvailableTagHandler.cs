@@ -1,5 +1,5 @@
-#region Apache Notice
 
+#region Apache Notice
 /*****************************************************************************
  * $Revision: 405046 $
  * $LastChangedDate: 2006-05-08 15:21:44 +0200 (lun., 08 mai 2006) $
@@ -22,32 +22,31 @@
  * limitations under the License.
  * 
  ********************************************************************************/
-
 #endregion
 
 #region Imports
-
-using IBatisNet.Common.Utilities.Objects;
+using System;
 using IBatisNet.Common.Utilities.Objects.Members;
 using IBatisNet.DataMapper.Configuration.Sql.Dynamic.Elements;
-
+using IBatisNet.Common.Utilities.Objects;
 #endregion
 
 namespace IBatisNet.DataMapper.Configuration.Sql.Dynamic.Handlers
 {
-    /// <summary>
-    ///     Summary description for IsPropertyAvailableTagHandler.
-    /// </summary>
-    public class IsPropertyAvailableTagHandler : ConditionalTagHandler
-    {
+	/// <summary>
+	/// Summary description for IsPropertyAvailableTagHandler.
+	/// </summary>
+	public class IsPropertyAvailableTagHandler : ConditionalTagHandler
+	{
+
         /// <summary>
-        ///     Initializes a new instance of the <see cref="IsPropertyAvailableTagHandler" /> class.
+        /// Initializes a new instance of the <see cref="IsPropertyAvailableTagHandler"/> class.
         /// </summary>
         /// <param name="accessorFactory">The accessor factory.</param>
         public IsPropertyAvailableTagHandler(AccessorFactory accessorFactory)
             : base(accessorFactory)
-        {
-        }
+		{
+		}
 
 
         /// <summary>
@@ -56,11 +55,17 @@ namespace IBatisNet.DataMapper.Configuration.Sql.Dynamic.Handlers
         /// <param name="tag"></param>
         /// <param name="parameterObject"></param>
         /// <returns></returns>
-        public override bool IsCondition(SqlTagContext ctx, SqlTag tag, object parameterObject)
-        {
-            if (parameterObject == null)
-                return false;
-            return ObjectProbe.HasReadableProperty(parameterObject, ((BaseTag) tag).Property);
-        }
-    }
+		public override bool IsCondition(SqlTagContext ctx, SqlTag tag, object parameterObject)
+		{
+			if (parameterObject == null) 
+			{
+				return false;
+			} 
+			else 
+			{
+				return ObjectProbe.HasReadableProperty(parameterObject, ((BaseTag)tag).Property);
+			}		
+		}
+	}
+
 }

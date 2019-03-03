@@ -1,5 +1,4 @@
 #region Apache Notice
-
 /*****************************************************************************
  * $Header: $
  * $Revision: 408164 $
@@ -22,7 +21,6 @@
  * limitations under the License.
  * 
  ********************************************************************************/
-
 #endregion
 
 #region Using
@@ -37,55 +35,59 @@ using IBatisNet.DataMapper.Configuration.Alias;
 using IBatisNet.DataMapper.Scope;
 using IBatisNet.DataMapper.TypeHandlers;
 
-#endregion
+#endregion 
 
 namespace IBatisNet.DataMapper.Configuration.Serializers
 {
-    /// <summary>
-    ///     Summary description for TypeHandlerDeSerializer.
-    /// </summary>
-    public sealed class TypeHandlerDeSerializer
-    {
-        /// <summary>
-        ///     Deserialize a TypeHandler object
-        /// </summary>
-        /// <param name="node"></param>
-        /// <param name="configScope"></param>
-        /// <returns></returns>
-        public static void Deserialize(XmlNode node, ConfigurationScope configScope)
-        {
-            TypeHandler handler = new TypeHandler();
+	/// <summary>
+	/// Summary description for TypeHandlerDeSerializer.
+	/// </summary>
+	public sealed class TypeHandlerDeSerializer
+	{
+		/// <summary>
+		/// Deserialize a TypeHandler object
+		/// </summary>
+		/// <param name="node"></param>
+		/// <param name="configScope"></param>
+		/// <returns></returns>
+		public static void Deserialize(XmlNode node, ConfigurationScope configScope)
+		{
+			TypeHandler handler = new TypeHandler();
 
-            NameValueCollection prop = NodeUtils.ParseAttributes(node, configScope.Properties);
-            handler.CallBackName = NodeUtils.GetStringAttribute(prop, "callback");
-            handler.ClassName = NodeUtils.GetStringAttribute(prop, "type");
-            handler.DbType = NodeUtils.GetStringAttribute(prop, "dbType");
+			NameValueCollection prop = NodeUtils.ParseAttributes(node, configScope.Properties);
+			handler.CallBackName = NodeUtils.GetStringAttribute(prop, "callback");
+			handler.ClassName = NodeUtils.GetStringAttribute(prop, "type");
+			handler.DbType = NodeUtils.GetStringAttribute(prop, "dbType");
 
-            handler.Initialize();
+			handler.Initialize();
 
-            configScope.ErrorContext.MoreInfo =
-                "Check the callback attribute '" + handler.CallBackName + "' (must be a classname).";
-            ITypeHandler typeHandler = null;
-            Type type = configScope.SqlMapper.TypeHandlerFactory.GetType(handler.CallBackName);
-            object impl = Activator.CreateInstance(type);
-            if (impl is ITypeHandlerCallback)
-                typeHandler = new CustomTypeHandler((ITypeHandlerCallback) impl);
-            else if (impl is ITypeHandler)
-                typeHandler = (ITypeHandler) impl;
-            else
-                throw new ConfigurationException(
-                    "The callBack type is not a valid implementation of ITypeHandler or ITypeHandlerCallback");
+			configScope.ErrorContext.MoreInfo = "Check the callback attribute '" + handler.CallBackName + "' (must be a classname).";
+			ITypeHandler typeHandler = null;
+			Type type = configScope.SqlMapper.TypeHandlerFactory.GetType(handler.CallBackName);
+			object impl = Activator.CreateInstance( type );
+			if (impl is ITypeHandlerCallback) 
+			{
+				typeHandler = new CustomTypeHandler((ITypeHandlerCallback) impl);
+			} 
+			else if (impl is ITypeHandler) 
+			{
+				typeHandler = (ITypeHandler) impl;
+			} 
+			else 
+			{
+				throw new ConfigurationException("The callBack type is not a valid implementation of ITypeHandler or ITypeHandlerCallback");
+			}
 
-            // 
-            configScope.ErrorContext.MoreInfo = "Check the type attribute '" + handler.ClassName +
-                                                "' (must be a class name) or the dbType '" + handler.DbType +
-                                                "' (must be a DbType type name).";
-            if (handler.DbType != null && handler.DbType.Length > 0)
-                configScope.DataExchangeFactory.TypeHandlerFactory.Register(TypeUtils.ResolveType(handler.ClassName),
-                    handler.DbType, typeHandler);
-            else
-                configScope.DataExchangeFactory.TypeHandlerFactory.Register(TypeUtils.ResolveType(handler.ClassName),
-                    typeHandler);
-        }
-    }
+			// 
+			configScope.ErrorContext.MoreInfo = "Check the type attribute '" + handler.ClassName + "' (must be a class name) or the dbType '" + handler.DbType + "' (must be a DbType type name).";
+			if (handler.DbType!= null && handler.DbType.Length > 0) 
+			{
+                configScope.DataExchangeFactory.TypeHandlerFactory.Register(TypeUtils.ResolveType(handler.ClassName), handler.DbType, typeHandler);
+			} 
+			else 
+			{
+                configScope.DataExchangeFactory.TypeHandlerFactory.Register(TypeUtils.ResolveType(handler.ClassName), typeHandler);
+			}
+		}
+	}
 }

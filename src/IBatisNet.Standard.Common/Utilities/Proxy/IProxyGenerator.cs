@@ -1,5 +1,4 @@
 #region Apache Notice
-
 /*****************************************************************************
  * $Revision: 383115 $
  * $LastChangedDate: 2006-03-04 15:21:51 +0100 (sam., 04 mars 2006) $
@@ -22,15 +21,17 @@
  * limitations under the License.
  * 
  ********************************************************************************/
-
 #endregion
+
+using System;
 
 namespace IBatisNet.Common.Utilities.Proxy
 {
-    /// <summary>
-    ///     Description résumée de IProxyGenerator.
-    /// </summary>
-    public interface IProxyGenerator
-    {
-    }
+	/// <summary>
+	/// Description résumée de IProxyGenerator.
+	/// </summary>
+	public interface IProxyGenerator
+	{
+
+	}
 }

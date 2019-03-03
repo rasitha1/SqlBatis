@@ -1,5 +1,5 @@
-#region Apache Notice
 
+#region Apache Notice
 /*****************************************************************************
  * $Header: $
  * $Revision: 476843 $
@@ -22,7 +22,6 @@
  * limitations under the License.
  * 
  ********************************************************************************/
-
 #endregion
 
 #region Using
@@ -30,6 +29,7 @@
 using System.Collections;
 using System.Data;
 using System.Runtime.CompilerServices;
+using IBatisNet.DataMapper;
 using IBatisNet.DataMapper.Configuration.ParameterMapping;
 using IBatisNet.DataMapper.Configuration.ResultMapping;
 using IBatisNet.DataMapper.Configuration.Statements;
@@ -41,14 +41,165 @@ using IBatisNet.DataMapper.MappedStatements;
 namespace IBatisNet.DataMapper.Scope
 {
     /// <summary>
-    ///     Hold data during the process of a mapped statement.
+    /// Hold data during the process of a mapped statement.
     /// </summary>
     public class RequestScope : IScope
     {
-        #region Constructors
+        #region Fields
+
+        private IStatement _statement = null;
+        private ErrorContext _errorContext = null;
+        private ParameterMap _parameterMap = null;
+        private PreparedStatement _preparedStatement = null;
+        private IDbCommand _command = null;
+        private Queue _selects = new Queue();
+        bool _rowDataFound = false;
+        private static long _nextId = 0;
+        private long _id = 0;
+        private DataExchangeFactory _dataExchangeFactory = null;
+        private ISqlMapSession _session = null;
+        private IMappedStatement _mappedStatement = null;
+        private int _currentResultMapIndex = -1;
+        // Used by N+1 Select solution
+        // Holds [IResultMap, IDictionary] couple where the IDictionary holds [key, result object]
+        private IDictionary  _uniqueKeys = null;
+
+        #endregion
+
+        #region Properties
 
         /// <summary>
-        ///     Initializes a new instance of the <see cref="RequestScope" /> class.
+        /// Gets the unique keys.
+        /// </summary>
+        /// <param name="map">The ResultMap.</param>
+        /// <returns>
+        /// Returns [key, result object] which holds the result objects that have  
+        /// already been build during this request with this <see cref="IResultMap"/>
+        /// </returns>
+        public IDictionary GetUniqueKeys(IResultMap map)
+        {
+            if (_uniqueKeys == null)
+            {
+                return null;
+            }
+            return (IDictionary)_uniqueKeys[map];
+        }
+
+        /// <summary>
+        /// Sets the unique keys.
+        /// </summary>
+        /// <param name="map">The map.</param>
+        /// <param name="keys">The keys.</param>
+        public void SetUniqueKeys(IResultMap map, IDictionary keys)
+        {
+            if (_uniqueKeys == null)
+            {
+                _uniqueKeys = new Hashtable();
+            }
+            _uniqueKeys.Add(map, keys);
+        }
+        
+        /// <summary>
+        ///  The current <see cref="IMappedStatement"/>.
+        /// </summary>
+        public IMappedStatement MappedStatement
+        {
+            set { _mappedStatement = value; }
+            get { return _mappedStatement; }
+        }
+
+        /// <summary>
+        /// Gets the current <see cref="IStatement"/>.
+        /// </summary>
+        /// <value>The statement.</value>
+        public IStatement Statement
+        {
+            get { return _statement; }
+        }
+
+        /// <summary>
+        ///  The current <see cref="ISqlMapSession"/>.
+        /// </summary>
+        public ISqlMapSession Session
+        {
+            get { return _session; }
+        }
+
+        /// <summary>
+        ///  The <see cref="IDbCommand"/> to execute
+        /// </summary>
+        public IDbCommand IDbCommand
+        {
+            set { _command = value; }
+            get { return _command; }
+        }
+
+        /// <summary>
+        ///  Indicate if the statement have find data
+        /// </summary>
+        public bool IsRowDataFound
+        {
+            set { _rowDataFound = value; }
+            get { return _rowDataFound; }
+        }
+
+        /// <summary>
+        /// The 'select' result property to process after having process the main properties.
+        /// </summary>
+        public Queue QueueSelect
+        {
+            get { return _selects; }
+            set { _selects = value; }
+        }
+
+        /// <summary>
+        /// The current <see cref="IResultMap"/> used by this request.
+        /// </summary>
+        public IResultMap CurrentResultMap
+        {
+            get { return _statement.ResultsMap[_currentResultMapIndex]; }
+        }
+
+        /// <summary>
+        /// Moves to the next result map.
+        /// </summary>
+        /// <returns></returns>
+        public bool MoveNextResultMap()
+        {
+            if (_currentResultMapIndex < _statement.ResultsMap.Count - 1)
+            {
+                _currentResultMapIndex++;
+                return true;
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// The <see cref="ParameterMap"/> used by this request.
+        /// </summary>
+        public ParameterMap ParameterMap
+        {
+            set { _parameterMap = value; }
+            get { return _parameterMap; }
+        }
+
+        /// <summary>
+        /// The <see cref="PreparedStatement"/> used by this request.
+        /// </summary>
+        public PreparedStatement PreparedStatement
+        {
+            get { return _preparedStatement; }
+            set { _preparedStatement = value; }
+        }
+
+
+        #endregion
+
+        #region Constructors
+
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="RequestScope"/> class.
         /// </summary>
         /// <param name="dataExchangeFactory">The data exchange factory.</param>
         /// <param name="session">The session.</param>
@@ -57,135 +208,31 @@ namespace IBatisNet.DataMapper.Scope
             DataExchangeFactory dataExchangeFactory,
             ISqlMapSession session,
             IStatement statement
-        )
+            )
         {
-            ErrorContext = new ErrorContext();
+            _errorContext = new ErrorContext();
 
-            Statement = statement;
-            ParameterMap = statement.ParameterMap;
-            Session = session;
-            DataExchangeFactory = dataExchangeFactory;
+            _statement = statement;
+            _parameterMap = statement.ParameterMap;
+            _session = session;
+            _dataExchangeFactory = dataExchangeFactory;
             _id = GetNextId();
         }
-
-        #endregion
-
-        #region Fields
-
-        private static long _nextId;
-        private readonly long _id;
-
-        private int _currentResultMapIndex = -1;
-
-        // Used by N+1 Select solution
-        // Holds [IResultMap, IDictionary] couple where the IDictionary holds [key, result object]
-        private IDictionary _uniqueKeys;
-
-        #endregion
-
-        #region Properties
-
-        /// <summary>
-        ///     Gets the unique keys.
-        /// </summary>
-        /// <param name="map">The ResultMap.</param>
-        /// <returns>
-        ///     Returns [key, result object] which holds the result objects that have
-        ///     already been build during this request with this <see cref="IResultMap" />
-        /// </returns>
-        public IDictionary GetUniqueKeys(IResultMap map)
-        {
-            if (_uniqueKeys == null) return null;
-            return (IDictionary) _uniqueKeys[map];
-        }
-
-        /// <summary>
-        ///     Sets the unique keys.
-        /// </summary>
-        /// <param name="map">The map.</param>
-        /// <param name="keys">The keys.</param>
-        public void SetUniqueKeys(IResultMap map, IDictionary keys)
-        {
-            if (_uniqueKeys == null) _uniqueKeys = new Hashtable();
-            _uniqueKeys.Add(map, keys);
-        }
-
-        /// <summary>
-        ///     The current <see cref="IMappedStatement" />.
-        /// </summary>
-        public IMappedStatement MappedStatement { set; get; } = null;
-
-        /// <summary>
-        ///     Gets the current <see cref="IStatement" />.
-        /// </summary>
-        /// <value>The statement.</value>
-        public IStatement Statement { get; }
-
-        /// <summary>
-        ///     The current <see cref="ISqlMapSession" />.
-        /// </summary>
-        public ISqlMapSession Session { get; }
-
-        /// <summary>
-        ///     The <see cref="IDbCommand" /> to execute
-        /// </summary>
-        public IDbCommand IDbCommand { set; get; } = null;
-
-        /// <summary>
-        ///     Indicate if the statement have find data
-        /// </summary>
-        public bool IsRowDataFound { set; get; } = false;
-
-        /// <summary>
-        ///     The 'select' result property to process after having process the main properties.
-        /// </summary>
-        public Queue QueueSelect { get; set; } = new Queue();
-
-        /// <summary>
-        ///     The current <see cref="IResultMap" /> used by this request.
-        /// </summary>
-        public IResultMap CurrentResultMap => Statement.ResultsMap[_currentResultMapIndex];
-
-        /// <summary>
-        ///     Moves to the next result map.
-        /// </summary>
-        /// <returns></returns>
-        public bool MoveNextResultMap()
-        {
-            if (_currentResultMapIndex < Statement.ResultsMap.Count - 1)
-            {
-                _currentResultMapIndex++;
-                return true;
-            }
-
-            return false;
-        }
-
-        /// <summary>
-        ///     The <see cref="ParameterMap" /> used by this request.
-        /// </summary>
-        public ParameterMap ParameterMap { set; get; }
-
-        /// <summary>
-        ///     The <see cref="PreparedStatement" /> used by this request.
-        /// </summary>
-        public PreparedStatement PreparedStatement { get; set; } = null;
-
         #endregion
 
         #region Method
 
         /// <summary>
-        ///     Check if the specify object is equal to the current object.
+        /// Check if the specify object is equal to the current object.
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
         public override bool Equals(object obj)
         {
-            if (this == obj) return true;
-            if (!(obj is RequestScope)) return false;
+            if (this == obj) { return true; }
+            if (!(obj is RequestScope)) { return false; }
 
-            RequestScope scope = (RequestScope) obj;
+            RequestScope scope = (RequestScope)obj;
 
             if (_id != scope._id) return false;
 
@@ -193,16 +240,16 @@ namespace IBatisNet.DataMapper.Scope
         }
 
         /// <summary>
-        ///     Get the HashCode for this RequestScope
+        /// Get the HashCode for this RequestScope
         /// </summary>
         /// <returns></returns>
         public override int GetHashCode()
         {
-            return (int) (_id ^ (_id >> 32));
+            return (int)(_id ^ (_id >> 32));
         }
 
         /// <summary>
-        ///     Method to get a unique ID
+        /// Method to get a unique ID
         /// </summary>
         /// <returns>The new ID</returns>
         [MethodImpl(MethodImplOptions.Synchronized)]
@@ -210,21 +257,25 @@ namespace IBatisNet.DataMapper.Scope
         {
             return _nextId++;
         }
-
         #endregion
 
         #region IScope Members
 
         /// <summary>
-        ///     A factory for DataExchange objects
+        /// A factory for DataExchange objects
         /// </summary>
-        public DataExchangeFactory DataExchangeFactory { get; }
+        public DataExchangeFactory DataExchangeFactory
+        {
+            get { return _dataExchangeFactory; }
+        }
 
         /// <summary>
-        ///     Get the request's error context
+        ///  Get the request's error context
         /// </summary>
-        public ErrorContext ErrorContext { get; }
-
+        public ErrorContext ErrorContext
+        {
+            get { return _errorContext; }
+        }
         #endregion
     }
 }

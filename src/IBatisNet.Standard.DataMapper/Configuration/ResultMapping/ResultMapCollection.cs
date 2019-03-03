@@ -1,5 +1,4 @@
 #region Apache Notice
-
 /*****************************************************************************
  * $Revision: 450157 $
  * $LastChangedDate: 2006-10-30 20:09:11 +0100 (lun., 30 oct. 2006) $
@@ -22,7 +21,6 @@
  * limitations under the License.
  * 
  ********************************************************************************/
-
 #endregion
 
 #region Using
@@ -34,85 +32,101 @@ using System;
 namespace IBatisNet.DataMapper.Configuration.ResultMapping
 {
     /// <summary>
-    ///     Collection of <see cref="IResultMap" />
+    /// Collection of <see cref="IResultMap"/>
     /// </summary>
     public class ResultMapCollection
     {
         private const int DEFAULT_CAPACITY = 2;
         private const int CAPACITY_MULTIPLIER = 2;
-        private IResultMap[] _innerList;
+        private int _count = 0;
+        private IResultMap[] _innerList = null;
 
 
         /// <summary>
-        ///     Constructs a ResultMapCollection. The list is initially empty and has a capacity
-        ///     of zero. Upon adding the first element to the list the capacity is
-        ///     increased to 8, and then increased in multiples of two as required.
+        /// Read-only property describing how many elements are in the Collection.
+        /// </summary>
+        public int Count
+        {
+            get { return _count; }
+        }
+
+
+        /// <summary>
+        /// Constructs a ResultMapCollection. The list is initially empty and has a capacity
+        /// of zero. Upon adding the first element to the list the capacity is
+        /// increased to 8, and then increased in multiples of two as required.
         /// </summary>
         public ResultMapCollection()
         {
-            Clear();
+            this.Clear();
         }
 
         /// <summary>
-        ///     Constructs a ResultMapCollection with a given initial capacity.
-        ///     The list is initially empty, but will have room for the given number of elements
-        ///     before any reallocations are required.
+        /// Removes all items from the collection.
+        /// </summary>
+        public void Clear()
+        {
+            _innerList = new IResultMap[DEFAULT_CAPACITY];
+            _count = 0;
+        }
+
+        /// <summary>
+        ///  Constructs a ResultMapCollection with a given initial capacity. 
+        ///  The list is initially empty, but will have room for the given number of elements
+        ///  before any reallocations are required.
         /// </summary>
         /// <param name="capacity">The initial capacity of the list</param>
         public ResultMapCollection(int capacity)
         {
-            if (capacity < 0) throw new ArgumentOutOfRangeException("Capacity", "The size of the list must be >0.");
+            if (capacity < 0)
+            {
+                throw new ArgumentOutOfRangeException("Capacity", "The size of the list must be >0.");
+            }
             _innerList = new IResultMap[capacity];
+        }
+
+        /// <summary>
+        /// Length of the collection
+        /// </summary>
+        public int Length
+        {
+            get { return _innerList.Length; }
         }
 
 
         /// <summary>
-        ///     Read-only property describing how many elements are in the Collection.
-        /// </summary>
-        public int Count { get; private set; }
-
-        /// <summary>
-        ///     Length of the collection
-        /// </summary>
-        public int Length => _innerList.Length;
-
-
-        /// <summary>
-        ///     Sets or Gets the ResultMap at the given index.
+        /// Sets or Gets the ResultMap at the given index.
         /// </summary>
         public IResultMap this[int index]
         {
             get
             {
-                if (index < 0 || index >= Count) throw new ArgumentOutOfRangeException("index");
+                if (index < 0 || index >= _count)
+                {
+                    throw new ArgumentOutOfRangeException("index");
+                }
                 return _innerList[index];
             }
             set
             {
-                if (index < 0 || index >= Count) throw new ArgumentOutOfRangeException("index");
+                if (index < 0 || index >= _count)
+                {
+                    throw new ArgumentOutOfRangeException("index");
+                }
                 _innerList[index] = value;
             }
         }
 
-        /// <summary>
-        ///     Removes all items from the collection.
-        /// </summary>
-        public void Clear()
-        {
-            _innerList = new IResultMap[DEFAULT_CAPACITY];
-            Count = 0;
-        }
-
 
         /// <summary>
-        ///     Add an ResultMap
+        /// Add an ResultMap
         /// </summary>
         /// <param name="value"></param>
         /// <returns>Index</returns>
         public int Add(IResultMap value)
         {
-            Resize(Count + 1);
-            int index = Count++;
+            Resize(_count + 1);
+            int index = _count++;
             _innerList[index] = value;
 
             return index;
@@ -120,89 +134,111 @@ namespace IBatisNet.DataMapper.Configuration.ResultMapping
 
 
         /// <summary>
-        ///     Add a list of ResultMap to the collection
+        /// Add a list of ResultMap to the collection
         /// </summary>
         /// <param name="value"></param>
         public void AddRange(IResultMap[] value)
         {
-            for (int i = 0; i < value.Length; i++) Add(value[i]);
+            for (int i = 0; i < value.Length; i++)
+            {
+                Add(value[i]);
+            }
         }
 
 
         /// <summary>
-        ///     Add a list of ResultMap to the collection
+        /// Add a list of ResultMap to the collection
         /// </summary>
         /// <param name="value"></param>
         public void AddRange(ResultMapCollection value)
         {
-            for (int i = 0; i < value.Count; i++) Add(value[i]);
+            for (int i = 0; i < value.Count; i++)
+            {
+                Add(value[i]);
+            }
         }
 
 
         /// <summary>
-        ///     Indicate if a ResultMap is in the collection
+        /// Indicate if a ResultMap is in the collection
         /// </summary>
         /// <param name="value">A ResultMap</param>
         /// <returns>True fi is in</returns>
         public bool Contains(IResultMap value)
         {
-            for (int i = 0; i < Count; i++)
+            for (int i = 0; i < _count; i++)
+            {
                 if (_innerList[i].Id == value.Id)
+                {
                     return true;
+                }
+            }
             return false;
         }
 
 
         /// <summary>
-        ///     Insert a ResultMap in the collection.
+        /// Insert a ResultMap in the collection.
         /// </summary>
         /// <param name="index">Index where to insert.</param>
         /// <param name="value">A ResultMap</param>
         public void Insert(int index, IResultMap value)
         {
-            if (index < 0 || index > Count) throw new ArgumentOutOfRangeException("index");
+            if (index < 0 || index > _count)
+            {
+                throw new ArgumentOutOfRangeException("index");
+            }
 
-            Resize(Count + 1);
-            Array.Copy(_innerList, index, _innerList, index + 1, Count - index);
+            Resize(_count + 1);
+            Array.Copy(_innerList, index, _innerList, index + 1, _count - index);
             _innerList[index] = value;
-            Count++;
+            _count++;
         }
 
 
         /// <summary>
-        ///     Remove a ResultMap of the collection.
+        /// Remove a ResultMap of the collection.
         /// </summary>
         public void Remove(IResultMap value)
         {
-            for (int i = 0; i < Count; i++)
+            for (int i = 0; i < _count; i++)
+            {
                 if (_innerList[i].Id == value.Id)
                 {
                     RemoveAt(i);
                     return;
                 }
+            }
+
         }
 
         /// <summary>
-        ///     Removes a ResultMap at the given index. The size of the list is
-        ///     decreased by one.
+        /// Removes a ResultMap at the given index. The size of the list is
+        /// decreased by one.
         /// </summary>
         /// <param name="index"></param>
         public void RemoveAt(int index)
         {
-            if (index < 0 || index >= Count) throw new ArgumentOutOfRangeException("index");
+            if (index < 0 || index >= _count)
+            {
+                throw new ArgumentOutOfRangeException("index");
+            }
 
-            int remaining = Count - index - 1;
+            int remaining = _count - index - 1;
 
-            if (remaining > 0) Array.Copy(_innerList, index + 1, _innerList, index, remaining);
+            if (remaining > 0)
+            {
+                Array.Copy(_innerList, index + 1, _innerList, index, remaining);
+            }
 
-            Count--;
-            _innerList[Count] = null;
+            _count--;
+            _innerList[_count] = null;
         }
 
         /// <summary>
-        ///     Ensures that the capacity of this collection is at least the given minimum
-        ///     value. If the currect capacity of the list is less than min, the
-        ///     capacity is increased to twice the current capacity.
+        /// Ensures that the capacity of this collection is at least the given minimum
+        /// value. If the currect capacity of the list is less than min, the
+        /// capacity is increased to twice the current capacity.
         /// </summary>
         /// <param name="minSize"></param>
         private void Resize(int minSize)
@@ -214,10 +250,14 @@ namespace IBatisNet.DataMapper.Configuration.ResultMapping
                 IResultMap[] oldEntries = _innerList;
                 int newSize = oldEntries.Length * CAPACITY_MULTIPLIER;
 
-                if (newSize < minSize) newSize = minSize;
+                if (newSize < minSize)
+                {
+                    newSize = minSize;
+                }
                 _innerList = new IResultMap[newSize];
-                Array.Copy(oldEntries, 0, _innerList, 0, Count);
+                Array.Copy(oldEntries, 0, _innerList, 0, _count);
             }
         }
     }
 }
+

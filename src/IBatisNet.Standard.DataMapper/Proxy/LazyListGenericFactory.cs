@@ -1,5 +1,4 @@
 #region Apache Notice
-
 /*****************************************************************************
  * $Revision: 374175 $
  * $LastChangedDate: 2006-05-18 22:25:03 +0200 (jeu., 18 mai 2006) $
@@ -22,25 +21,26 @@
  * limitations under the License.
  * 
  ********************************************************************************/
-
 #endregion
 
 using System;
-using IBatisNet.Common.Utilities.Objects;
-using IBatisNet.Common.Utilities.Objects.Members;
+
 using IBatisNet.DataMapper.MappedStatements;
+using IBatisNet.Common.Utilities.Objects.Members;
+using System.Collections.Generic;
+using IBatisNet.Common.Utilities.Objects;
 
 namespace IBatisNet.DataMapper.Proxy
 {
     /// <summary>
-    ///     /// Implementation of <see cref="ILazyFactory" /> to create proxy for an generic IList element.
+    ///    /// Implementation of <see cref="ILazyFactory"/> to create proxy for an generic IList element.
     /// </summary>
     public class LazyListGenericFactory : ILazyFactory
     {
         #region ILazyFactory Members
 
         /// <summary>
-        ///     Create a new proxy instance.
+        /// Create a new proxy instance.
         /// </summary>
         /// <param name="mappedStatement">The mapped statement.</param>
         /// <param name="param">The param.</param>
@@ -54,13 +54,12 @@ namespace IBatisNet.DataMapper.Proxy
             Type lazyType = typeof(LazyListGeneric<>);
             Type lazyGenericType = lazyType.MakeGenericType(elementType);
 
-            Type[] parametersType = {typeof(IMappedStatement), typeof(object), typeof(object), typeof(ISetAccessor)};
+             Type[] parametersType = { typeof(IMappedStatement), typeof(object), typeof(object), typeof(ISetAccessor) };
 
-            IFactory factory =
-                mappedStatement.SqlMap.DataExchangeFactory.ObjectFactory.CreateFactory(lazyGenericType, parametersType);
+             IFactory factory = mappedStatement.SqlMap.DataExchangeFactory.ObjectFactory.CreateFactory(lazyGenericType, parametersType);
 
-            object[] parameters = {mappedStatement, param, target, setAccessor};
-            return factory.CreateInstance(parameters);
+             object[] parameters = { mappedStatement, param, target, setAccessor };
+             return factory.CreateInstance(parameters);
         }
 
         #endregion

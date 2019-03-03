@@ -1,9 +1,8 @@
 #region Apache Notice
-
 /*****************************************************************************
  * $Header: $
- * $Revision: 408164 $
- * $Date: 2006-05-21 14:27:09 +0200 (dim., 21 mai 2006) $
+ * $Revision: 576082 $
+ * $Date: 2007-09-16 14:04:01 +0200 (dim., 16 sept. 2007) $
  * 
  * iBATIS.NET Data Mapper
  * Copyright (C) 2004 - Gilles Bayon
@@ -22,7 +21,6 @@
  * limitations under the License.
  * 
  ********************************************************************************/
-
 #endregion
 
 #region Using
@@ -32,32 +30,29 @@ using System.Xml;
 using IBatisNet.Common.Xml;
 using IBatisNet.DataMapper.Configuration.ResultMapping;
 using IBatisNet.DataMapper.Scope;
-
-#endregion
+#endregion 
 
 
 namespace IBatisNet.DataMapper.Configuration.Serializers
 {
-    /// <summary>
-    ///     Summary description for SubMapDeSerializer.
-    /// </summary>
-    public sealed class SubMapDeSerializer
-    {
-        /// <summary>
-        ///     Deserialize a ResultMap object
-        /// </summary>
-        /// <param name="node"></param>
-        /// <param name="configScope"></param>
-        /// <returns></returns>
-        public static SubMap Deserialize(XmlNode node, ConfigurationScope configScope)
-        {
-            SubMap subMap = new SubMap();
+	/// <summary>
+	/// Summary description for SubMapDeSerializer.
+	/// </summary>
+	public sealed class SubMapDeSerializer
+	{
+		/// <summary>
+		/// Deserialize a ResultMap object
+		/// </summary>
+		/// <param name="node"></param>
+		/// <param name="configScope"></param>
+		/// <returns></returns>
+		public static SubMap Deserialize(XmlNode node, ConfigurationScope configScope)
+		{
+			NameValueCollection prop = NodeUtils.ParseAttributes(node, configScope.Properties);
+			string discriminatorValue = NodeUtils.GetStringAttribute(prop, "value");
+            string resultMapName = configScope.ApplyNamespace(NodeUtils.GetStringAttribute(prop, "resultMapping"));
 
-            NameValueCollection prop = NodeUtils.ParseAttributes(node, configScope.Properties);
-            subMap.DiscriminatorValue = NodeUtils.GetStringAttribute(prop, "value");
-            subMap.ResultMapName = NodeUtils.GetStringAttribute(prop, "resultMapping");
-
-            return subMap;
-        }
-    }
+            return new SubMap(discriminatorValue, resultMapName);
+		}
+	}
 }

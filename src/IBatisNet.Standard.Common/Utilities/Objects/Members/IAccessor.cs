@@ -1,5 +1,4 @@
 #region Apache Notice
-
 /*****************************************************************************
  * $Revision: 374175 $
  * $LastChangedDate: 2006-04-25 19:40:27 +0200 (mar., 25 avr. 2006) $
@@ -22,7 +21,6 @@
  * limitations under the License.
  * 
  ********************************************************************************/
-
 #endregion
 
 using System;
@@ -30,17 +28,17 @@ using System;
 namespace IBatisNet.Common.Utilities.Objects.Members
 {
     /// <summary>
-    ///     The <see cref="IAccessor" /> interface defines a field/property contract.
+    /// The <see cref="IAccessor"/> interface defines a field/property contract.
     /// </summary>
     public interface IAccessor
     {
         /// <summary>
-        ///     Gets the member name.
+        /// Gets the member name.
         /// </summary>
         string Name { get; }
 
         /// <summary>
-        ///     Gets the type of this member (field or property).
+        /// Gets the type of this member (field or property).
         /// </summary>
         Type MemberType { get; }
     }

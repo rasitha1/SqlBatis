@@ -1,5 +1,4 @@
 #region Apache Notice
-
 /*****************************************************************************
  * $Revision: 374175 $
  * $LastChangedDate: 2006-03-22 22:39:21 +0100 (mer., 22 mars 2006) $
@@ -22,32 +21,32 @@
  * limitations under the License.
  * 
  ********************************************************************************/
-
 #endregion
 
 using System;
 
 namespace IBatisNet.Common.Utilities.Objects
 {
-    /// <summary>
-    ///     A <see cref="IObjectFactory" /> implementation that can create objects
-    ///     via Activator.CreateInstance
-    /// </summary>
-    public class ActivatorObjectFactory : IObjectFactory
-    {
-        #region IObjectFactory members
+	/// <summary>
+    /// A <see cref="IObjectFactory"/> implementation that can create objects 
+	/// via Activator.CreateInstance
+	/// </summary>
+	public class ActivatorObjectFactory : IObjectFactory
+	{
 
-        /// <summary>
-        ///     Create a new see <see cref="IObjectFactory" /> instance for a given type
-        /// </summary>
-        /// <param name="typeToCreate">The type instance to build</param>
-        /// <param name="types">The types of the constructor arguments</param>
-        /// <returns>Returns a new <see cref="IObjectFactory" /> instance.</returns>
-        public IFactory CreateFactory(Type typeToCreate, Type[] types)
-        {
-            return new ActivatorFactory(typeToCreate);
-        }
+		#region IObjectFactory members
 
-        #endregion
-    }
+		/// <summary>
+        /// Create a new see <see cref="IObjectFactory"/> instance for a given type
+		/// </summary>
+		/// <param name="typeToCreate">The type instance to build</param>
+		/// <param name="types">The types of the constructor arguments</param>
+        /// <returns>Returns a new <see cref="IObjectFactory"/> instance.</returns>
+		public IFactory CreateFactory(Type typeToCreate, Type[] types)
+		{
+			return new ActivatorFactory( typeToCreate );
+		}
+
+		#endregion
+	}
 }

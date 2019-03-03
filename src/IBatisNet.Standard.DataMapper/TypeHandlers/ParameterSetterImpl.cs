@@ -1,5 +1,5 @@
-#region Apache Notice
 
+#region Apache Notice
 /*****************************************************************************
  * $Revision: 408164 $
  * $LastChangedDate: 2006-05-21 14:27:09 +0200 (dim., 21 mai 2006) $
@@ -22,54 +22,57 @@
  * limitations under the License.
  * 
  ********************************************************************************/
-
 #endregion
 
 #region Using
 
 using System.Data;
 
-#endregion
+#endregion 
 
 namespace IBatisNet.DataMapper.TypeHandlers
 {
-    /// <summary>
-    ///     A ParameterSetter implementation
-    /// </summary>
-    public sealed class ParameterSetterImpl : IParameterSetter
-    {
-        #region Fields
+	/// <summary>
+	/// A ParameterSetter implementation
+	/// </summary>
+    public sealed class ParameterSetterImpl : IParameterSetter	
+	{
+		#region Fields
 
-        #endregion
+		private IDataParameter _dataParameter = null;
 
-        #region Constructor
+		#endregion 
 
-        /// <summary>
-        ///     Default Constructor
-        /// </summary>
-        /// <param name="dataParameter"></param>
-        public ParameterSetterImpl(IDataParameter dataParameter)
-        {
-            DataParameter = dataParameter;
-        }
+		#region Constructor
 
-        #endregion
+		/// <summary>
+		/// Default Constructor
+		/// </summary>
+		/// <param name="dataParameter"></param>
+		public ParameterSetterImpl(IDataParameter dataParameter) 
+		{
+			_dataParameter = dataParameter;
+		}
+		#endregion 
 
-        #region IParameterSetter members
+		#region IParameterSetter members
 
-        /// <summary>
-        ///     Returns the underlying DataParameter
-        /// </summary>
-        public IDataParameter DataParameter { get; }
+		/// <summary>
+		/// Returns the underlying DataParameter
+		/// </summary>
+		public IDataParameter DataParameter
+		{
+			get { return _dataParameter; }
+		}
 
-        /// <summary>
-        ///     Set the parameter value
-        /// </summary>
-        public object Value
-        {
-            set => DataParameter.Value = value;
-        }
+		/// <summary>
+		/// Set the parameter value
+		/// </summary>
+		public object Value
+		{
+			set { _dataParameter.Value = value; }
+		}
 
-        #endregion
-    }
+		#endregion
+	}
 }

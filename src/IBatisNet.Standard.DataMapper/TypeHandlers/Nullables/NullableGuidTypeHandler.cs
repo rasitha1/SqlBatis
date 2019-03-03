@@ -1,5 +1,4 @@
 #region Apache Notice
-
 /*****************************************************************************
  * $Revision: 378879 $
  * $LastChangedDate: 2006-11-19 17:07:45 +0100 (dim., 19 nov. 2006) $
@@ -22,57 +21,48 @@
  * limitations under the License.
  * 
  ********************************************************************************/
-
 #endregion
 
 #region Using
-
 using System;
 using System.Data;
-using IBatisNet.DataMapper.Configuration.ResultMapping;
 
+using System.Collections.Generic;
+using IBatisNet.DataMapper.Configuration.ParameterMapping;
+using IBatisNet.DataMapper.Configuration.ResultMapping;
 #endregion
 
 namespace IBatisNet.DataMapper.TypeHandlers.Nullables
 {
     /// <summary>
-    ///     TypeHandler for Nullable Guid type
+    /// TypeHandler for Nullable Guid type
     /// </summary>
     public sealed class NullableGuidTypeHandler : BaseTypeHandler
     {
-        /// <summary>
-        ///     Tell us if ot is a 'primitive' type
-        /// </summary>
-        /// <value></value>
-        /// <returns></returns>
-        public override bool IsSimpleType => true;
-
 
         /// <summary>
-        ///     The null value for this type
-        /// </summary>
-        /// <value></value>
-        public override object NullValue => new Guid?();
-
-        /// <summary>
-        ///     Sets a parameter on a IDbCommand
+        /// Sets a parameter on a IDbCommand
         /// </summary>
         /// <param name="dataParameter">the parameter</param>
         /// <param name="parameterValue">the parameter value</param>
         /// <param name="dbType">the dbType of the parameter</param>
         public override void SetParameter(IDataParameter dataParameter, object parameterValue, string dbType)
         {
-            Guid? nullableValue = (Guid?) parameterValue;
+            Guid? nullableValue = (Guid?)parameterValue;
 
             if (nullableValue.HasValue)
+            {
                 dataParameter.Value = nullableValue.Value;
+            }
             else
+            {
                 dataParameter.Value = DBNull.Value;
+            }
         }
 
 
         /// <summary>
-        ///     Gets a column value by the name
+        /// Gets a column value by the name
         /// </summary>
         /// <param name="mapping"></param>
         /// <param name="dataReader"></param>
@@ -81,44 +71,75 @@ namespace IBatisNet.DataMapper.TypeHandlers.Nullables
         {
             int index = dataReader.GetOrdinal(mapping.ColumnName);
 
-            if (dataReader.IsDBNull(index))
+            if (dataReader.IsDBNull(index) == true)
+            {
                 return DBNull.Value;
-            return dataReader.GetGuid(index);
+            }
+            else
+            {
+                return new Guid?( dataReader.GetGuid(index) );
+            }
         }
 
         /// <summary>
-        ///     Gets a column value by the index
+        /// Gets a column value by the index
         /// </summary>
         /// <param name="mapping"></param>
         /// <param name="dataReader"></param>
         /// <returns></returns>
         public override object GetValueByIndex(ResultProperty mapping, IDataReader dataReader)
         {
-            if (dataReader.IsDBNull(mapping.ColumnIndex))
+            if (dataReader.IsDBNull(mapping.ColumnIndex) == true)
+            {
                 return DBNull.Value;
-            return dataReader.GetGuid(mapping.ColumnIndex);
+            }
+            else
+            {
+                return new Guid?( dataReader.GetGuid(mapping.ColumnIndex) );
+            }
         }
 
         /// <summary>
-        ///     Retrieve ouput database value of an output parameter
+        /// Retrieve ouput database value of an output parameter
         /// </summary>
         /// <param name="outputValue">ouput database value</param>
         /// <param name="parameterType">type used in EnumTypeHandler</param>
         /// <returns></returns>
         public override object GetDataBaseValue(object outputValue, Type parameterType)
         {
-            return new Guid(outputValue.ToString());
+            return new Guid?( new Guid(outputValue.ToString()) );
         }
 
         /// <summary>
-        ///     Converts the String to the type that this handler deals with
+        /// Converts the String to the type that this handler deals with
         /// </summary>
         /// <param name="type">the tyepe of the property (used only for enum conversion)</param>
         /// <param name="s">the String value</param>
         /// <returns>the converted value</returns>
         public override object ValueOf(Type type, string s)
         {
-            return new Guid(s);
+            return new Guid?( new Guid(s) );
+        }
+
+
+        /// <summary>
+        /// Tell us if ot is a 'primitive' type
+        /// </summary>
+        /// <value></value>
+        /// <returns></returns>
+        public override bool IsSimpleType
+        {
+            get { return true; }
+        }
+
+
+        /// <summary>
+        /// The null value for this type
+        /// </summary>
+        /// <value></value>
+        public override object NullValue
+        {
+            get { return new Guid?(); }
         }
     }
 }

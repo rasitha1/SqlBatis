@@ -1,5 +1,4 @@
 #region Apache Notice
-
 /*****************************************************************************
  * $Revision: 374175 $
  * $LastChangedDate: 2006-03-22 22:39:21 +0100 (mer., 22 mars 2006) $
@@ -22,47 +21,47 @@
  * limitations under the License.
  * 
  ********************************************************************************/
-
 #endregion
 
 using System;
 
 namespace IBatisNet.Common.Utilities.Objects
 {
-    /// <summary>
-    ///     Create objects via Activator.CreateInstance
-    /// </summary>
+	/// <summary>
+	/// Create objects via Activator.CreateInstance
+	/// </summary>
     public sealed class ActivatorFactory : IFactory
-    {
-        private readonly Type _typeToCreate;
+	{
+		private Type _typeToCreate = null;
 
-        /// <summary>
-        /// </summary>
-        /// <param name="typeToCreate"></param>
-        public ActivatorFactory(Type typeToCreate)
-        {
-            _typeToCreate = typeToCreate;
-        }
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="typeToCreate"></param>
+		public ActivatorFactory(Type typeToCreate)
+		{
+			_typeToCreate = typeToCreate;
+		}
 
-        #region IFactory members
+		#region IFactory members
+		
+		/// <summary>
+		/// Create a new instance with the specified parameters
+		/// </summary>
+		/// <param name="parameters">
+		/// An array of values that matches the number, order and type 
+		/// of the parameters for this constructor. 
+		/// </param>
+		/// <remarks>
+		/// If you call a constructor with no parameters, pass null. 
+		/// Anyway, what you pass will be ignore.
+		/// </remarks>
+		/// <returns>A new instance</returns>
+		public object CreateInstance(object[] parameters)
+		{
+			return Activator.CreateInstance( _typeToCreate, parameters );
+		}
 
-        /// <summary>
-        ///     Create a new instance with the specified parameters
-        /// </summary>
-        /// <param name="parameters">
-        ///     An array of values that matches the number, order and type
-        ///     of the parameters for this constructor.
-        /// </param>
-        /// <remarks>
-        ///     If you call a constructor with no parameters, pass null.
-        ///     Anyway, what you pass will be ignore.
-        /// </remarks>
-        /// <returns>A new instance</returns>
-        public object CreateInstance(object[] parameters)
-        {
-            return Activator.CreateInstance(_typeToCreate, parameters);
-        }
-
-        #endregion
-    }
+		#endregion
+	}
 }

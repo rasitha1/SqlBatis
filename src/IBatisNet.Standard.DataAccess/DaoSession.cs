@@ -1,5 +1,5 @@
-#region Apache Notice
 
+#region Apache Notice
 /*****************************************************************************
  * $Header: $
  * $Revision: 513043 $
@@ -22,7 +22,6 @@
  * limitations under the License.
  * 
  ********************************************************************************/
-
 #endregion
 
 #region Imports
@@ -34,204 +33,215 @@ using IBatisNet.Common;
 
 namespace IBatisNet.DataAccess
 {
-    /// <summary>
-    ///     Abstract definition of a DataAccess Session
-    /// </summary>
-    public abstract class DaoSession : IDalSession
-    {
-        #region Fields
+	/// <summary>
+	/// Abstract definition of a DataAccess Session
+	/// </summary>
+	public abstract class DaoSession : IDalSession
+	{
+
+		#region Fields
+		/// <summary>
+		/// 
+		/// </summary>
+		protected DaoManager daoManager = null;
+		#endregion
+
+		#region Constructor (s) / Destructor
+		/// <summary>
+		/// The DaoManager that manages this Dao instance will be passed
+		/// in as the parameter to this constructor automatically upon
+		/// instantiation.
+		/// </summary>
+		/// <param name="daoManager"></param>
+		public DaoSession(DaoManager daoManager) 
+		{
+			this.daoManager = daoManager;
+		}
+		#endregion
+
+		#region IDalSession Members
+
+		#region Properties
 
         /// <summary>
+        /// The data source use by the session.
         /// </summary>
-        protected DaoManager daoManager;
+        /// <value></value>
+		public abstract IDataSource DataSource
+		{
+			get;
+		}
 
-        #endregion
-
-        #region Constructor (s) / Destructor
 
         /// <summary>
-        ///     The DaoManager that manages this Dao instance will be passed
-        ///     in as the parameter to this constructor automatically upon
-        ///     instantiation.
+        /// The Connection use by the session.
         /// </summary>
-        /// <param name="daoManager"></param>
-        public DaoSession(DaoManager daoManager)
+        /// <value></value>
+		public abstract IDbConnection Connection
+		{
+			get;
+		}
+
+
+        /// <summary>
+        /// Indicates if a transaction is open  on
+        /// the session.
+        /// </summary>
+        public abstract bool IsTransactionStart
+		{
+			get;
+		}
+
+        /// <summary>
+        /// The Transaction use by the session.
+        /// </summary>
+        /// <value></value>
+        public abstract IDbTransaction Transaction
         {
-            this.daoManager = daoManager;
+            get;
         }
 
-        #endregion
+		#endregion
 
-        #region IDisposable Members
+		#region Methods
 
-        #region Methods
+		/// <summary>
+		/// Complete (commit) a transaction
+		/// </summary>
+		public abstract void Complete();
 
-        /// <summary>
-        ///     Releasing, or resetting resources.
-        /// </summary>
-        public abstract void Dispose();
+		/// <summary>
+		/// Opens a database connection.
+		/// </summary>
+		public abstract void OpenConnection();
 
-        #endregion
+		/// <summary>
+		/// Open a connection, on the specified connection string.
+		/// </summary>
+		/// <param name="connectionString">The connection string</param>
+		public abstract void OpenConnection(string connectionString);
 
-        #endregion
+		/// <summary>
+		/// Closes the connection
+		/// </summary>
+		public abstract void CloseConnection();
 
-        #region IDalSession Members
+		/// <summary>
+		/// Begins a transaction.
+		/// </summary>
+		public abstract void BeginTransaction();
 
-        #region Properties
+		/// <summary>
+		/// Open a connection and begin a transaction on the specified connection string.
+		/// </summary>
+		/// <param name="connectionString">The connection string</param>
+		public abstract void BeginTransaction(string connectionString);
 
-        /// <summary>
-        ///     The data source use by the session.
-        /// </summary>
-        /// <value></value>
-        public abstract IDataSource DataSource { get; }
+		/// <summary>
+		/// Begins a database transaction
+		/// </summary>
+		/// <param name="openConnection">Open a connection.</param>
+		public abstract void BeginTransaction(bool openConnection);
 
+		/// <summary>
+		/// Begins a transaction at the data source with the specified IsolationLevel value.
+		/// </summary>
+		/// <param name="isolationLevel">The transaction isolation level for this connection.</param>
+		public abstract void BeginTransaction(IsolationLevel isolationLevel);
 
-        /// <summary>
-        ///     The Connection use by the session.
-        /// </summary>
-        /// <value></value>
-        public abstract IDbConnection Connection { get; }
+		/// <summary>
+		/// Open a connection and begin a transaction on the specified connection string.
+		/// </summary>
+		/// <param name="connectionString">The connection string</param>
+		/// <param name="isolationLevel">The transaction isolation level for this connection.</param>
+		public abstract void BeginTransaction(string connectionString, IsolationLevel isolationLevel);
 
+		/// <summary>
+		/// Begins a transaction on the current connection
+		/// with the specified IsolationLevel value.
+		/// </summary>
+		/// <param name="isolationLevel">The transaction isolation level for this connection.</param>
+		/// <param name="openConnection">Open a connection.</param>
+		public abstract void BeginTransaction(bool openConnection, IsolationLevel isolationLevel);
 
-        /// <summary>
-        ///     Indicates if a transaction is open  on
-        ///     the session.
-        /// </summary>
-        public abstract bool IsTransactionStart { get; }
+		/// <summary>
+		/// Begins a transaction on the current connection
+		/// with the specified IsolationLevel value.
+		/// </summary>
+		/// <param name="isolationLevel">The transaction isolation level for this connection.</param>
+		/// <param name="connectionString">The connection string</param>
+		/// <param name="openConnection">Open a connection.</param>
+		public abstract void BeginTransaction(string connectionString, bool openConnection, IsolationLevel isolationLevel);
 
-        /// <summary>
-        ///     The Transaction use by the session.
-        /// </summary>
-        /// <value></value>
-        public abstract IDbTransaction Transaction { get; }
+		/// <summary>
+		/// Commits the database transaction.
+		/// </summary>
+		/// <remarks>
+		/// Will close the connection.
+		/// </remarks>
+		public abstract void CommitTransaction();
 
-        #endregion
+		/// <summary>
+		/// Commits the database transaction.
+		/// </summary>
+		/// <param name="closeConnection">Close the connection</param>
+		public abstract void CommitTransaction(bool closeConnection);
 
-        #region Methods
+		/// <summary>
+		/// Rolls back a transaction from a pending state.
+		/// </summary>
+		/// <remarks>
+		/// Will close the connection.
+		/// </remarks>
+		public abstract void RollBackTransaction();
+		
+		/// <summary>
+		/// Rolls back a transaction from a pending state.
+		/// </summary>
+		/// <param name="closeConnection">Close the connection</param>
+		public abstract void RollBackTransaction(bool closeConnection);
 
-        /// <summary>
-        ///     Complete (commit) a transaction
-        /// </summary>
-        public abstract void Complete();
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="commandType"></param>
+		/// <returns></returns>
+		public abstract IDbCommand CreateCommand(CommandType commandType);
+		
 
-        /// <summary>
-        ///     Opens a database connection.
-        /// </summary>
-        public abstract void OpenConnection();
+		/// <summary>
+		/// Create an IDataParameter
+		/// </summary>
+		/// <returns>An IDataParameter.</returns>
+		public abstract IDbDataParameter CreateDataParameter();
 
-        /// <summary>
-        ///     Open a connection, on the specified connection string.
-        /// </summary>
-        /// <param name="connectionString">The connection string</param>
-        public abstract void OpenConnection(string connectionString);
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <returns></returns>
+		public abstract IDbDataAdapter CreateDataAdapter();
 
-        /// <summary>
-        ///     Closes the connection
-        /// </summary>
-        public abstract void CloseConnection();
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="command"></param>
+		/// <returns></returns>
+		public abstract IDbDataAdapter CreateDataAdapter(IDbCommand command);
+		#endregion
 
-        /// <summary>
-        ///     Begins a transaction.
-        /// </summary>
-        public abstract void BeginTransaction();
+		#endregion
 
-        /// <summary>
-        ///     Open a connection and begin a transaction on the specified connection string.
-        /// </summary>
-        /// <param name="connectionString">The connection string</param>
-        public abstract void BeginTransaction(string connectionString);
+		#region IDisposable Members
 
-        /// <summary>
-        ///     Begins a database transaction
-        /// </summary>
-        /// <param name="openConnection">Open a connection.</param>
-        public abstract void BeginTransaction(bool openConnection);
+		#region Methods
 
-        /// <summary>
-        ///     Begins a transaction at the data source with the specified IsolationLevel value.
-        /// </summary>
-        /// <param name="isolationLevel">The transaction isolation level for this connection.</param>
-        public abstract void BeginTransaction(IsolationLevel isolationLevel);
+		/// <summary>
+		/// Releasing, or resetting resources.
+		/// </summary>
+		public abstract void Dispose();
 
-        /// <summary>
-        ///     Open a connection and begin a transaction on the specified connection string.
-        /// </summary>
-        /// <param name="connectionString">The connection string</param>
-        /// <param name="isolationLevel">The transaction isolation level for this connection.</param>
-        public abstract void BeginTransaction(string connectionString, IsolationLevel isolationLevel);
+		#endregion
 
-        /// <summary>
-        ///     Begins a transaction on the current connection
-        ///     with the specified IsolationLevel value.
-        /// </summary>
-        /// <param name="isolationLevel">The transaction isolation level for this connection.</param>
-        /// <param name="openConnection">Open a connection.</param>
-        public abstract void BeginTransaction(bool openConnection, IsolationLevel isolationLevel);
-
-        /// <summary>
-        ///     Begins a transaction on the current connection
-        ///     with the specified IsolationLevel value.
-        /// </summary>
-        /// <param name="isolationLevel">The transaction isolation level for this connection.</param>
-        /// <param name="connectionString">The connection string</param>
-        /// <param name="openConnection">Open a connection.</param>
-        public abstract void BeginTransaction(string connectionString, bool openConnection,
-            IsolationLevel isolationLevel);
-
-        /// <summary>
-        ///     Commits the database transaction.
-        /// </summary>
-        /// <remarks>
-        ///     Will close the connection.
-        /// </remarks>
-        public abstract void CommitTransaction();
-
-        /// <summary>
-        ///     Commits the database transaction.
-        /// </summary>
-        /// <param name="closeConnection">Close the connection</param>
-        public abstract void CommitTransaction(bool closeConnection);
-
-        /// <summary>
-        ///     Rolls back a transaction from a pending state.
-        /// </summary>
-        /// <remarks>
-        ///     Will close the connection.
-        /// </remarks>
-        public abstract void RollBackTransaction();
-
-        /// <summary>
-        ///     Rolls back a transaction from a pending state.
-        /// </summary>
-        /// <param name="closeConnection">Close the connection</param>
-        public abstract void RollBackTransaction(bool closeConnection);
-
-        /// <summary>
-        /// </summary>
-        /// <param name="commandType"></param>
-        /// <returns></returns>
-        public abstract IDbCommand CreateCommand(CommandType commandType);
-
-
-        /// <summary>
-        ///     Create an IDataParameter
-        /// </summary>
-        /// <returns>An IDataParameter.</returns>
-        public abstract IDbDataParameter CreateDataParameter();
-
-        /// <summary>
-        /// </summary>
-        /// <returns></returns>
-        public abstract IDbDataAdapter CreateDataAdapter();
-
-        /// <summary>
-        /// </summary>
-        /// <param name="command"></param>
-        /// <returns></returns>
-        public abstract IDbDataAdapter CreateDataAdapter(IDbCommand command);
-
-        #endregion
-
-        #endregion
-    }
+		#endregion
+	}
 }

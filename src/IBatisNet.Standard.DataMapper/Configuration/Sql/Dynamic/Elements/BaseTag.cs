@@ -1,9 +1,9 @@
-#region Apache Notice
 
+#region Apache Notice
 /*****************************************************************************
  * $Header: $
- * $Revision: 383115 $
- * $Date: 2006-03-04 15:21:51 +0100 (sam., 04 mars 2006) $
+ * $Revision: 638571 $
+ * $Date: 2008-03-18 22:11:57 +0100 (mar., 18 mars 2008) $
  * 
  * iBATIS.NET Data Mapper
  * Copyright (C) 2004 - Gilles Bayon
@@ -22,38 +22,42 @@
  * limitations under the License.
  * 
  ********************************************************************************/
-
 #endregion
 
 #region Imports
-
 using System;
 using System.Xml.Serialization;
-
 #endregion
 
 namespace IBatisNet.DataMapper.Configuration.Sql.Dynamic.Elements
 {
-    /// <summary>
-    ///     Summary description for BaseTag.
-    /// </summary>
-    [Serializable]
-    public abstract class BaseTag : SqlTag
-    {
-        #region Fields
+	/// <summary>
+	/// Summary description for BaseTag.
+	/// </summary>
+	[Serializable]
+	public abstract class BaseTag : SqlTag
+	{
+		#region Fields
+		
+		[NonSerialized]
+		private string _property = string.Empty;
 
-        [NonSerialized] private string _property = string.Empty;
+		#endregion
 
-        #endregion
-
-        /// <summary>
-        ///     Property attribute
-        /// </summary>
-        [XmlAttribute("property")]
-        public string Property
-        {
-            get => _property;
-            set => _property = value;
-        }
-    }
+		/// <summary>
+		/// Property attribute
+		/// </summary>
+		[XmlAttribute("property")]
+		public string Property
+		{
+			get
+			{
+				return _property;
+			}
+			set
+			{
+				_property = value;
+			}
+		}
+	}
 }

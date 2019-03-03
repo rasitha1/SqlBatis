@@ -1,9 +1,9 @@
-#region Apache Notice
 
+#region Apache Notice
 /*****************************************************************************
  * $Header: $
- * $Revision: 469233 $
- * $Date: 2006-10-30 20:09:11 +0100 (lun., 30 oct. 2006) $
+ * $Revision: 576082 $
+ * $Date: 2007-09-16 14:04:01 +0200 (dim., 16 sept. 2007) $
  * Author : Gilles Bayon
  * iBATIS.NET Data Mapper
  * Copyright (C) 2004 - Apache Fondation
@@ -22,7 +22,6 @@
  * limitations under the License.
  * 
  ********************************************************************************/
-
 #endregion
 
 #region Using
@@ -34,76 +33,84 @@ using System.Xml.Serialization;
 
 namespace IBatisNet.DataMapper.Configuration.ResultMapping
 {
-    /// <summary>
-    ///     Summary description for SubMap.
-    /// </summary>
-    [Serializable]
-    [XmlRoot("subMap", Namespace = "http://ibatis.apache.org/mapping")]
-    public class SubMap
-    {
-        #region Constructor
+	/// <summary>
+	/// Summary description for SubMap.
+	/// </summary>
+	[Serializable]
+	[XmlRoot("subMap", Namespace="http://ibatis.apache.org/mapping")]
+	public class SubMap
+	{
+		// <resultMap id="document" class="Document">
+		//			<result property="Id" column="Document_ID"/>
+		//			<result property="Title" column="Document_Title"/>
+		//			<discriminator column="Document_Type" [formula="CustomFormula, AssemblyName"] /> 
+		//						-- attribute column (not used if discriminator use a custom formula)
+		//						-- attribute formula (not required will used the DefaultFormula) calculate the discriminator value (DefaultFormula is default), else used an aliasType wich implement IDiscriminatorFormula), 
+		//			<subMap value="Book" -- discriminator value
+		//					resultMapping="book" />
+		//	</resultMap>
+		//
+		//  <resultMap 
+		//		id="book"  
+		//		class="Book"
+		//		extend="document">
+		//  ...
+		// </resultMap>
 
-        #endregion
+		#region Fields
+		[NonSerialized]
+		private string _discriminatorValue = string.Empty;
+		[NonSerialized]
+		private string _resultMapName = string.Empty;
+		[NonSerialized]
+		private IResultMap _resultMap = null;
+		#endregion 
 
-        // <resultMap id="document" class="Document">
-        //			<result property="Id" column="Document_ID"/>
-        //			<result property="Title" column="Document_Title"/>
-        //			<discriminator column="Document_Type" [formula="CustomFormula, AssemblyName"] /> 
-        //						-- attribute column (not used if discriminator use a custom formula)
-        //						-- attribute formula (not required will used the DefaultFormula) calculate the discriminator value (DefaultFormula is default), else used an aliasType wich implement IDiscriminatorFormula), 
-        //			<subMap value="Book" -- discriminator value
-        //					resultMapping="book" />
-        //	</resultMap>
-        //
-        //  <resultMap 
-        //		id="book"  
-        //		class="Book"
-        //		extend="document">
-        //  ...
-        // </resultMap>
+		#region Properties
 
-        #region Fields
+		/// <summary>
+		/// Discriminator value
+		/// </summary>
+		[XmlAttribute("value")]
+		public string DiscriminatorValue
+		{
+			get { return _discriminatorValue; }
+		}
 
-        [NonSerialized] private string _discriminatorValue = string.Empty;
+		/// <summary>
+		/// The name of the ResultMap used if the column value is = to the Discriminator Value
+		/// </summary>
+		[XmlAttribute("resultMapping")]
+		public string ResultMapName
+		{
+			get { return _resultMapName; }
+		}
 
-        [NonSerialized] private string _resultMapName = string.Empty;
+		/// <summary>
+		/// The resultMap used if the column value is = to the Discriminator Value
+		/// </summary>
+		[XmlIgnore]
+		public IResultMap ResultMap
+		{
+			get { return _resultMap; }
+			set { _resultMap = value; }
+		}
 
-        [NonSerialized] private IResultMap _resultMap;
+		#endregion 
 
-        #endregion
-
-        #region Properties
+		#region Constructor
 
         /// <summary>
-        ///     Discriminator value
+        /// Initializes a new instance of the <see cref="SubMap"/> class.
         /// </summary>
-        [XmlAttribute("value")]
-        public string DiscriminatorValue
-        {
-            get => _discriminatorValue;
-            set => _discriminatorValue = value;
-        }
+        /// <param name="discriminatorValue">The discriminator value.</param>
+        /// <param name="resultMapName">Name of the result map.</param>
+        public SubMap(string discriminatorValue, string resultMapName)
+		{
+            _discriminatorValue = discriminatorValue;
+            _resultMapName = resultMapName;
+		}
+		#endregion 
 
-        /// <summary>
-        ///     The name of the ResultMap used if the column value is = to the Discriminator Value
-        /// </summary>
-        [XmlAttribute("resultMapping")]
-        public string ResultMapName
-        {
-            get => _resultMapName;
-            set => _resultMapName = value;
-        }
-
-        /// <summary>
-        ///     The resultMap used if the column value is = to the Discriminator Value
-        /// </summary>
-        [XmlIgnore]
-        public IResultMap ResultMap
-        {
-            get => _resultMap;
-            set => _resultMap = value;
-        }
-
-        #endregion
-    }
+	}
 }

@@ -1,5 +1,5 @@
-#region Apache Notice
 
+#region Apache Notice
 /*****************************************************************************
  * $Header: $
  * $Revision: 408099 $
@@ -22,7 +22,6 @@
  * limitations under the License.
  * 
  ********************************************************************************/
-
 #endregion
 
 #region Using
@@ -35,81 +34,87 @@ using IBatisNet.Common.Utilities;
 
 namespace IBatisNet.DataMapper.Configuration.Alias
 {
-    /// <summary>
-    ///     Summary description for TypeHandler.
-    /// </summary>
-    [Serializable]
-    [XmlRoot("typeHandler", Namespace = "http://ibatis.apache.org/dataMapper")]
-    public class TypeHandler
-    {
-        #region Constructors
+	/// <summary>
+	/// Summary description for TypeHandler.
+	/// </summary>
+	[Serializable]
+	[XmlRoot("typeHandler", Namespace="http://ibatis.apache.org/dataMapper")]
+	public class TypeHandler
+	{
+		#region Fields
+		[NonSerialized]
+		private string _className = string.Empty;
+		[NonSerialized]
+		private Type _class = null;
+		[NonSerialized]
+		private string _dbType = string.Empty;
+		[NonSerialized]
+		private string _callBackName = string.Empty;
+		#endregion
 
-        #endregion
+		#region Properties
+		/// <summary>
+		/// CLR type
+		/// </summary>
+		[XmlAttribute("type")]
+		public string ClassName
+		{
+			get { return _className; }
+			set {_className = value; }
+		}
 
-        #region Methods
+		/// <summary>
+		/// The type class for the TypeName
+		/// </summary>
+		[XmlIgnore]
+		public Type Class
+		{
+			get { return _class; }
+		}
+	
+		/// <summary>
+		/// dbType name
+		/// </summary>
+		[XmlAttribute("dbType")]
+		public string DbType
+		{
+			get { return _dbType; }
+			set {_dbType = value; }
+		}
 
-        /// <summary>
-        ///     Initialize the object,
-        ///     try to idenfify the .Net type class from the corresponding name.
-        /// </summary>
-        public void Initialize()
-        {
+
+		/// <summary>
+		/// callback alias name
+		/// </summary>
+		[XmlAttribute("callback")]
+		public string CallBackName
+		{
+			get { return _callBackName; }
+			set {_callBackName = value; }
+		}
+
+	
+		#endregion
+
+		#region Constructors
+
+		/// <summary>
+		/// Do not use direclty, only for serialization.
+		/// </summary>
+		public TypeHandler()
+		{}
+		#endregion 
+
+		#region Methods
+		/// <summary>
+		/// Initialize the object, 
+		/// try to idenfify the .Net type class from the corresponding name.
+		/// </summary>
+		public void Initialize()
+		{
             _class = TypeUtils.ResolveType(_className);
-        }
+		}
+		#endregion
 
-        #endregion
-
-        #region Fields
-
-        [NonSerialized] private string _className = string.Empty;
-
-        [NonSerialized] private Type _class;
-
-        [NonSerialized] private string _dbType = string.Empty;
-
-        [NonSerialized] private string _callBackName = string.Empty;
-
-        #endregion
-
-        #region Properties
-
-        /// <summary>
-        ///     CLR type
-        /// </summary>
-        [XmlAttribute("type")]
-        public string ClassName
-        {
-            get => _className;
-            set => _className = value;
-        }
-
-        /// <summary>
-        ///     The type class for the TypeName
-        /// </summary>
-        [XmlIgnore]
-        public Type Class => _class;
-
-        /// <summary>
-        ///     dbType name
-        /// </summary>
-        [XmlAttribute("dbType")]
-        public string DbType
-        {
-            get => _dbType;
-            set => _dbType = value;
-        }
-
-
-        /// <summary>
-        ///     callback alias name
-        /// </summary>
-        [XmlAttribute("callback")]
-        public string CallBackName
-        {
-            get => _callBackName;
-            set => _callBackName = value;
-        }
-
-        #endregion
-    }
+	}
 }

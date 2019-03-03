@@ -1,5 +1,4 @@
 #region Apache Notice
-
 /*****************************************************************************
  * $Revision: 374175 $
  * $LastChangedDate: 2006-02-19 12:37:22 +0100 (Sun, 19 Feb 2006) $
@@ -22,7 +21,6 @@
  * limitations under the License.
  * 
  ********************************************************************************/
-
 #endregion
 
 using System;
@@ -32,67 +30,71 @@ using System.Text;
 
 namespace IBatisNet.Common.Utilities.Objects
 {
-    /// <summary>
-    ///     A <see cref="IObjectFactory" /> implementation that can create objects via IL code
-    /// </summary>
-    public sealed class EmitObjectFactory : IObjectFactory
-    {
-        private readonly IDictionary _cachedfactories = new HybridDictionary();
-        private readonly FactoryBuilder _factoryBuilder;
-        private readonly object _padlock = new object();
-
+	/// <summary>
+    /// A <see cref="IObjectFactory"/> implementation that can create objects via IL code
+	/// </summary>
+	public sealed class EmitObjectFactory : IObjectFactory
+	{
+		private IDictionary _cachedfactories = new HybridDictionary();
+		private FactoryBuilder _factoryBuilder = null;
+		private object _padlock = new object();
+        
         /// <summary>
-        ///     Initializes a new instance of the <see cref="EmitObjectFactory" /> class.
+        /// Initializes a new instance of the <see cref="EmitObjectFactory"/> class.
         /// </summary>
-        public EmitObjectFactory()
-        {
-            _factoryBuilder = new FactoryBuilder();
-        }
+		public EmitObjectFactory()
+		{
+			_factoryBuilder = new FactoryBuilder();
+		}
 
-        #region IObjectFactory members
+		#region IObjectFactory members
 
-        /// <summary>
-        ///     Create a new <see cref="IFactory" /> instance for a given type
+		/// <summary>
+        /// Create a new <see cref="IFactory"/> instance for a given type
         /// </summary>
-        /// <param name="typeToCreate">The type instance to build</param>
-        /// <param name="types">The types of the constructor arguments</param>
-        /// <returns>Returns a new <see cref="IFactory" /> instance.</returns>
-        public IFactory CreateFactory(Type typeToCreate, Type[] types)
-        {
-            string key = GenerateKey(typeToCreate, types);
+		/// <param name="typeToCreate">The type instance to build</param>
+		/// <param name="types">The types of the constructor arguments</param>
+        /// <returns>Returns a new <see cref="IFactory"/> instance.</returns>
+		public IFactory CreateFactory(Type typeToCreate, Type[] types)
+		{
+			string key = GenerateKey(typeToCreate, types);
 
-            IFactory factory = _cachedfactories[key] as IFactory;
-            if (factory == null)
-                lock (_padlock)
-                {
-                    factory = _cachedfactories[key] as IFactory;
-                    if (factory == null) // double-check
-                    {
-                        factory = _factoryBuilder.CreateFactory(typeToCreate, types);
-                        _cachedfactories[key] = factory;
-                    }
-                }
+			IFactory factory = _cachedfactories[key] as IFactory;
+			if (factory == null)
+			{
+				lock (_padlock)
+				{
+					factory = _cachedfactories[key] as IFactory;
+					if (factory == null) // double-check
+					{
+						factory = _factoryBuilder.CreateFactory(typeToCreate, types);
+						_cachedfactories[key] = factory;
+					}
+				}
+			}
+			return factory;
+		}
 
-            return factory;
-        }
-
-        /// <summary>
-        ///     Generates the key for a cache entry.
-        /// </summary>
-        /// <param name="typeToCreate">The type instance to build.</param>
-        /// <param name="arguments">The types of the constructor arguments</param>
-        /// <returns>The key for a cache entry.</returns>
-        private string GenerateKey(Type typeToCreate, object[] arguments)
-        {
-            StringBuilder cacheKey = new StringBuilder();
-            cacheKey.Append(typeToCreate);
-            cacheKey.Append(".");
-            if ((arguments != null) && (arguments.Length != 0))
-                for (int i = 0; i < arguments.Length; i++)
-                    cacheKey.Append(".").Append(arguments[i]);
-            return cacheKey.ToString();
-        }
-
-        #endregion
-    }
+		/// <summary>
+		/// Generates the key for a cache entry.
+		/// </summary>
+		/// <param name="typeToCreate">The type instance to build.</param>
+		/// <param name="arguments">The types of the constructor arguments</param>
+		/// <returns>The key for a cache entry.</returns>
+		private string GenerateKey(Type typeToCreate, object[] arguments)
+		{
+			StringBuilder cacheKey = new StringBuilder();
+			cacheKey.Append(typeToCreate.ToString());
+			cacheKey.Append(".");
+			if ((arguments != null) && (arguments.Length != 0)) 
+			{
+				for (int i=0; i<arguments.Length; i++) 
+				{
+					cacheKey.Append(".").Append(arguments[i]);
+				}
+			}
+			return cacheKey.ToString();
+		}
+		#endregion
+	}
 }

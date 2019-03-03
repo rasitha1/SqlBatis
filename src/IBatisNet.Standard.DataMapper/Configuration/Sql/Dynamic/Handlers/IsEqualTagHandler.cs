@@ -1,5 +1,5 @@
-#region Apache Notice
 
+#region Apache Notice
 /*****************************************************************************
  * $Revision: 405046 $
  * $LastChangedDate: 2006-05-08 15:21:44 +0200 (lun., 08 mai 2006) $
@@ -22,46 +22,45 @@
  * limitations under the License.
  * 
  ********************************************************************************/
-
 #endregion
 
 #region Imports
-
+using System;
 using IBatisNet.Common.Utilities.Objects.Members;
 using IBatisNet.DataMapper.Configuration.Sql.Dynamic.Elements;
-
 #endregion
 
 
 namespace IBatisNet.DataMapper.Configuration.Sql.Dynamic.Handlers
 {
-    /// <summary>
-    ///     Summary description for IsEqualTagHandler.
-    /// </summary>
-    public class IsEqualTagHandler : ConditionalTagHandler
-    {
+	/// <summary>
+	/// Summary description for IsEqualTagHandler.
+	/// </summary>
+	public class IsEqualTagHandler : ConditionalTagHandler
+	{
+
         /// <summary>
-        ///     Initializes a new instance of the <see cref="IsEqualTagHandler" /> class.
+        /// Initializes a new instance of the <see cref="IsEqualTagHandler"/> class.
         /// </summary>
         /// <param name="accessorFactory">The accessor factory.</param>
         public IsEqualTagHandler(AccessorFactory accessorFactory)
             : base(accessorFactory)
-        {
-        }
+		{
+		}
 
-        #region Methods
+		#region Methods
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="ctx"></param>
+		/// <param name="tag"></param>
+		/// <param name="parameterObject"></param>
+		/// <returns></returns>
+		public override bool IsCondition(SqlTagContext ctx, SqlTag tag, object parameterObject)
+		{
+			return (this.Compare(ctx, tag, parameterObject) == 0);
+		}
+		#endregion
 
-        /// <summary>
-        /// </summary>
-        /// <param name="ctx"></param>
-        /// <param name="tag"></param>
-        /// <param name="parameterObject"></param>
-        /// <returns></returns>
-        public override bool IsCondition(SqlTagContext ctx, SqlTag tag, object parameterObject)
-        {
-            return (Compare(ctx, tag, parameterObject) == 0);
-        }
-
-        #endregion
-    }
+	}
 }

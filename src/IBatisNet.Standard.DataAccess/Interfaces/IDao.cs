@@ -1,5 +1,5 @@
-#region Apache Notice
 
+#region Apache Notice
 /*****************************************************************************
  * $Header: $
  * $Revision: 383115 $
@@ -22,15 +22,17 @@
  * limitations under the License.
  * 
  ********************************************************************************/
-
 #endregion
+
+using System;
 
 namespace IBatisNet.DataAccess.Interfaces
 {
-    /// <summary>
-    ///     Mark a class as a Dao object.
-    /// </summary>
-    public interface IDao
-    {
-    }
+	/// <summary>
+	/// Mark a class as a Dao object.
+	/// </summary>
+	public interface IDao
+	{
+		
+	}
 }

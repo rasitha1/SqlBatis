@@ -1,9 +1,9 @@
-#region Apache Notice
 
+#region Apache Notice
 /*****************************************************************************
  * $Header: $
- * $Revision: 383115 $
- * $Date: 2006-03-04 15:21:51 +0100 (sam., 04 mars 2006) $
+ * $Revision: 638571 $
+ * $Date: 2008-03-18 22:11:57 +0100 (mar., 18 mars 2008) $
  * 
  * iBATIS.NET Data Mapper
  * Copyright (C) 2004 - Gilles Bayon
@@ -22,44 +22,39 @@
  * limitations under the License.
  * 
  ********************************************************************************/
-
 #endregion
 
 #region Imports
-
+using System;
 #endregion
 
 namespace IBatisNet.Common.Transaction
 {
-    /// <summary>
-    ///     Describes how a transaction scope is associated with a transaction.
-    /// </summary>
-    public enum TransactionScopeOptions
-    {
-        /// <summary>
-        ///     The transaction scope must be associated with a transaction.
-        ///     If we are in a transaction scope join it. If we aren't, create a new one.
-        /// </summary>
-        Required = 0,
-
-        /// <summary>
-        ///     Always creates a new transaction scope.
-        /// </summary>
-        RequiresNew = 1,
-
-        /// <summary>
-        ///     Don't need a transaction scope, but if we are in a transaction scope then join it.
-        /// </summary>
-        Supported = 2,
-
-        /// <summary>
-        ///     Means that cannot cannot be associated with a transaction scope.
-        /// </summary>
-        NotSupported = 3,
-
-        /// <summary>
-        ///     The transaction scope must be associated with an existing transaction scope.
-        /// </summary>
-        Mandatory = 4
-    }
+	/// <summary>
+	/// Describes how a transaction scope is associated with a transaction.
+	/// </summary>
+	public enum TransactionScopeOptions : int
+	{
+		/// <summary>
+		/// The transaction scope must be associated with a transaction.
+		/// If we are in a transaction scope join it. If we aren't, create a new one.
+		/// </summary>
+		Required  = 0,
+		/// <summary>
+		/// Always creates a new transaction scope.
+		/// </summary>
+		RequiresNew  = 1, 
+		/// <summary>
+		/// Don't need a transaction scope, but if we are in a transaction scope then join it.
+		/// </summary>
+		Supported  = 2,
+		/// <summary>
+		/// Means that cannot cannot be associated with a transaction scope.
+		/// </summary>
+		NotSupported  = 3,
+		/// <summary>
+		/// The transaction scope must be associated with an existing transaction scope.
+		/// </summary>
+		Mandatory  = 4
+	}
 }

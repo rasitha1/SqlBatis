@@ -1,5 +1,4 @@
 #region Apache Notice
-
 /*****************************************************************************
  * $Revision: 374175 $
  * $LastChangedDate: 2006-04-25 19:40:27 +0200 (mar., 25 avr. 2006) $
@@ -22,31 +21,30 @@
  * limitations under the License.
  * 
  ********************************************************************************/
-
 #endregion
 
 using IBatisNet.DataMapper.Scope;
 
 namespace IBatisNet.DataMapper.MappedStatements.PostSelectStrategy
 {
-    /// <summary>
-    ///     <see cref="IPostSelectStrategy" /> implementation to exceute a query for object.
-    /// </summary>
+	/// <summary>
+	/// <see cref="IPostSelectStrategy"/> implementation to exceute a query for object.
+	/// </summary>
     public sealed class ObjectStrategy : IPostSelectStrategy
-    {
-        #region IPostSelectStrategy Members
+	{
+		#region IPostSelectStrategy Members
 
-        /// <summary>
-        ///     Executes the specified <see cref="PostBindind" />.
-        /// </summary>
-        /// <param name="postSelect">The <see cref="PostBindind" />.</param>
-        /// <param name="request">The <see cref="RequestScope" /></param>
-        public void Execute(PostBindind postSelect, RequestScope request)
-        {
-            object value = postSelect.Statement.ExecuteQueryForObject(request.Session, postSelect.Keys);
-            postSelect.ResultProperty.SetAccessor.Set(postSelect.Target, value);
-        }
+		/// <summary>
+		/// Executes the specified <see cref="PostBindind"/>.
+		/// </summary>
+		/// <param name="postSelect">The <see cref="PostBindind"/>.</param>
+		/// <param name="request">The <see cref="RequestScope"/></param>
+		public void Execute(PostBindind postSelect, RequestScope request)
+		{
+			object value = postSelect.Statement.ExecuteQueryForObject(request.Session, postSelect.Keys);
+			postSelect.ResultProperty.SetAccessor.Set(postSelect.Target, value);
+		}
 
-        #endregion
-    }
+		#endregion
+	}
 }

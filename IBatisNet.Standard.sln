@@ -3,22 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28010.2048
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IBatisNet.Common", "IBatisNet.Common\IBatisNet.Common.csproj", "{BBC8DA4A-EA88-41D9-8B93-929B8F3ADADE}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IBatisNet.DataMapper", "IBatisNet.DataMapper\IBatisNet.DataMapper.csproj", "{F3E45F39-3224-4EAD-B138-EB5CC0E32824}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IBatisNet.DataMapper.Test", "IBatisNet.DataMapper.Test\IBatisNet.DataMapper.Test.csproj", "{998B79D9-800F-493F-A263-306F06906E2F}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IBatisNet.Common.Logging.Log4Net", "IBatisNet.Common.Logging.Log4Net\IBatisNet.Common.Logging.Log4Net.csproj", "{023FE8D7-7E1A-4DDF-A0EA-8FB0E1B3122B}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IBatisNet.DynamicProxy", "IBatisNet.DynamicProxy\IBatisNet.DynamicProxy.csproj", "{AC5DB2B2-AFC4-4911-B0AB-CCF0B46BDF41}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IBatisNet.Common.Test", "IBatisNet.Common.Test\IBatisNet.Common.Test.csproj", "{5961F3DE-CB5E-40FE-AE89-D00D6E453907}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IBatisNet.DataAccess", "IBatisNet.DataAccess\IBatisNet.DataAccess.csproj", "{BEFC4A45-7DF9-40E4-942C-82DC1BA5E708}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IBatisNet.DataAccess.Test", "IBatisNet.DataAccess.Test\IBatisNet.DataAccess.Test.csproj", "{888FE332-F7B7-4248-AEE1-73E14EB9C042}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionItems", "{1D7A00BE-B0BC-474F-AF6A-C0A720CA274B}"
 	ProjectSection(SolutionItems) = preProject
 		CommonAssemblyInfo.cs = CommonAssemblyInfo.cs
@@ -36,15 +20,19 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{9E400E52-6
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IBatisNet.Standard.DataMapper", "src\IBatisNet.Standard.DataMapper\IBatisNet.Standard.DataMapper.csproj", "{57717738-55A1-43A6-AEED-DE40C3EDD95D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IBatisNet.Standard.DataAccess", "src\IBatisNet.Standard.DataAccess\IBatisNet.Standard.DataAccess.csproj", "{2FCA94E2-1BEC-4C50-B297-C0CABB8E569F}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IBatisNet.Standard.DynamicProxy", "src\IBatisNet.Standard.DynamicProxy\IBatisNet.Standard.DynamicProxy.csproj", "{071F4E18-3305-4EEB-9F0E-492780385C12}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IBatisNet.AspNetCore.Common.Test", "test\IBatisNet.Standard.Common.Test\IBatisNet.AspNetCore.Common.Test.csproj", "{C7356820-48D8-47F6-8978-D615F3B68593}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IBatisNet.AspNetCore.DataMapper.Test", "test\IBatisNet.Standard.DataMapper.Test\IBatisNet.AspNetCore.DataMapper.Test.csproj", "{B3B1F9DA-7509-471C-B5E6-9200CB01B48E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IBatisNet.AspNetCore.DataMapper.Test", "test\IBatisNet.Standard.DataMapper.Test\IBatisNet.AspNetCore.DataMapper.Test.csproj", "{B3B1F9DA-7509-471C-B5E6-9200CB01B48E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IBatisNet.AspNetCore", "src\IBatisNet.AspNetCore\IBatisNet.AspNetCore.csproj", "{59AE698F-AF5F-4B79-AAE4-B70D9D4DE952}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IBatisNet.AspNetCore", "src\IBatisNet.AspNetCore\IBatisNet.AspNetCore.csproj", "{59AE698F-AF5F-4B79-AAE4-B70D9D4DE952}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IBatisNet.Standard.DataAccess", "src\IBatisNet.Standard.DataAccess\IBatisNet.Standard.DataAccess.csproj", "{F728EC0D-69FF-41F7-B673-42B8A50832BD}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IBatisNet.AspNetCore.DataAccess.Test", "test\IBatisNet.AspNetCore.DataAccess.Test\IBatisNet.AspNetCore.DataAccess.Test.csproj", "{E33434AC-1092-4B62-9756-536DBC11FFB1}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IBatisNet.Common.Logging.Log4Net", "src\IBatisNet.Common.Logging.Log4Net\IBatisNet.Common.Logging.Log4Net.csproj", "{B84F52C8-C6CF-4567-8152-FD5CD08A25E2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -52,38 +40,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{BBC8DA4A-EA88-41D9-8B93-929B8F3ADADE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BBC8DA4A-EA88-41D9-8B93-929B8F3ADADE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BBC8DA4A-EA88-41D9-8B93-929B8F3ADADE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BBC8DA4A-EA88-41D9-8B93-929B8F3ADADE}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F3E45F39-3224-4EAD-B138-EB5CC0E32824}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F3E45F39-3224-4EAD-B138-EB5CC0E32824}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F3E45F39-3224-4EAD-B138-EB5CC0E32824}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F3E45F39-3224-4EAD-B138-EB5CC0E32824}.Release|Any CPU.Build.0 = Release|Any CPU
-		{998B79D9-800F-493F-A263-306F06906E2F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{998B79D9-800F-493F-A263-306F06906E2F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{998B79D9-800F-493F-A263-306F06906E2F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{998B79D9-800F-493F-A263-306F06906E2F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{023FE8D7-7E1A-4DDF-A0EA-8FB0E1B3122B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{023FE8D7-7E1A-4DDF-A0EA-8FB0E1B3122B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{023FE8D7-7E1A-4DDF-A0EA-8FB0E1B3122B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{023FE8D7-7E1A-4DDF-A0EA-8FB0E1B3122B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{AC5DB2B2-AFC4-4911-B0AB-CCF0B46BDF41}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{AC5DB2B2-AFC4-4911-B0AB-CCF0B46BDF41}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{AC5DB2B2-AFC4-4911-B0AB-CCF0B46BDF41}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{AC5DB2B2-AFC4-4911-B0AB-CCF0B46BDF41}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5961F3DE-CB5E-40FE-AE89-D00D6E453907}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5961F3DE-CB5E-40FE-AE89-D00D6E453907}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5961F3DE-CB5E-40FE-AE89-D00D6E453907}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5961F3DE-CB5E-40FE-AE89-D00D6E453907}.Release|Any CPU.Build.0 = Release|Any CPU
-		{BEFC4A45-7DF9-40E4-942C-82DC1BA5E708}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BEFC4A45-7DF9-40E4-942C-82DC1BA5E708}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BEFC4A45-7DF9-40E4-942C-82DC1BA5E708}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BEFC4A45-7DF9-40E4-942C-82DC1BA5E708}.Release|Any CPU.Build.0 = Release|Any CPU
-		{888FE332-F7B7-4248-AEE1-73E14EB9C042}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{888FE332-F7B7-4248-AEE1-73E14EB9C042}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{888FE332-F7B7-4248-AEE1-73E14EB9C042}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{888FE332-F7B7-4248-AEE1-73E14EB9C042}.Release|Any CPU.Build.0 = Release|Any CPU
 		{5EE98D8B-F749-4207-BC39-3237AFD72421}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{5EE98D8B-F749-4207-BC39-3237AFD72421}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5EE98D8B-F749-4207-BC39-3237AFD72421}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -92,10 +48,6 @@ Global
 		{57717738-55A1-43A6-AEED-DE40C3EDD95D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{57717738-55A1-43A6-AEED-DE40C3EDD95D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{57717738-55A1-43A6-AEED-DE40C3EDD95D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2FCA94E2-1BEC-4C50-B297-C0CABB8E569F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2FCA94E2-1BEC-4C50-B297-C0CABB8E569F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2FCA94E2-1BEC-4C50-B297-C0CABB8E569F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2FCA94E2-1BEC-4C50-B297-C0CABB8E569F}.Release|Any CPU.Build.0 = Release|Any CPU
 		{071F4E18-3305-4EEB-9F0E-492780385C12}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{071F4E18-3305-4EEB-9F0E-492780385C12}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{071F4E18-3305-4EEB-9F0E-492780385C12}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -112,6 +64,18 @@ Global
 		{59AE698F-AF5F-4B79-AAE4-B70D9D4DE952}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{59AE698F-AF5F-4B79-AAE4-B70D9D4DE952}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{59AE698F-AF5F-4B79-AAE4-B70D9D4DE952}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F728EC0D-69FF-41F7-B673-42B8A50832BD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F728EC0D-69FF-41F7-B673-42B8A50832BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F728EC0D-69FF-41F7-B673-42B8A50832BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F728EC0D-69FF-41F7-B673-42B8A50832BD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E33434AC-1092-4B62-9756-536DBC11FFB1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E33434AC-1092-4B62-9756-536DBC11FFB1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E33434AC-1092-4B62-9756-536DBC11FFB1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E33434AC-1092-4B62-9756-536DBC11FFB1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B84F52C8-C6CF-4567-8152-FD5CD08A25E2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B84F52C8-C6CF-4567-8152-FD5CD08A25E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B84F52C8-C6CF-4567-8152-FD5CD08A25E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B84F52C8-C6CF-4567-8152-FD5CD08A25E2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -119,11 +83,13 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{5EE98D8B-F749-4207-BC39-3237AFD72421} = {892E3ACE-AA44-42CE-9BF3-D778BCD81677}
 		{57717738-55A1-43A6-AEED-DE40C3EDD95D} = {892E3ACE-AA44-42CE-9BF3-D778BCD81677}
-		{2FCA94E2-1BEC-4C50-B297-C0CABB8E569F} = {892E3ACE-AA44-42CE-9BF3-D778BCD81677}
 		{071F4E18-3305-4EEB-9F0E-492780385C12} = {892E3ACE-AA44-42CE-9BF3-D778BCD81677}
 		{C7356820-48D8-47F6-8978-D615F3B68593} = {9E400E52-68DF-4102-BDFF-CB3B0BB951BE}
 		{B3B1F9DA-7509-471C-B5E6-9200CB01B48E} = {9E400E52-68DF-4102-BDFF-CB3B0BB951BE}
 		{59AE698F-AF5F-4B79-AAE4-B70D9D4DE952} = {892E3ACE-AA44-42CE-9BF3-D778BCD81677}
+		{F728EC0D-69FF-41F7-B673-42B8A50832BD} = {892E3ACE-AA44-42CE-9BF3-D778BCD81677}
+		{E33434AC-1092-4B62-9756-536DBC11FFB1} = {9E400E52-68DF-4102-BDFF-CB3B0BB951BE}
+		{B84F52C8-C6CF-4567-8152-FD5CD08A25E2} = {892E3ACE-AA44-42CE-9BF3-D778BCD81677}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F8AE650B-B9C8-4085-B0D1-BA2B5999CB49}

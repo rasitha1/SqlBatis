@@ -1,5 +1,4 @@
 #region Apache Notice
-
 /*****************************************************************************
  * $Revision: 374175 $
  * $LastChangedDate: 2006-04-25 19:40:27 +0200 (mar., 25 avr. 2006) $
@@ -22,7 +21,6 @@
  * limitations under the License.
  * 
  ********************************************************************************/
-
 #endregion
 
 using System;
@@ -30,12 +28,12 @@ using System;
 namespace IBatisNet.Common.Utilities.Objects.Members
 {
     /// <summary>
-    ///     Factory contact to build <see cref="IGetAccessor" /> for a type.
+    /// Factory contact to build <see cref="IGetAccessor"/> for a type.
     /// </summary>
     public interface IGetAccessorFactory
     {
         /// <summary>
-        ///     Generate an <see cref="IGetAccessor" /> instance.
+        /// Generate an <see cref="IGetAccessor"/> instance.
         /// </summary>
         /// <param name="targetType">Target object type.</param>
         /// <param name="name">Field or Property name.</param>

@@ -1,5 +1,4 @@
 #region Apache Notice
-
 /*****************************************************************************
  * $Header: $
  * $Revision: 408164 $
@@ -22,7 +21,6 @@
  * limitations under the License.
  * 
  ********************************************************************************/
-
 #endregion
 
 #region Using
@@ -32,36 +30,34 @@ using System.Xml;
 using IBatisNet.Common.Xml;
 using IBatisNet.DataMapper.Configuration.ResultMapping;
 using IBatisNet.DataMapper.Scope;
-
-#endregion
+#endregion 
 
 namespace IBatisNet.DataMapper.Configuration.Serializers
 {
-    /// <summary>
-    ///     Summary description for DiscriminatorDeSerializer.
-    /// </summary>
-    public sealed class DiscriminatorDeSerializer
-    {
-        /// <summary>
-        ///     Deserialize a ResultMap object
-        /// </summary>
-        /// <param name="node"></param>
-        /// <param name="configScope"></param>
-        /// <returns></returns>
-        public static Discriminator Deserialize(XmlNode node, ConfigurationScope configScope)
-        {
-            Discriminator discriminator = new Discriminator();
+	/// <summary>
+	/// Summary description for DiscriminatorDeSerializer.
+	/// </summary>
+	public sealed class DiscriminatorDeSerializer
+	{
+		/// <summary>
+		/// Deserialize a ResultMap object
+		/// </summary>
+		/// <param name="node"></param>
+		/// <param name="configScope"></param>
+		/// <returns></returns>
+		public static Discriminator Deserialize(XmlNode node, ConfigurationScope configScope)
+		{
+			Discriminator discriminator = new Discriminator();
 
-            NameValueCollection prop = NodeUtils.ParseAttributes(node, configScope.Properties);
-            discriminator.CallBackName = NodeUtils.GetStringAttribute(prop, "typeHandler");
-            discriminator.CLRType = NodeUtils.GetStringAttribute(prop, "type");
-            discriminator.ColumnIndex =
-                NodeUtils.GetIntAttribute(prop, "columnIndex", ResultProperty.UNKNOWN_COLUMN_INDEX);
-            discriminator.ColumnName = NodeUtils.GetStringAttribute(prop, "column");
-            discriminator.DbType = NodeUtils.GetStringAttribute(prop, "dbType");
-            discriminator.NullValue = prop["nullValue"];
+			NameValueCollection prop = NodeUtils.ParseAttributes(node, configScope.Properties);
+			discriminator.CallBackName = NodeUtils.GetStringAttribute(prop, "typeHandler");
+			discriminator.CLRType = NodeUtils.GetStringAttribute(prop, "type");
+			discriminator.ColumnIndex = NodeUtils.GetIntAttribute( prop, "columnIndex", ResultProperty.UNKNOWN_COLUMN_INDEX  );
+			discriminator.ColumnName = NodeUtils.GetStringAttribute(prop, "column");
+			discriminator.DbType = NodeUtils.GetStringAttribute(prop, "dbType");
+			discriminator.NullValue = prop["nullValue"];
 
-            return discriminator;
-        }
-    }
+			return discriminator;
+		}
+	}
 }

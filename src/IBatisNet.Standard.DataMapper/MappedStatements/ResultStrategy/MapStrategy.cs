@@ -1,5 +1,4 @@
 #region Apache Notice
-
 /*****************************************************************************
  * $Revision: 374175 $
  * $LastChangedDate: 2007-02-21 21:23:49 +0100 (mer., 21 févr. 2007) $
@@ -22,7 +21,6 @@
  * limitations under the License.
  * 
  ********************************************************************************/
-
 #endregion
 
 using System.Data;
@@ -32,27 +30,27 @@ using IBatisNet.DataMapper.Scope;
 namespace IBatisNet.DataMapper.MappedStatements.ResultStrategy
 {
     /// <summary>
-    ///     Delegates on the <see cref="ResultMapStrategy" />  or on the
-    ///     <see cref="GroupByStrategy" /> implementation if a grouBy attribute is specify on the resultMap tag.
+    /// Delegates on the <see cref="ResultMapStrategy"/>  or on the 
+    /// <see cref="GroupByStrategy"/> implementation if a grouBy attribute is specify on the resultMap tag.
     /// </summary>
     public sealed class MapStrategy : IResultStrategy
     {
-        private static readonly IResultStrategy _resultMapStrategy;
-        private static readonly IResultStrategy _groupByStrategy;
+        private static IResultStrategy _resultMapStrategy = null;
+        private static IResultStrategy _groupByStrategy = null;
 
         /// <summary>
-        ///     Initializes the <see cref="MapStrategy" /> class.
+        /// Initializes the <see cref="MapStrategy"/> class.
         /// </summary>
         static MapStrategy()
         {
             _resultMapStrategy = new ResultMapStrategy();
             _groupByStrategy = new GroupByStrategy();
         }
-
+        
         #region IResultStrategy Members
 
         /// <summary>
-        ///     Processes the specified <see cref="IDataReader" />.
+        /// Processes the specified <see cref="IDataReader"/>.
         /// </summary>
         /// <param name="request">The request.</param>
         /// <param name="reader">The reader.</param>
@@ -61,9 +59,14 @@ namespace IBatisNet.DataMapper.MappedStatements.ResultStrategy
         {
             IResultMap resultMap = request.CurrentResultMap.ResolveSubMap(reader);
 
-            if (resultMap.GroupByPropertyNames.Count > 0)
+            if (resultMap.GroupByPropertyNames.Count>0)
+            {
                 return _groupByStrategy.Process(request, ref reader, resultObject);
-            return _resultMapStrategy.Process(request, ref reader, resultObject);
+            }
+            else
+            {
+                return _resultMapStrategy.Process(request, ref reader, resultObject);
+            }
         }
 
         #endregion

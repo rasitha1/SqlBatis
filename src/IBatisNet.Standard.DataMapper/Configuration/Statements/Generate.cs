@@ -1,9 +1,9 @@
-#region Apache Notice
 
+#region Apache Notice
 /*****************************************************************************
  * $Header: $
- * $Revision: 383115 $
- * $Date: 2006-03-04 15:21:51 +0100 (sam., 04 mars 2006) $
+ * $Revision: 638571 $
+ * $Date: 2008-03-18 22:11:57 +0100 (mar., 18 mars 2008) $
  * 
  * iBATIS.NET Data Mapper
  * Copyright (C) 2004 - Gilles Bayon
@@ -22,58 +22,66 @@
  * limitations under the License.
  * 
  ********************************************************************************/
-
 #endregion
 
 using System;
+using System.Data;
 using System.Xml.Serialization;
 
 namespace IBatisNet.DataMapper.Configuration.Statements
 {
-    /// <summary>
-    ///     Represent a generate tag element.
-    ///     The generation would happen at the point where the
-    ///     SqlMapClient instance is built.
-    /// </summary>
-    [Serializable]
-    [XmlRoot("generate", Namespace = "http://ibatis.apache.org/mapping")]
-    public class Generate : Statement
-    {
-        /// <summary>
-        ///     The table name used to build the SQL query.
-        /// </summary>
-        /// <remarks>
-        ///     Will be used to get the metadata to build the SQL if needed.
-        /// </remarks>
-        [XmlAttribute("table")]
-        public string Table
-        {
-            get => _table;
-            set => _table = value;
-        }
+	/// <summary>
+	/// Represent a generate tag element.
+	/// The generation would happen at the point where the 
+	/// SqlMapClient instance is built.
+	/// </summary>
+	[Serializable]
+	[XmlRoot("generate", Namespace="http://ibatis.apache.org/mapping")]
+	public class Generate : Statement
+	{
+		#region Fields
 
-        /// <summary>
-        ///     The by attribute is used to generate the where clause.
-        /// </summary>
-        /// <remarks>The by="" attribute can support multiple colums.</remarks>
-        /// <example>
-        ///     &lt; delete ...&gt;
-        ///     &lt;generate table="EMPLOYEE" by="EMPLOYEE_ID, LAST_MOD_DATE" /&gt;
-        ///     &lt;/delete&gt;
-        /// </example>
-        [XmlAttribute("by")]
-        public string By
-        {
-            get => _by;
-            set => _by = value;
-        }
+		[NonSerialized]
+		private string _table = string.Empty;
+		[NonSerialized]
+		private string _by = string.Empty;
 
-        #region Fields
+		#endregion
 
-        [NonSerialized] private string _table = string.Empty;
+		/// <summary>
+		/// The table name used to build the SQL query. 
+		/// </summary>
+		/// <remarks>
+		/// Will be used to get the metadata to build the SQL if needed.
+		/// </remarks>
+		[XmlAttribute("table")]
+		public string Table
+		{
+			get { return _table; }
+			set { _table = value; }
+		}
 
-        [NonSerialized] private string _by = string.Empty;
+		/// <summary>
+		/// The by attribute is used to generate the where clause.
+		/// </summary>
+		/// <remarks>The by="" attribute can support multiple colums.</remarks>
+		/// <example> 
+		///		&lt; delete ...&gt;
+		///			&lt;generate table="EMPLOYEE" by="EMPLOYEE_ID, LAST_MOD_DATE" /&gt;
+		///		&lt;/delete&gt;
+		/// </example>
+		[XmlAttribute("by")]
+		public string By
+		{
+			get { return _by; }
+			set { _by = value; }
+		}
 
-        #endregion
-    }
+		/// <summary>
+		/// Do not use direclty, only for serialization.
+		/// </summary>
+		public Generate():base(){}
+
+
+	}
 }

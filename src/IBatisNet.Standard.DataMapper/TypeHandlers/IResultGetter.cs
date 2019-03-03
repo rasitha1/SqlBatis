@@ -1,9 +1,9 @@
-#region Apache Notice
 
+#region Apache Notice
 /*****************************************************************************
  * $Header: $
- * $Revision: 383115 $
- * $Date: 2006-03-04 15:21:51 +0100 (sam., 04 mars 2006) $
+ * $Revision: 638571 $
+ * $Date: 2008-03-18 22:11:57 +0100 (mar., 18 mars 2008) $
  * 
  * iBATIS.NET Data Mapper
  * Copyright (C) 2004 - Gilles Bayon
@@ -22,38 +22,37 @@
  * limitations under the License.
  * 
  ********************************************************************************/
-
 #endregion
 
 #region Using
 
 using System.Data;
 
-#endregion
+#endregion 
 
 namespace IBatisNet.DataMapper.TypeHandlers
 {
-    /// <summary>
-    ///     Allows values to be retrieved from the underlying IDataReader.
-    ///     TypeHandlerCallback implementations use this interface to
-    ///     get values that they can subsequently manipulate before
-    ///     having them returned.  																																																														   * or index with these
-    ///     methods.
-    /// </summary>
-    /// <remarks>
-    ///     There is no need to implement this.  The implementation
-    ///     will be passed into the TypeHandlerCallback automatically.
-    /// </remarks>
-    public interface IResultGetter
-    {
-        /// <summary>
-        ///     Returns the underlying IDataReader
-        /// </summary>
-        IDataReader DataReader { get; }
+	/// <summary>
+	/// Allows values to be retrieved from the underlying IDataReader.
+	/// TypeHandlerCallback implementations use this interface to
+	/// get values that they can subsequently manipulate before
+	/// having them returned.  																																																														   * or index with these methods.
+	/// </summary>
+	/// <remarks>
+	/// There is no need to implement this.  The implementation
+	/// will be passed into the TypeHandlerCallback automatically.
+	/// </remarks>
+	public interface IResultGetter
+	{
 
-        /// <summary>
-        ///     Get the parameter value
-        /// </summary>
-        object Value { get; }
-    }
+		/// <summary>
+		/// Returns the underlying IDataReader
+		/// </summary>
+		IDataReader DataReader { get; }
+
+		/// <summary>
+		/// Get the parameter value
+		/// </summary>
+		object Value { get; }
+	}
 }

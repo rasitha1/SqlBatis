@@ -1,5 +1,4 @@
 #region Apache Notice
-
 /*****************************************************************************
  * $Header: $
  * $Revision: 512878 $
@@ -22,7 +21,6 @@
  * limitations under the License.
  * 
  ********************************************************************************/
-
 #endregion
 
 #region Using
@@ -32,41 +30,40 @@ using System.Xml;
 using IBatisNet.Common.Xml;
 using IBatisNet.DataMapper.Configuration.ParameterMapping;
 using IBatisNet.DataMapper.Scope;
-
-#endregion
+#endregion 
 
 namespace IBatisNet.DataMapper.Configuration.Serializers
 {
-    /// <summary>
-    ///     Summary description for ParameterPropertyDeSerializer.
-    /// </summary>
-    public sealed class ParameterPropertyDeSerializer
-    {
-        /// <summary>
-        ///     Deserialize a ResultMap object
-        /// </summary>
-        /// <param name="node"></param>
-        /// <param name="configScope"></param>
-        /// <returns></returns>
-        public static ParameterProperty Deserialize(XmlNode node, ConfigurationScope configScope)
-        {
-            ParameterProperty property = new ParameterProperty();
-            NameValueCollection prop = NodeUtils.ParseAttributes(node, configScope.Properties);
+	/// <summary>
+	/// Summary description for ParameterPropertyDeSerializer.
+	/// </summary>
+	public sealed class ParameterPropertyDeSerializer
+	{
+		/// <summary>
+		/// Deserialize a ResultMap object
+		/// </summary>
+		/// <param name="node"></param>
+		/// <param name="configScope"></param>
+		/// <returns></returns>
+		public static ParameterProperty Deserialize(XmlNode node, ConfigurationScope configScope)
+		{
+			ParameterProperty property = new ParameterProperty();
+			NameValueCollection prop = NodeUtils.ParseAttributes(node, configScope.Properties);
 
-            configScope.ErrorContext.MoreInfo = "ParameterPropertyDeSerializer";
+			configScope.ErrorContext.MoreInfo = "ParameterPropertyDeSerializer";
 
-            property.CallBackName = NodeUtils.GetStringAttribute(prop, "typeHandler");
-            property.CLRType = NodeUtils.GetStringAttribute(prop, "type");
-            property.ColumnName = NodeUtils.GetStringAttribute(prop, "column");
-            property.DbType = NodeUtils.GetStringAttribute(prop, "dbType", null);
-            property.DirectionAttribute = NodeUtils.GetStringAttribute(prop, "direction");
-            property.NullValue = prop["nullValue"];
-            property.PropertyName = NodeUtils.GetStringAttribute(prop, "property");
-            property.Precision = NodeUtils.GetByteAttribute(prop, "precision", 0);
-            property.Scale = NodeUtils.GetByteAttribute(prop, "scale", 0);
-            property.Size = NodeUtils.GetIntAttribute(prop, "size", -1);
+			property.CallBackName = NodeUtils.GetStringAttribute(prop, "typeHandler");
+			property.CLRType =  NodeUtils.GetStringAttribute(prop, "type");
+			property.ColumnName =  NodeUtils.GetStringAttribute(prop, "column");
+			property.DbType =  NodeUtils.GetStringAttribute(prop, "dbType", null);
+			property.DirectionAttribute =  NodeUtils.GetStringAttribute(prop, "direction");
+			property.NullValue =  prop["nullValue"];
+			property.PropertyName =  NodeUtils.GetStringAttribute(prop, "property");
+			property.Precision = NodeUtils.GetByteAttribute(prop, "precision", 0);
+			property.Scale = NodeUtils.GetByteAttribute(prop, "scale", 0);
+			property.Size = NodeUtils.GetIntAttribute(prop, "size", -1);
 
-            return property;
-        }
-    }
+			return property;
+		}
+	}
 }

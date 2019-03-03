@@ -1,9 +1,9 @@
-#region Apache Notice
 
+#region Apache Notice
 /*****************************************************************************
  * $Header: $
- * $Revision: 383115 $
- * $Date: 2006-03-04 15:21:51 +0100 (sam., 04 mars 2006) $
+ * $Revision: 638571 $
+ * $Date: 2008-03-18 22:11:57 +0100 (mar., 18 mars 2008) $
  * 
  * iBATIS.NET Data Mapper
  * Copyright (C) 2004 - Gilles Bayon
@@ -22,91 +22,124 @@
  * limitations under the License.
  * 
  ********************************************************************************/
-
 #endregion
 
 using System;
 using System.Collections;
 using System.Xml.Serialization;
+
 using IBatisNet.DataMapper.Configuration.Sql.Dynamic.Handlers;
 
 namespace IBatisNet.DataMapper.Configuration.Sql.Dynamic.Elements
 {
-    /// <summary>
-    ///     SqlTag is a children element of dynamic Sql element.
-    ///     SqlTag represent any binary unary/conditional element (like isEmpty, isNull, iEquall...)
-    ///     or other element as isParameterPresent, isNotParameterPresent, iterate.
-    /// </summary>
-    [Serializable]
-    public abstract class SqlTag : ISqlChild, IDynamicParent
-    {
-        /// <summary>
-        ///     Parent tag element
-        /// </summary>
-        [XmlIgnore]
-        public SqlTag Parent
-        {
-            get => _parent;
-            set => _parent = value;
-        }
+	/// <summary>
+	/// SqlTag is a children element of dynamic Sql element.
+	/// SqlTag represent any binary unary/conditional element (like isEmpty, isNull, iEquall...) 
+	/// or other element as isParameterPresent, isNotParameterPresent, iterate.
+	/// </summary>
+	[Serializable]
+	public abstract class SqlTag : ISqlChild, IDynamicParent
+	{
+
+		#region Fields
+		
+		[NonSerialized]
+		private string _prepend = string.Empty;
+		[NonSerialized]
+		private ISqlTagHandler _handler = null;
+		[NonSerialized]
+		private SqlTag _parent = null;
+		[NonSerialized]
+		private IList _children = new ArrayList();
+
+		#endregion
+
+		/// <summary>
+		/// Parent tag element
+		/// </summary>
+		[XmlIgnoreAttribute]
+		public SqlTag Parent
+		{
+			get
+			{
+				return _parent;
+			}
+			set
+			{
+				_parent = value;
+			}
+		}
 
 
-        /// <summary>
-        ///     Prepend attribute
-        /// </summary>
-        [XmlAttribute("prepend")]
-        public string Prepend
-        {
-            get => _prepend;
-            set => _prepend = value;
-        }
+		/// <summary>
+		/// Prepend attribute
+		/// </summary>
+		[XmlAttribute("prepend")]
+		public string Prepend
+		{
+			get
+			{
+				return _prepend;
+			}
+			set
+			{
+				_prepend = value;
+			}
+		}
 
 
-        /// <summary>
-        ///     Handler for this sql tag
-        /// </summary>
-        [XmlIgnore]
-        public ISqlTagHandler Handler
-        {
-            get => _handler;
-            set => _handler = value;
-        }
+		/// <summary>
+		/// Handler for this sql tag
+		/// </summary>
+		[XmlIgnoreAttribute]
+		public ISqlTagHandler Handler
+		{
 
-        /// <summary>
-        /// </summary>
-        public bool IsPrependAvailable => (_prepend != null && _prepend.Length > 0);
+			get
+			{
+				return _handler;
+			}
+			set
+			{
+				_handler = value;
+			}
+		}
 
-        #region IDynamicParent Members
+		/// <summary>
+		/// 
+		/// </summary>
+		public bool IsPrependAvailable 
+		{
+			get
+			{
+				return (_prepend != null && _prepend.Length > 0);
+			}
+		}
 
-        /// <summary>
-        /// </summary>
-        /// <param name="child"></param>
-        public void AddChild(ISqlChild child)
-        {
-            if (child is SqlTag) ((SqlTag) child).Parent = this;
-            _children.Add(child);
-        }
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <returns></returns>
+		public IEnumerator GetChildrenEnumerator() 
+		{
+			return _children.GetEnumerator();
+		}
 
-        #endregion
+		#region IDynamicParent Members
 
-        /// <summary>
-        /// </summary>
-        /// <returns></returns>
-        public IEnumerator GetChildrenEnumerator()
-        {
-            return _children.GetEnumerator();
-        }
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="child"></param>
+		public void AddChild(ISqlChild child)
+		{
+			if (child is SqlTag) 
+			{
+				((SqlTag) child).Parent = this;
+			}
+			_children.Add(child);		
+		}
 
-        #region Fields
-
-        [NonSerialized] private string _prepend = string.Empty;
-
-        [NonSerialized] private ISqlTagHandler _handler;
-
-        [NonSerialized] private SqlTag _parent;
-
-        [NonSerialized] private readonly IList _children = new ArrayList();
-
-        #endregion
-    }
+		#endregion
+	}
 }

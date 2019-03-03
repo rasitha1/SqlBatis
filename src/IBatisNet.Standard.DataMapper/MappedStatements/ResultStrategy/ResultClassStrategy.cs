@@ -1,5 +1,4 @@
 #region Apache Notice
-
 /*****************************************************************************
  * $Revision: 374175 $
  * $LastChangedDate: 2006-04-25 19:40:27 +0200 (mar., 25 avr. 2006) $
@@ -22,7 +21,6 @@
  * limitations under the License.
  * 
  ********************************************************************************/
-
 #endregion
 
 using System.Collections;
@@ -31,48 +29,58 @@ using IBatisNet.DataMapper.Scope;
 
 namespace IBatisNet.DataMapper.MappedStatements.ResultStrategy
 {
-    /// <summary>
-    ///     <see cref="IResultStrategy" /> implementation when
-    ///     a 'resultClass' attribute is specified.
-    /// </summary>
+	/// <summary>
+	/// <see cref="IResultStrategy"/> implementation when 
+	/// a 'resultClass' attribute is specified.
+	/// </summary>
     public sealed class ResultClassStrategy : IResultStrategy
-    {
-        private static IResultStrategy _simpleTypeStrategy;
-        private static IResultStrategy _dictionaryStrategy;
-        private static IResultStrategy _listStrategy;
-        private static IResultStrategy _autoMapStrategy;
+	{
+		private static IResultStrategy _simpleTypeStrategy = null;
+		private static IResultStrategy _dictionaryStrategy = null;
+		private static IResultStrategy _listStrategy = null;
+		private static IResultStrategy _autoMapStrategy = null;
 
-        /// <summary>
-        ///     Initializes a new instance of the <see cref="ResultClassStrategy" /> class.
-        /// </summary>
-        public ResultClassStrategy()
-        {
-            _simpleTypeStrategy = new SimpleTypeStrategy();
-            _dictionaryStrategy = new DictionaryStrategy();
-            _listStrategy = new ListStrategy();
-            _autoMapStrategy = new AutoMapStrategy();
-        }
+		/// <summary>
+		/// Initializes a new instance of the <see cref="ResultClassStrategy"/> class.
+		/// </summary>
+		public ResultClassStrategy()
+		{
+			_simpleTypeStrategy = new SimpleTypeStrategy();
+			_dictionaryStrategy = new DictionaryStrategy();
+			_listStrategy = new ListStrategy();
+			_autoMapStrategy = new AutoMapStrategy();
+		}
 
         #region IResultStrategy Members
 
-        /// <summary>
-        ///     Processes the specified <see cref="IDataReader" />.
-        /// </summary>
-        /// <param name="request">The request.</param>
-        /// <param name="reader">The reader.</param>
-        /// <param name="resultObject">The result object.</param>
+		/// <summary>
+		/// Processes the specified <see cref="IDataReader"/>.
+		/// </summary>
+		/// <param name="request">The request.</param>
+		/// <param name="reader">The reader.</param>
+		/// <param name="resultObject">The result object.</param>
         public object Process(RequestScope request, ref IDataReader reader, object resultObject)
-        {
-            // Check if the ResultClass is a 'primitive' Type
-            if (request.DataExchangeFactory.TypeHandlerFactory.IsSimpleType(request.CurrentResultMap.Class))
-                return _simpleTypeStrategy.Process(request, ref reader, resultObject);
-            if (typeof(IDictionary).IsAssignableFrom(request.CurrentResultMap.Class))
-                return _dictionaryStrategy.Process(request, ref reader, resultObject);
-            if (typeof(IList).IsAssignableFrom(request.CurrentResultMap.Class))
-                return _listStrategy.Process(request, ref reader, resultObject);
-            return _autoMapStrategy.Process(request, ref reader, resultObject);
-        }
+		{
 
-        #endregion
-    }
+  			// Check if the ResultClass is a 'primitive' Type
+            if (request.DataExchangeFactory.TypeHandlerFactory.IsSimpleType(request.CurrentResultMap.Class))
+			{
+                return _simpleTypeStrategy.Process(request, ref reader, resultObject);
+			}
+            else if (typeof(IDictionary).IsAssignableFrom(request.CurrentResultMap.Class)) 
+			{
+                return _dictionaryStrategy.Process(request, ref reader, resultObject);
+			}
+            else if (typeof(IList).IsAssignableFrom(request.CurrentResultMap.Class)) 
+			{
+                return _listStrategy.Process(request, ref reader, resultObject);
+			}
+			else
+			{
+                return _autoMapStrategy.Process(request, ref reader, resultObject);
+			}
+		}
+
+		#endregion
+	}
 }

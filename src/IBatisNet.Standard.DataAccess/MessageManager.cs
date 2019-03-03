@@ -1,5 +1,4 @@
 #region Apache Notice
-
 /*****************************************************************************
  * $Header: $
  * $Revision: 383115 $
@@ -22,7 +21,6 @@
  * limitations under the License.
  * 
  ********************************************************************************/
-
 #endregion
 
 #region Autors
@@ -30,97 +28,107 @@
 /************************************************
 * Gilles Bayon 
 *************************************************/
-
-#endregion
+#endregion 
 
 #region Using
 
-using System.Globalization;
-using System.IO;
-using System.Reflection;
+using System;
 using System.Resources;
-
-#endregion
+using System.Reflection; 
+using System.IO;
+#endregion 
 
 namespace IBatisNet.DataAccess
 {
-    /// <summary>
-    ///     Summary description for MessageManager.
-    /// </summary>
-    public class MessageManager
-    {
-        #region Constructor
+	/// <summary>
+	/// Summary description for MessageManager.
+	/// </summary>
+	public class MessageManager
+	{
+		#region Fields
 
-        /// <summary>
-        ///     Constructor.
-        /// </summary>
-        public MessageManager()
-        {
-            _resourceManager =
-                new ResourceManager(GetType().Namespace + RESOURCE_FILENAME, Assembly.GetExecutingAssembly());
-        }
+		private const string RESOURCE_FILENAME = "IBatisNet.DataAccess";
+		private static MessageManager _internalManager = new MessageManager();
+		private ResourceManager _resourceManager= null;
 
-        #endregion
+		#endregion 
 
+		#region Constructor
 
-        /// <summary>
-        ///     Class used to expose constants that represent keys in the resource file.
-        /// </summary>
-        internal abstract class MessageKeys
-        {
-            internal const string ViewAlreadyConfigured = "ViewAlreadyConfigured";
-            internal const string CantFindCommandMapping = "CantFindCommandMapping";
-            internal const string CantGetNextView = "CantGetNextView";
-            internal const string DocumentNotValidated = "DocumentNotValidated";
-        }
+		/// <summary>
+		/// Constructor.
+		/// </summary>
+		public MessageManager()
+		{
+			_resourceManager = new ResourceManager(this.GetType().Namespace + RESOURCE_FILENAME, Assembly.GetExecutingAssembly());						
+		}
+		#endregion 
 
-        #region Fields
+		#region Properties
 
-        private const string RESOURCE_FILENAME = "IBatisNet.DataAccess";
-        private readonly ResourceManager _resourceManager;
-
-        #endregion
-
-        #region Properties
-
-        /// <summary>
-        ///     Gets a message manager for the assembly resource file.
-        /// </summary>
-        public static MessageManager Instance { get; } = new MessageManager();
+		/// <summary>
+		/// Gets a message manager for the assembly resource file.
+		/// </summary>
+		public static MessageManager Instance
+		{
+			get
+			{
+				return _internalManager;
+			}
+		}
 
 
-        /// <summary>
-        ///     Gets the message with the specified key from the assembly resource file.
-        /// </summary>
-        /// <param name="key">Key of the item to retrieve from the resource file.</param>
-        /// <returns>Value from the resource file identified by the key.</returns>
-        public string this[string key] => _resourceManager.GetString(key, CultureInfo.CurrentUICulture);
 
-        #endregion
+		/// <summary>
+		/// Gets the message with the specified key from the assembly resource file.
+		/// </summary>
+		/// <param name="key">Key of the item to retrieve from the resource file.</param>
+		/// <returns>Value from the resource file identified by the key.</returns>
+		public string this [ string key ]
+		{
+			get
+			{
+				return _resourceManager.GetString( key, System.Globalization.CultureInfo.CurrentUICulture );																
+			}
+		}
+		#endregion 
 
-        #region Methods
+		#region Methods
 
-        /// <summary>
-        ///     Gets a resource stream.
-        /// </summary>
-        /// <param name="name">The resource key.</param>
-        /// <returns>A resource stream.</returns>
-        public Stream GetStream(string name)
-        {
-            return Assembly.GetExecutingAssembly().GetManifestResourceStream(GetType().Namespace + "." + name);
-        }
+		/// <summary>
+		/// Gets a resource stream.
+		/// </summary>
+		/// <param name="name">The resource key.</param>
+		/// <returns>A resource stream.</returns>
+		public Stream GetStream( string name )
+		{
+			return Assembly.GetExecutingAssembly().GetManifestResourceStream(this.GetType().Namespace + "." + name); 
+		}
 
-        /// <summary>
-        ///     Formats a message stored in the assembly resource file.
-        /// </summary>
-        /// <param name="key">The resource key.</param>
-        /// <param name="format">The format arguments.</param>
-        /// <returns>A formatted string.</returns>
-        public string FormatMessage(string key, params object[] format)
-        {
-            return string.Format(CultureInfo.CurrentCulture, this[key], format);
-        }
+		/// <summary>
+		/// Formats a message stored in the assembly resource file.
+		/// </summary>
+		/// <param name="key">The resource key.</param>
+		/// <param name="format">The format arguments.</param>
+		/// <returns>A formatted string.</returns>
+		public string FormatMessage( string key, params object[] format )
+		{
+			return String.Format( System.Globalization.CultureInfo.CurrentCulture, this[key], format );  
+		}
+		#endregion 
 
-        #endregion
-    }
+
+		/// <summary>
+		/// Class used to expose constants that represent keys in the resource file.
+		/// </summary>
+		internal abstract class MessageKeys
+		{		
+			internal const string ViewAlreadyConfigured = "ViewAlreadyConfigured";	
+			internal const string CantFindCommandMapping = "CantFindCommandMapping";	
+			internal const string CantGetNextView = "CantGetNextView";	
+			internal const string DocumentNotValidated = "DocumentNotValidated";
+
+
+		}
+	}
 }

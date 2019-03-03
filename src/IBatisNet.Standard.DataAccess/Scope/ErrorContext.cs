@@ -1,5 +1,5 @@
-#region Apache Notice
 
+#region Apache Notice
 /*****************************************************************************
  * $Header: $
  * $Revision: 383115 $
@@ -22,11 +22,9 @@
  * limitations under the License.
  * 
  ********************************************************************************/
-
 #endregion
 
 #region Using
-
 using System;
 using System.Text;
 
@@ -34,109 +32,135 @@ using System.Text;
 
 namespace IBatisNet.DataAccess.Scope
 {
-    /// <summary>
-    ///     An error context to help us create meaningful error messages.
-    /// </summary>
-    public class ErrorContext
-    {
-        #region Fields
+	/// <summary>
+	/// An error context to help us create meaningful error messages.
+	/// </summary>
+	public class ErrorContext
+	{
+		#region Fields
 
-        #endregion
+		private string _resource;
+		private string _activity;
+		private string _objectId;
+		private string _moreInfo;
+		private Exception _cause;
+		#endregion 
 
-        #region Properties
+		#region Properties
 
-        /// <summary>
-        ///     The resource causing the problem
-        /// </summary>
-        public string Resource { get; set; }
+		/// <summary>
+		/// The resource causing the problem
+		/// </summary>
+		public string Resource
+		{
+			get { return _resource; }
+			set { _resource = value; }
+		}
 
-        /// <summary>
-        ///     The activity that was happening when the error happened
-        /// </summary>
-        public string Activity { get; set; }
+		/// <summary>
+		/// The activity that was happening when the error happened
+		/// </summary>
+		public string Activity
+		{
+			get { return _activity; }
+			set { _activity = value; }
+		}
 
-        /// <summary>
-        ///     The object ID where the problem happened
-        /// </summary>
-        public string ObjectId { get; set; }
+		/// <summary>
+		/// The object ID where the problem happened
+		/// </summary>
+		public string ObjectId
+		{
+			get { return _objectId; }
+			set { _objectId = value; }
+		}
 
-        /// <summary>
-        ///     More information about the error
-        /// </summary>
-        public string MoreInfo { get; set; }
+		/// <summary>
+		/// More information about the error
+		/// </summary>
+		public string MoreInfo
+		{
+			get { return _moreInfo; }
+			set { _moreInfo = value; }
+		}
 
-        /// <summary>
-        ///     The cause of the error
-        /// </summary>
-        public Exception Cause { get; set; }
+		/// <summary>
+		/// The cause of the error
+		/// </summary>
+		public Exception Cause
+		{
+			get { return _cause; }
+			set { _cause = value; }
+		}
 
-        #endregion
+		#endregion 
 
-        #region Methods
+		#region Methods
 
-        /// <summary>
-        ///     Clear the error context
-        /// </summary>
-        public void Reset()
-        {
-            Resource = string.Empty;
-            Activity = string.Empty;
-            ObjectId = string.Empty;
-            MoreInfo = string.Empty;
-            Cause = null;
-        }
-
-
-        /// <summary>
-        ///     ToString method for ErrorContext
-        /// </summary>
-        /// <returns></returns>
-        public override string ToString()
-        {
-            StringBuilder message = new StringBuilder();
+		/// <summary>
+		/// Clear the error context
+		/// </summary>
+		public void Reset() 
+		{
+			_resource = string.Empty;
+			_activity = string.Empty;
+			_objectId = string.Empty;
+			_moreInfo = string.Empty;
+			_cause = null;
+		}
 
 
-            // activity
-            if (Activity != null && Activity.Length > 0)
-            {
-                message.Append("\n- The error occurred while ");
-                message.Append(Activity);
-                message.Append(".");
-            }
+		/// <summary>
+		/// ToString method for ErrorContext
+		/// </summary>
+		/// <returns></returns>
+		public override string ToString() 
+		{
+			StringBuilder message = new StringBuilder();
 
-            // more info
-            if (MoreInfo != null && MoreInfo.Length > 0)
-            {
-                message.Append("\n- ");
-                message.Append(MoreInfo);
-            }
 
-            // resource
-            if (Resource != null && Resource.Length > 0)
-            {
-                message.Append("\n- The error occurred in ");
-                message.Append(Resource);
-                message.Append(".");
-            }
+			// activity
+			if (_activity != null && _activity.Length > 0) 
+			{
+				message.Append("\n- The error occurred while ");
+				message.Append(_activity);
+				message.Append(".");
+			}			
 
-            // object
-            if (ObjectId != null && ObjectId.Length > 0)
-            {
-                message.Append("  \n- Check the ");
-                message.Append(ObjectId);
-                message.Append(".");
-            }
+			// more info
+			if (_moreInfo != null && _moreInfo.Length > 0) 
+			{
+				message.Append("\n- ");
+				message.Append(_moreInfo);
+			}
+			
+			// resource
+			if (_resource != null && _resource.Length > 0) 
+			{
+				message.Append("\n- The error occurred in ");
+				message.Append(_resource);
+				message.Append(".");
+			}
 
-            // cause
-            if (Cause != null)
-            {
-                message.Append("\n- Cause: ");
-                message.Append(Cause);
-            }
+			// object
+			if (_objectId != null && _objectId.Length > 0) 
+			{
+				message.Append("  \n- Check the ");
+				message.Append(_objectId);
+				message.Append(".");
+			}
 
-            return message.ToString();
-        }
+			// cause
+			if (_cause != null) 
+			{
+				message.Append("\n- Cause: ");
+				message.Append(_cause.ToString());
+			}
 
-        #endregion
-    }
+			return message.ToString();
+		}
+
+		#endregion 
+
+	}
 }

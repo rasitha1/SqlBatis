@@ -1,7 +1,9 @@
+using IBatisNet.Common.Utilities.Objects;
+using IBatisNet.Common.Utilities.Objects.Members;
 using IBatisNet.DataMapper.DataExchange;
+using IBatisNet.DataMapper.TypeHandlers;
 
 #region Apache Notice
-
 /*****************************************************************************
  * $Revision: 374175 $
  * $LastChangedDate: 2006-05-08 15:21:44 +0200 (lun., 08 mai 2006) $
@@ -24,23 +26,24 @@ using IBatisNet.DataMapper.DataExchange;
  * limitations under the License.
  * 
  ********************************************************************************/
-
 #endregion
 
 namespace IBatisNet.DataMapper.Scope
 {
-    /// <summary>
-    /// </summary>
-    public interface IScope
-    {
-        /// <summary>
-        ///     Get the error context
-        /// </summary>
-        ErrorContext ErrorContext { get; }
+	/// <summary>
+	/// 
+	/// </summary>
+	public interface IScope
+	{
 
-        /// <summary>
-        ///     The factory for DataExchange objects
-        /// </summary>
-        DataExchangeFactory DataExchangeFactory { get; }
-    }
+		/// <summary>
+		///  Get the error context
+		/// </summary>
+		ErrorContext ErrorContext { get; }
+
+		/// <summary>
+		/// The factory for DataExchange objects
+		/// </summary>
+		DataExchangeFactory DataExchangeFactory { get; }
+	}
 }

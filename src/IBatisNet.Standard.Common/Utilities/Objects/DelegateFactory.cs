@@ -1,5 +1,4 @@
 #region Apache Notice
-
 /*****************************************************************************
  * $Revision: 374175 $
  * $LastChangedDate: 2006-04-09 20:24:53 +0200 (dim., 09 avr. 2006) $
@@ -22,7 +21,6 @@
  * limitations under the License.
  * 
  ********************************************************************************/
-
 #endregion
 
 using System;
@@ -33,54 +31,28 @@ using IBatisNet.Common.Exceptions;
 namespace IBatisNet.Common.Utilities.Objects
 {
     /// <summary>
-    ///     A <see cref="IFactory" /> implementation that builds object via DynamicMethod.
+    /// A <see cref="IFactory"/> implementation that builds object via DynamicMethod.
     /// </summary>
     public sealed class DelegateFactory : IFactory
     {
         private const BindingFlags VISIBILITY = BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic;
 
-        private readonly Create _create;
+        private delegate object Create(object[] parameters);
 
-        /// <summary>
-        ///     Initializes a new instance of the <see cref="DelegateFactory" /> class.
-        /// </summary>
-        /// <param name="typeToCreate">The instance type to create.</param>
-        /// <param name="argumentTypes">The types argument.</param>
-        public DelegateFactory(Type typeToCreate, Type[] argumentTypes)
-        {
-
-            DynamicMethod dynamicMethod = new DynamicMethod("CreateImplementation", typeof(object),
-                new[] {typeof(object[])}, GetType().Module, false);
-            ILGenerator generatorIL = dynamicMethod.GetILGenerator();
-
-            // Emit the IL for Create method. 
-            // Add test if contructeur not public
-            ConstructorInfo constructorInfo = typeToCreate.GetConstructor(VISIBILITY, null, argumentTypes, null);
-            if (constructorInfo == null || !constructorInfo.IsPublic)
-                throw new ProbeException(
-                    string.Format(
-                        "Unable to optimize create instance. Cause : Could not find public constructor matching specified arguments for type \"{0}\".",
-                        typeToCreate.Name));
-            // new typeToCreate() or new typeToCreate(... arguments ...)
-            EmitArgsIL(generatorIL, argumentTypes);
-            generatorIL.Emit(OpCodes.Newobj, constructorInfo);
-            generatorIL.Emit(OpCodes.Ret);
-
-            _create = (Create) dynamicMethod.CreateDelegate(typeof(Create));
-        }
+        private Create _create = null;
 
         #region IFactory members
 
         /// <summary>
-        ///     Create a new instance with the specified parameters
+        /// Create a new instance with the specified parameters
         /// </summary>
         /// <param name="parameters">
-        ///     An array of values that matches the number, order and type
-        ///     of the parameters for this constructor.
+        /// An array of values that matches the number, order and type 
+        /// of the parameters for this constructor. 
         /// </param>
         /// <remarks>
-        ///     If you call a constructor with no parameters, pass null.
-        ///     Anyway, what you pass will be ignore.
+        /// If you call a constructor with no parameters, pass null. 
+        /// Anyway, what you pass will be ignore.
         /// </remarks>
         /// <returns>A new instance</returns>
         public object CreateInstance(object[] parameters)
@@ -91,10 +63,36 @@ namespace IBatisNet.Common.Utilities.Objects
         #endregion
 
         /// <summary>
-        ///     Emit parameter IL for a method call.
+        /// Initializes a new instance of the <see cref="DelegateFactory"/> class.
         /// </summary>
-        /// <param name="il">IL generator.</param>
-        /// <param name="argumentTypes">Arguments type defined for a the constructor.</param>
+        /// <param name="typeToCreate">The instance type to create.</param>
+        /// <param name="argumentTypes">The types argument.</param>
+        public DelegateFactory(Type typeToCreate, Type[] argumentTypes)
+        {
+            DynamicMethod dynamicMethod = new DynamicMethod("CreateImplementation", typeof(object), new Type[] { typeof(object[]) }, this.GetType().Module, false);
+            ILGenerator generatorIL = dynamicMethod.GetILGenerator();
+            
+            // Emit the IL for Create method. 
+            // Add test if contructeur not public
+            ConstructorInfo constructorInfo = typeToCreate.GetConstructor(VISIBILITY, null, argumentTypes, null);
+            if (constructorInfo==null || !constructorInfo.IsPublic)
+            {
+                throw new ProbeException(
+                    string.Format("Unable to optimize create instance. Cause : Could not find public constructor matching specified arguments for type \"{0}\".", typeToCreate.Name));
+            }
+            // new typeToCreate() or new typeToCreate(... arguments ...)
+            EmitArgsIL(generatorIL, argumentTypes);
+            generatorIL.Emit(OpCodes.Newobj, constructorInfo);
+            generatorIL.Emit(OpCodes.Ret);
+
+            _create = (Create)dynamicMethod.CreateDelegate(typeof(Create));
+        }
+
+        /// <summary>   
+        /// Emit parameter IL for a method call.   
+        /// </summary>   
+        /// <param name="il">IL generator.</param>   
+        /// <param name="argumentTypes">Arguments type defined for a the constructor.</param>   
         private void EmitArgsIL(ILGenerator il, Type[] argumentTypes)
         {
             // Add args. Since all args are objects, value types are unboxed. 
@@ -103,7 +101,7 @@ namespace IBatisNet.Common.Utilities.Objects
             {
                 // Push args array reference on the stack , followed by the index.   
                 // Ldelem will resolve them to args[i].   
-                il.Emit(OpCodes.Ldarg_0); // Argument 1 is argument array.
+                il.Emit(OpCodes.Ldarg_0);   // Argument 1 is argument array.
                 il.Emit(OpCodes.Ldc_I4, i);
                 il.Emit(OpCodes.Ldelem_Ref);
 
@@ -123,8 +121,6 @@ namespace IBatisNet.Common.Utilities.Objects
                     }
                 }
             }
-        }
-
-        private delegate object Create(object[] parameters);
+        }  
     }
 }

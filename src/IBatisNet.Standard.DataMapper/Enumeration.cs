@@ -1,9 +1,9 @@
-#region Apache Notice
 
+#region Apache Notice
 /*****************************************************************************
  * $Header: $
- * $Revision: 383115 $
- * $Date: 2006-03-04 15:21:51 +0100 (sam., 04 mars 2006) $
+ * $Revision: 638571 $
+ * $Date: 2008-03-18 22:11:57 +0100 (mar., 18 mars 2008) $
  * 
  * iBATIS.NET Data Mapper
  * Copyright (C) 2004 - Gilles Bayon
@@ -22,40 +22,45 @@
  * limitations under the License.
  * 
  ********************************************************************************/
-
 #endregion
+
+using System;
 
 namespace IBatisNet.DataMapper
 {
-    /// <summary>
-    ///     Indicate if the generated key by a selectKey statement
-    ///     concern a pre or post-generated key.
-    /// </summary>
-    public enum SelectKeyType
-    {
-        /// <summary>
-        /// </summary>
-        pre = 1,
+	/// <summary>
+	/// Indicate if the generated key by a selectKey statement
+	///  concern a pre or post-generated key.
+	/// </summary>
+	public enum SelectKeyType : int
+	{
+		/// <summary>
+		/// 
+		/// </summary>
+		pre = 1,
+		/// <summary>
+		/// 
+		/// </summary>
+		post = 2
+	}
 
-        /// <summary>
-        /// </summary>
-        post = 2
-    }
+	/// <summary>
+	/// 
+	/// </summary>
+	public enum CacheKeyType : int
+	{
+		/// <summary>
+		/// 
+		/// </summary>
+		Object = 1,
+		/// <summary>
+		/// 
+		/// </summary>
+		List = 2,
+		/// <summary>
+		/// 
+		/// </summary>
+		Map = 3
+	}
 
-    /// <summary>
-    /// </summary>
-    public enum CacheKeyType
-    {
-        /// <summary>
-        /// </summary>
-        Object = 1,
-
-        /// <summary>
-        /// </summary>
-        List = 2,
-
-        /// <summary>
-        /// </summary>
-        Map = 3
-    }
 }

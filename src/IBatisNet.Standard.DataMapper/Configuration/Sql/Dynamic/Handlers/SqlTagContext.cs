@@ -1,5 +1,5 @@
-#region Apache Notice
 
+#region Apache Notice
 /*****************************************************************************
  * $Revision: 408164 $
  * $LastChangedDate: 2006-05-21 14:27:09 +0200 (dim., 21 mai 2006) $
@@ -22,7 +22,6 @@
  * limitations under the License.
  * 
  ********************************************************************************/
-
 #endregion
 
 #region Imports
@@ -37,79 +36,115 @@ using IBatisNet.DataMapper.Configuration.Sql.Dynamic.Elements;
 
 namespace IBatisNet.DataMapper.Configuration.Sql.Dynamic.Handlers
 {
-    /// <summary>
-    ///     Summary description for SqlTagContext.
-    /// </summary>
-    public sealed class SqlTagContext
-    {
-        /// <summary>
-        /// </summary>
-        public SqlTagContext()
-        {
-            IsOverridePrepend = false;
-        }
-
-        /// <summary>
-        /// </summary>
-        public string BodyText => buffer.ToString().Trim();
-
-        /// <summary>
-        /// </summary>
-        public bool IsOverridePrepend { set; get; }
-
-        /// <summary>
-        /// </summary>
-        public SqlTag FirstNonDynamicTagWithPrepend { get; set; } = null;
-
-        /// <summary>
-        /// </summary>
-        /// <returns></returns>
-        public StringBuilder GetWriter()
-        {
-            return buffer;
-        }
+	/// <summary>
+	/// Summary description for SqlTagContext.
+	/// </summary>
+	public sealed class SqlTagContext
+	{
+		#region Fields
+		private Hashtable _attributes = new Hashtable();
+		private bool _overridePrepend = false;
+		private SqlTag _firstNonDynamicTagWithPrepend = null;
+		private ArrayList _parameterMappings = new ArrayList();
+		private StringBuilder buffer = new StringBuilder();
+		#endregion
 
 
-        /// <summary>
-        /// </summary>
-        /// <param name="key"></param>
-        /// <param name="value"></param>
-        public void AddAttribute(object key, object value)
-        {
-            _attributes.Add(key, value);
-        }
+		/// <summary>
+		/// 
+		/// </summary>
+		public SqlTagContext() 
+		{
+			_overridePrepend = false;
+		}
 
-        /// <summary>
-        /// </summary>
-        /// <param name="key"></param>
-        /// <returns></returns>
-        public object GetAttribute(object key)
-        {
-            return _attributes[key];
-        }
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <returns></returns>
+		public StringBuilder GetWriter() 
+		{
+			return buffer;
+		}
 
-        /// <summary>
-        /// </summary>
-        /// <param name="mapping"></param>
-        public void AddParameterMapping(ParameterProperty mapping)
-        {
-            _parameterMappings.Add(mapping);
-        }
+		/// <summary>
+		/// 
+		/// </summary>
+		public string BodyText 
+		{
+			get
+			{
+				return buffer.ToString().Trim();
+			}
+		}
 
-        /// <summary>
-        /// </summary>
-        /// <returns></returns>
-        public IList GetParameterMappings()
-        {
-            return _parameterMappings;
-        }
+		/// <summary>
+		/// 
+		/// </summary>
+		public bool IsOverridePrepend
+		{
+			set
+			{
+				_overridePrepend = value;
+			}
+			get
+			{
+				return _overridePrepend;
+			}
+		}
 
-        #region Fields
+		/// <summary>
+		/// 
+		/// </summary>
+		public SqlTag FirstNonDynamicTagWithPrepend
+		{
+			get
+			{
+				return _firstNonDynamicTagWithPrepend;
+			}
+			set
+			{
+				_firstNonDynamicTagWithPrepend = value;
+			}
+		}
 
-        private readonly Hashtable _attributes = new Hashtable();
-        private readonly ArrayList _parameterMappings = new ArrayList();
-        private readonly StringBuilder buffer = new StringBuilder();
 
-        #endregion
-    }
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="key"></param>
+		/// <param name="value"></param>
+		public void AddAttribute(object key, object value) 
+		{
+			_attributes.Add(key, value);
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="key"></param>
+		/// <returns></returns>
+		public object GetAttribute(object key) 
+		{
+			return _attributes[key];
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="mapping"></param>
+		public void AddParameterMapping(ParameterProperty mapping) 
+		{
+			_parameterMappings.Add(mapping);
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <returns></returns>
+		public IList GetParameterMappings() 
+		{
+			return _parameterMappings;
+		}
+	}
 }

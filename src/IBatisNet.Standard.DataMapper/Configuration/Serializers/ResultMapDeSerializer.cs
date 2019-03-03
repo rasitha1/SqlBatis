@@ -1,5 +1,4 @@
 #region Apache Notice
-
 /*****************************************************************************
  * $Header: $
  * $Revision: 470514 $
@@ -22,7 +21,6 @@
  * limitations under the License.
  * 
  ********************************************************************************/
-
 #endregion
 
 #region Using
@@ -32,33 +30,31 @@ using System.Xml;
 using IBatisNet.Common.Xml;
 using IBatisNet.DataMapper.Configuration.ResultMapping;
 using IBatisNet.DataMapper.Scope;
-
-#endregion
+#endregion 
 
 namespace IBatisNet.DataMapper.Configuration.Serializers
 {
-    /// <summary>
-    ///     Summary description for ResultMapDeSerializer.
-    /// </summary>
-    public sealed class ResultMapDeSerializer
-    {
-        /// <summary>
-        ///     Deserialize a ResultMap object
-        /// </summary>
-        /// <param name="node"></param>
-        /// <param name="configScope"></param>
-        /// <returns></returns>
-        public static ResultMap Deserialize(XmlNode node, ConfigurationScope configScope)
-        {
-            NameValueCollection prop = NodeUtils.ParseAttributes(node, configScope.Properties);
-            ResultMap resultMap =
-                new ResultMap(configScope, prop["id"], prop["class"], prop["extends"], prop["groupBy"]);
+	/// <summary>
+	/// Summary description for ResultMapDeSerializer.
+	/// </summary>
+	public sealed class ResultMapDeSerializer
+	{
+		/// <summary>
+		/// Deserialize a ResultMap object
+		/// </summary>
+		/// <param name="node"></param>
+		/// <param name="configScope"></param>
+		/// <returns></returns>
+		public static ResultMap Deserialize(XmlNode node, ConfigurationScope configScope)
+		{
+			NameValueCollection prop = NodeUtils.ParseAttributes(node, configScope.Properties);
+            ResultMap resultMap = new ResultMap(configScope, prop["id"], prop["class"], prop["extends"], prop["groupBy"]);
 
-            configScope.ErrorContext.MoreInfo = "initialize ResultMap";
+			configScope.ErrorContext.MoreInfo = "initialize ResultMap";
 
-            resultMap.Initialize(configScope);
+			resultMap.Initialize( configScope );
 
-            return resultMap;
-        }
-    }
+			return resultMap;
+		}
+	}
 }

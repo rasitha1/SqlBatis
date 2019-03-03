@@ -1,5 +1,4 @@
 #region Apache Notice
-
 /*****************************************************************************
  * $Revision: 374175 $
  * $LastChangedDate: 2006-04-09 20:24:53 +0200 (dim., 09 avr. 2006) $
@@ -22,7 +21,6 @@
  * limitations under the License.
  * 
  ********************************************************************************/
-
 #endregion
 
 using System;
@@ -32,88 +30,113 @@ using System.Reflection.Emit;
 namespace IBatisNet.Common.Utilities.Objects.Members
 {
     /// <summary>
-    ///     The <see cref="DelegatePropertySetAccessor" /> class defines a set property accessor and
-    ///     provides <c>Reflection.Emit</c>-generated <see cref="ISet" />
-    ///     via the new DynamicMethod (.NET V2).
+    /// The <see cref="DelegatePropertySetAccessor"/> class defines a set property accessor and
+    /// provides <c>Reflection.Emit</c>-generated <see cref="ISet"/> 
+    /// via the new DynamicMethod (.NET V2).
     /// </summary>
     public sealed class DelegatePropertySetAccessor : BaseAccessor, ISetAccessor
     {
-        private readonly bool _canWrite;
+        private delegate void SetValue(object instance, object value);
+
+        private SetValue _set = null;
 
         /// <summary>
-        ///     The property type
+        /// The property type
         /// </summary>
-        private readonly Type _propertyType;
+        private Type _propertyType = null;
+        private bool _canWrite = false;
 
-        private readonly SetValue _set;
-
-        /// <summary>
-        ///     Initializes a new instance of the <see cref="DelegatePropertySetAccessor" /> class
-        ///     for set property access via DynamicMethod.
+                /// <summary>
+        /// Initializes a new instance of the <see cref="DelegatePropertySetAccessor"/> class
+        /// for set property access via DynamicMethod.
         /// </summary>
         /// <param name="targetObjectType">Type of the target object.</param>
         /// <param name="propName">Name of the property.</param>
         public DelegatePropertySetAccessor(Type targetObjectType, string propName)
-        {
+		{
             targetType = targetObjectType;
             propertyName = propName;
 
             PropertyInfo propertyInfo = GetPropertyInfo(targetObjectType);
+                    
+			// Make sure the property exists
+			if(propertyInfo == null)
+			{
+				throw new NotSupportedException(
+					string.Format("Property \"{0}\" does not exist for type "
+                    + "{1}.", propertyName, targetType));
+			}
+			else
+			{
+                _propertyType = propertyInfo.PropertyType;
+                _canWrite = propertyInfo.CanWrite;
 
-            // Make sure the property exists
-            if (propertyInfo == null)
-                throw new NotSupportedException(
-                    string.Format("Property \"{0}\" does not exist for type "
-                                  + "{1}.", propertyName, targetType));
+                this.nullInternal = this.GetNullInternal(_propertyType);
 
-            _propertyType = propertyInfo.PropertyType;
-            _canWrite = propertyInfo.CanWrite;
+				if (propertyInfo.CanWrite)
+				{
+					DynamicMethod dynamicMethod = new DynamicMethod("SetImplementation", null, new Type[] { typeof(object), typeof(object) }, this.GetType().Module, true);
+					ILGenerator ilgen = dynamicMethod.GetILGenerator();
+                    
+                    // Emit the IL for set access. 
+                    MethodInfo targetSetMethod = propertyInfo.GetSetMethod();
 
-            nullInternal = GetNullInternal(_propertyType);
-
-            if (propertyInfo.CanWrite)
-            {
-                DynamicMethod dynamicMethod = new DynamicMethod("SetImplementation", null,
-                    new[] {typeof(object), typeof(object)}, GetType().Module, true);
-                ILGenerator ilgen = dynamicMethod.GetILGenerator();
-
-                // Emit the IL for set access. 
-                MethodInfo targetSetMethod = propertyInfo.GetSetMethod();
-
-                Type paramType = targetSetMethod.GetParameters()[0].ParameterType;
-                ilgen.DeclareLocal(paramType);
-                ilgen.Emit(OpCodes.Ldarg_0); //Load the first argument (target object)
-                ilgen.Emit(OpCodes.Castclass, targetType); //Cast to the source type
-                ilgen.Emit(OpCodes.Ldarg_1); //Load the second argument (value object)
-                if (paramType.IsValueType)
-                {
-                    ilgen.Emit(OpCodes.Unbox, paramType); //Unbox it 	
-                    if (typeToOpcode[paramType] != null)
+                    Type paramType = targetSetMethod.GetParameters()[0].ParameterType;
+                    ilgen.DeclareLocal(paramType);
+                    ilgen.Emit(OpCodes.Ldarg_0); //Load the first argument (target object)
+                    ilgen.Emit(OpCodes.Castclass, targetType); //Cast to the source type
+                    ilgen.Emit(OpCodes.Ldarg_1); //Load the second argument (value object)
+                    if (paramType.IsValueType)
                     {
-                        OpCode load = (OpCode) typeToOpcode[paramType];
-                        ilgen.Emit(load); //and load
+                        ilgen.Emit(OpCodes.Unbox, paramType); //Unbox it 	
+                        if (typeToOpcode[paramType] != null)
+                        {
+                            OpCode load = (OpCode)typeToOpcode[paramType];
+                            ilgen.Emit(load); //and load
+                        }
+                        else
+                        {
+                            ilgen.Emit(OpCodes.Ldobj, paramType);
+                        }
                     }
                     else
                     {
-                        ilgen.Emit(OpCodes.Ldobj, paramType);
+                        ilgen.Emit(OpCodes.Castclass, paramType); //Cast class
                     }
-                }
-                else
-                {
-                    ilgen.Emit(OpCodes.Castclass, paramType); //Cast class
-                }
+                    ilgen.EmitCall(OpCodes.Callvirt, targetSetMethod, null); //Set the property value
+                    ilgen.Emit(OpCodes.Ret);
+				
+					_set = (SetValue)dynamicMethod.CreateDelegate(typeof(SetValue));
+				}
+			}
+		}
 
-                ilgen.EmitCall(OpCodes.Callvirt, targetSetMethod, null); //Set the property value
-                ilgen.Emit(OpCodes.Ret);
+        #region IAccessor Members
 
-                _set = (SetValue) dynamicMethod.CreateDelegate(typeof(SetValue));
-            }
+        /// <summary>
+        /// Gets the property's name.
+        /// </summary>
+        /// <value></value>
+        public string Name
+        {
+            get { return propertyName; }
         }
+
+        /// <summary>
+        /// Gets the property's type.
+        /// </summary>
+        /// <value></value>
+        public Type MemberType
+        {
+            get { return _propertyType; }
+        }
+
+        #endregion
 
         #region ISet Members
 
         /// <summary>
-        ///     Sets the field for the specified target.
+        /// Sets the field for the specified target.
         /// </summary>
         /// <param name="target">Target object.</param>
         /// <param name="value">Value to set.</param>
@@ -122,7 +145,11 @@ namespace IBatisNet.Common.Utilities.Objects.Members
             if (_canWrite)
             {
                 object newValue = value;
-                if (newValue == null) newValue = nullInternal;
+                if (newValue == null)
+                {
+                    // If the value to assign is null, assign null internal value
+                    newValue = nullInternal;
+                }
 
                 _set(target, newValue);
             }
@@ -130,27 +157,9 @@ namespace IBatisNet.Common.Utilities.Objects.Members
             {
                 throw new NotSupportedException(
                     string.Format("Property \"{0}\" on type "
-                                  + "{1} doesn't have a set method.", propertyName, targetType));
+                    + "{1} doesn't have a set method.", propertyName, targetType));
             }
         }
-
-        #endregion
-
-        private delegate void SetValue(object instance, object value);
-
-        #region IAccessor Members
-
-        /// <summary>
-        ///     Gets the property's name.
-        /// </summary>
-        /// <value></value>
-        public string Name => propertyName;
-
-        /// <summary>
-        ///     Gets the property's type.
-        /// </summary>
-        /// <value></value>
-        public Type MemberType => _propertyType;
 
         #endregion
     }

@@ -1,5 +1,5 @@
-#region Apache Notice
 
+#region Apache Notice
 /*****************************************************************************
  * $Header: $
  * $Revision: 513043 $
@@ -22,7 +22,6 @@
  * limitations under the License.
  * 
  ********************************************************************************/
-
 #endregion
 
 #region Imports
@@ -35,260 +34,276 @@ using IBatisNet.DataMapper;
 
 namespace IBatisNet.DataAccess.DaoSessionHandlers
 {
-    /// <summary>
-    ///     An SqlMappper implementation of the DataAccess Session.
-    /// </summary>
-    public class SqlMapDaoSession : DaoSession
-    {
-        #region Fields
+	/// <summary>
+	/// An SqlMappper implementation of the DataAccess Session.
+	/// </summary>
+	public class SqlMapDaoSession : DaoSession
+	{
+		#region Fields
+		private ISqlMapper _sqlMap = null;
+		#endregion
 
-        #endregion
+		#region Properties
 
-        #region Constructor (s) / Destructor
-
-        /// <summary>
-        /// </summary>
-        /// <param name="daoManager"></param>
-        /// <param name="sqlMap"></param>
-        public SqlMapDaoSession(DaoManager daoManager, ISqlMapper sqlMap) : base(daoManager)
-        {
-            SqlMap = sqlMap;
-        }
-
-        #endregion
-
-        #region IDisposable Members
 
         /// <summary>
-        ///     Releasing, or resetting resources.
-        /// </summary>
-        public override void Dispose()
-        {
-            SqlMap.LocalSession.Dispose();
-            daoManager.Dispose();
-        }
-
-        #endregion
-
-        #region Properties
-
-        /// <summary>
-        ///     Gets the SQL map.
+        /// Gets the SQL map.
         /// </summary>
         /// <value>The SQL map.</value>
-        public ISqlMapper SqlMap { get; }
+		public ISqlMapper SqlMap
+		{
+			get { return _sqlMap; }
+		}
 
 
         /// <summary>
-        ///     The data source use by the session.
+        /// The data source use by the session.
         /// </summary>
         /// <value></value>
-        public override IDataSource DataSource => SqlMap.LocalSession.DataSource;
+		public override IDataSource DataSource
+		{
+			get { return _sqlMap.LocalSession.DataSource; }
+		}
 
 
         /// <summary>
-        ///     The Connection use by the session.
+        /// The Connection use by the session.
         /// </summary>
         /// <value></value>
-        public override IDbConnection Connection => SqlMap.LocalSession.Connection;
+		public override IDbConnection Connection
+		{
+			get { return _sqlMap.LocalSession.Connection; }
+		}
 
 
         /// <summary>
-        ///     The Transaction use by the session.
+        /// The Transaction use by the session.
         /// </summary>
         /// <value></value>
-        public override IDbTransaction Transaction => SqlMap.LocalSession.Transaction;
+		public override IDbTransaction Transaction
+		{
+			get { return _sqlMap.LocalSession.Transaction; }
+		}
 
         /// <summary>
-        ///     Indicates if a transaction is open  on
-        ///     the session.
+        /// Indicates if a transaction is open  on
+        /// the session.
         /// </summary>
         /// <value></value>
-        public override bool IsTransactionStart => SqlMap.LocalSession.IsTransactionStart;
-
-        #endregion
-
-        #region Methods
-
-        /// <summary>
-        ///     Complete (commit) a transaction
-        /// </summary>
-        /// <remarks>
-        ///     Use in 'using' syntax.
-        /// </remarks>
-        public override void Complete()
+        public override bool IsTransactionStart
         {
-            SqlMap.LocalSession.Complete();
+            get { return _sqlMap.LocalSession.IsTransactionStart; }
         }
 
-        /// <summary>
-        ///     Opens a database connection.
-        /// </summary>
-        public override void OpenConnection()
-        {
-            SqlMap.OpenConnection();
-        }
+		#endregion
 
-        /// <summary>
-        ///     Open a connection, on the specified connection string.
-        /// </summary>
-        /// <param name="connectionString">The connection string</param>
-        public override void OpenConnection(string connectionString)
-        {
-            SqlMap.OpenConnection(connectionString);
-        }
+		#region Constructor (s) / Destructor
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="daoManager"></param>
+		/// <param name="sqlMap"></param>
+		public SqlMapDaoSession(DaoManager daoManager, ISqlMapper sqlMap):base(daoManager) 
+		{
+			_sqlMap = sqlMap;
+		}
+		#endregion
 
-        /// <summary>
-        ///     Closes the connection
-        /// </summary>
-        public override void CloseConnection()
-        {
-            SqlMap.CloseConnection();
-        }
+		#region Methods
 
-        /// <summary>
-        ///     Begins a transaction.
-        /// </summary>
-        public override void BeginTransaction()
-        {
-            SqlMap.BeginTransaction();
-        }
+		/// <summary>
+		/// Complete (commit) a transaction
+		/// </summary>
+		/// <remarks>
+		/// Use in 'using' syntax.
+		/// </remarks>
+		public override void Complete()
+		{
+			_sqlMap.LocalSession.Complete();
+		}
 
-        /// <summary>
-        ///     Open a connection and begin a transaction on the specified connection string.
-        /// </summary>
-        /// <param name="connectionString">The connection string</param>
-        public override void BeginTransaction(string connectionString)
-        {
-            SqlMap.BeginTransaction(connectionString);
-        }
+		/// <summary>
+		/// Opens a database connection.
+		/// </summary>
+		public override void OpenConnection()
+		{
+			_sqlMap.OpenConnection();
+		}
 
-        /// <summary>
-        ///     Begins a database transaction
-        /// </summary>
-        /// <param name="openConnection">Open a connection.</param>
-        public override void BeginTransaction(bool openConnection)
-        {
-            SqlMap.BeginTransaction(openConnection);
-        }
+		/// <summary>
+		/// Open a connection, on the specified connection string.
+		/// </summary>
+		/// <param name="connectionString">The connection string</param>
+		public override void OpenConnection(string connectionString)
+		{
+			_sqlMap.OpenConnection(connectionString);
+		}
 
-        /// <summary>
-        ///     Begins a transaction at the data source with the specified IsolationLevel value.
-        /// </summary>
-        /// <param name="isolationLevel">The transaction isolation level for this connection.</param>
-        public override void BeginTransaction(IsolationLevel isolationLevel)
-        {
-            SqlMap.BeginTransaction(isolationLevel);
-        }
+		/// <summary>
+		/// Closes the connection
+		/// </summary>
+		public override void CloseConnection()
+		{
+			_sqlMap.CloseConnection();
+		}
 
-        /// <summary>
-        ///     Open a connection and begin a transaction on the specified connection string.
-        /// </summary>
-        /// <param name="connectionString">The connection string</param>
-        /// <param name="isolationLevel">The transaction isolation level for this connection.</param>
-        public override void BeginTransaction(string connectionString, IsolationLevel isolationLevel)
-        {
-            SqlMap.BeginTransaction(connectionString, isolationLevel);
-        }
+		/// <summary>
+		/// Begins a transaction.
+		/// </summary>
+		public override void BeginTransaction()
+		{
+			_sqlMap.BeginTransaction();
+		}
 
-        /// <summary>
-        ///     Begins a transaction on the current connection
-        ///     with the specified IsolationLevel value.
-        /// </summary>
-        /// <param name="isolationLevel">The transaction isolation level for this connection.</param>
-        /// <param name="openConnection">Open a connection.</param>
-        public override void BeginTransaction(bool openConnection, IsolationLevel isolationLevel)
-        {
-            SqlMap.BeginTransaction(openConnection, isolationLevel);
-        }
+		/// <summary>
+		/// Open a connection and begin a transaction on the specified connection string.
+		/// </summary>
+		/// <param name="connectionString">The connection string</param>
+		public override void BeginTransaction(string connectionString)
+		{
+			_sqlMap.BeginTransaction( connectionString );		
+		}
 
-        /// <summary>
-        ///     Begins a transaction on the current connection
-        ///     with the specified IsolationLevel value.
-        /// </summary>
-        /// <param name="isolationLevel">The transaction isolation level for this connection.</param>
-        /// <param name="connectionString">The connection string</param>
-        /// <param name="openConnection">Open a connection.</param>
-        public override void BeginTransaction(string connectionString, bool openConnection,
-            IsolationLevel isolationLevel)
-        {
-            SqlMap.BeginTransaction(connectionString, openConnection, isolationLevel);
-        }
+		/// <summary>
+		/// Begins a database transaction
+		/// </summary>
+		/// <param name="openConnection">Open a connection.</param>
+		public override void BeginTransaction(bool openConnection)
+		{
+			_sqlMap.BeginTransaction(openConnection);
+		}
 
-        /// <summary>
-        ///     Commits the database transaction.
-        /// </summary>
-        /// <remarks>
-        ///     Will close the connection.
-        /// </remarks>
-        public override void CommitTransaction()
-        {
-            SqlMap.CommitTransaction();
-        }
+		/// <summary>
+		/// Begins a transaction at the data source with the specified IsolationLevel value.
+		/// </summary>
+		/// <param name="isolationLevel">The transaction isolation level for this connection.</param>
+		public override void BeginTransaction(IsolationLevel isolationLevel)
+		{
+			_sqlMap.BeginTransaction (isolationLevel);
+		}
 
-        /// <summary>
-        ///     Commits the database transaction.
-        /// </summary>
-        /// <param name="closeConnection">Close the connection</param>
-        public override void CommitTransaction(bool closeConnection)
-        {
-            SqlMap.CommitTransaction(closeConnection);
-        }
+		/// <summary>
+		/// Open a connection and begin a transaction on the specified connection string.
+		/// </summary>
+		/// <param name="connectionString">The connection string</param>
+		/// <param name="isolationLevel">The transaction isolation level for this connection.</param>
+		public override void BeginTransaction(string connectionString, IsolationLevel isolationLevel)
+		{
+			_sqlMap.BeginTransaction ( connectionString, isolationLevel );
+		}
 
-        /// <summary>
-        ///     Rolls back a transaction from a pending state.
-        /// </summary>
-        /// <remarks>
-        ///     Will close the connection.
-        /// </remarks>
-        public override void RollBackTransaction()
-        {
-            SqlMap.RollBackTransaction();
-        }
+		/// <summary>
+		/// Begins a transaction on the current connection
+		/// with the specified IsolationLevel value.
+		/// </summary>
+		/// <param name="isolationLevel">The transaction isolation level for this connection.</param>
+		/// <param name="openConnection">Open a connection.</param>
+		public override void BeginTransaction(bool openConnection, IsolationLevel isolationLevel)
+		{
+			_sqlMap.BeginTransaction(openConnection, isolationLevel);
+		}
 
-        /// <summary>
-        ///     Rolls back a transaction from a pending state.
-        /// </summary>
-        /// <param name="closeConnection">Close the connection</param>
-        public override void RollBackTransaction(bool closeConnection)
-        {
-            SqlMap.RollBackTransaction(closeConnection);
-        }
+		/// <summary>
+		/// Begins a transaction on the current connection
+		/// with the specified IsolationLevel value.
+		/// </summary>
+		/// <param name="isolationLevel">The transaction isolation level for this connection.</param>
+		/// <param name="connectionString">The connection string</param>
+		/// <param name="openConnection">Open a connection.</param>
+		public override void BeginTransaction(string connectionString, bool openConnection, IsolationLevel isolationLevel)
+		{
+			_sqlMap.BeginTransaction( connectionString, openConnection, isolationLevel );
+		}
 
-        /// <summary>
-        /// </summary>
-        /// <param name="commandType"></param>
-        /// <returns></returns>
-        public override IDbCommand CreateCommand(CommandType commandType)
-        {
-            return SqlMap.LocalSession.CreateCommand(commandType);
-        }
+		/// <summary>
+		/// Commits the database transaction.
+		/// </summary>
+		/// <remarks>
+		/// Will close the connection.
+		/// </remarks>
+		public override void CommitTransaction()
+		{
+			_sqlMap.CommitTransaction();
+		}
 
-        /// <summary>
-        /// </summary>
-        /// <returns></returns>
-        public override IDbDataParameter CreateDataParameter()
-        {
-            return SqlMap.LocalSession.CreateDataParameter();
-        }
+		/// <summary>
+		/// Commits the database transaction.
+		/// </summary>
+		/// <param name="closeConnection">Close the connection</param>
+		public override void CommitTransaction(bool closeConnection)
+		{
+			_sqlMap.CommitTransaction(closeConnection);
+		}
 
-        /// <summary>
-        /// </summary>
-        /// <returns></returns>
-        public override IDbDataAdapter CreateDataAdapter()
-        {
-            return SqlMap.LocalSession.CreateDataAdapter();
-        }
+		/// <summary>
+		/// Rolls back a transaction from a pending state.
+		/// </summary>
+		/// <remarks>
+		/// Will close the connection.
+		/// </remarks>
+		public override void RollBackTransaction()
+		{
+			_sqlMap.RollBackTransaction();
+		}
 
-        /// <summary>
-        /// </summary>
-        /// <param name="command"></param>
-        /// <returns></returns>
-        public override IDbDataAdapter CreateDataAdapter(IDbCommand command)
-        {
-            return SqlMap.LocalSession.CreateDataAdapter(command);
-        }
+		/// <summary>
+		/// Rolls back a transaction from a pending state.
+		/// </summary>
+		/// <param name="closeConnection">Close the connection</param>
+		public override void RollBackTransaction(bool closeConnection)
+		{
+			_sqlMap.RollBackTransaction(closeConnection);
+		}
 
-        #endregion
-    }
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="commandType"></param>
+		/// <returns></returns>
+		public override IDbCommand CreateCommand(CommandType commandType)
+		{
+			return _sqlMap.LocalSession.CreateCommand(commandType);
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <returns></returns>
+		public override IDbDataParameter CreateDataParameter()
+		{
+			return _sqlMap.LocalSession.CreateDataParameter();
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <returns></returns>
+		public override IDbDataAdapter CreateDataAdapter()
+		{
+			return _sqlMap.LocalSession.CreateDataAdapter();
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="command"></param>
+		/// <returns></returns>
+		public override IDbDataAdapter CreateDataAdapter(IDbCommand command)
+		{
+			return _sqlMap.LocalSession.CreateDataAdapter(command);
+		}
+		#endregion
+
+		#region IDisposable Members
+		/// <summary>
+		/// Releasing, or resetting resources.
+		/// </summary>
+		public override void Dispose()
+		{
+			_sqlMap.LocalSession.Dispose();
+			daoManager.Dispose();
+		}
+		#endregion
+
+	}
 }

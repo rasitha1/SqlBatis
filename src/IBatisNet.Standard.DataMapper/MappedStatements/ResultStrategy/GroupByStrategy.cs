@@ -1,8 +1,7 @@
 #region Apache Notice
-
 /*****************************************************************************
  * $Revision: 374175 $
- * $LastChangedDate: 2006-11-12 18:00:49 +0100 (dim., 12 nov. 2006) $
+ * $LastChangedDate: 2007-09-15 14:03:39 +0200 (sam., 15 sept. 2007) $
  * $LastChangedBy: gbayon $
  * 
  * iBATIS.NET Data Mapper
@@ -22,10 +21,10 @@
  * limitations under the License.
  * 
  ********************************************************************************/
-
 #endregion
 
 using System.Collections;
+using System.Collections.Generic;
 using System.Data;
 using IBatisNet.DataMapper.Configuration.ResultMapping;
 using IBatisNet.DataMapper.Scope;
@@ -33,16 +32,17 @@ using IBatisNet.DataMapper.Scope;
 namespace IBatisNet.DataMapper.MappedStatements.ResultStrategy
 {
     /// <summary>
-    ///     <see cref="IResultStrategy" /> implementation when
-    ///     a 'groupBy' attribute is specified on the resultMap tag.
+    /// <see cref="IResultStrategy"/> implementation when 
+    /// a 'groupBy' attribute is specified on the resultMap tag.
     /// </summary>
     /// <remarks>N+1 Select solution</remarks>
     public sealed class GroupByStrategy : BaseStrategy, IResultStrategy
     {
+
         #region IResultStrategy Members
 
         /// <summary>
-        ///     Processes the specified <see cref="IDataReader" />.
+        /// Processes the specified <see cref="IDataReader"/>.
         /// </summary>
         /// <param name="request">The request.</param>
         /// <param name="reader">The reader.</param>
@@ -67,24 +67,27 @@ namespace IBatisNet.DataMapper.MappedStatements.ResultStrategy
                 {
                     ResultProperty resultProperty = resultMap.Properties[index];
                     if (resultProperty.PropertyStrategy is PropertStrategy.GroupByStrategy)
-                        resultProperty.PropertyStrategy.Set(request, resultMap, resultProperty, ref outObject, reader,
-                            null);
+                    {
+                        resultProperty.PropertyStrategy.Set(request, resultMap, resultProperty, ref outObject, reader, null);
+                    }
                 }
-
                 outObject = SKIP;
             }
             else if (uniqueKey == null || buildObjects == null || !buildObjects.Contains(uniqueKey))
             {
                 // Unique key is NOT known, so create a new result object and process additional results.
 
-                // temp ?, we don't support constructor tag with groupBy attribute
-                outObject = resultMap.CreateInstanceOfResult(null);
+                // Fix IBATISNET-241
+                if (outObject == null)
+                {
+                    // temp ?, we don't support constructor tag with groupBy attribute
+                    outObject = resultMap.CreateInstanceOfResult(null);
+                }
 
                 for (int index = 0; index < resultMap.Properties.Count; index++)
                 {
                     ResultProperty resultProperty = resultMap.Properties[index];
-                    resultProperty.PropertyStrategy.Set(request, resultMap, resultProperty, ref outObject, reader,
-                        null);
+                    resultProperty.PropertyStrategy.Set(request, resultMap, resultProperty, ref outObject, reader, null);                   
                 }
 
                 if (buildObjects == null)
@@ -92,7 +95,6 @@ namespace IBatisNet.DataMapper.MappedStatements.ResultStrategy
                     buildObjects = new Hashtable();
                     request.SetUniqueKeys(resultMap, buildObjects);
                 }
-
                 buildObjects[uniqueKey] = outObject;
             }
 

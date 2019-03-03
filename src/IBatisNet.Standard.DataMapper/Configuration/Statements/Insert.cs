@@ -1,9 +1,9 @@
-#region Apache Notice
 
+#region Apache Notice
 /*****************************************************************************
  * $Header: $
- * $Revision: 383115 $
- * $Date: 2006-03-04 15:21:51 +0100 (sam., 04 mars 2006) $
+ * $Revision: 638571 $
+ * $Date: 2008-03-18 22:11:57 +0100 (mar., 18 mars 2008) $
  * 
  * iBATIS.NET Data Mapper
  * Copyright (C) 2004 - Gilles Bayon
@@ -22,70 +22,73 @@
  * limitations under the License.
  * 
  ********************************************************************************/
-
 #endregion
 
 #region Imports
-
 using System;
 using System.Xml.Serialization;
 
+using IBatisNet.DataMapper.Exceptions;
 #endregion
 
 namespace IBatisNet.DataMapper.Configuration.Statements
 {
-    /// <summary>
-    ///     Represent an insert statement.
-    /// </summary>
-    [Serializable]
-    [XmlRoot("insert", Namespace = "http://ibatis.apache.org/mapping")]
-    public class Insert : Statement
-    {
-        #region Constructor (s) / Destructor
+	/// <summary>
+	/// Represent an insert statement.
+	/// </summary>
+	[Serializable]
+	[XmlRoot("insert", Namespace="http://ibatis.apache.org/mapping")]
+	public class Insert : Statement
+	{
+		#region Fields
+		[NonSerialized]
+		private SelectKey _selectKey = null;
+		[NonSerialized]
+		private Generate _generate = null;
+		#endregion
 
-        #endregion
+		#region Properties
+		/// <summary>
+		/// Extend statement attribute
+		/// </summary>
+		[XmlIgnoreAttribute]
+		public override string ExtendStatement
+		{
+			get { return string.Empty;  }
+			set {  }
+		}
 
-        #region Fields
+		/// <summary>
+		/// The selectKey statement used by an insert statement.
+		/// </summary>
+		[XmlElement("selectKey",typeof(SelectKey))]
+		public SelectKey SelectKey
+		{
+			get { return _selectKey; }
+			set { _selectKey = value; }
+		}
 
-        [NonSerialized] private SelectKey _selectKey;
+		/// <summary>
+		/// The Generate tag used by a generated insert statement.
+		/// (CRUD operation)
+		/// </summary>
+		[XmlElement("generate",typeof(Generate))]
+		public Generate Generate
+		{
+			get { return _generate; }
+			set { _generate = value; }
+		}
+		#endregion
 
-        [NonSerialized] private Generate _generate;
+		#region Constructor (s) / Destructor
+		/// <summary>
+		/// Do not use direclty, only for serialization.
+		/// </summary>
+		public Insert():base()
+		{
+		}
+		#endregion
 
-        #endregion
 
-        #region Properties
-
-        /// <summary>
-        ///     Extend statement attribute
-        /// </summary>
-        [XmlIgnore]
-        public override string ExtendStatement
-        {
-            get => string.Empty;
-            set { }
-        }
-
-        /// <summary>
-        ///     The selectKey statement used by an insert statement.
-        /// </summary>
-        [XmlElement("selectKey", typeof(SelectKey))]
-        public SelectKey SelectKey
-        {
-            get => _selectKey;
-            set => _selectKey = value;
-        }
-
-        /// <summary>
-        ///     The Generate tag used by a generated insert statement.
-        ///     (CRUD operation)
-        /// </summary>
-        [XmlElement("generate", typeof(Generate))]
-        public Generate Generate
-        {
-            get => _generate;
-            set => _generate = value;
-        }
-
-        #endregion
-    }
+	}
 }

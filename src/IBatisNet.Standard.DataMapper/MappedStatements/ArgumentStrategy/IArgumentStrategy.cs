@@ -1,5 +1,4 @@
 #region Apache Notice
-
 /*****************************************************************************
  * $Revision: 374175 $
  * $LastChangedDate: 2006-04-25 19:40:27 +0200 (mar., 25 avr. 2006) $
@@ -22,7 +21,6 @@
  * limitations under the License.
  * 
  ********************************************************************************/
-
 #endregion
 
 using System.Data;
@@ -31,19 +29,19 @@ using IBatisNet.DataMapper.Scope;
 
 namespace IBatisNet.DataMapper.MappedStatements.ArgumentStrategy
 {
-    /// <summary>
-    ///     <see cref="IArgumentStrategy" /> contract to get the value of an argument constructor.
-    /// </summary>
-    public interface IArgumentStrategy
-    {
-        /// <summary>
-        ///     Gets the value of an argument constructor.
-        /// </summary>
-        /// <param name="request">The current <see cref="RequestScope" />.</param>
-        /// <param name="mapping">The <see cref="ResultProperty" /> with the argument infos.</param>
-        /// <param name="reader">The current <see cref="IDataReader" />.</param>
-        /// <param name="keys">The keys</param>
-        /// <returns>The paremeter value.</returns>
-        object GetValue(RequestScope request, ResultProperty mapping, ref IDataReader reader, object keys);
-    }
+	/// <summary>
+	/// <see cref="IArgumentStrategy"/> contract to get the value of an argument constructor.
+	/// </summary>
+	public interface IArgumentStrategy
+	{
+		/// <summary>
+		/// Gets the value of an argument constructor.
+		/// </summary>
+		/// <param name="request">The current <see cref="RequestScope"/>.</param>
+		/// <param name="mapping">The <see cref="ResultProperty"/> with the argument infos.</param>
+		/// <param name="reader">The current <see cref="IDataReader"/>.</param>
+		/// <param name="keys">The keys</param>
+		/// <returns>The paremeter value.</returns>
+		object GetValue(RequestScope request, ResultProperty mapping, ref IDataReader reader, object keys);
+	}
 }

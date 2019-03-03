@@ -1,5 +1,5 @@
-#region Apache Notice
 
+#region Apache Notice
 /*****************************************************************************
  * $Revision: 374175 $
  * $LastChangedDate: 2006-05-20 23:56:36 +0200 (sam., 20 mai 2006) $
@@ -22,7 +22,6 @@
  * limitations under the License.
  * 
  ********************************************************************************/
-
 #endregion
 
 #region Using
@@ -32,6 +31,7 @@ using System.Collections;
 using System.Configuration;
 using System.Reflection;
 using System.Xml.Serialization;
+
 using IBatisNet.Common.Exceptions;
 using IBatisNet.Common.Utilities;
 using IBatisNet.DataMapper.MappedStatements.ArgumentStrategy;
@@ -43,177 +43,188 @@ using IBatisNet.DataMapper.TypeHandlers;
 
 namespace IBatisNet.DataMapper.Configuration.ResultMapping
 {
-    /// <summary>
-    ///     Summary description for ArgumentProperty.
-    /// </summary>
-    [Serializable]
-    [XmlRoot("argument", Namespace = "http://ibatis.apache.org/mapping")]
-    public class ArgumentProperty : ResultProperty
-    {
-        #region Constructor (s) / Destructor
+	/// <summary>
+	/// Summary description for ArgumentProperty.
+	/// </summary>
+	[Serializable]
+	[XmlRoot("argument", Namespace="http://ibatis.apache.org/mapping")]
+	public class ArgumentProperty : ResultProperty
+	{
 
-        #endregion
+		#region Fields
+		[NonSerialized]
+		private string _argumentName = string.Empty;
+		[NonSerialized]
+		private Type _argumentType = null;
+		[NonSerialized]
+		private IArgumentStrategy _argumentStrategy = null;
+		#endregion
 
-        #region Fields
+		#region Properties
 
-        [NonSerialized] private string _argumentName = string.Empty;
+		/// <summary>
+		/// Sets or gets the <see cref="IArgumentStrategy"/> used to fill the object property.
+		/// </summary>
+		[XmlIgnore]
+		public override IArgumentStrategy ArgumentStrategy
+		{
+			set { _argumentStrategy = value ; }
+			get { return _argumentStrategy ; }
+		}
 
-        [NonSerialized] private Type _argumentType;
+		/// <summary>
+		/// Specify the constructor argument name.
+		/// </summary>
+		[XmlAttribute("argumentName")]
+		public string ArgumentName
+		{
+			get { return _argumentName; }
+			set
+			{
+				if ((value == null) || (value.Length < 1))
+				{
+					throw new ArgumentNullException("The name attribute is mandatory in a argument tag.");				
+				}
+				_argumentName = value;
+			}
+		}
 
-        [NonSerialized] private IArgumentStrategy _argumentStrategy;
+		/// <summary>
+		/// Tell us if we must lazy load this property..
+		/// </summary>
+		[XmlAttribute("lazyLoad")]
+		public override bool IsLazyLoad
+		{
+			get { return false; }
+			set { throw new InvalidOperationException("Argument property cannot be lazy load."); }
+		}
 
-        #endregion
+		/// <summary>
+		/// Get the argument type
+		/// </summary>
+		[XmlIgnore]
+		public override Type MemberType
+		{
+			get { return _argumentType; }
+		}
 
-        #region Properties
+		#endregion
 
-        /// <summary>
-        ///     Sets or gets the <see cref="IArgumentStrategy" /> used to fill the object property.
-        /// </summary>
-        [XmlIgnore]
-        public override IArgumentStrategy ArgumentStrategy
-        {
-            set => _argumentStrategy = value;
-            get => _argumentStrategy;
-        }
+		#region Constructor (s) / Destructor
+		/// <summary>
+		/// Do not use direclty, only for serialization.
+		/// </summary>
+		public ArgumentProperty()
+		{
+		}
+		#endregion
 
-        /// <summary>
-        ///     Specify the constructor argument name.
-        /// </summary>
-        [XmlAttribute("argumentName")]
-        public string ArgumentName
-        {
-            get => _argumentName;
-            set
-            {
-                if ((value == null) || (value.Length < 1))
-                    throw new ArgumentNullException("The name attribute is mandatory in a argument tag.");
-                _argumentName = value;
-            }
-        }
+		#region Methods
 
-        /// <summary>
-        ///     Tell us if we must lazy load this property..
-        /// </summary>
-        [XmlAttribute("lazyLoad")]
-        public override bool IsLazyLoad
-        {
-            get => false;
-            set => throw new InvalidOperationException("Argument property cannot be lazy load.");
-        }
-
-        /// <summary>
-        ///     Get the argument type
-        /// </summary>
-        [XmlIgnore]
-        public override Type MemberType => _argumentType;
-
-        #endregion
-
-        #region Methods
-
-        /// <summary>
-        ///     Initialize the argument property.
-        /// </summary>
-        /// <param name="constructorInfo"></param>
-        /// <param name="configScope"></param>
-        public void Initialize(ConfigurationScope configScope, ConstructorInfo constructorInfo)
-        {
+		/// <summary>
+		/// Initialize the argument property.
+		/// </summary>
+		/// <param name="constructorInfo"></param>
+		/// <param name="configScope"></param>
+		public void Initialize( ConfigurationScope configScope, ConstructorInfo constructorInfo )
+		{
             // Search argument by his name to set his type
-            ParameterInfo[] parameters = constructorInfo.GetParameters();
+			ParameterInfo[] parameters = constructorInfo.GetParameters();
 
-            bool found = false;
-            for (int i = 0; i < parameters.Length; i++)
-            {
-                found = (parameters[i].Name == _argumentName);
-                if (found)
-                {
-                    _argumentType = parameters[i].ParameterType;
-                    break;
-                }
-            }
+			bool found = false;
+			for(int i =0; i< parameters.Length; i++)
+			{
+				found = (parameters[ i ].Name == _argumentName);
+				if( found )
+				{
+					_argumentType = parameters[ i ].ParameterType;
+					break;
+				}
+			}
+			if (this.CallBackName!=null && this.CallBackName.Length >0)
+			{
+				configScope.ErrorContext.MoreInfo = "Argument property ("+_argumentName+"), check the typeHandler attribute '" + this.CallBackName + "' (must be a ITypeHandlerCallback implementation).";
+				try 
+				{
+					Type type = configScope.SqlMapper.TypeHandlerFactory.GetType(this.CallBackName);
+					ITypeHandlerCallback typeHandlerCallback = (ITypeHandlerCallback) Activator.CreateInstance( type );
+					this.TypeHandler = new CustomTypeHandler(typeHandlerCallback);
+				}
+				catch (Exception e) 
+				{
+					throw new ConfigurationException("Error occurred during custom type handler configuration.  Cause: " + e.Message, e);
+				}
+			}
+			else
+			{
+				configScope.ErrorContext.MoreInfo = "Argument property ("+_argumentName+") set the typeHandler attribute.";	
+				this.TypeHandler = this.ResolveTypeHandler(configScope, _argumentType, this.CLRType, this.DbType);
+			}
+		}
 
-            if (CallBackName != null && CallBackName.Length > 0)
-            {
-                configScope.ErrorContext.MoreInfo = "Argument property (" + _argumentName +
-                                                    "), check the typeHandler attribute '" + CallBackName +
-                                                    "' (must be a ITypeHandlerCallback implementation).";
-                try
-                {
-                    Type type = configScope.SqlMapper.TypeHandlerFactory.GetType(CallBackName);
-                    ITypeHandlerCallback typeHandlerCallback = (ITypeHandlerCallback) Activator.CreateInstance(type);
-                    TypeHandler = new CustomTypeHandler(typeHandlerCallback);
-                }
-                catch (Exception e)
-                {
-                    throw new ConfigurationException(
-                        "Error occurred during custom type handler configuration.  Cause: " + e.Message, e);
-                }
-            }
-            else
-            {
-                configScope.ErrorContext.MoreInfo =
-                    "Argument property (" + _argumentName + ") set the typeHandler attribute.";
-                TypeHandler = ResolveTypeHandler(configScope, _argumentType, CLRType, DbType);
-            }
-        }
-
-        /// <summary>
-        /// </summary>
-        /// <param name="configScope"></param>
-        /// <param name="argumenType">The argument type</param>
-        /// <param name="clrType"></param>
-        /// <param name="dbType"></param>
-        /// <returns></returns>
-        public ITypeHandler ResolveTypeHandler(ConfigurationScope configScope, Type argumenType, string clrType,
-            string dbType)
-        {
-            ITypeHandler handler = null;
-            if (argumenType == null)
-            {
-                handler = configScope.DataExchangeFactory.TypeHandlerFactory.GetUnkownTypeHandler();
-            }
-            else if (typeof(IDictionary).IsAssignableFrom(argumenType))
-            {
-                // IDictionary
-                if (clrType == null || clrType.Length == 0)
-                    handler = configScope.DataExchangeFactory.TypeHandlerFactory.GetUnkownTypeHandler();
-                else
-                    try
-                    {
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="configScope"></param>
+		/// <param name="argumenType">The argument type</param>
+		/// <param name="clrType"></param>
+		/// <param name="dbType"></param>
+		/// <returns></returns>
+		public ITypeHandler ResolveTypeHandler(ConfigurationScope configScope, Type argumenType, string clrType, string dbType)
+		{
+			ITypeHandler handler = null;
+			if (argumenType==null)
+			{
+				handler = configScope.DataExchangeFactory.TypeHandlerFactory.GetUnkownTypeHandler();
+			}
+			else if (typeof(IDictionary).IsAssignableFrom(argumenType)) 
+			{
+				// IDictionary
+				if (clrType ==null ||clrType.Length == 0) 
+				{
+					handler = configScope.DataExchangeFactory.TypeHandlerFactory.GetUnkownTypeHandler(); 
+				} 
+				else 
+				{
+					try 
+					{
                         Type type = TypeUtils.ResolveType(clrType);
-                        handler = configScope.DataExchangeFactory.TypeHandlerFactory.GetTypeHandler(type, dbType);
-                    }
-                    catch (Exception e)
-                    {
-                        throw new ConfigurationException("Error. Could not set TypeHandler.  Cause: " + e.Message,
-                            e);
-                    }
-            }
-            else if (configScope.DataExchangeFactory.TypeHandlerFactory.GetTypeHandler(argumenType, dbType) != null)
-            {
-                // Primitive
-                handler = configScope.DataExchangeFactory.TypeHandlerFactory.GetTypeHandler(argumenType, dbType);
-            }
-            else
-            {
-                // .NET object
-                if (clrType == null || clrType.Length == 0)
-                    handler = configScope.DataExchangeFactory.TypeHandlerFactory.GetUnkownTypeHandler();
-                else
-                    try
-                    {
+						handler = configScope.DataExchangeFactory.TypeHandlerFactory.GetTypeHandler(type, dbType);
+					} 
+					catch (Exception e) 
+					{
+						throw new ConfigurationException("Error. Could not set TypeHandler.  Cause: " + e.Message, e);
+					}
+				}
+			}
+			else if (configScope.DataExchangeFactory.TypeHandlerFactory.GetTypeHandler(argumenType, dbType) != null) 
+			{
+				// Primitive
+				handler = configScope.DataExchangeFactory.TypeHandlerFactory.GetTypeHandler(argumenType, dbType);
+			}
+			else 
+			{
+				// .NET object
+				if (clrType ==null || clrType.Length == 0) 
+				{
+					handler =  configScope.DataExchangeFactory.TypeHandlerFactory.GetUnkownTypeHandler(); 
+				} 
+				else 
+				{
+					try 
+					{
                         Type type = TypeUtils.ResolveType(clrType);
-                        handler = configScope.DataExchangeFactory.TypeHandlerFactory.GetTypeHandler(type, dbType);
-                    }
-                    catch (Exception e)
-                    {
-                        throw new ConfigurationException("Error. Could not set TypeHandler.  Cause: " + e.Message, e);
-                    }
-            }
+						handler = configScope.DataExchangeFactory.TypeHandlerFactory.GetTypeHandler(type, dbType);
+					} 
+					catch (Exception e) 
+					{
+						throw new ConfigurationException("Error. Could not set TypeHandler.  Cause: " + e.Message, e);
+					}
+				}
+			}
 
-            return handler;
-        }
-
-        #endregion
-    }
+			return handler;
+		}
+		#endregion
+	}
 }

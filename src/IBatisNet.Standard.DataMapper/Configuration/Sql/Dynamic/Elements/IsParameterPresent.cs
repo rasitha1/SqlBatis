@@ -1,5 +1,5 @@
-#region Apache Notice
 
+#region Apache Notice
 /*****************************************************************************
  * $Revision: 408164 $
  * $LastChangedDate: 2006-05-21 14:27:09 +0200 (dim., 21 mai 2006) $
@@ -22,7 +22,6 @@
  * limitations under the License.
  * 
  ********************************************************************************/
-
 #endregion
 
 using System;
@@ -32,20 +31,21 @@ using IBatisNet.DataMapper.Configuration.Sql.Dynamic.Handlers;
 
 namespace IBatisNet.DataMapper.Configuration.Sql.Dynamic.Elements
 {
-    /// <summary>
-    ///     Represent an isParameterPresent sql tag element.
-    /// </summary>
-    [Serializable]
-    [XmlRoot("isParameterPresent", Namespace = "http://ibatis.apache.org/mapping")]
-    public sealed class IsParameterPresent : SqlTag
-    {
+	/// <summary>
+	/// Represent an isParameterPresent sql tag element.
+	/// </summary>
+	[Serializable]
+	[XmlRoot("isParameterPresent", Namespace="http://ibatis.apache.org/mapping")]
+	public sealed class IsParameterPresent : SqlTag
+	{
+
         /// <summary>
-        ///     Initializes a new instance of the <see cref="IsParameterPresent" /> class.
+        /// Initializes a new instance of the <see cref="IsParameterPresent"/> class.
         /// </summary>
         /// <param name="accessorFactory">The accessor factory.</param>
         public IsParameterPresent(AccessorFactory accessorFactory)
-        {
-            Handler = new IsParameterPresentTagHandler(accessorFactory);
-        }
-    }
+		{
+            this.Handler = new IsParameterPresentTagHandler(accessorFactory);
+		}
+	}
 }

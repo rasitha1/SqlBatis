@@ -1,9 +1,9 @@
-#region Apache Notice
 
+#region Apache Notice
 /*****************************************************************************
  * $Header: $
- * $Revision: 383115 $
- * $Date: 2006-03-04 15:21:51 +0100 (sam., 04 mars 2006) $
+ * $Revision: 638571 $
+ * $Date: 2008-03-18 22:11:57 +0100 (mar., 18 mars 2008) $
  * 
  * iBATIS.NET Data Mapper
  * Copyright (C) 2004 - Gilles Bayon
@@ -22,101 +22,89 @@
  * limitations under the License.
  * 
  ********************************************************************************/
-
 #endregion
 
 using System;
 using System.Runtime.Serialization;
+
 using IBatisNet.Common.Exceptions;
 
 namespace IBatisNet.DataMapper.Exceptions
 {
-    /// <summary>
-    ///     The DataMapperException is thrown when an error in the SqlMapper component occurs.
-    /// </summary>
-    [Serializable]
-    public class DataMapperException : IBatisNetException
-    {
-        /// <summary>
-        ///     Initializes a new instance of the <see cref="IBatisNet.DataMapper.Exceptions.DataMapperException" /> class.
-        /// </summary>
-        /// <remarks>
-        ///     This constructor initializes the
-        ///     <para>Message</para>
-        ///     property of the new instance
-        ///     to a system-supplied message that describes the error.
-        /// </remarks>
-        public DataMapperException() : base("iBATIS.NET DataMapper component caused an exception.")
-        {
-        }
-
-        /// <summary>
-        ///     Initializes a new instance of the <see cref="IBatisNet.DataMapper.Exceptions.DataMapperException" />
-        ///     class with a reference to the inner exception that is the cause of this exception.
-        /// </summary>
-        /// <remarks>
-        ///     This constructor initializes the Message property of the new instance
-        ///     using the message parameter.
-        /// </remarks>
-        /// <param name="ex">
-        ///     The exception that is the cause of the current exception.
-        ///     If the innerException parameter is not a null reference (Nothing in Visual Basic),
-        ///     the current exception is raised in a catch block that handles the inner exception.
-        /// </param>
-        public DataMapperException(Exception ex) : base("iBATIS.NET DataMapper component caused an exception.", ex)
-        {
-        }
+	/// <summary>
+	/// The DataMapperException is thrown when an error in the SqlMapper component occurs.
+	/// </summary>
+	[Serializable]
+	public class DataMapperException : IBatisNetException
+	{
+		/// <summary>
+		/// Initializes a new instance of the <see cref="IBatisNet.DataMapper.Exceptions.DataMapperException"/> class.
+		/// </summary>
+		/// <remarks>
+		/// This constructor initializes the <para>Message</para> property of the new instance 
+		/// to a system-supplied message that describes the error.
+		/// </remarks>
+		public DataMapperException(): base("iBATIS.NET DataMapper component caused an exception.") { }
+		
+		/// <summary>
+		/// Initializes a new instance of the <see cref="IBatisNet.DataMapper.Exceptions.DataMapperException"/> 
+		/// class with a reference to the inner exception that is the cause of this exception.
+		/// </summary>
+		/// <remarks>
+		/// This constructor initializes the Message property of the new instance 
+		/// using the message parameter.
+		/// </remarks>
+		/// <param name="ex">
+		/// The exception that is the cause of the current exception. 
+		/// If the innerException parameter is not a null reference (Nothing in Visual Basic), 
+		/// the current exception is raised in a catch block that handles the inner exception.
+		/// </param>
+		public DataMapperException(Exception ex) : base("iBATIS.NET DataMapper component caused an exception.", ex) {  }
 
 
-        /// <summary>
-        ///     Initializes a new instance of the <see cref="IBatisNet.DataMapper.Exceptions.DataMapperException" />
-        ///     class with a specified error message.
-        /// </summary>
-        /// <remarks>
-        ///     This constructor initializes the Message property of the new instance to
-        ///     the Message property of the passed in exception.
-        /// </remarks>
-        /// <param name="message">The message that describes the error.</param>
-        public DataMapperException(string message) : base(message)
-        {
-        }
+		/// <summary>
+		/// Initializes a new instance of the <see cref="IBatisNet.DataMapper.Exceptions.DataMapperException"/> 
+		/// class with a specified error message.
+		/// </summary>
+		/// <remarks>
+		/// This constructor initializes the Message property of the new instance to 
+		/// the Message property of the passed in exception. 
+		/// </remarks>
+		/// <param name="message">The message that describes the error.</param>
+		public DataMapperException( string message ) : base ( message ) { }
 
-        /// <summary>
-        ///     Initializes a new instance of the <see cref="IBatisNet.DataMapper.Exceptions.DataMapperException" />
-        ///     class with a specified error message and a reference to the inner exception
-        ///     that is the cause of this exception.
-        /// </summary>
-        /// <remarks>
-        ///     An exception that is thrown as a direct result of a previous exception should include a reference to the previous
-        ///     exception in the InnerException property.
-        ///     The InnerException property returns the same value that is passed into the constructor, or a null reference
-        ///     (Nothing in Visual Basic) if the InnerException property does not supply the inner exception value to the
-        ///     constructor.
-        /// </remarks>
-        /// <param name="message">The message that describes the error.</param>
-        /// <param name="inner">The exception that caused the error</param>
-        public DataMapperException(string message, Exception inner) : base(message, inner)
-        {
-        }
+		/// <summary>
+		/// Initializes a new instance of the <see cref="IBatisNet.DataMapper.Exceptions.DataMapperException"/> 
+		/// class with a specified error message and a reference to the inner exception 
+		/// that is the cause of this exception.
+		/// </summary>
+		/// <remarks>
+		/// An exception that is thrown as a direct result of a previous exception should include a reference to the previous 
+		/// exception in the InnerException property. 
+		/// The InnerException property returns the same value that is passed into the constructor, or a null reference 
+		/// (Nothing in Visual Basic) if the InnerException property does not supply the inner exception value to the constructor.
+		/// </remarks>
+		/// <param name="message">The message that describes the error.</param>
+		/// <param name="inner">The exception that caused the error</param>
+		public DataMapperException( string message, Exception inner ) : base ( message, inner ) { }
 
-        /// <summary>
-        ///     Initializes a new instance of the <see cref="IBatisNet.DataMapper.Exceptions.DataMapperException" />
-        ///     class with serialized data.
-        /// </summary>
-        /// <remarks>
-        ///     This constructor is called during deserialization to reconstitute the
-        ///     exception object transmitted over a stream.
-        /// </remarks>
-        /// <param name="info">
-        ///     The <see cref="System.Runtime.Serialization.SerializationInfo" /> that holds the serialized
-        ///     object data about the exception being thrown.
-        /// </param>
-        /// <param name="context">
-        ///     The <see cref="System.Runtime.Serialization.StreamingContext" /> that contains contextual
-        ///     information about the source or destination.
-        /// </param>
-        protected DataMapperException(SerializationInfo info, StreamingContext context) : base(info, context)
-        {
-        }
-    }
+		/// <summary>
+		/// Initializes a new instance of the <see cref="IBatisNet.DataMapper.Exceptions.DataMapperException"/> 
+		/// class with serialized data.
+		/// </summary>
+		/// <remarks>
+		/// This constructor is called during deserialization to reconstitute the 
+		/// exception object transmitted over a stream.
+		/// </remarks>
+		/// <param name="info">
+		/// The <see cref="System.Runtime.Serialization.SerializationInfo"/> that holds the serialized 
+		/// object data about the exception being thrown.
+		/// </param>
+		/// <param name="context">
+		/// The <see cref="System.Runtime.Serialization.StreamingContext"/> that contains contextual 
+		/// information about the source or destination. 
+		/// </param>
+		protected DataMapperException(SerializationInfo info, StreamingContext context) : base (info, context) {}
+
+	}
 }

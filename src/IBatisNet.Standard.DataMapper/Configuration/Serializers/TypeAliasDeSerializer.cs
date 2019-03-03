@@ -1,5 +1,4 @@
 #region Apache Notice
-
 /*****************************************************************************
  * $Header: $
  * $Revision: 408164 $
@@ -22,7 +21,6 @@
  * limitations under the License.
  * 
  ********************************************************************************/
-
 #endregion
 
 #region Using
@@ -32,37 +30,36 @@ using System.Xml;
 using IBatisNet.Common.Xml;
 using IBatisNet.DataMapper.Configuration.Alias;
 using IBatisNet.DataMapper.Scope;
-
-#endregion
+#endregion 
 
 namespace IBatisNet.DataMapper.Configuration.Serializers
 {
-    /// <summary>
-    ///     Summary description for TypeAliasDeSerializer.
-    /// </summary>
-    public sealed class TypeAliasDeSerializer
-    {
-        /// <summary>
-        ///     Deserialize a TypeAlias object
-        /// </summary>
-        /// <param name="node"></param>
-        /// <param name="configScope"></param>
-        /// <returns></returns>
-        public static void Deserialize(XmlNode node, ConfigurationScope configScope)
-        {
-            TypeAlias typeAlias = new TypeAlias();
-            configScope.ErrorContext.MoreInfo = "loading type alias";
+	/// <summary>
+	/// Summary description for TypeAliasDeSerializer.
+	/// </summary>
+	public sealed class TypeAliasDeSerializer
+	{
+		/// <summary>
+		/// Deserialize a TypeAlias object
+		/// </summary>
+		/// <param name="node"></param>
+		/// <param name="configScope"></param>
+		/// <returns></returns>
+		public static void Deserialize(XmlNode node, ConfigurationScope configScope)
+		{
+			TypeAlias typeAlias = new TypeAlias();
+			configScope.ErrorContext.MoreInfo = "loading type alias";
 
-            NameValueCollection prop = NodeUtils.ParseAttributes(node, configScope.Properties);
-            typeAlias.Name = NodeUtils.GetStringAttribute(prop, "alias");
-            typeAlias.ClassName = NodeUtils.GetStringAttribute(prop, "type");
+			NameValueCollection prop = NodeUtils.ParseAttributes(node, configScope.Properties);
+			typeAlias.Name = NodeUtils.GetStringAttribute(prop,"alias");
+			typeAlias.ClassName = NodeUtils.GetStringAttribute(prop, "type");
 
-            configScope.ErrorContext.ObjectId = typeAlias.ClassName;
-            configScope.ErrorContext.MoreInfo = "initialize type alias";
+			configScope.ErrorContext.ObjectId = typeAlias.ClassName;
+			configScope.ErrorContext.MoreInfo = "initialize type alias";
 
-            typeAlias.Initialize();
+			typeAlias.Initialize();
 
-            configScope.SqlMapper.TypeHandlerFactory.AddTypeAlias(typeAlias.Name, typeAlias);
-        }
-    }
+			configScope.SqlMapper.TypeHandlerFactory.AddTypeAlias( typeAlias.Name, typeAlias );
+		}
+	}
 }

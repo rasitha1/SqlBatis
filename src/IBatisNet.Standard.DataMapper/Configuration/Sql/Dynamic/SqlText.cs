@@ -1,5 +1,5 @@
-#region Apache Notice
 
+#region Apache Notice
 /*****************************************************************************
  * $Header: $
  * $Revision: 408164 $
@@ -22,50 +22,75 @@
  * limitations under the License.
  * 
  ********************************************************************************/
-
 #endregion
 
 #region Using
+using System;
 
+using IBatisNet.Common;
+using IBatisNet.DataMapper.Configuration.Statements;
 using IBatisNet.DataMapper.Configuration.ParameterMapping;
-
 #endregion
 
 namespace IBatisNet.DataMapper.Configuration.Sql.Dynamic
 {
-    /// <summary>
-    ///     Summary description for SqlText.
-    /// </summary>
-    public sealed class SqlText : ISqlChild
-    {
-        #region Fields
+	/// <summary>
+	/// Summary description for SqlText.
+	/// </summary>
+	public sealed class SqlText : ISqlChild 	
+	{
 
-        private string _text = string.Empty;
+		#region Fields
 
-        #endregion
+		private string _text = string.Empty;
+		private bool _isWhiteSpace = false;
+		private ParameterProperty[] _parameters = null;
 
-        #region Properties
+		#endregion
 
-        /// <summary>
-        /// </summary>
-        public string Text
-        {
-            get => _text;
-            set
-            {
-                _text = value;
-                IsWhiteSpace = (_text.Trim().Length == 0);
-            }
-        }
+		#region Properties
+		/// <summary>
+		/// 
+		/// </summary>
+		public string Text 
+		{
+			get
+			{
+				return _text;
+			}
+			set
+			{
+				_text = value;
+				_isWhiteSpace = (_text.Trim().Length == 0);
+			}
+		}
 
-        /// <summary>
-        /// </summary>
-        public bool IsWhiteSpace { get; private set; }
+		/// <summary>
+		/// 
+		/// </summary>
+		public bool IsWhiteSpace 
+		{
+			get
+			{
+				return _isWhiteSpace;
+			}
+		}
 
-        /// <summary>
-        /// </summary>
-        public ParameterProperty[] Parameters { get; set; } = null;
+		/// <summary>
+		/// 
+		/// </summary>
+		public ParameterProperty[] Parameters 
+		{
+			get
+			{
+				return _parameters;
+			}
+			set
+			{
+				_parameters = value;
+			}
+		}
+		#endregion
 
-        #endregion
-    }
+	}
 }

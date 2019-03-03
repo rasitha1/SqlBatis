@@ -1,9 +1,9 @@
-#region Apache Notice
 
+#region Apache Notice
 /*****************************************************************************
  * $Header: $
- * $Revision: 383115 $
- * $Date: 2006-03-04 15:21:51 +0100 (sam., 04 mars 2006) $
+ * $Revision: 638571 $
+ * $Date: 2008-03-18 22:11:57 +0100 (mar., 18 mars 2008) $
  * 
  * iBATIS.NET Data Mapper
  * Copyright (C) 2004 - Gilles Bayon
@@ -22,21 +22,32 @@
  * limitations under the License.
  * 
  ********************************************************************************/
-
 #endregion
 
 using System;
 
 namespace IBatisNet.DataMapper
 {
-    /// <summary>
-    ///     Summary description for ExecuteEventArgs.
-    /// </summary>
-    public class ExecuteEventArgs : EventArgs
-    {
-        /// <summary>
-        ///     Set or get the statement name
-        /// </summary>
-        public string StatementName { get; set; } = string.Empty;
-    }
+	/// <summary>
+	/// Summary description for ExecuteEventArgs.
+	/// </summary>
+	public class ExecuteEventArgs : EventArgs
+	{
+		private string _statementName = string.Empty;
+
+		/// <summary>
+		/// Set or get the statement name
+		/// </summary>
+		public string StatementName
+		{
+			get 
+			{
+				return _statementName;
+			}
+			set 
+			{
+				_statementName = value;
+			}
+		}
+	}
 }

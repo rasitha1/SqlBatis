@@ -1,5 +1,4 @@
 #region Apache Notice
-
 /*****************************************************************************
  * $Revision: 374175 $
  * $LastChangedDate: 2006-05-18 22:25:03 +0200 (jeu., 18 mai 2006) $
@@ -22,21 +21,22 @@
  * limitations under the License.
  * 
  ********************************************************************************/
-
 #endregion
 
-using IBatisNet.Common.Utilities.Objects.Members;
+using System;
+
 using IBatisNet.DataMapper.MappedStatements;
+using IBatisNet.Common.Utilities.Objects.Members;
 
 namespace IBatisNet.DataMapper.Proxy
 {
     /// <summary>
-    ///     Contract of an <see cref="ILazyFactory" />
+    /// Contract of an <see cref="ILazyFactory"/>
     /// </summary>
     public interface ILazyFactory
     {
         /// <summary>
-        ///     Create a new proxy instance.
+        /// Create a new proxy instance.
         /// </summary>
         /// <param name="mappedStatement">The mapped statement.</param>
         /// <param name="param">The param.</param>
