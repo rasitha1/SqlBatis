@@ -11,6 +11,7 @@ a separate project called IBatisNet.DynamicProxy. You only need this if you have
 3. Introduced `AsyncLocalSessionStore` and removed all other `ISessionStore` implementations (DataMapper & DataAccess)
 4. Removed auto instantiating of `ILoggerFactoryAdapter` using `ConfigurationManager` and defauled to `NoOpLoggerFA`. You must set `LogManager.Adapter` in your startup
 
+5. Updating assembly versions and package versions to 2.0 (original .net framework version was 1.6.2)
 
 ## Building
 
