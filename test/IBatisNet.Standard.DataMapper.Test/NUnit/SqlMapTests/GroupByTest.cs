@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using IBatisNet.DataMapper.Test.Domain;
 using NUnit.Framework;
 
+using Category=IBatisNet.DataMapper.Test.Domain.Petshop.Category;
+
 namespace IBatisNet.DataMapper.Test.NUnit.SqlMapTests
 {
     /// <summary>
@@ -25,6 +27,8 @@ namespace IBatisNet.DataMapper.Test.NUnit.SqlMapTests
             InitScript(sqlMap.DataSource, ScriptDirectory + "petstore-drop.sql");
             InitScript(sqlMap.DataSource, ScriptDirectory + "petstore-schema.sql");
             InitScript(sqlMap.DataSource, ScriptDirectory + "petstore-init.sql");
+            InitScript(sqlMap.DataSource, ScriptDirectory + "child-parent-init.sql");
+
         }
 
 
@@ -61,6 +65,16 @@ namespace IBatisNet.DataMapper.Test.NUnit.SqlMapTests
             Assert.AreEqual("User", application.Users[1].Roles[1].Name);
             Assert.AreEqual("Admin", application.Users[1].Roles[0].Name);
 
+        }
+
+        [Test]
+        [Category("JIRA-253")]
+        public void Issue_When_Using_Sql_Timestamp_Data_Type()
+        {
+            IList<Parent> parents = sqlMap.QueryForList<Parent>("GetAllParentsNPlus1", null);
+
+            Assert.That(parents[0].Children.Count, Is.EqualTo(2));
+            Assert.That(parents[1].Children.Count, Is.EqualTo(0));
         }
 
         [Test]
@@ -144,6 +158,23 @@ namespace IBatisNet.DataMapper.Test.NUnit.SqlMapTests
             Assert.AreEqual(4, cat.GenericProducts.Count);
 
             Domain.Petshop.Product product = cat.GenericProducts[0];
+            Assert.AreEqual(2, product.GenericItems.Count);
+        }
+
+        [Test]
+        public void TestJira241()
+        {
+            Category myCategory = new Category();
+
+            sqlMap.QueryForObject<Category>("GetFishGeneric", null, myCategory);
+            Assert.IsNotNull(myCategory);
+
+            Assert.AreEqual("FISH", myCategory.Id);
+            Assert.AreEqual("Fish", myCategory.Name);
+            Assert.IsNotNull(myCategory.GenericProducts, "Expected product list.");
+            Assert.AreEqual(4, myCategory.GenericProducts.Count);
+
+            Domain.Petshop.Product product = myCategory.GenericProducts[0];
             Assert.AreEqual(2, product.GenericItems.Count);
         }
 

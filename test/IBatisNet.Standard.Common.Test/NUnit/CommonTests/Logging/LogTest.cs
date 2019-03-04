@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Specialized;
-using System.Configuration;
 using System.IO;
 using System.Reflection;
 using IBatisNet.Common.Logging;
@@ -25,6 +24,7 @@ namespace IBatisNet.Common.Test.NUnit.CommonTests.Logging
 		public void SetUp()
 		{
             LogManager.Adapter = new ConsoleOutLoggerFA(new NameValueCollection());
+
 			_log = LogManager.GetLogger( MethodBase.GetCurrentMethod().DeclaringType );
 
 			outWriter.GetStringBuilder().Length = 0;

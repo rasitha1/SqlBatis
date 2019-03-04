@@ -31,21 +31,21 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		</select>
 		
 		<select id="GetEnumeration" parameterClass="Integer" resultClass="Enumeration">
-			select
-				Enum_ID as Id,
-				Enum_Day as Day,
-				Enum_Color as Color,
-				Enum_Month as Month
-			from Enumerations  
-			where Enum_ID = #value# 
-		</select>
+      select
+      Enum_ID as Id,
+      Enum_Day as Day,
+      Enum_Color as Color,
+      Enum_Month as Month
+      from Enumerations
+      where Enum_ID = #value#
+    </select>
 		
 		<insert id="InsertEnumViaParameterMap" parameterMap="insert-params" >
-			insert into Enumerations  
-				(Enum_ID, Enum_Day, Enum_Color, Enum_Month) 
-			values 
-				(?, ?, ?, ?)
-		</insert>
+      insert into Enumerations
+      (Enum_ID, Enum_Day, Enum_Color, Enum_Month)
+      values
+      (?, ?, ?, ?)
+    </insert>
 		
 	</statements>
 	

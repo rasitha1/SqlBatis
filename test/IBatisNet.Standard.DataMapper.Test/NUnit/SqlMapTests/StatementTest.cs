@@ -44,6 +44,24 @@ namespace IBatisNet.DataMapper.Test.NUnit.SqlMapTests
         #region Object Query tests
 
         /// <summary>
+        /// Interface mapping
+        /// </summary>
+        [Test]
+        [Category("JIRA")]
+        [Description("JIRA-283")]
+        public void TestInterface()
+        {
+            BaseAccount account = new BaseAccount();
+
+            sqlMap.QueryForObject<IAccount>("GetInterfaceAccount", 1, account);
+
+            Assert.AreEqual(1, account.Id, "account.Id");
+            Assert.AreEqual("Joe", account.FirstName, "account.FirstName");
+            Assert.AreEqual("Dalton", account.LastName, "account.LastName");
+            Assert.AreEqual("Joe.Dalton@somewhere.com", account.EmailAddress, "account.EmailAddress");
+        }
+
+        /// <summary>
         /// Test Open connection with a connection string
         /// </summary>
         [Test]
@@ -729,6 +747,22 @@ namespace IBatisNet.DataMapper.Test.NUnit.SqlMapTests
         }
 
         /// <summary>
+        ///  Better support for nested result maps when using dictionary
+        /// </remarks>
+        [Test]
+        [Category("JIRA-254")]
+        public void Better_Support_For_Nested_Result_Maps_When_Using_Dictionary()
+        {
+            IDictionary order = (IDictionary)sqlMap.QueryForObject("JIRA-254", 10);
+
+            Assert.IsNotNull(order["Account"]);
+
+            order = (IDictionary)sqlMap.QueryForObject("JIRA-254", 11);
+
+            Assert.IsNull(order["Account"]);
+        }
+
+        /// <summary>
         /// Test ExecuteQueryFor With Complex Joined
         /// </summary>
         /// <remarks>
@@ -808,6 +842,22 @@ namespace IBatisNet.DataMapper.Test.NUnit.SqlMapTests
             param.Add("hightID", 4);
 
             IList list = sqlMap.QueryForList("GetSomeAccount", param);
+
+            Assert.AreEqual(3, list.Count);
+
+            Assert.AreEqual(2, ((Account)list[0]).Id);
+            Assert.AreEqual(3, ((Account)list[1]).Id);
+            Assert.AreEqual(4, ((Account)list[2]).Id);
+        }
+
+        [Test]
+        public void TestDummy()
+        {
+            Hashtable param = new Hashtable();
+            param.Add("?lowID", 2);
+            param.Add("?hightID", 4);
+
+            IList list = sqlMap.QueryForList("GetDummy", param);
 
             Assert.AreEqual(3, list.Count);
 
@@ -1218,6 +1268,27 @@ namespace IBatisNet.DataMapper.Test.NUnit.SqlMapTests
 
                 session.Complete(); // Commit
             } // compiler will call Dispose on SqlMapSession
+        }
+
+        /// <summary>
+        /// Test Using syntax on sqlMap.BeginTransaction
+        /// </summary>
+        [Test]
+        public void TestUsing()
+        {
+            sqlMap.OpenConnection();
+            sqlMap.BeginTransaction(false);
+            Account account = (Account)sqlMap.QueryForObject("GetAccountViaColumnName", 1);
+
+            account.EmailAddress = "new@somewhere.com";
+            sqlMap.Update("UpdateAccountViaParameterMap", account);
+
+            account = sqlMap.QueryForObject("GetAccountViaColumnName", 1) as Account;
+
+            Assert.AreEqual("new@somewhere.com", account.EmailAddress);
+
+            sqlMap.CommitTransaction(false);
+            sqlMap.CloseConnection();
         }
 
         #endregion

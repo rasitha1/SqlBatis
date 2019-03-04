@@ -338,6 +338,25 @@ namespace IBatisNet.DataMapper.Test.NUnit.SqlMapTests
             Assert.IsNotNull(order2);
             Assert.IsNotNull(order2.FavouriteLineItem);
             Assert.AreEqual(17, order2.FavouriteLineItem.Id);
+        }
+
+        /// <summary>
+        /// Test a composite Key Mapping.
+        /// It must be: key1,key2,... (old syntax)
+        /// </summary>
+        [Test]
+        public void TestCompositeKeyMapping_JIRA_251()
+        {
+            Order order1 = (Order)sqlMap.QueryForObject("GetOrderWithFavouriteLineItem-JIRA-251", 1);
+            Order order2 = (Order)sqlMap.QueryForObject("GetOrderWithFavouriteLineItem-JIRA-251", 2);
+
+            Assert.IsNotNull(order1);
+            Assert.IsNotNull(order1.FavouriteLineItem);
+            Assert.AreEqual(1, order1.FavouriteLineItem.Id);
+
+            Assert.IsNotNull(order2);
+            Assert.IsNotNull(order2.FavouriteLineItem);
+            Assert.AreEqual(17, order2.FavouriteLineItem.Id);
 
         }
 
@@ -501,28 +520,6 @@ namespace IBatisNet.DataMapper.Test.NUnit.SqlMapTests
             Assert.AreEqual(System.DateTime.MinValue, orderTest.Date);
         }
 
-
-
-        //        /// <summary>
-        //        /// Test lazy mapping
-        //        /// </summary>
-        //        [Test]
-        //        public void TestLazyWithGenericStronglyTypedCollection()
-        //        {
-        //            Order order = (Order)sqlMap.QueryForObject("GetOrderWithLineItemCollection2", 1);
-
-        //            AssertOrder1(order);
-
-        //            Assert.IsNotNull(order.LineItemsCollection2);
-        //            Assert.AreEqual(2, order.LineItemsCollection2.Count);
-
-        //            IEnumerator<LineItem> e = ((IEnumerable<LineItem>)order.LineItemsCollection2).GetEnumerator();
-        //            while (e.MoveNext())
-        //            {
-        //                LineItem item = e.Current;
-        //                Assert.IsNotNull(item);
-        //            }
-        //        }
         #endregion
 
     }

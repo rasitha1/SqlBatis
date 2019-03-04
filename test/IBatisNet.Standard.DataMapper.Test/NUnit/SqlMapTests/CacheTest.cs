@@ -39,6 +39,26 @@ namespace IBatisNet.DataMapper.Test.NUnit.SqlMapTests
 
 		#region Test cache
 
+        [Test]
+        public void LRU_cache_should_work()
+        {
+            IList list = sqlMap.QueryForList("GetLruCachedAccountsViaResultMap", null);
+
+            int firstId = HashCodeProvider.GetIdentityHashCode(list);
+
+            list = sqlMap.QueryForList("GetLruCachedAccountsViaResultMap", null);
+
+            int secondId = HashCodeProvider.GetIdentityHashCode(list);
+
+            Assert.AreEqual(firstId, secondId);
+
+            list = sqlMap.QueryForList("GetLruCachedAccountsViaResultMap", null);
+
+            int thirdId = HashCodeProvider.GetIdentityHashCode(list);
+
+            Assert.AreEqual(firstId, thirdId);
+        }
+
 		/// <summary>
 		/// Test for JIRA 29
 		/// </summary>
@@ -49,6 +69,54 @@ namespace IBatisNet.DataMapper.Test.NUnit.SqlMapTests
 
 			Assert.IsNull(account);
 		}
+
+        /// <summary>
+        /// Cache error with QueryForObject<T>
+        /// </summary>
+        [Test]
+        public void TestJIRA242WithNoCache()
+        {
+            Account account = sqlMap.QueryForObject<Account>("GetNoAccountWithCache", -99);
+            account = sqlMap.QueryForObject<Account>("GetNoAccountWithCache", -99);
+
+            Assert.IsNull(account);
+        }
+
+        /// <summary>
+        /// Cache error with QueryForObject<T> with object in cache
+        /// </summary>
+        [Test]
+        public void TestJIRA242WithCache()
+        {
+            Account account1 = sqlMap.QueryForObject<Account>("GetNoAccountWithCache", 1);
+            AssertAccount1(account1);
+            int firstId = HashCodeProvider.GetIdentityHashCode(account1);
+
+            Account account2 = sqlMap.QueryForObject<Account>("GetNoAccountWithCache", 1);
+            AssertAccount1(account2);
+
+            int secondId = HashCodeProvider.GetIdentityHashCode(account2);
+
+            Assert.AreEqual(firstId, secondId);
+        }
+
+        /// <summary>
+        /// Cache error with QueryForObjectwith object in cache
+        /// </summary>
+        [Test]
+        public void TestJIRA242_WithoutGeneric_WithCache()
+        {
+            Account account1 = sqlMap.QueryForObject("GetNoAccountWithCache", 1) as Account;
+            AssertAccount1(account1);
+            int firstId = HashCodeProvider.GetIdentityHashCode(account1);
+
+            Account account2 = sqlMap.QueryForObject("GetNoAccountWithCache", 1) as Account;
+            AssertAccount1(account2);
+
+            int secondId = HashCodeProvider.GetIdentityHashCode(account2);
+
+            Assert.AreEqual(firstId, secondId);
+        }
 
 	    /// <summary>
 		/// Test Cache query

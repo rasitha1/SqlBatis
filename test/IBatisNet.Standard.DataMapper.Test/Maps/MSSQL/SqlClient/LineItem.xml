@@ -84,18 +84,31 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
         order by LineItem_Code
     </statement>
     
-		<statement id="GetSpecificLineItem"
+		<statement id="GetSpecificLineItem-JIRA-251"
 					parameterClass="Hashtable"
 					resultClass="LineItem">
-			select
-				LineItem_ID as Id,
-				LineItem_Code as Code,
-				LineItem_Quantity as Quantity,
-				LineItem_Price as Price
-				from LineItems
-			where Order_ID = #Order_ID#
-				and LineItem_ID = #LineItem_ID#
-		</statement>
+      select
+      LineItem_ID as Id,
+      LineItem_Code as Code,
+      LineItem_Quantity as Quantity,
+      LineItem_Price as Price
+      from LineItems
+      where Order_ID = #Order_ID#
+      and LineItem_ID = #Order_FavouriteLineItem#
+    </statement>
+
+    <statement id="GetSpecificLineItem"
+      parameterClass="Hashtable"
+      resultClass="LineItem">
+      select
+      LineItem_ID as Id,
+      LineItem_Code as Code,
+      LineItem_Quantity as Quantity,
+      LineItem_Price as Price
+      from LineItems
+      where Order_ID = #Order_ID#
+      and LineItem_ID = #LineItem_ID#
+    </statement>
 		
 		<statement id="GetSpecificLineItemWithPicture"
 					parameterClass="Hashtable"

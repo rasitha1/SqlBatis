@@ -44,14 +44,14 @@ namespace IBatisNet.DataAccess.Test.NUnit.DaoTests
         /// Constructor
         /// </summary>
         static BaseDaoTest()
-		{
-		    ConfigurationBuilder builder = new ConfigurationBuilder();
-		    builder.AddInMemoryCollection(DefaultConfigurationStrings);
-		    Configuration = builder.Build();
+        {
+            ConfigurationBuilder builder = new ConfigurationBuilder();
+            builder.AddInMemoryCollection(DefaultConfigurationStrings);
+            Configuration = builder.Build();
 
 
             ScriptDirectory = Path.Combine(Path.Combine(Path.Combine(Path.Combine(Path.Combine(TestContext.CurrentContext.TestDirectory, ".."), ".."), ".."), "Scripts"),
-		                          Configuration["database"]) + Path.DirectorySeparatorChar;
+                                  Configuration["database"]) + Path.DirectorySeparatorChar;
 
         }
 
@@ -80,6 +80,12 @@ namespace IBatisNet.DataAccess.Test.NUnit.DaoTests
 			Assert.IsNotNull(daoManager2);
 			Assert.IsTrue(daoManager2.LocalDataSource.ConnectionString != daoManager1.LocalDataSource.ConnectionString);
 			Assert.IsTrue(daoManager2.LocalDataSource.DbProvider.Name != daoManager1.LocalDataSource.DbProvider.Name);
+
+            daoManager1.OpenConnection();
+            daoManager2.OpenConnection();   
+
+            daoManager1.CloseConnection();
+            daoManager2.CloseConnection();
 		}
 
 		#region Dao statement tests

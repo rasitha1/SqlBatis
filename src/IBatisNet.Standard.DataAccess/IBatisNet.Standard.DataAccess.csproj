@@ -6,7 +6,7 @@
     <RootNamespace>IBatisNet.DataAccess</RootNamespace>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Description>Data Access Object (DAO) design pattern implementation in iBATIS.Net</Description>
-    <Version>2.0.1</Version>
+    <Version>2.1.0</Version>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>AssemblyKey.snk</AssemblyOriginatorKeyFile>
     <PackageProjectUrl>https://github.com/rasitha1/IBatisNet.Standard</PackageProjectUrl>

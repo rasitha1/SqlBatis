@@ -9,12 +9,12 @@ namespace IBatisNet.DataMapper.Test.Domain
     [Serializable]
     public class LineItemCollection2 : Collection<LineItem>
     {
-        public new virtual int Count
+        public virtual new int Count
         {
             get { return base.Count; }
         }
 
-        public new virtual int IndexOf(LineItem item)
+        public virtual new int IndexOf(LineItem item)
         {
             return base.IndexOf(item);
         }

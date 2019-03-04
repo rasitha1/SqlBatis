@@ -7,5 +7,6 @@ insert into Categories
 			(Category_Name, Category_Guid ) 
 values 
 			(@Category_Name, @Category_Guid)
-return SCOPE_IDENTITY()
+set @Category_Id = SCOPE_IDENTITY()
+return @Category_Id
 

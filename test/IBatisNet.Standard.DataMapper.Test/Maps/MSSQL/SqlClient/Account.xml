@@ -49,6 +49,8 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
 	<alias>
 		<typeAlias alias="HundredsBool" type="IBatisNet.DataMapper.Test.Domain.HundredsTypeHandlerCallback, IBatisNet.DataMapper.Test"/>
     <typeAlias alias="Category2" type="IBatisNet.DataMapper.Test.Domain.Category, IBatisNet.DataMapper.Test"/>
+    <typeAlias alias="IAccount" type="IBatisNet.DataMapper.Test.Domain.IAccount, IBatisNet.DataMapper.Test"/>
+
   </alias>       
   
   <cacheModels>
@@ -63,23 +65,35 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
 			<flushInterval hours="24"/>
 			<flushOnExecute statement="UpdateAccountViaInlineParameters"/>
 		</cacheModel>
-  
-		<!-- <cacheModel name="account-cache" implementation="LRU" >
-			<flushInterval hours="24"/>
-			<flushOnExecute statement="UpdateAccountViaInlineParameters"/>
-			<flushOnExecute statement="UpdateAccountViaParameterMap"/>
-			<property name="CacheSize" value="50"/>
-		</cacheModel> -->
-		
-    </cacheModels>
 
-	
-	<resultMaps>
+    <cacheModel id="lru-account-cache" implementation="LRU" >
+      <flushInterval minutes="5"/>
+      <property name="CacheSize" value="2"/>
+    </cacheModel>
+
+  </cacheModels>
+
+
+  <resultMaps>
     
     <resultMap id="Category-result" class="Category2">
       <result property="Id" column="Category_ID"/>
       <result property="Name" column="Category_Name"/>
       <result property="Guid" column="Category_Guid" nullValue="00000000-0000-0000-0000-000000000000"/>
+    </resultMap>
+    
+   <resultMap id="account-constructor"  class="Account" >
+			<constructor>
+				<argument argumentName="identifiant"	column="Account_ID"/>
+				<argument argumentName="firstName"    column="Account_FirstName"/>
+				<argument argumentName="lastName"     column="Account_LastName"/>
+			</constructor>
+		</resultMap>
+
+    <resultMap id="account-extends-constructor"  class="Account"  extends="account-constructor">
+      <result property="EmailAddress" column="Account_Email" nullValue="no_email@provided.com"/>
+      <result property="BannerOption" column="Account_Banner_Option" dbType="Varchar" type="bool"/>
+      <result property="CartOption"	  column="Account_Cart_Option" typeHandler="HundredsBool"/>
     </resultMap>
     
 		<resultMap id="account-result-constructor"  class="Account" >
@@ -163,6 +177,31 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
     -->
   <statements>
 
+    <select id="GetInterfaceAccount" resultClass="IAccount">
+					select
+					Account_ID as Id,
+					Account_FirstName as FirstName,
+					Account_LastName as LastName,
+					Account_Email as EmailAddress
+					from Accounts
+					where Account_ID = #value#
+    </select>
+    
+    <select id="GetLruCachedAccountsViaResultMap"
+      resultMap="account-result"
+      cacheModel="lru-account-cache" >
+      select *
+      from Accounts
+      order by Account_ID
+    </select>
+    
+    <select id="JIRA260" parameterClass="Integer"
+      resultMap="account-extends-constructor">
+      select *
+      from Accounts
+      where Account_ID = #value#
+    </select>
+    
     <select id="JIRA206"
        resultMap="account-groupby">
       SELECT
@@ -308,7 +347,7 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
   
   		<select id="GetNoAccountWithCache"
 						parameterClass="Integer"
-						resultMap="account-hashtable-result"
+						resultMap="account-result-nullable-email"
 						cacheModel="account-cache">
 			select *
 			from Accounts
@@ -647,7 +686,14 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
 			resultMap="indexed-account-result">
 			where Account_ID between #lowID# and #hightID#
 		</select>
-		
+
+    <select id="GetDummy"
+      extends="GetAllAccounts"
+      parameterClass="Hashtable"
+      resultMap="indexed-account-result">
+      where Account_ID between #?lowID# and #?hightID#
+    </select>
+    
 		<select id="SelectAccountJIRA29" parameterClass="map" resultClass="Account">
 			select
 				Account_ID as Id,
@@ -731,8 +777,6 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
 			)
            </insert>
 				
-		<!-- For procedure, the parameters of the parameterMap must in the same order 
-		as for the procedure paramaters-->
 		<procedure id="InsertAccountViaStoreProcedure" parameterMap="insert-params">
 			ps_InsertAccount
 		</procedure>
@@ -756,14 +800,22 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
     <procedure id="SelectAllAccountViaSP" resultClass="Account">
       ps_SelectAllAccount
     </procedure>
+
+    <procedure id="SelectAccountViaXML" parameterMap="XML-params" resultClass="Account">
+      ps_SelectByIdList
+    </procedure>
     
 	</statements>
 
 	<!-- =============================================
-            OPTIONAL EXPLICIT PARAMETER MAP
+            OPTIONAL EXPLICIT PARAMETER MAP 
     ============================================= -->
-	<parameterMaps>   
-		
+	<parameterMaps>
+
+    <parameterMap id="XML-params" class="string" >
+      <parameter property="AccountIds" /> <!-- we don't need dbType="NText" but you can specify it --> 
+    </parameterMap>
+    
 		<parameterMap id="swap-params" >
 			<parameter property="email1" column="First_Email" />
 			<parameter property="email2" column="Second_Email" />
@@ -782,11 +834,11 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
 		</parameterMap>
 								
 		<parameterMap id="insert-params" >
-			<parameter property="Id" />
-			<parameter property="FirstName" />
-			<parameter property="LastName" />			
-			<parameter property="EmailAddress" nullValue="no_email@provided.com"/>
-			<parameter property="BannerOption"  dbType="Varchar" type="bool"/>
+			<parameter property="Id" column="Account_ID" />
+			<parameter property="FirstName" column="Account_FirstName" />
+			<parameter property="LastName" column="Account_LastName" />			
+			<parameter property="EmailAddress" column="Account_Email" nullValue="no_email@provided.com"/>
+			<parameter property="BannerOption" column="Account_Banner_Option"  dbType="Varchar" type="bool"/>
 			<parameter property="CartOption"	column="Account_Cart_Option" typeHandler="HundredsBool"/>
 		</parameterMap>
 		

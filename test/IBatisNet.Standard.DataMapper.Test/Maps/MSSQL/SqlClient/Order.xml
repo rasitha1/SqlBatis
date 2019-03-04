@@ -344,6 +344,19 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
 			<result property="PostalCode"			column="Order_PostalCode"/>
 			<result property="FavouriteLineItem"	column="Order_ID=Order_ID,LineItem_ID=Order_FavouriteLineItem" select="GetSpecificLineItem" />
 		</resultMap>
+
+    <resultMap id="order-with-favourite-line-item-JIRA-251" class="Order">
+      <result property="Id"					column="Order_ID"/>
+      <result property="Date"					column="Order_Date"/>
+      <result property="CardExpiry"			column="Order_CardExpiry"/>
+      <result property="CardType"				column="Order_CardType"/>
+      <result property="CardNumber"			column="Order_CardNumber"/>
+      <result property="Street"				column="Order_Street"/>
+      <result property="City"					column="Order_City"/>
+      <result property="Province"				column="Order_Province"/>
+      <result property="PostalCode"			column="Order_PostalCode"/>
+      <result property="FavouriteLineItem"	column="Order_ID,Order_FavouriteLineItem" select="GetSpecificLineItem-JIRA-251" />
+    </resultMap>
 		
 		<resultMap id="order-joined-favourite2" class="Order">
 			<result property="Id"					column="Order_ID"/>
@@ -414,7 +427,20 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
 			<result property="PostalCode" column="Order_PostalCode"/>
 			<result property="Account"	resultMapping="Account.account-result-constructor" />
 		</resultMap>
-		
+
+    <resultMap id="order-hashtable-nested" class="Hashtable">
+      <result property="Id"         column="Order_ID"/>
+      <result property="Date"       column="Order_Date" nullValue="01/01/0001 00:00:00"/>
+      <result property="CardExpiry" column="Order_CardExpiry"/>
+      <result property="CardType"   column="Order_CardType"/>
+      <result property="CardNumber" column="Order_CardNumber"/>
+      <result property="Street"     column="Order_Street"/>
+      <result property="City"       column="Order_City"/>
+      <result property="Province"   column="Order_Province"/>
+      <result property="PostalCode" column="Order_PostalCode"/>
+      <result property="Account"	resultMapping="Account.account-hashtable-result" />
+    </resultMap>
+    
 	</resultMaps>  
 	
 	<statements>
@@ -612,6 +638,12 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
 					resultMap="order-with-favourite-line-item" >
 			select * from Orders where Order_ID = #value#
 		</statement>
+
+    <statement id="GetOrderWithFavouriteLineItem-JIRA-251"
+      parameterClass="int"
+      resultMap="order-with-favourite-line-item-JIRA-251" >
+      select * from Orders where Order_ID = #value#
+    </statement>
 		
 		<statement id="GetOrderWithLineItemCollection"
 					parameterClass="int"
@@ -811,6 +843,28 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
 		  parameterClass="Integer"
 		  resultMap="order-joined-with-account-constructor">
 	  </select>
+
+    <select id="JIRA-254"
+    parameterClass="Integer"
+    resultMap="order-hashtable-nested">
+      select
+      Order_ID,
+      Order_Date,
+      Order_CardExpiry,
+      Order_CardType,
+      Order_CardNumber,
+      Order_Street,
+      Order_City,
+      Order_Province,
+      Order_PostalCode,
+      acc.Account_ID,
+      acc.Account_FirstName,
+      acc.Account_LastName,
+      acc.Account_Email
+      from Orders as ord
+      LEFT OUTER JOIN Accounts as acc on acc.Account_ID = ord.Account_ID
+      where Order_ID = #value#
+    </select>
     
     <select id="GetOrderConstructor10"
         parameterClass="Integer"

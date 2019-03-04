@@ -77,6 +77,20 @@ namespace IBatisNet.DataMapper.Test.NUnit.SqlMapTests.MSSQL
 			Assert.AreEqual(1, key);
 		}
 
+        /// <summary>
+        /// Test an insert using SCOPE_IDENTITY.
+        /// </summary>
+        [Test]
+        public void TestInsertCategoryScope()
+        {
+            Category category = new Category();
+            category.Name = "toto";
+            category.Guid = Guid.NewGuid();
+
+            sqlMap.QueryForObject("InsertCategoryScope", category, category);
+            Assert.That(category.Id, Is.EqualTo(1));
+        }
+
 		/// <summary>
 		/// Test Insert Via Insert Statement.
 		/// (Test for IBATISNET-21 : Property substitutions do not occur inside selectKey statement)

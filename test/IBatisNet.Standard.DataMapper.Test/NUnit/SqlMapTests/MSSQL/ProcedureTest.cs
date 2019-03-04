@@ -28,7 +28,7 @@ namespace IBatisNet.DataMapper.Test.NUnit.SqlMapTests.MSSQL
             InitScript( sqlMap.DataSource, ScriptDirectory + "category-procedureWithReturn.sql", false);
 			InitScript( sqlMap.DataSource, ScriptDirectory + "ps_SelectAccount.sql", false );
             InitScript( sqlMap.DataSource, ScriptDirectory + "ps_SelectAllAccount.sql", false);			    
-			InitScript( sqlMap.DataSource, ScriptDirectory + "swap-procedure.sql" );	
+			InitScript( sqlMap.DataSource, ScriptDirectory + "swap-procedure.sql" );
 		}
 
 		/// <summary>
@@ -52,13 +52,15 @@ namespace IBatisNet.DataMapper.Test.NUnit.SqlMapTests.MSSQL
             category.Name = "Mapping object relational";
 
             int categoryID = ( int ) sqlMap.Insert ( "InsertCategoryViaStoreProcedureWithReturn", category );
-            Assert.AreEqual ( 1, categoryID );
+            Assert.That(categoryID, Is.EqualTo(1));
+            Assert.That(category.Id, Is.EqualTo(1));
 
             Category category2 = new Category ( );
             category2.Name = "Nausicaa";
 
             int categoryID2 = ( int ) sqlMap.Insert ( "InsertCategoryViaStoreProcedureWithReturn", category2 );
-            Assert.AreEqual ( 2, categoryID2 );
+            Assert.That(categoryID2, Is.EqualTo(2));
+            Assert.That(category2.Id, Is.EqualTo(2));
 
             Category category3 = sqlMap.QueryForObject<Category> ( "GetCategory", categoryID2 ) ;
             Category category4 = sqlMap.QueryForObject<Category> ( "GetCategory", categoryID );
@@ -68,6 +70,21 @@ namespace IBatisNet.DataMapper.Test.NUnit.SqlMapTests.MSSQL
 
             Assert.AreEqual ( categoryID, category4.Id );
             Assert.AreEqual ( category.Name, category4.Name );
+        }
+
+        /// <summary>
+        /// Test XML parameter.
+        /// </summary>
+        [Test]
+        [Category("MSSQL.2005")]
+        public void TestXMLParameter()
+        {
+            InitScript(sqlMap.DataSource, ScriptDirectory + "ps_SelectByIdList.sql");	
+
+            string accountIds = "<Accounts><id>3</id><id>4</id></Accounts>";
+
+            IList accounts = sqlMap.QueryForList("SelectAccountViaXML", accountIds);
+            Assert.IsTrue(accounts.Count == 2);
         }
 
         /// <summary>

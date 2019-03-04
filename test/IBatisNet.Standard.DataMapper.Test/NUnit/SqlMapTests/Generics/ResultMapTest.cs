@@ -7,6 +7,7 @@ using NUnit.Framework;
 
 using IBatisNet.DataMapper.Test.Domain;
 
+
 namespace IBatisNet.DataMapper.Test.NUnit.SqlMapTests.Generics
 {
     /// <summary>
@@ -37,6 +38,8 @@ namespace IBatisNet.DataMapper.Test.NUnit.SqlMapTests.Generics
             InitScript(sqlMap.DataSource, ScriptDirectory + "order-init.sql");
             InitScript(sqlMap.DataSource, ScriptDirectory + "line-item-init.sql");
             InitScript(sqlMap.DataSource, ScriptDirectory + "enumeration-init.sql");
+            InitScript(sqlMap.DataSource, ScriptDirectory + "coupons-init.sql");
+
         }
 
         /// <summary>
@@ -49,6 +52,44 @@ namespace IBatisNet.DataMapper.Test.NUnit.SqlMapTests.Generics
         #endregion
 
         #region Result Map test
+
+        /// <summary>
+        /// Coupons
+        /// </summary>
+        [Test]
+        public void TestJIRA243WithGoupBy()
+        {
+            IList<Coupon> coupons = sqlMap.QueryForList<Coupon>("GetCouponBrand", null);
+
+            Assert.That(coupons.Count, Is.EqualTo(5));
+            Assert.That(coupons[0].BrandIds[0], Is.EqualTo(1));
+            Assert.That(coupons[0].BrandIds[1], Is.EqualTo(2));
+            Assert.That(coupons[0].BrandIds[2], Is.EqualTo(3));
+            Assert.That(coupons[1].BrandIds[0], Is.EqualTo(4));
+            Assert.That(coupons[1].BrandIds[1], Is.EqualTo(5));
+            Assert.That(coupons[2].BrandIds.Count, Is.EqualTo(0));
+            Assert.That(coupons[3].BrandIds.Count, Is.EqualTo(0));
+            Assert.That(coupons[4].BrandIds[0], Is.EqualTo(6));
+        }
+
+        /// <summary>
+        /// Coupons
+        /// </summary>
+        [Test]
+        public void Test243WithoutGoupBy()
+        {
+            IList<Coupon> coupons = sqlMap.QueryForList<Coupon>("GetCoupons", null);
+
+            Assert.That(coupons.Count, Is.EqualTo(5));
+            Assert.That(coupons[0].BrandIds[0], Is.EqualTo(1));
+            Assert.That(coupons[0].BrandIds[1], Is.EqualTo(2));
+            Assert.That(coupons[0].BrandIds[2], Is.EqualTo(3));
+            Assert.That(coupons[1].BrandIds[0], Is.EqualTo(4));
+            Assert.That(coupons[1].BrandIds[1], Is.EqualTo(5));
+            Assert.That(coupons[2].BrandIds.Count, Is.EqualTo(0));
+            Assert.That(coupons[3].BrandIds.Count, Is.EqualTo(0));
+            Assert.That(coupons[4].BrandIds[0], Is.EqualTo(6));
+        }
 
         /// <summary>
         /// Test generic Ilist  : 

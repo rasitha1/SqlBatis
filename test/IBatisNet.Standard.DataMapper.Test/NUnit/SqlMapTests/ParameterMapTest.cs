@@ -260,13 +260,61 @@ namespace IBatisNet.DataMapper.Test.NUnit.SqlMapTests
 
 			item = sqlMap.QueryForObject("GetSpecificLineItemWithPicture", param) as LineItem;
 
-			Assert.IsNotNull( item.Id );
+			Assert.IsNotNull( item );
 			Assert.IsNotNull( item.Picture );
 			Assert.AreEqual( GetSize(item.Picture), this.GetSize( this.GetPicture() ));
 		}
 
 
-		/// <summary>
+        [Test]
+        [Category("JIRA")]
+        [Category("JIRA-253")]
+        public void Null_byte_array_should_return_null()
+        {
+            Account account = NewAccount6();
+
+            sqlMap.Insert("InsertAccountViaParameterMap", account);
+
+            Order order = new Order();
+            order.Id = 99;
+            order.CardExpiry = "09/11";
+            order.Account = account;
+            order.CardNumber = "154564656";
+            order.CardType = "Visa";
+            order.City = "Lyon";
+            order.Date = DateTime.MinValue;
+            order.PostalCode = "69004";
+            order.Province = "Rhone";
+            order.Street = "rue Durand";
+
+            sqlMap.Insert("InsertOrderViaParameterMap", order);
+
+            LineItem item = new LineItem();
+            item.Id = 99;
+            item.Code = "test";
+            item.Price = -99.99m;
+            item.Quantity = 99;
+            item.Order = order;
+            item.Picture = null;
+
+            // Check insert
+            sqlMap.Insert("InsertLineItemWithPicture", item);
+
+            // select
+            item = null;
+
+            Hashtable param = new Hashtable();
+            param.Add("LineItem_ID", 99);
+            param.Add("Order_ID", 99);
+
+            item = sqlMap.QueryForObject("GetSpecificLineItemWithPicture", param) as LineItem;
+            Assert.IsNotNull(item);
+            Assert.IsNull(item.Picture);
+
+        }
+
+
+	    /// <summary>
 		/// Test extend parameter map capacity
 		/// (Support Requests 1043181)
 		/// </summary>

@@ -64,8 +64,6 @@ namespace IBatisNet.DataMapper.Test.NUnit.SqlMapTests
 			Thread.CurrentThread.Join(1 * 2000);
 
 			_stopEvent.Set();
-
-		    new ManualResetEvent(false).WaitOne(TimeSpan.FromSeconds(2));
 		}
 
 		public void ExecuteMethodUntilSignal()

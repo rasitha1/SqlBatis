@@ -13,6 +13,11 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
       <result property="Name" column="Category_Name"/>
       <result property="Guid" column="Category_Guid" nullValue="00000000-0000-0000-0000-000000000000"/>
     </resultMap>
+    
+    <resultMap id="resultMapScope" class="Category">
+      <result property="Id" column="Category_ID"/>
+    </resultMap>
+    
   </resultMaps >
   
   <statements>
@@ -47,8 +52,17 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 				(#Name#, #Guid:UniqueIdentifier#);
 			select SCOPE_IDENTITY() as value
 		</statement><!--Guid for Oledb, UniqueIdentifier for SqlClient,Odbc -->
-		
-		<!-- Test for Guid Parameter Class-->
+
+    <statement id="InsertCategoryScope" parameterClass="Category" resultMap="resultMapScope">
+      insert into Categories
+      (Category_Name, Category_Guid)
+      values
+      (#Name#, #Guid:UniqueIdentifier#);
+      select SCOPE_IDENTITY() as Category_ID
+    </statement>
+    <!--Guid for Oledb, UniqueIdentifier for SqlClient,Odbc -->
+
+    <!-- Test for Guid Parameter Class-->
 		<statement id="InsertCategoryGuidParameterClass" parameterClass="Guid" resultClass="int">
 			insert into Categories  
 				(Category_Name, Category_Guid) 
@@ -167,24 +181,27 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		</parameterMap>
 			
 		<parameterMap id="insert-params" class="Category">
-			<parameter property="Name" column="Category_Name"/>
+			<parameter property="Name" column="Category_Name" />
 			<parameter property="Id" column="Category_Id" dbType="Int" /><!-- Int for SqlClient, Obdc; Integer for Oledb -->
 			<parameter property="Guid" column="Category_Guid" dbType="UniqueIdentifier"/><!--Guid for Oledb, UniqueIdentifier for SqlClient,Odbc -->
 		</parameterMap>
-		
+    
+		<parameterMap id="UpdateParam" extends="InsertParam" class="Category">
+			<parameter property="Id" column="Category_Id" />
+		</parameterMap>	
+    
 		<parameterMap id="InsertParam" class="Category">
 			<parameter property="Name" column="Category_Name"/>
 			<parameter property="Guid" column="Category_Guid" dbType="UniqueIdentifier"/><!--Guid for Oledb, UniqueIdentifier for SqlClient,Odbc -->
 		</parameterMap>
-		
+
+    
 		<parameterMap id="insert-null-params" class="Category">
 			<parameter property="Name" column="Category_Name"/>
 			<parameter property="Guid" column="Category_Guid" nullValue="00000000-0000-0000-0000-000000000000" dbType="UniqueIdentifier"/><!--Guid for Oledb, UniqueIdentifier for SqlClient,Odbc -->
 		</parameterMap>
 		
-		<parameterMap id="UpdateParam" extends="InsertParam" class="Category">
-			<parameter property="Id" column="Category_Id" />
-		</parameterMap>
+
 		
 		<!-- Used by generated statement -->
 		

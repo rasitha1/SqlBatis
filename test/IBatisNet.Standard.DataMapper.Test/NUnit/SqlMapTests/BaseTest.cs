@@ -53,13 +53,19 @@ namespace IBatisNet.DataMapper.Test.NUnit.SqlMapTests
 
         }
 
-        protected static void InitSqlMap()
+        protected void InitSqlMap()
         {
             //DateTime start = DateTime.Now;
 
 
             ConfigureHandler handler = new ConfigureHandler(Configure);
             DomSqlMapBuilder builder = new DomSqlMapBuilder();
+            NameValueCollection properties = new NameValueCollection();
+            properties.Add("collection2Namespace", "IBatisNet.DataMapper.Test.Domain.LineItemCollection2, IBatisNet.DataMapper.Test");
+            properties.Add("nullableInt", "int?");
+            ChildSetupProperties(properties);
+            builder.Properties = properties;
+
             sqlMap = builder.ConfigureAndWatch("sqlmap" + "_" + Configuration["database"] + "_"
                                                + Configuration["providerType"] + ".config", handler);
 
