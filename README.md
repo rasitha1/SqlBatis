@@ -1,4 +1,4 @@
-# IBatisNet.Standard
+# RBatisNet.Standard
 A fork of the Apache IBatisNet distribution which has been refactored and migrated to .NET Standard, as shown in the change log.
 
 ## Releases
