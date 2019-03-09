@@ -32,9 +32,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\SqlBatisNet.Common\SqlBatis.Common.csproj" />
-    <ProjectReference Include="..\..\src\SqlBatisNet.DataAccess\SqlBatis.DataAccess.csproj" />
-    <ProjectReference Include="..\..\src\SqlBatisNet.DataMapper\SqlBatis.DataMapper.csproj" />
+    <ProjectReference Include="..\..\src\SqlBatis.Common\SqlBatis.Common.csproj" />
+    <ProjectReference Include="..\..\src\SqlBatis.DataAccess\SqlBatis.DataAccess.csproj" />
+    <ProjectReference Include="..\..\src\SqlBatis.DataMapper\SqlBatis.DataMapper.csproj" />
   </ItemGroup>
 
   <ItemGroup>

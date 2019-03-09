@@ -9,18 +9,18 @@
     <Version>3.0.1</Version>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>AssemblyKey.snk</AssemblyOriginatorKeyFile>
-    <PackageProjectUrl>https://github.com/rasitha1/SqlBatisNet</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/rasitha1/SqlBatisNet</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/rasitha1/SqlBatis</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/rasitha1/SqlBatis</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageTags>ibatis datamapper</PackageTags>
-    <PackageReleaseNotes>Changed iBatisNet to SqlBatisNet
+    <PackageReleaseNotes>Changed iBatisNet to SqlBatis
 
-https://github.com/rasitha1/SqlBatisNet/blob/master/README.md
+https://github.com/rasitha1/SqlBatis/blob/master/README.md
 </PackageReleaseNotes>
     <Authors>rasitha1</Authors>
     <Company></Company>
-    <PackageId>SqlBatisNet.DataMapper</PackageId>
-    <Product>SqlBatisNet</Product>
+    <PackageId>SqlBatis.DataMapper</PackageId>
+    <Product>SqlBatis</Product>
     <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
   </PropertyGroup>
 
@@ -40,7 +40,7 @@ https://github.com/rasitha1/SqlBatisNet/blob/master/README.md
     <None Include="NOTICE.txt" Pack="true" PackagePath="" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SqlBatisNet.Common\SqlBatis.Common.csproj" />
+    <ProjectReference Include="..\SqlBatis.Common\SqlBatis.Common.csproj" />
   </ItemGroup>
 
   <ItemGroup>

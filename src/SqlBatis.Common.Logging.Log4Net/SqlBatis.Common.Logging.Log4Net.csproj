@@ -7,19 +7,19 @@
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Authors>rasitha1</Authors>
     <Company></Company>
-    <Description>SqlBatisNet logging support with Log4Net</Description>
-    <PackageProjectUrl>https://github.com/rasitha1/SqlBatisNet</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/rasitha1/SqlBatisNet</RepositoryUrl>
+    <Description>SqlBatis logging support with Log4Net</Description>
+    <PackageProjectUrl>https://github.com/rasitha1/SqlBatis</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/rasitha1/SqlBatis</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageTags>ibatisnet ibatis mybatis log4net ibatisnet.common.logging.log4net</PackageTags>
-    <PackageReleaseNotes>Changed iBatisNet to SqlBatisNet
+    <PackageReleaseNotes>Changed iBatisNet to SqlBatis
 
-https://github.com/rasitha1/SqlBatisNet/blob/master/README.md</PackageReleaseNotes>
+https://github.com/rasitha1/SqlBatis/blob/master/README.md</PackageReleaseNotes>
     <Version>3.0.1</Version>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>AssemblyKey.snk</AssemblyOriginatorKeyFile>
-    <PackageId>SqlBatisNet.Common.Logging.Log4Net</PackageId>
-    <Product>SqlBatisNet</Product>
+    <PackageId>SqlBatis.Common.Logging.Log4Net</PackageId>
+    <Product>SqlBatis</Product>
     <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
   </PropertyGroup>
 
@@ -31,7 +31,7 @@ https://github.com/rasitha1/SqlBatisNet/blob/master/README.md</PackageReleaseNot
     <None Include="LICENSE.txt" Pack="true" PackagePath="" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SqlBatisNet.Common\SqlBatis.Common.csproj" />
+    <ProjectReference Include="..\SqlBatis.Common\SqlBatis.Common.csproj" />
   </ItemGroup>
 
   <ItemGroup>

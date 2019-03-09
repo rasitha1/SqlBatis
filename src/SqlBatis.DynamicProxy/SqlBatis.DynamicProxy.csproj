@@ -9,17 +9,17 @@
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>AssemblyKey.snk</AssemblyOriginatorKeyFile>
     <Authors>rasitha1</Authors>
-    <Description>LazyLoad support for SqlBatisNet.DataMapper using Castle DynamicProxy.</Description>
-    <PackageProjectUrl>https://github.com/rasitha1/SqlBatisNet</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/rasitha1/SqlBatisNet</RepositoryUrl>
+    <Description>LazyLoad support for SqlBatis.DataMapper using Castle DynamicProxy.</Description>
+    <PackageProjectUrl>https://github.com/rasitha1/SqlBatis</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/rasitha1/SqlBatis</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageTags>ibatis mybatis lazyload dynamicproxy</PackageTags>
-    <PackageReleaseNotes>Changed iBatisNet to SqlBatisNet
+    <PackageReleaseNotes>Changed iBatisNet to SqlBatis
 
-https://github.com/rasitha1/SqlBatisNet/blob/master/README.md</PackageReleaseNotes>
+https://github.com/rasitha1/SqlBatis/blob/master/README.md</PackageReleaseNotes>
     <Company>rasitha1</Company>
-    <Product>SqlBatisNet</Product>
-    <PackageId>SqlBatisNet.DynamicProxy</PackageId>
+    <Product>SqlBatis</Product>
+    <PackageId>SqlBatis.DynamicProxy</PackageId>
     <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
   </PropertyGroup>
 
@@ -37,7 +37,8 @@ https://github.com/rasitha1/SqlBatisNet/blob/master/README.md</PackageReleaseNot
 
 
   <ItemGroup>
-    <ProjectReference Include="..\SqlBatisNet.Common\SqlBatis.Common.csproj" />
+    <ProjectReference Include="..\SqlBatis.Common\SqlBatis.Common.csproj" />
+    <ProjectReference Include="..\SqlBatis.DataMapper\SqlBatis.DataMapper.csproj" />
   </ItemGroup>
 
   <ItemGroup>

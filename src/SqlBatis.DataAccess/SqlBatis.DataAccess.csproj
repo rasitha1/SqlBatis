@@ -5,22 +5,22 @@
     <AssemblyName>IBatisNet.DataAccess</AssemblyName>
     <RootNamespace>IBatisNet.DataAccess</RootNamespace>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Description>Data Access Object (DAO) design pattern implementation in SqlBatisNet (iBATIS.Net)</Description>
+    <Description>Data Access Object (DAO) design pattern implementation in SqlBatis (iBATIS.Net)</Description>
     <Version>3.0.1</Version>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>AssemblyKey.snk</AssemblyOriginatorKeyFile>
-    <PackageProjectUrl>https://github.com/rasitha1/SqlBatisNet</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/rasitha1/SqlBatisNet</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/rasitha1/SqlBatis</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/rasitha1/SqlBatis</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <Authors>rasitha1</Authors>
-    <PackageReleaseNotes>Changed iBatisNet to SqlBatisNet
+    <PackageReleaseNotes>Changed iBatisNet to SqlBatis
 
-https://github.com/rasitha1/SqlBatisNet/blob/master/README.md
+https://github.com/rasitha1/SqlBatis/blob/master/README.md
 </PackageReleaseNotes>
     <PackageTags>ibatis mybatis ibatisnet.dataaccess</PackageTags>
     <Company></Company>
-    <PackageId>SqlBatisNet.DataAccess</PackageId>
-    <Product>SqlBatisNet</Product>
+    <PackageId>SqlBatis.DataAccess</PackageId>
+    <Product>SqlBatis</Product>
     <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
   </PropertyGroup>
 
@@ -46,9 +46,9 @@ https://github.com/rasitha1/SqlBatisNet/blob/master/README.md
 
 
   <ItemGroup>
-    <ProjectReference Include="..\SqlBatisNet.Common\SqlBatis.Common.csproj" />
-    <ProjectReference Include="..\SqlBatisNet.DataMapper\SqlBatis.DataMapper.csproj" />
-    <ProjectReference Include="..\SqlBatisNet.DynamicProxy\SqlBatis.DynamicProxy.csproj" />
+    <ProjectReference Include="..\SqlBatis.Common\SqlBatis.Common.csproj" />
+    <ProjectReference Include="..\SqlBatis.DataMapper\SqlBatis.DataMapper.csproj" />
+    <ProjectReference Include="..\SqlBatis.DynamicProxy\SqlBatis.DynamicProxy.csproj" />
   </ItemGroup>
 
 </Project>

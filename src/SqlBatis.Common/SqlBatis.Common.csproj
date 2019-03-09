@@ -18,8 +18,8 @@
 https://github.com/rasitha1/SqlBatis/blob/master/README.md</PackageReleaseNotes>
     <Authors>rasitha1</Authors>
     <Company></Company>
-    <PackageId>SqlBatisNet.Common</PackageId>
-    <Product>SqlBatisNet</Product>
+    <PackageId>SqlBatis.Common</PackageId>
+    <Product>SqlBatis</Product>
     <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
   </PropertyGroup>
 
