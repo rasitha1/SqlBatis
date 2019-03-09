@@ -6,7 +6,7 @@
     <RootNamespace>IBatisNet.DataAccess</RootNamespace>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Description>Data Access Object (DAO) design pattern implementation in SqlBatisNet (iBATIS.Net)</Description>
-    <Version>3.0.0</Version>
+    <Version>3.0.1</Version>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>AssemblyKey.snk</AssemblyOriginatorKeyFile>
     <PackageProjectUrl>https://github.com/rasitha1/SqlBatisNet</PackageProjectUrl>
@@ -21,6 +21,7 @@ https://github.com/rasitha1/SqlBatisNet/blob/master/README.md
     <Company></Company>
     <PackageId>SqlBatisNet.DataAccess</PackageId>
     <Product>SqlBatisNet</Product>
+    <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -30,6 +31,17 @@ https://github.com/rasitha1/SqlBatisNet/blob/master/README.md
   <ItemGroup>
     <PackageReference Include="Castle.Core" Version="4.3.1" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="LICENSE.txt" Pack="true" PackagePath="" />
+    <None Include="NOTICE.txt" Pack="true" PackagePath="" />
+  </ItemGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="copy $(SolutionDir)LICENSE $(ProjectDir)LICENSE.txt /y" />
+    <Exec Command="copy $(SolutionDir)NOTICE $(ProjectDir)NOTICE.txt /y" />
+  </Target>
+
+
 
   <ItemGroup>
     <ProjectReference Include="..\SqlBatisNet.Common\SqlBatisNet.Common.csproj" />

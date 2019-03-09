@@ -5,9 +5,9 @@ VisualStudioVersion = 15.0.28010.2048
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionItems", "{1D7A00BE-B0BC-474F-AF6A-C0A720CA274B}"
 	ProjectSection(SolutionItems) = preProject
-		CommonAssemblyInfo.cs = CommonAssemblyInfo.cs
 		HtmlHelpOverview.html = HtmlHelpOverview.html
 		LICENSE = LICENSE
+		NOTICE = NOTICE
 		README.md = README.md
 		README.txt = README.txt
 	EndProjectSection

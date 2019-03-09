@@ -6,7 +6,7 @@
     <AssemblyName>IBatisNet.Common</AssemblyName>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Description>SqlBatisNet - Common object used by DataAccess and DataMapper component in SqlBatisNet (iBATIS.Net)</Description>
-    <Version>3.0.0</Version>
+    <Version>3.0.1</Version>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>AssemblyKey.snk</AssemblyOriginatorKeyFile>
     <RepositoryUrl>https://github.com/rasitha1/SqlBatisNet</RepositoryUrl>
@@ -20,6 +20,7 @@ https://github.com/rasitha1/SqlBatisNet/blob/master/README.md</PackageReleaseNot
     <Company></Company>
     <PackageId>SqlBatisNet.Common</PackageId>
     <Product>SqlBatisNet</Product>
+    <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -27,9 +28,21 @@ https://github.com/rasitha1/SqlBatisNet/blob/master/README.md</PackageReleaseNot
   </PropertyGroup>
 
   <ItemGroup>
+    <None Include="LICENSE.txt" Pack="true" PackagePath="" />
+    <None Include="NOTICE.txt" Pack="true" PackagePath="" />
+  </ItemGroup>
+
+
+  <ItemGroup>
     <PackageReference Include="System.Reflection.Emit" Version="4.3.0" />
     <PackageReference Include="System.Reflection.Emit.Lightweight" Version="4.3.0" />
     <PackageReference Include="System.Security.Permissions" Version="4.5.0" />
   </ItemGroup>
+
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="copy $(SolutionDir)LICENSE $(ProjectDir)LICENSE.txt /y" />
+    <Exec Command="copy $(SolutionDir)NOTICE $(ProjectDir)NOTICE.txt /y" />
+  </Target>
 
 </Project>
