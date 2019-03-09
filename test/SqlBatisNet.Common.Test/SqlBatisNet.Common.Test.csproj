@@ -32,6 +32,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\src\SqlBatisNet.Common\SqlBatisNet.Common.csproj" />
+    <ProjectReference Include="..\..\src\SqlBatisNet.DataAccess\SqlBatisNet.DataAccess.csproj" />
+    <ProjectReference Include="..\..\src\SqlBatisNet.DataMapper\SqlBatisNet.DataMapper.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Update="dao_Access_OleDb.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

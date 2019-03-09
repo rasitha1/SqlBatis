@@ -34,6 +34,13 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\src\SqlBatisNet.Common\SqlBatisNet.Common.csproj" />
+    <ProjectReference Include="..\..\src\SqlBatisNet.DataMapper\SqlBatisNet.DataMapper.csproj" />
+    <ProjectReference Include="..\..\src\SqlBatisNet.DynamicProxy\SqlBatisNet.DynamicProxy.csproj" />
+    <ProjectReference Include="..\SqlBatisNet.Common.Test\SqlBatisNet.Common.Test.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Update="cool.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

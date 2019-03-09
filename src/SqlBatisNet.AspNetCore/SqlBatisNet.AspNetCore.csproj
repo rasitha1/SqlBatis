@@ -11,7 +11,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\IBatisNet.Standard.Common\SqlBatisNet.Common.csproj" />
+    <ProjectReference Include="..\SqlBatisNet.Common\SqlBatisNet.Common.csproj" />
   </ItemGroup>
 
 </Project>

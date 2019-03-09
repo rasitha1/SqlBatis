@@ -30,4 +30,9 @@ https://github.com/rasitha1/SqlBatisNet/blob/master/README.md</PackageReleaseNot
     <PackageReference Include="Castle.Core" Version="4.3.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\SqlBatisNet.Common\SqlBatisNet.Common.csproj" />
+    <ProjectReference Include="..\SqlBatisNet.DataMapper\SqlBatisNet.DataMapper.csproj" />
+  </ItemGroup>
+
 </Project>

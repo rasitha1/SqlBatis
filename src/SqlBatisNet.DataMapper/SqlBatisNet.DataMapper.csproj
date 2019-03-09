@@ -35,4 +35,8 @@ https://github.com/rasitha1/SqlBatisNet/blob/master/README.md
     <EmbeddedResource Include="SqlMapConfig.xsd" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\SqlBatisNet.Common\SqlBatisNet.Common.csproj" />
+  </ItemGroup>
+
 </Project>

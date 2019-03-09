@@ -32,7 +32,9 @@ https://github.com/rasitha1/SqlBatisNet/blob/master/README.md
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\IBatisNet.Standard.DataMapper\SqlBatisNet.DataMapper.csproj" />
+    <ProjectReference Include="..\SqlBatisNet.Common\SqlBatisNet.Common.csproj" />
+    <ProjectReference Include="..\SqlBatisNet.DataMapper\SqlBatisNet.DataMapper.csproj" />
+    <ProjectReference Include="..\SqlBatisNet.DynamicProxy\SqlBatisNet.DynamicProxy.csproj" />
   </ItemGroup>
 
 </Project>

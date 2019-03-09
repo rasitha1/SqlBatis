@@ -28,4 +28,8 @@ https://github.com/rasitha1/SqlBatisNet/blob/master/README.md</PackageReleaseNot
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="4.5.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\SqlBatisNet.Common\SqlBatisNet.Common.csproj" />
+  </ItemGroup>
+
 </Project>
