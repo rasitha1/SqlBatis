@@ -3,6 +3,17 @@ A fork of the Apache IBatisNet distribution which has been refactored and migrat
 
 ## Releases
 
+### 3.0.0
+* Renamed from iBatisNet to SqlBatisNet
+* Added NOTICE file
+* BF: Correctly handle removal of sessions in `AsyncLocalSessionStore` 
+
+___
+Delist 2.x packages published to nuget.org under IBatisNet.*
+Publishing new packages under SqlBatisNet name
+___
+
+
 ### 2.1.0
 * Merged changes from rev 709676 which picked up a number fixes 
 * Including `IBatisNet.Common.Logging.Log4Net` .Net Framework assembly as well. 
