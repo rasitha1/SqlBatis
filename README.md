@@ -19,12 +19,12 @@ ___
 
 
 ### 2.1.0
-* Merged changes from rev 709676 which picked up a number fixes 
+* Merged changes from [rev 709676](http://archive.apache.org/dist/ibatis/source/ibatis.net/) which picked up a number fixes 
 * Including `IBatisNet.Common.Logging.Log4Net` .Net Framework assembly as well. 
 * Getting rid of rest of the .net framework version.
 
 ### 2.0.0
-* Migrated rev 513437 if IBatisNet to .Net Standard
+* Migrated [rev 513437](http://archive.apache.org/dist/ibatis/source/ibatis.net/) if IBatisNet to .Net Standard
 * Decoupled Dynamic Proxy by dynamically loading `ILazyFactory` implementation via a new `settings` 
 attribute called `lazyFactoryType` and splitting `ProxyGeneratorFactory` and `CachedProxyGenerator` to
 a separate project called IBatisNet.DynamicProxy. You only need this if you have any lazy-loaded results. Refactored to use latest version of `Castle.Core` package
