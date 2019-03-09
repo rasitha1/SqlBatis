@@ -36,11 +36,13 @@ https://github.com/rasitha1/SqlBatisNet/blob/master/README.md
     <None Include="NOTICE.txt" Pack="true" PackagePath="" />
   </ItemGroup>
 
-  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="copy $(SolutionDir)LICENSE $(ProjectDir)LICENSE.txt /y" />
-    <Exec Command="copy $(SolutionDir)NOTICE $(ProjectDir)NOTICE.txt /y" />
-  </Target>
+  <ItemGroup>
+    <LegalFiles Include="..\..\LICENSE.txt;..\..\NOTICE.txt"/>
+  </ItemGroup>
 
+  <Target Name="CopyFiles" BeforeTargets="PreBuildEvent">
+    <Copy SkipUnchangedFiles="true" SourceFiles="@(LegalFiles)" DestinationFolder="$(ProjectDir)"  />
+  </Target>
 
 
   <ItemGroup>

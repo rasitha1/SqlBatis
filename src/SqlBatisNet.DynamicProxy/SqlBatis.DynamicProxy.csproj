@@ -35,14 +35,17 @@ https://github.com/rasitha1/SqlBatisNet/blob/master/README.md</PackageReleaseNot
     <None Include="LICENSE.txt" Pack="true" PackagePath="" />
   </ItemGroup>
 
-  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="copy $(SolutionDir)LICENSE $(ProjectDir)LICENSE.txt /y" />
-  </Target>
-
 
   <ItemGroup>
     <ProjectReference Include="..\SqlBatisNet.Common\SqlBatis.Common.csproj" />
-    <ProjectReference Include="..\SqlBatisNet.DataMapper\SqlBatis.DataMapper.csproj" />
   </ItemGroup>
+
+  <ItemGroup>
+    <LegalFiles Include="..\..\LICENSE.txt;..\..\NOTICE.txt" />
+  </ItemGroup>
+
+  <Target Name="CopyFiles" BeforeTargets="PreBuildEvent">
+    <Copy SkipUnchangedFiles="true" SourceFiles="@(LegalFiles)" DestinationFolder="$(ProjectDir)" />
+  </Target>
 
 </Project>

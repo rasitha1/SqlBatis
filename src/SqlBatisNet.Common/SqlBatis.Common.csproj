@@ -40,11 +40,11 @@ https://github.com/rasitha1/SqlBatis/blob/master/README.md</PackageReleaseNotes>
   </ItemGroup>
 
   <ItemGroup>
-    <MySourceFiles Include="..\..\LICENSE;..\..\NOTICE"/>
+    <LegalFiles Include="..\..\LICENSE.txt;..\..\NOTICE.txt"/>
   </ItemGroup>
 
-  <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
-    <Exec Command="copy $(SolutionDir)LICENSE $(ProjectDir)LICENSE.txt /y&#xD;&#xA;copy $(SolutionDir)NOTICE $(ProjectDir)NOTICE.txt /y" />
+  <Target Name="CopyFiles" BeforeTargets="PreBuildEvent">
+    <Copy SkipUnchangedFiles="true" SourceFiles="@(LegalFiles)" DestinationFolder="$(ProjectDir)"  />
   </Target>
 
 </Project>

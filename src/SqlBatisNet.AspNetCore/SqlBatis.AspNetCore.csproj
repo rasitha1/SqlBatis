@@ -10,8 +10,4 @@
     <PackageId>SqlBatis.AspNetCore</PackageId>
   </PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\SqlBatisNet.Common\SqlBatis.Common.csproj" />
-  </ItemGroup>
-
 </Project>
