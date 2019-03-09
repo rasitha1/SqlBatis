@@ -15,7 +15,7 @@
     <PackageReleaseNotes>Changed iBatisNet to SqlBatis
 
 https://github.com/rasitha1/SqlBatis/blob/master/README.md</PackageReleaseNotes>
-    <Version>3.0.1</Version>
+    <Version>3.0.0</Version>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>AssemblyKey.snk</AssemblyOriginatorKeyFile>
     <PackageId>SqlBatis.Common.Logging.Log4Net</PackageId>
@@ -35,10 +35,10 @@ https://github.com/rasitha1/SqlBatis/blob/master/README.md</PackageReleaseNotes>
   </ItemGroup>
 
   <ItemGroup>
-    <LegalFiles Include="..\..\LICENSE.txt"/>
+    <LegalFiles Include="..\..\LICENSE.txt" />
   </ItemGroup>
 
   <Target Name="CopyFiles" BeforeTargets="PreBuildEvent">
-    <Copy SkipUnchangedFiles="true" SourceFiles="@(LegalFiles)" DestinationFolder="$(ProjectDir)"  />
+    <Copy SkipUnchangedFiles="true" SourceFiles="@(LegalFiles)" DestinationFolder="$(ProjectDir)" />
   </Target>
 </Project>

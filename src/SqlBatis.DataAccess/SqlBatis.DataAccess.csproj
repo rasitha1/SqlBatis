@@ -6,7 +6,7 @@
     <RootNamespace>IBatisNet.DataAccess</RootNamespace>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Description>Data Access Object (DAO) design pattern implementation in SqlBatis (iBATIS.Net)</Description>
-    <Version>3.0.1</Version>
+    <Version>3.0.0</Version>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>AssemblyKey.snk</AssemblyOriginatorKeyFile>
     <PackageProjectUrl>https://github.com/rasitha1/SqlBatis</PackageProjectUrl>
@@ -37,11 +37,11 @@ https://github.com/rasitha1/SqlBatis/blob/master/README.md
   </ItemGroup>
 
   <ItemGroup>
-    <LegalFiles Include="..\..\LICENSE.txt;..\..\NOTICE.txt"/>
+    <LegalFiles Include="..\..\LICENSE.txt;..\..\NOTICE.txt" />
   </ItemGroup>
 
   <Target Name="CopyFiles" BeforeTargets="PreBuildEvent">
-    <Copy SkipUnchangedFiles="true" SourceFiles="@(LegalFiles)" DestinationFolder="$(ProjectDir)"  />
+    <Copy SkipUnchangedFiles="true" SourceFiles="@(LegalFiles)" DestinationFolder="$(ProjectDir)" />
   </Target>
 
 
