@@ -1,7 +1,9 @@
 using System;
 using System.Collections;
+using System.Collections.Concurrent;
 using System.Threading;
 using System.Configuration;
+using System.Linq;
 using IBatisNet.Common.Logging;
 using NUnit.Framework;
 
@@ -50,12 +52,16 @@ namespace IBatisNet.DataMapper.Test.NUnit.SqlMapTests
 		public void TestCommonUsageMultiThread()
 		{
 			const int threadCount = 10;
+            var errors = new ConcurrentBag<Exception>();
 
 			Thread[] threads = new Thread[threadCount];
 			
 			for(int i = 0; i < threadCount; i++)
 			{
-				threads[i] = new Thread(new ThreadStart(ExecuteMethodUntilSignal));
+				threads[i] = new Thread(() =>
+				{
+                    Run(ExecuteMethodUntilSignal, errors);
+				});
 				threads[i].Start();
 			}
 
@@ -64,7 +70,12 @@ namespace IBatisNet.DataMapper.Test.NUnit.SqlMapTests
 			Thread.CurrentThread.Join(1 * 2000);
 
 			_stopEvent.Set();
-		}
+
+		    if (errors.Any())
+		    {
+		        throw new AggregateException(errors);
+		    }
+        }
 
 		public void ExecuteMethodUntilSignal()
 		{
@@ -88,6 +99,18 @@ namespace IBatisNet.DataMapper.Test.NUnit.SqlMapTests
 			}
 		}
 
+	    private static void Run(Action action, ConcurrentBag<Exception> errors)
+	    {
+	        try
+	        {
+	            action();
+	        }
+	        catch (Exception e)
+	        {
+                errors.Add(e);
+	        }
+        }
+
 		/// <summary>
 		/// Test BeginTransaction, CommitTransaction
 		/// </summary>
@@ -95,6 +118,7 @@ namespace IBatisNet.DataMapper.Test.NUnit.SqlMapTests
 		public void TestThread() 
 		{
 			Account account = NewAccount6();
+            var errors = new ConcurrentBag<Exception>();
 
 			try 
 			{
@@ -104,7 +128,10 @@ namespace IBatisNet.DataMapper.Test.NUnit.SqlMapTests
 
 				for (int i = 0; i < _numberOfThreads; i++) 
 				{
-					Thread thread = new Thread(new ThreadStart(accessTest.GetAccount));
+					Thread thread = new Thread(() =>
+					{
+					    Run(accessTest.GetAccount, errors);
+					});
 					threads[i] = thread;
 				}
 				for (int i = 0; i < _numberOfThreads; i++) 
@@ -115,6 +142,11 @@ namespace IBatisNet.DataMapper.Test.NUnit.SqlMapTests
 			finally 
 			{
 			}
+
+		    if (errors.Any())
+		    {
+		        throw new AggregateException(errors);
+		    }
 
 		}
 

@@ -690,7 +690,7 @@ namespace IBatisNet.DataAccess.Configuration
 				{
 					throw new ConfigurationException(
 						string.Format("Error while configuring the Provider named \"{0}\" in the Context named \"{1}\".",
-                        providerName, configurationScope.NodeContext.Attributes["name"].Value));
+                        providerName, configurationScope.NodeContext.Attributes?["name"]?.Value));
 				}
 			}
 			else

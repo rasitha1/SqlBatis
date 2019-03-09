@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <SignAssembly>false</SignAssembly>
+    <RootNamespace>IBatisNet.AspNetCore</RootNamespace>
+    <AssemblyName>IBatisNet.AspNetCore</AssemblyName>
+    <Authors>rasitha1</Authors>
+    <Product>SqlBatisNet</Product>
+    <PackageId>SqlBatisNet.AspNetCore</PackageId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\IBatisNet.Standard.Common\SqlBatisNet.Common.csproj" />
+  </ItemGroup>
+
+</Project>

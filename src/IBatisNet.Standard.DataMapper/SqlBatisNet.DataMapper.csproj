@@ -6,18 +6,21 @@
     <RootNamespace>IBatisNet.DataMapper</RootNamespace>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Description>Map objects to your SQL statements or stored procedures.</Description>
-    <Version>2.1.0</Version>
+    <Version>3.0.0</Version>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>AssemblyKey.snk</AssemblyOriginatorKeyFile>
-    <PackageProjectUrl>https://github.com/rasitha1/IBatisNet.Standard</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/rasitha1/IBatisNet.Standard</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/rasitha1/SqlBatisNet</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/rasitha1/SqlBatisNet</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageTags>ibatis datamapper</PackageTags>
-    <PackageReleaseNotes>Converted to .net standard. 
-https://github.com/rasitha1/IBatisNet.Standard/blob/master/README.md
+    <PackageReleaseNotes>Changed iBatisNet to SqlBatisNet
+
+https://github.com/rasitha1/SqlBatisNet/blob/master/README.md
 </PackageReleaseNotes>
-    <Authors>IBatisNet,rasitha1</Authors>
-    <Company>IBatisNet</Company>
+    <Authors>rasitha1</Authors>
+    <Company></Company>
+    <PackageId>SqlBatisNet.DataMapper</PackageId>
+    <Product>SqlBatisNet</Product>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -30,10 +33,6 @@ https://github.com/rasitha1/IBatisNet.Standard/blob/master/README.md
 
   <ItemGroup>
     <EmbeddedResource Include="SqlMapConfig.xsd" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\IBatisNet.Standard.Common\IBatisNet.Standard.Common.csproj" />
   </ItemGroup>
 
 </Project>

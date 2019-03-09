@@ -72,7 +72,7 @@ namespace IBatisNet.DataAccess.Test.NUnit.DaoTests
 		public void MultipleContext() 
 		{
 			DomDaoManagerBuilder builder = new DomDaoManagerBuilder();
-			builder.Configure( "dao_Multiple_Context.config" );
+            builder.Configure( "dao_Multiple_Context.config" );
 			IDaoManager daoManager1 = DaoManager.GetInstance("Contex1");
 			IDaoManager daoManager2 = DaoManager.GetInstance("Contex2");
 

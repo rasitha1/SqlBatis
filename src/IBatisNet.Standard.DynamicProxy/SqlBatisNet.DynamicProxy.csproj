@@ -1,0 +1,33 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <AssemblyName>IBatisNet.DynamicProxy</AssemblyName>
+    <RootNamespace>IBatisNet.DynamicProxy</RootNamespace>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Version>3.0.0</Version>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>AssemblyKey.snk</AssemblyOriginatorKeyFile>
+    <Authors>rasitha1</Authors>
+    <Description>LazyLoad support for SqlBatisNet.DataMapper using Castle DynamicProxy.</Description>
+    <PackageProjectUrl>https://github.com/rasitha1/SqlBatisNet</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/rasitha1/SqlBatisNet</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>ibatis mybatis lazyload dynamicproxy</PackageTags>
+    <PackageReleaseNotes>Changed iBatisNet to SqlBatisNet
+
+https://github.com/rasitha1/SqlBatisNet/blob/master/README.md</PackageReleaseNotes>
+    <Company>rasitha1</Company>
+    <Product>SqlBatisNet</Product>
+    <PackageId>SqlBatisNet.DynamicProxy</PackageId>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile>IBatisNet.DynamicProxy.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Castle.Core" Version="4.3.1" />
+  </ItemGroup>
+
+</Project>

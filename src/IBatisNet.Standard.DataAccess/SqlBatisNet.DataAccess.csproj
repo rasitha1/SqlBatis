@@ -5,19 +5,22 @@
     <AssemblyName>IBatisNet.DataAccess</AssemblyName>
     <RootNamespace>IBatisNet.DataAccess</RootNamespace>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Description>Data Access Object (DAO) design pattern implementation in iBATIS.Net</Description>
-    <Version>2.1.0</Version>
+    <Description>Data Access Object (DAO) design pattern implementation in SqlBatisNet (iBATIS.Net)</Description>
+    <Version>3.0.0</Version>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>AssemblyKey.snk</AssemblyOriginatorKeyFile>
-    <PackageProjectUrl>https://github.com/rasitha1/IBatisNet.Standard</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/rasitha1/IBatisNet.Standard</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/rasitha1/SqlBatisNet</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/rasitha1/SqlBatisNet</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
-    <Authors>IBatisNet,rasitha1</Authors>
-    <PackageReleaseNotes>Converted to .net standard. 
-https://github.com/rasitha1/IBatisNet.Standard/blob/master/README.md
+    <Authors>rasitha1</Authors>
+    <PackageReleaseNotes>Changed iBatisNet to SqlBatisNet
+
+https://github.com/rasitha1/SqlBatisNet/blob/master/README.md
 </PackageReleaseNotes>
-    <PackageTags>ibatis dataaccess</PackageTags>
-    <Company>IBatisNet</Company>
+    <PackageTags>ibatis mybatis ibatisnet.dataaccess</PackageTags>
+    <Company></Company>
+    <PackageId>SqlBatisNet.DataAccess</PackageId>
+    <Product>SqlBatisNet</Product>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -29,8 +32,7 @@ https://github.com/rasitha1/IBatisNet.Standard/blob/master/README.md
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\IBatisNet.Standard.Common\IBatisNet.Standard.Common.csproj" />
-    <ProjectReference Include="..\IBatisNet.Standard.DataMapper\IBatisNet.Standard.DataMapper.csproj" />
+    <ProjectReference Include="..\IBatisNet.Standard.DataMapper\SqlBatisNet.DataMapper.csproj" />
   </ItemGroup>
 
 </Project>

@@ -43,7 +43,14 @@ namespace IBatisNet.DataMapper.SessionStore
         /// </summary>
         public override void Dispose()
         {
-            LocalStore.Value = null;
+            if (LocalStore.Value != null)
+            {
+                LocalStore.Value.Remove(sessionName);
+                if (LocalStore.Value.Count == 0)
+                {
+                    LocalStore.Value = null;
+                }
+            }
         }
     }
 }

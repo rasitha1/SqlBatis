@@ -5,18 +5,21 @@
     <RootNamespace>IBatisNet.Common</RootNamespace>
     <AssemblyName>IBatisNet.Common</AssemblyName>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Description>Common object used by DataAccess and DataMapper component in iBATIS.Net</Description>
-    <Version>2.1.0</Version>
+    <Description>SqlBatisNet - Common object used by DataAccess and DataMapper component in SqlBatisNet (iBATIS.Net)</Description>
+    <Version>3.0.0</Version>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>AssemblyKey.snk</AssemblyOriginatorKeyFile>
-    <RepositoryUrl>https://github.com/rasitha1/IBatisNet.Standard</RepositoryUrl>
+    <RepositoryUrl>https://github.com/rasitha1/SqlBatisNet</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
-    <PackageProjectUrl>https://github.com/rasitha1/IBatisNet.Standard</PackageProjectUrl>
-    <PackageTags>ibatis dotnet core</PackageTags>
-    <PackageReleaseNotes>Converted to .net standard. 
-https://github.com/rasitha1/IBatisNet.Standard/blob/master/README.md</PackageReleaseNotes>
-    <Authors>IBatisNet,rasitha1</Authors>
-    <Company>IBatisNet</Company>
+    <PackageProjectUrl>https://github.com/rasitha1/SqlBatisNet</PackageProjectUrl>
+    <PackageTags>ibatis mybatis sqlbatis netstandard ibatis.common</PackageTags>
+    <PackageReleaseNotes>Changed iBatisNet to SqlBatisNet
+
+https://github.com/rasitha1/SqlBatisNet/blob/master/README.md</PackageReleaseNotes>
+    <Authors>rasitha1</Authors>
+    <Company></Company>
+    <PackageId>SqlBatisNet.Common</PackageId>
+    <Product>SqlBatisNet</Product>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
