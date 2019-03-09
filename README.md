@@ -3,6 +3,10 @@ A fork of the Apache IBatisNet distribution which has been refactored and migrat
 
 ## Releases
 
+### 3.0.1
+* Updating NOTICE file
+* Including LICENSE.txt and NOTICE file in all NuGet packages
+
 ### 3.0.0
 * Renamed from iBatisNet to SqlBatisNet
 * Added NOTICE file
