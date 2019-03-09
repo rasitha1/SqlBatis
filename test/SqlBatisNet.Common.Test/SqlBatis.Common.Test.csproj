@@ -2,41 +2,39 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
-
     <IsPackable>false</IsPackable>
-
-    <AssemblyName>IBatisNet.DataAccess.Test</AssemblyName>
-
-    <RootNamespace>IBatisNet.DataAccess.Test</RootNamespace>
+    <RootNamespace>IBatisNet.Common.Test</RootNamespace>
+    <AssemblyName>IBatisNet.Common.Test</AssemblyName>
+    <ApplicationIcon />
+    <OutputType>Exe</OutputType>
+    <StartupObject />
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="dao_MSSQL_SqlClient.config" />
-    <None Remove="dao_Multiple_Context.config" />
+    <None Remove="properties.xml" />
+    <None Remove="providers.config" />
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="dao_MSSQL_SqlClient.config">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="dao_Multiple_Context.config">
+    <EmbeddedResource Include="properties.xml" />
+    <EmbeddedResource Include="providers.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
   </ItemGroup>
 
-  <ItemGroup>    
-    <PackageReference Include="nunit" Version="3.11.0" />
+  <ItemGroup>
+    <PackageReference Include="Castle.Core" Version="4.3.1" />
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="2.2.0" />
+    <PackageReference Include="NUnit" Version="3.11.0" />
     <PackageReference Include="NUnit3TestAdapter" Version="3.10.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.8.0" />
-    <PackageReference Include="System.Data.SqlClient" Version="4.6.0" />
-    <PackageReference Include="System.Drawing.Common" Version="4.5.1" />
-    <PackageReference Include="Microsoft.Extensions.Configuration" Version="2.2.0" />
+    <PackageReference Include="System.Security.Permissions" Version="4.5.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\SqlBatisNet.Common\SqlBatisNet.Common.csproj" />
-    <ProjectReference Include="..\..\src\SqlBatisNet.DataAccess\SqlBatisNet.DataAccess.csproj" />
-    <ProjectReference Include="..\SqlBatisNet.Common.Test\SqlBatisNet.Common.Test.csproj" />
+    <ProjectReference Include="..\..\src\SqlBatisNet.Common\SqlBatis.Common.csproj" />
+    <ProjectReference Include="..\..\src\SqlBatisNet.DataAccess\SqlBatis.DataAccess.csproj" />
+    <ProjectReference Include="..\..\src\SqlBatisNet.DataMapper\SqlBatis.DataMapper.csproj" />
   </ItemGroup>
 
   <ItemGroup>
@@ -49,6 +47,9 @@
     <None Update="dao_MSSQL_OleDb.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="dao_MSSQL_SqlClient.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="dao_MySql_ByteFx.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -58,8 +59,8 @@
     <None Update="dao_Oracle_OracleClient.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="providers.config">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    <None Update="OctopusService.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="SqlMap_Access_OleDb.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

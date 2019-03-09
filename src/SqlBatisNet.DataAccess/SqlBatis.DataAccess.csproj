@@ -2,38 +2,34 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <AssemblyName>IBatisNet.DataMapper</AssemblyName>
-    <RootNamespace>IBatisNet.DataMapper</RootNamespace>
+    <AssemblyName>IBatisNet.DataAccess</AssemblyName>
+    <RootNamespace>IBatisNet.DataAccess</RootNamespace>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Description>Map objects to your SQL statements or stored procedures.</Description>
+    <Description>Data Access Object (DAO) design pattern implementation in SqlBatisNet (iBATIS.Net)</Description>
     <Version>3.0.1</Version>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>AssemblyKey.snk</AssemblyOriginatorKeyFile>
     <PackageProjectUrl>https://github.com/rasitha1/SqlBatisNet</PackageProjectUrl>
     <RepositoryUrl>https://github.com/rasitha1/SqlBatisNet</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
-    <PackageTags>ibatis datamapper</PackageTags>
+    <Authors>rasitha1</Authors>
     <PackageReleaseNotes>Changed iBatisNet to SqlBatisNet
 
 https://github.com/rasitha1/SqlBatisNet/blob/master/README.md
 </PackageReleaseNotes>
-    <Authors>rasitha1</Authors>
+    <PackageTags>ibatis mybatis ibatisnet.dataaccess</PackageTags>
     <Company></Company>
-    <PackageId>SqlBatisNet.DataMapper</PackageId>
+    <PackageId>SqlBatisNet.DataAccess</PackageId>
     <Product>SqlBatisNet</Product>
     <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>IBatisNet.DataMapper.xml</DocumentationFile>
+    <DocumentationFile>IBatisNet.DataAccess.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="SqlMapConfig.xsd" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <EmbeddedResource Include="SqlMapConfig.xsd" />
+    <PackageReference Include="Castle.Core" Version="4.3.1" />
   </ItemGroup>
   <ItemGroup>
     <None Include="LICENSE.txt" Pack="true" PackagePath="" />
@@ -47,9 +43,10 @@ https://github.com/rasitha1/SqlBatisNet/blob/master/README.md
 
 
 
-
   <ItemGroup>
-    <ProjectReference Include="..\SqlBatisNet.Common\SqlBatisNet.Common.csproj" />
+    <ProjectReference Include="..\SqlBatisNet.Common\SqlBatis.Common.csproj" />
+    <ProjectReference Include="..\SqlBatisNet.DataMapper\SqlBatis.DataMapper.csproj" />
+    <ProjectReference Include="..\SqlBatisNet.DynamicProxy\SqlBatis.DynamicProxy.csproj" />
   </ItemGroup>
 
 </Project>

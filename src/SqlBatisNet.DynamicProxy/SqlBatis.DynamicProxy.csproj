@@ -41,8 +41,8 @@ https://github.com/rasitha1/SqlBatisNet/blob/master/README.md</PackageReleaseNot
 
 
   <ItemGroup>
-    <ProjectReference Include="..\SqlBatisNet.Common\SqlBatisNet.Common.csproj" />
-    <ProjectReference Include="..\SqlBatisNet.DataMapper\SqlBatisNet.DataMapper.csproj" />
+    <ProjectReference Include="..\SqlBatisNet.Common\SqlBatis.Common.csproj" />
+    <ProjectReference Include="..\SqlBatisNet.DataMapper\SqlBatis.DataMapper.csproj" />
   </ItemGroup>
 
 </Project>

@@ -34,10 +34,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\SqlBatisNet.Common\SqlBatisNet.Common.csproj" />
-    <ProjectReference Include="..\..\src\SqlBatisNet.DataMapper\SqlBatisNet.DataMapper.csproj" />
-    <ProjectReference Include="..\..\src\SqlBatisNet.DynamicProxy\SqlBatisNet.DynamicProxy.csproj" />
-    <ProjectReference Include="..\SqlBatisNet.Common.Test\SqlBatisNet.Common.Test.csproj" />
+    <ProjectReference Include="..\..\src\SqlBatisNet.Common\SqlBatis.Common.csproj" />
+    <ProjectReference Include="..\..\src\SqlBatisNet.DataMapper\SqlBatis.DataMapper.csproj" />
+    <ProjectReference Include="..\..\src\SqlBatisNet.DynamicProxy\SqlBatis.DynamicProxy.csproj" />
+    <ProjectReference Include="..\SqlBatisNet.Common.Test\SqlBatis.Common.Test.csproj" />
   </ItemGroup>
 
   <ItemGroup>

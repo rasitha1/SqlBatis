@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
@@ -6,12 +6,12 @@
     <RootNamespace>IBatisNet.AspNetCore</RootNamespace>
     <AssemblyName>IBatisNet.AspNetCore</AssemblyName>
     <Authors>rasitha1</Authors>
-    <Product>SqlBatisNet</Product>
-    <PackageId>SqlBatisNet.AspNetCore</PackageId>
+    <Product>SqlBatis</Product>
+    <PackageId>SqlBatis.AspNetCore</PackageId>
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\SqlBatisNet.Common\SqlBatisNet.Common.csproj" />
+    <ProjectReference Include="..\SqlBatisNet.Common\SqlBatis.Common.csproj" />
   </ItemGroup>
 
 </Project>

@@ -6,33 +6,30 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionItems", "{1D7A00BE-B0BC-474F-AF6A-C0A720CA274B}"
 	ProjectSection(SolutionItems) = preProject
 		HtmlHelpOverview.html = HtmlHelpOverview.html
-		LICENSE = LICENSE
-		NOTICE = NOTICE
 		README.md = README.md
-		README.txt = README.txt
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{892E3ACE-AA44-42CE-9BF3-D778BCD81677}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{9E400E52-68DF-4102-BDFF-CB3B0BB951BE}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SqlBatisNet.AspNetCore", "src\SqlBatisNet.AspNetCore\SqlBatisNet.AspNetCore.csproj", "{311D2971-EA2A-4D78-983E-71E8F9194837}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SqlBatis.AspNetCore", "src\SqlBatisNet.AspNetCore\SqlBatis.AspNetCore.csproj", "{311D2971-EA2A-4D78-983E-71E8F9194837}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SqlBatisNet.Common", "src\SqlBatisNet.Common\SqlBatisNet.Common.csproj", "{B7635184-10B4-438C-BFC1-F0A5D916344A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SqlBatis.Common", "src\SqlBatisNet.Common\SqlBatis.Common.csproj", "{B7635184-10B4-438C-BFC1-F0A5D916344A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SqlBatisNet.Common.Logging.Log4Net", "src\SqlBatisNet.Common.Logging.Log4Net\SqlBatisNet.Common.Logging.Log4Net.csproj", "{5E76A449-1693-49B8-8882-D5CF2B8BE491}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SqlBatis.Common.Logging.Log4Net", "src\SqlBatisNet.Common.Logging.Log4Net\SqlBatis.Common.Logging.Log4Net.csproj", "{5E76A449-1693-49B8-8882-D5CF2B8BE491}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SqlBatisNet.DataAccess", "src\SqlBatisNet.DataAccess\SqlBatisNet.DataAccess.csproj", "{8F5148D4-7F1B-483D-B60F-E27F787F8C9D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SqlBatis.DataAccess", "src\SqlBatisNet.DataAccess\SqlBatis.DataAccess.csproj", "{8F5148D4-7F1B-483D-B60F-E27F787F8C9D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SqlBatisNet.DataMapper", "src\SqlBatisNet.DataMapper\SqlBatisNet.DataMapper.csproj", "{A490832A-2043-4158-B7A0-11ACC9F6CDC2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SqlBatis.DataMapper", "src\SqlBatisNet.DataMapper\SqlBatis.DataMapper.csproj", "{A490832A-2043-4158-B7A0-11ACC9F6CDC2}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SqlBatisNet.DynamicProxy", "src\SqlBatisNet.DynamicProxy\SqlBatisNet.DynamicProxy.csproj", "{17CD73A1-EA18-438B-822C-139926C484B0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SqlBatis.DynamicProxy", "src\SqlBatisNet.DynamicProxy\SqlBatis.DynamicProxy.csproj", "{17CD73A1-EA18-438B-822C-139926C484B0}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SqlBatisNet.Common.Test", "test\SqlBatisNet.Common.Test\SqlBatisNet.Common.Test.csproj", "{87C5A18E-DEE7-4C99-838B-59FBE96DB63D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SqlBatis.Common.Test", "test\SqlBatisNet.Common.Test\SqlBatis.Common.Test.csproj", "{87C5A18E-DEE7-4C99-838B-59FBE96DB63D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SqlBatisNet.DataAccess.Test", "test\SqlBatisNet.DataAccess.Test\SqlBatisNet.DataAccess.Test.csproj", "{1C477D60-B0D3-4184-B8D9-0E52DBD58E6F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SqlBatis.DataAccess.Test", "test\SqlBatisNet.DataAccess.Test\SqlBatis.DataAccess.Test.csproj", "{1C477D60-B0D3-4184-B8D9-0E52DBD58E6F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SqlBatisNet.DataMapper.Test", "test\SqlBatisNet.DataMapper.Test\SqlBatisNet.DataMapper.Test.csproj", "{989E2309-9756-4879-BFB3-71A013CD9D24}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SqlBatis.DataMapper.Test", "test\SqlBatisNet.DataMapper.Test\SqlBatis.DataMapper.Test.csproj", "{989E2309-9756-4879-BFB3-71A013CD9D24}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

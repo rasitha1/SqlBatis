@@ -30,13 +30,12 @@ https://github.com/rasitha1/SqlBatisNet/blob/master/README.md</PackageReleaseNot
   <ItemGroup>
     <None Include="LICENSE.txt" Pack="true" PackagePath="" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SqlBatisNet.Common\SqlBatis.Common.csproj" />
+  </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
     <Exec Command="copy $(SolutionDir)LICENSE $(ProjectDir)LICENSE.txt /y" />
   </Target>
-
-  <ItemGroup>
-    <ProjectReference Include="..\SqlBatisNet.Common\SqlBatisNet.Common.csproj" />
-  </ItemGroup>
 
 </Project>
