@@ -1524,8 +1524,8 @@
             Configure an ISqlMapper object from a file path.
             </summary>
             <param name="resource">
-            A relative ressource path from your Application root 
-            or a absolue file path file:\\c:\dir\a.config
+            A relative resource path from your Application root 
+            or a absolute file path file:\\c:\dir\a.config
             </param>
             <returns>An ISqlMapper instance.</returns>
         </member>
@@ -5510,6 +5510,18 @@
             <param name="value"></param>
             <param name="parameterObject">The optional parameter object passed into the QueryForMapWithRowDelegate method.</param>
             <param name="dictionary">The IDictionary that will be returned to the caller.</param>
+        </member>
+        <member name="T:IBatisNet.DataMapper.DependencyInjection.SqlMapperServiceCollectionExtensions">
+            <summary>
+            Extension methods for setting up an <see cref="T:IBatisNet.DataMapper.ISqlMapper"/> in the DI pipeline
+            </summary>
+        </member>
+        <member name="M:IBatisNet.DataMapper.DependencyInjection.SqlMapperServiceCollectionExtensions.AddSqlMapper(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action{IBatisNet.DataMapper.DependencyInjection.SqlMapperOptions})">
+            <summary>
+            Registers the default <see cref="T:IBatisNet.DataMapper.ISqlMapper"/> in the DI pipeline
+            </summary>
+            <param name="services"></param>
+            <returns></returns>
         </member>
         <member name="T:IBatisNet.DataMapper.SelectKeyType">
             <summary>

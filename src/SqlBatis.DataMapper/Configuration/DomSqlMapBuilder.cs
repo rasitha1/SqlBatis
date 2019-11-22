@@ -404,8 +404,8 @@ namespace IBatisNet.DataMapper.Configuration
 		/// Configure an ISqlMapper object from a file path.
 		/// </summary>
 		/// <param name="resource">
-		/// A relative ressource path from your Application root 
-		/// or a absolue file path file:\\c:\dir\a.config
+		/// A relative resource path from your Application root 
+		/// or a absolute file path file:\\c:\dir\a.config
 		/// </param>
 		/// <returns>An ISqlMapper instance.</returns>
         public ISqlMapper Configure(string resource)
