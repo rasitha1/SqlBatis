@@ -66,11 +66,11 @@ using IBatisNet.DataMapper.TypeHandlers;
 
 namespace IBatisNet.DataMapper.Configuration
 {
-	/// <summary>
+    /// <summary>
 	/// Builds an ISqlMapper instance from the supplied resources (e.g. XML configuration files).
 	/// </summary>
-	public class DomSqlMapBuilder
-	{
+	public class DomSqlMapBuilder : IDomSqlMapBuilder
+    {
 		#region Embedded resource
 
 		// Which files must we allow to be used as Embedded Resources ?

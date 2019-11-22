@@ -49,6 +49,7 @@ https://github.com/rasitha1/SqlBatis/blob/master/README.md
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="3.0.1" />
+    <PackageReference Include="Microsoft.Extensions.Options" Version="3.0.1" />
   </ItemGroup>
 
   <Target Name="CopyFiles" BeforeTargets="PreBuildEvent">

@@ -8,7 +8,7 @@ using NUnit.Framework;
 namespace IBatisNet.DataMapper.Test.NUnit.SqlMapTests.DependencyInjection
 {
     [TestFixture]
-    public class SqlMapperServiceCollectionExtensionsTest : BaseTest
+    public class SqlMapperExtensionsTest : BaseTest
     {
         private string _fileName = string.Empty;
 
@@ -34,6 +34,7 @@ namespace IBatisNet.DataMapper.Test.NUnit.SqlMapTests.DependencyInjection
                 options.Resource = _fileName;
                 options.Parameters = new Dictionary<string, string>
                 {
+                    { "useStatementNamespaces", "false"},
                     {
                         "collection2Namespace",
                         "IBatisNet.DataMapper.Test.Domain.LineItemCollection, IBatisNet.DataMapper.Test"
