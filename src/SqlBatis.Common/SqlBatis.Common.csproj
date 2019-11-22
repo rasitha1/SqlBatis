@@ -34,17 +34,17 @@ https://github.com/rasitha1/SqlBatis/blob/master/README.md</PackageReleaseNotes>
 
 
   <ItemGroup>
-    <PackageReference Include="System.Reflection.Emit" Version="4.3.0" />
-    <PackageReference Include="System.Reflection.Emit.Lightweight" Version="4.3.0" />
-    <PackageReference Include="System.Security.Permissions" Version="4.5.0" />
+    <PackageReference Include="System.Reflection.Emit" Version="4.6.0" />
+    <PackageReference Include="System.Reflection.Emit.Lightweight" Version="4.6.0" />
+    <PackageReference Include="System.Security.Permissions" Version="4.6.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <LegalFiles Include="..\..\LICENSE.txt;..\..\NOTICE.txt"/>
+    <LegalFiles Include="..\..\LICENSE.txt;..\..\NOTICE.txt" />
   </ItemGroup>
 
   <Target Name="CopyFiles" BeforeTargets="PreBuildEvent">
-    <Copy SkipUnchangedFiles="true" SourceFiles="@(LegalFiles)" DestinationFolder="$(ProjectDir)"  />
+    <Copy SkipUnchangedFiles="true" SourceFiles="@(LegalFiles)" DestinationFolder="$(ProjectDir)" />
   </Target>
 
 </Project>
