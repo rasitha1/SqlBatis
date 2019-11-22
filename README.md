@@ -3,6 +3,10 @@ A fork of the Apache IBatisNet distribution which has been refactored and migrat
 
 ## Releases
 
+### 3.0.1
+* Add support for registering and getting an ISqlMapper through DI
+
+
 ### 3.0.0
 * Renamed from iBatisNet to SqlBatis
 * Added NOTICE file
