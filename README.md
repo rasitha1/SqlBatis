@@ -3,6 +3,9 @@ A fork of the Apache IBatisNet distribution which has been refactored and migrat
 
 ## Releases
 
+### 3.1.0
+* Add support for registering named instances of ISqlMapper and getting them via ISqlMapperFactory
+
 ### 3.0.1
 * Add support for registering and getting an ISqlMapper through DI
 
