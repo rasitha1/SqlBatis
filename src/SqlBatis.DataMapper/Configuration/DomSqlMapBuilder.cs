@@ -405,7 +405,8 @@ namespace IBatisNet.DataMapper.Configuration
 		/// </summary>
 		/// <param name="resource">
 		/// A relative resource path from your Application root 
-		/// or a absolute file path file:\\c:\dir\a.config
+		/// or a absolute file path file://c:\dir\a.config
+		/// or, for an embedded file, use embedded://Assembly.Qualified.Resource.Name, MyAssembly
 		/// </param>
 		/// <returns>An ISqlMapper instance.</returns>
         public ISqlMapper Configure(string resource)
@@ -415,6 +416,10 @@ namespace IBatisNet.DataMapper.Configuration
 			{
 				document = Resources.GetUrlAsXmlDocument( resource.Remove(0, 7) );	
 			}
+            else if (resource.StartsWith("embedded://"))
+            {
+                document = Resources.GetEmbeddedResourceAsXmlDocument(resource.Remove(0, 11));
+            }
 			else
 			{
 				document = Resources.GetResourceAsXmlDocument( resource );	

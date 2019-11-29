@@ -1525,7 +1525,8 @@
             </summary>
             <param name="resource">
             A relative resource path from your Application root 
-            or a absolute file path file:\\c:\dir\a.config
+            or a absolute file path file://c:\dir\a.config
+            or, for an embedded file, use embedded://Assembly.Qualified.Resource.Name, MyAssembly
             </param>
             <returns>An ISqlMapper instance.</returns>
         </member>
@@ -5543,6 +5544,7 @@
             <remarks>
             A relative resource path from your Application root 
             or a absolute file path file:\\c:\dir\a.config
+            or, for an embedded file, use embedded://assembly.qualified.resource.name
             </remarks>
         </member>
         <member name="P:IBatisNet.DataMapper.DependencyInjection.SqlMapperOptions.Parameters">
@@ -5560,6 +5562,16 @@
             Registers the default <see cref="T:IBatisNet.DataMapper.ISqlMapper"/> in the DI pipeline
             </summary>
             <param name="services"></param>
+            <param name="configureOptions"></param>
+            <returns></returns>
+        </member>
+        <member name="M:IBatisNet.DataMapper.DependencyInjection.SqlMapperServiceCollectionExtensions.AddSqlMapper(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.String,System.Action{IBatisNet.DataMapper.DependencyInjection.SqlMapperOptions})">
+            <summary>
+            Registers a named instance of <see cref="T:IBatisNet.DataMapper.ISqlMapper"/> in the DI pipeline. Use <see cref="T:IBatisNet.DataMapper.ISqlMapperFactory"/>
+            to retrieve a named instance
+            </summary>
+            <param name="services"></param>
+            <param name="name">Name of the mapper.</param>
             <param name="configureOptions"></param>
             <returns></returns>
         </member>
@@ -6225,6 +6237,24 @@
             <param name="parameterObject">The object used to set the parameters in the SQL.</param>
             <param name="rowDelegate"></param>
             <returns>A List of result objects.</returns>
+        </member>
+        <member name="T:IBatisNet.DataMapper.ISqlMapperFactory">
+            <summary>
+            A factory for getting an instance of <see cref="T:IBatisNet.DataMapper.ISqlMapper"/>.
+            </summary>
+        </member>
+        <member name="M:IBatisNet.DataMapper.ISqlMapperFactory.GetMapper">
+            <summary>
+            Gets the default instance of <see cref="T:IBatisNet.DataMapper.ISqlMapper"/>.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:IBatisNet.DataMapper.ISqlMapperFactory.GetMapper(System.String)">
+            <summary>
+            Gets a named instance of <see cref="T:IBatisNet.DataMapper.ISqlMapper"/>
+            </summary>
+            <param name="name"></param>
+            <returns></returns>
         </member>
         <member name="T:IBatisNet.DataMapper.ISqlMapSession">
             <summary>

@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Collections.Specialized;
-using System.Text;
 using IBatisNet.DataMapper.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Options;
 
 namespace IBatisNet.DataMapper.DependencyInjection
 {
@@ -21,29 +17,39 @@ namespace IBatisNet.DataMapper.DependencyInjection
         /// <returns></returns>
         public static IServiceCollection AddSqlMapper(this IServiceCollection services, Action<SqlMapperOptions> configureOptions)
         {
-            services.AddOptions();
-            services.Configure(configureOptions);
-            services.AddTransient<IDomSqlMapBuilder, DomSqlMapBuilder>();
-            services.AddSingleton(sp =>
-            {
-                var builder = sp.GetRequiredService<IDomSqlMapBuilder>();
-                var options = sp.GetRequiredService<IOptions<SqlMapperOptions>>();
-                builder.Properties = Convert(options.Value.Parameters);
-                return builder.Configure(options.Value.Resource);
-            });
-
+            services.AddCommon();
+            services.AddOptions<SqlMapperOptions>()
+                .Configure(configureOptions)
+                .PostConfigure(options => options.ConfigurationComplete=true)
+                .ValidateDataAnnotations();
+            // register default instance
+            services.AddSingleton(sp => sp.GetRequiredService<ISqlMapperFactory>().GetMapper());
             return services;
         }
 
-        private static NameValueCollection Convert(IDictionary<string, string> map)
+        /// <summary>
+        /// Registers a named instance of <see cref="ISqlMapper"/> in the DI pipeline. Use <see cref="ISqlMapperFactory"/>
+        /// to retrieve a named instance
+        /// </summary>
+        /// <param name="services"></param>
+        /// <param name="name">Name of the mapper.</param>
+        /// <param name="configureOptions"></param>
+        /// <returns></returns>
+        public static IServiceCollection AddSqlMapper(this IServiceCollection services, string name, Action<SqlMapperOptions> configureOptions)
         {
-            var nvc = new NameValueCollection();
-            foreach (var kvp in map)
-            {
-                nvc[kvp.Key] = kvp.Value;
-            }
+            services.AddCommon();
+            services.AddOptions<SqlMapperOptions>(name)
+                .Configure(configureOptions)
+                .PostConfigure(options => options.ConfigurationComplete = true)
+                .ValidateDataAnnotations();
+            return services;
+        }
 
-            return nvc;
+        private static void AddCommon(this IServiceCollection services)
+        {
+            services.AddOptions();
+            services.AddTransient<IDomSqlMapBuilder, DomSqlMapBuilder>();
+            services.AddSingleton<ISqlMapperFactory, DefaultSqlMapperFactory>();
         }
     }
 }
