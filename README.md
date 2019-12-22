@@ -78,19 +78,19 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
         FROM dbo.Customer c          
       ]]>
     </select>
-		<select id="GetById" extends="GetAll" resultClass="Customer">
-      <![CDATA[
+	<select id="GetById" extends="GetAll" resultClass="Customer">
+	  <![CDATA[
         WHERE c.Id = #value#
       ]]>
     </select>
-		<insert id="Insert">
-			<![CDATA[
+	<insert id="Insert">
+	  <![CDATA[
       INSERT INTO dbo.Customer (Id, Name, Status, Type) 
       VALUES(#Id#, #Name#, #Status#, #Type#)
       ]]>
     </insert>
-		<update id="Update">
-			<![CDATA[
+	<update id="Update">
+	  <![CDATA[
       UPDATE dbo.Customer
       SET
         Name = #Name#,
@@ -99,11 +99,11 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
       WHERE Id = #Id#  
       ]]>
     </update>
-		<delete id="Delete">
-			<![CDATA[
+	<delete id="Delete">
+	  <![CDATA[
       DELETE dbo.Customer WHERE Id = #value#
       ]]>
-    </delete>
+      </delete>
   </statements>	
 </sqlMap>
 ```
@@ -141,6 +141,6 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
 
 ## Test Setup
 
-1. Requires a SqlServer instance (Express works) 
-2. Run DBCreation.sql and DataBase.sql to setup the database
+1. Requires LocalDB
+2. Run DBCreation.sql and DataBase.sql to setup the database (see `setupdb.cmd`)
 3. SqlServer tests run fine. (Oracle, MySql, PostgreSQL ignored)
