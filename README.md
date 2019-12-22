@@ -1,42 +1,130 @@
 # SqlBatis
+
 A fork of the Apache IBatisNet distribution which has been refactored and migrated to .NET Standard, as shown in the change log.
 
-## Releases
+[![Build Status](https://rasitha.visualstudio.com/OSS/_apis/build/status/rasitha1.SqlBatis?branchName=master)](https://rasitha.visualstudio.com/OSS/_build/latest?definitionId=2&branchName=master)
 
-### 3.1.0
-* Add support for registering named instances of ISqlMapper and getting them via ISqlMapperFactory
+## [Releases](RELEASE.md)
 
-### 3.0.1
-* Add support for registering and getting an ISqlMapper through DI
+## Usage
 
+1. Install `SqlBatis.DataMapper` nuget package
+2. Register Sql Mapper in DI 
+```
+services.AddSqlMapper(options => Configuration.GetSection("DB").Bind(options));
+```
+3. Use `ISqlMapper` in Data Access objects
+```
+public class CustomerDao : ICustomerDao
+{	
+	public CustomerDao(ISqlMapper mapper)
+	{
+		Mapper = mapper;
+	}
 
-### 3.0.0
-* Renamed from iBatisNet to SqlBatis
-* Added NOTICE file
-* BF: Correctly handle removal of sessions in `AsyncLocalSessionStore` 
-* Updating NOTICE file to include original iBatisNet Notice.txt text
-* Including LICENSE.txt and NOTICE.txt file in NuGet packages
+	private ISqlMapper Mapper {get;}
 
-___
-Delist 2.x packages published to nuget.org under IBatisNet.*
-Publishing new packages under SqlBatis name
-___
+	public IEnumerable<Customer> GetAll()
+	{
+		return Mapper.QueryForList<Customer>("Customers.GetAll", null);
+	}
+	
+	public Customer GetById(int id)
+	{
+		return Mapper.QueryForObject<Customer>("Customers.GetById", id);	
+	}
 
+	public void Insert(Customer customer)
+	{
+		Mapper.Insert("Customers.Insert", customer);
+	}
 
-### 2.1.0
-* Merged changes from [rev 709676](http://archive.apache.org/dist/ibatis/source/ibatis.net/) which picked up a number fixes 
-* Including `IBatisNet.Common.Logging.Log4Net` .Net Framework assembly as well. 
-* Getting rid of rest of the .net framework version.
+	public void Update(Customer customer)
+	{
+		Mapper.Update("Customers.Update", customer);
+	}
 
-### 2.0.0
-* Migrated [rev 513437](http://archive.apache.org/dist/ibatis/source/ibatis.net/) if IBatisNet to .Net Standard
-* Decoupled Dynamic Proxy by dynamically loading `ILazyFactory` implementation via a new `settings` 
-attribute called `lazyFactoryType` and splitting `ProxyGeneratorFactory` and `CachedProxyGenerator` to
-a separate project called IBatisNet.DynamicProxy. You only need this if you have any lazy-loaded results. Refactored to use latest version of `Castle.Core` package
-* Removed Transactions logic from `System.EnterpriseServices`
-* Introduced `AsyncLocalSessionStore` and removed all other `ISessionStore` implementations (DataMapper & DataAccess)
-* Removed auto instantiating of `ILoggerFactoryAdapter` using `ConfigurationManager` and defauled to `NoOpLoggerFA`. You must set `LogManager.Adapter` in your startup
-* Updating assembly versions and package versions to 2.0 (original .net framework version was 1.6.2)
+	public void Delete(int id)
+	{
+		Mapper.Delete("Customers.Delete", id);
+	}
+}
+```
+4. Setup `Customers.xml` SQL map file (ebmedded or external)
+```
+<?xml version="1.0" encoding="UTF-8" ?>
+<sqlMap namespace="Customers" 
+xmlns="http://ibatis.apache.org/mapping" 
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+  <statements>       
+  	<select id="GetAll" resultClass="Customer">
+      <![CDATA[
+        SELECT
+          c.Id,
+          c.Name,
+          c.Status,
+          c.Type
+        FROM dbo.Customer c          
+      ]]>
+    </select>
+		<select id="GetById" extends="GetAll" resultClass="Customer">
+      <![CDATA[
+        WHERE c.Id = #value#
+      ]]>
+    </select>
+		<insert id="Insert">
+			<![CDATA[
+      INSERT INTO dbo.Customer (Id, Name, Status, Type) 
+      VALUES(#Id#, #Name#, #Status#, #Type#)
+      ]]>
+    </insert>
+		<update id="Update">
+			<![CDATA[
+      UPDATE dbo.Customer
+      SET
+        Name = #Name#,
+        Status = #Status#,
+        Type = #Type
+      WHERE Id = #Id#  
+      ]]>
+    </update>
+		<delete id="Delete">
+			<![CDATA[
+      DELETE dbo.Customer WHERE Id = #value#
+      ]]>
+    </delete>
+  </statements>	
+</sqlMap>
+```
+5. Setup `SqlMap.config` (embedded or external file)
+```
+<?xml version="1.0" encoding="utf-8"?>
+<sqlMapConfig xmlns="http://ibatis.apache.org/dataMapper" 
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+	<settings>
+		<setting useStatementNamespaces="true"/>
+	</settings>
+	
+	<providers embedded="MyApp.DataAccess.Configuration.providers.config, MyApp.DataAccess"/>
+
+	<database>
+		<provider name="SqlServer"/>
+		<dataSource name="Primary" connectionString="data source=${datasource};database=${database};Integrated Security=true;"/>
+	</database>
+  
+	<alias>
+		<typeAlias alias="Account" type="MyApp.Model.Account, MyApp.Model"/>
+		<typeAlias alias="Customer" type="MyApp.Model.Customer, MyApp.Model"/>
+	</alias>
+	
+	<sqlMaps>
+		<sqlMap resource="../../../${directory}/MSSQL/SqlClient/Account.xml"/>
+		<sqlMap embedded="MyApp.DataAccess.SqlMaps.Customers.xml, MyApp.DataAccess"/>-->
+	</sqlMaps>
+</sqlMapConfig>
+
+```
+
 
 ## Building
 

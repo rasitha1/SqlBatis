@@ -318,14 +318,14 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 					parameterClass="Account"
 					resultClass="Account">
       select
-      Account_ID			as id,
+      Account_ID			as _id,
       Account_FirstName	as _firstName,
       Account_LastName	as _lastName,
       Account_Email		as _emailAddress
       from Accounts
       <dynamic prepend="WHERE" >
-        <isGreaterThan prepend="AND" property="id" compareValue="0"  >
-          Account_ID = #id#
+        <isGreaterThan prepend="AND" property="Id" compareValue="0"  >
+          Account_ID = #Id#
         </isGreaterThan>
         <isNotNull prepend="AND" property="Ids" >
           Account_ID in

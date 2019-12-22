@@ -1,5 +1,12 @@
 namespace IBatisNet.DataMapper.Test.Domain
 {
+    public class ProtectedItem
+    {
+        protected ProtectedItem()
+        {
+
+        }
+    }
     public class Item
     {
         private int _id;
@@ -29,6 +36,12 @@ namespace IBatisNet.DataMapper.Test.Domain
         {
             get { return _quantity; }
             set { _quantity = value; }
+        }
+    }
+    public class ItemBis
+    {
+        public ItemBis(string description)
+        {
         }
     }
 }

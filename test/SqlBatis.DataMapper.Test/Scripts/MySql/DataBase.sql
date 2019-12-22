@@ -3,16 +3,9 @@ use mysql;
 drop database IBatisNet;
 create database IBatisNet;
 
-drop database NHibernate;
-create database NHibernate;
-
 grant all privileges on IBatisNet.* to IBatisNet@'%' identified by 'test';
 grant all privileges on IBatisNet.* to IBatisNet@localhost identified by 'test';
 grant all privileges on IBatisNet.* to IBatisNet@localhost.localdomain identified by 'test';
-
-grant all privileges on NHibernate.* to NHibernate@'%' identified by 'test';
-grant all privileges on NHibernate.* to NHibernate@localhost identified by 'test';
-grant all privileges on NHibernate.* to NHibernate@localhost.localdomain identified by 'test';
 
 
 /*==============================================================*/
@@ -194,21 +187,3 @@ create table Documents
    primary key (DOCUMENT_ID)
 ) TYPE=INNODB;
 
-
-
-use NHibernate;
-
-drop table if exists Users;
-
-/*==============================================================*/
-/* Table : Users                                                */
-/*==============================================================*/
-create table Users
-(
-   LogonId                      varchar(20)						not null default '0',
-   Name							varchar(40)                     default null,
-   Password                     varchar(20)						default null,
-   EmailAddress                 varchar(40)						default null,
-   LastLogon					datetime						default null,
-   primary key (LogonId)
-) TYPE=INNODB;

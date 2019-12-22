@@ -120,7 +120,7 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
     </resultMap>
    
     <resultMap id="account-result"  class="Account" >
-			<result property="id"           column="Account_ID"/>
+			<result property="Id"           column="Account_ID"/>
 			<result property="FirstName"    column="Account_FirstName"/>
 			<result property="LastName"     column="Account_LastName"/>
 			<result property="EmailAddress" column="Account_Email" nullValue="no_email@provided.com"/>
@@ -129,7 +129,7 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
 		</resultMap>
 
     <resultMap id="account-result-joined-document"  class="Account" >
-      <result property="id"           column="Account_ID"/>
+      <result property="Id"           column="Account_ID"/>
       <result property="FirstName"    column="Account_FirstName"/>
       <result property="LastName"     column="Account_LastName"/>
       <result property="EmailAddress" column="Account_Email" nullValue="no_email@provided.com"/>
@@ -163,10 +163,10 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
 			<result property="EmailAddress" column="Account_Email"/>
 		</resultMap>
 
-    <resultMap id="account-groupby"  class="Account" groupBy="id">
-      <result property="id"           column="Account_ID"/>
+    <resultMap id="account-groupby"  class="Account" groupBy="Id">
+      <result property="Id"           column="Account_ID"/>
       <result property="FirstName"    column="Account_FirstName"/>
-      <result property="documents" resultMapping="Document.document"/>
+      <result property="Documents" resultMapping="Document.document"/>
     </resultMap>
 
   </resultMaps>
@@ -442,10 +442,10 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
 			order by Account_ID
 		</select>
 				
-		<select id="GetAllAccountsViaResultClass" 
+    <select id="GetAllAccountsViaResultClass" 
 			resultClass="Account">
 			select
-			Account_ID as id,
+			Account_ID as Id,
 			Account_FirstName as FirstName,
 			Account_LastName as LastName,
 			Account_Email as EmailAddress

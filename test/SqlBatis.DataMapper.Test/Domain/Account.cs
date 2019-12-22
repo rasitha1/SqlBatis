@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using IBatisNet.Common.Test.Domain;
 
 namespace IBatisNet.DataMapper.Test.Domain
 {
@@ -54,35 +55,73 @@ namespace IBatisNet.DataMapper.Test.Domain
 	[Serializable]
 	public class Account
 	{
-		private int id;
-		private string _firstName;
+
+        private string _firstName;
 		private string _lastName;
 		private string _emailAddress;
 		private int[] _ids = null;
 		private bool _bannerOption = false;
 		private bool _cartOption = false;
 	    private Document _document = null;
+        private int _id = 0;
+        private string _test = string.Empty;
+        private Days _days;
+        private Property _prop = null;
+        private DateTime _date = DateTime.MinValue;
 
-        protected IList<Document> documents = new List<Document>();
 
-        public IList<Document> Documents
-        {
-            get { return documents; }
-        }
+        public IList<Document> Documents { get; protected set; }
 
         public Account()
 		{}
 
-        public Account(int identifiant, string firstName, string lastName)
+        public Account(int[] ids)
+        {
+            _ids = ids;
+        }
+
+        public Account(DateTime date)
+        {
+            _date = date;
+        }
+
+        public Account(int id)
+        {
+            _id = id;
+        }
+
+        public Account(string test)
+        {
+            _test = test;
+        }
+
+        public Account(Days days)
+        {
+            _days = days;
+        }
+
+
+        public Account(string firstName, Property prop)
+        {
+            _firstName = firstName;
+            _prop = prop;
+        }
+
+        public Account(Property prop)
+        {
+            _prop = prop;
+        }
+
+		public Account(int identifiant, string firstName, string lastName)
 		{
-            id = identifiant;
+            _id = identifiant;
 			_firstName = firstName;
 			_lastName = lastName;
 		}
 
         public Account(int identifiant, string firstName, string lastName, Document document)
         {
-            id = identifiant;
+            _id = identifiant;
             _firstName = firstName;
             _lastName = lastName;
             _document = document;
@@ -90,11 +129,31 @@ namespace IBatisNet.DataMapper.Test.Domain
 
 		public virtual int Id
 		{
-			get { return id; }
-			set { id = value; }
+			get { return _id; }
+			set { _id = value; }
 		}
 
-		public string FirstName
+        public string Test
+        {
+            get { return _test; }
+        }
+
+        public Property Property
+        {
+            get { return _prop; }
+        }
+
+        public DateTime Date
+        {
+            get { return _date; }
+        }
+
+        public Days Days
+        {
+            get { return _days; }
+        }
+
+        public string FirstName
 		{
 			get { return _firstName; }
 			set { _firstName = value; }

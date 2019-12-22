@@ -5,7 +5,7 @@
     <AssemblyName>IBatisNet.DynamicProxy</AssemblyName>
     <RootNamespace>IBatisNet.DynamicProxy</RootNamespace>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>3.0.0</Version>
+    <Version>4.0.0</Version>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>AssemblyKey.snk</AssemblyOriginatorKeyFile>
     <Authors>rasitha1</Authors>
@@ -35,14 +35,12 @@ https://github.com/rasitha1/SqlBatis/blob/master/README.md</PackageReleaseNotes>
     <None Include="LICENSE.txt" Pack="true" PackagePath="" />
   </ItemGroup>
 
-
   <ItemGroup>
-    <ProjectReference Include="..\SqlBatis.Common\SqlBatis.Common.csproj" />
-    <ProjectReference Include="..\SqlBatis.DataMapper\SqlBatis.DataMapper.csproj" />
+    <LegalFiles Include="..\..\LICENSE.txt;..\..\NOTICE.txt" />
   </ItemGroup>
 
   <ItemGroup>
-    <LegalFiles Include="..\..\LICENSE.txt;..\..\NOTICE.txt" />
+    <ProjectReference Include="..\SqlBatis.DataMapper\SqlBatis.DataMapper.csproj" />
   </ItemGroup>
 
   <Target Name="CopyFiles" BeforeTargets="PreBuildEvent">
