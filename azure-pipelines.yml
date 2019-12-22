@@ -11,5 +11,26 @@ steps:
 - script: dotnet build --configuration $(buildConfiguration)
   displayName: 'dotnet build $(buildConfiguration)'
   
-- script: dotnet test --configuration $(buildConfiguration)
-  displayName: 'dotnet test $(buildConfiguration)'  
+- script: setupdb.cmd
+  displayName: 'Setup LocalDB for Tests'
+  
+- task: DotNetCoreCLI@2
+  displayName: Unit Tests
+  inputs:
+    command: test
+    projects: 'test/**/*.csproj'
+    arguments: '--configuration $(buildConfiguration)'
+
+- task: DotNetCoreCLI@2
+  displayName: MSSQL Tests
+  inputs:
+    command: test
+    projects: 'test/**/*.csproj'
+    arguments: '--configuration $(buildConfiguration) --filter Category=MSSQL'
+
+- task: DotNetCoreCLI@2
+  displayName: Publish
+  inputs:
+    command: publish    
+    publishTestResults: True
+    arguments: '--configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)'
