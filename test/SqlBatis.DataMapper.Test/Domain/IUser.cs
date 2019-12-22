@@ -1,6 +1,6 @@
 
 
-namespace IBatisNet.Common.Test.Domain
+namespace SqlBatis.DataMapper.Test.Domain
 {
     public interface IUser : IBaseDomain
     {

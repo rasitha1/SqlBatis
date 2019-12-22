@@ -27,7 +27,7 @@
 using System;
 using System.Runtime.Serialization;
 
-namespace IBatisNet.Common.Exceptions
+namespace SqlBatis.DataMapper.Exceptions
 {
 	/// <summary>
 	/// The DalException is thrown when an error in the Dal occurs.
@@ -39,7 +39,7 @@ namespace IBatisNet.Common.Exceptions
 	public class IBatisNetException : System.ApplicationException
 	{
 		/// <summary>
-		/// Initializes a new instance of the <see cref="IBatisNet.Common.Exceptions.IBatisNetException"/> class.
+		/// Initializes a new instance of the <see cref="SqlBatis.DataMapper.Exceptions.IBatisNetException"/> class.
 		/// </summary>
 		/// <remarks>
 		/// This constructor initializes the <para>Message</para> property of the new instance 
@@ -48,7 +48,7 @@ namespace IBatisNet.Common.Exceptions
 		public IBatisNetException() : base("iBatis.NET framework caused an exception.") { }
 
 		/// <summary>
-		/// Initializes a new instance of the <see cref="IBatisNet.Common.Exceptions.IBatisNetException"/> 
+		/// Initializes a new instance of the <see cref="SqlBatis.DataMapper.Exceptions.IBatisNetException"/> 
 		/// class with a reference to the inner exception that is the cause of this exception.
 		/// </summary>
 		/// <remarks>
@@ -63,7 +63,7 @@ namespace IBatisNet.Common.Exceptions
 		public IBatisNetException(Exception ex) : base("iBatis.NET framework caused an exception.", ex) {  }
 
 		/// <summary>
-		/// Initializes a new instance of the <see cref="IBatisNet.Common.Exceptions.IBatisNetException"/> 
+		/// Initializes a new instance of the <see cref="SqlBatis.DataMapper.Exceptions.IBatisNetException"/> 
 		/// class with a specified error message.
 		/// </summary>
 		/// <remarks>
@@ -74,7 +74,7 @@ namespace IBatisNet.Common.Exceptions
 		public IBatisNetException( string message ) : base ( message ) { }
 
 		/// <summary>
-		/// Initializes a new instance of the <see cref="IBatisNet.Common.Exceptions.IBatisNetException"/> 
+		/// Initializes a new instance of the <see cref="SqlBatis.DataMapper.Exceptions.IBatisNetException"/> 
 		/// class with a specified error message and a reference to the inner exception 
 		/// that is the cause of this exception.
 		/// </summary>
@@ -90,7 +90,7 @@ namespace IBatisNet.Common.Exceptions
 
 
 		/// <summary>
-		/// Initializes a new instance of the <see cref="IBatisNet.Common.Exceptions.IBatisNetException"/> 
+		/// Initializes a new instance of the <see cref="SqlBatis.DataMapper.Exceptions.IBatisNetException"/> 
 		/// class with serialized data.
 		/// </summary>
 		/// <remarks>

@@ -1,6 +1,6 @@
 using System;
 
-namespace IBatisNet.DataMapper.Test.Domain
+namespace SqlBatis.DataMapper.Test.Domain
 {
 	/// <summary>
 	/// Summary for Document.

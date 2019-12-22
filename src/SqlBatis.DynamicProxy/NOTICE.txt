@@ -1,6 +1,10 @@
 ADDITIONAL TERMS AND CONDITIONS FOR USE, REPRODUCTION, AND DISTRIBUTION
 FOR COMPLETE TERMS, SEE ALSO LICENSE.TXT, WHICH IS INCORPORATED BY REFERENCE
 
+SqlBatis
+	A fork of the Apache IBatisNet distribution which has been refactored 
+	and migrated to .NET Standard, as shown in the change log. 
+
 iBATIS
 	This product includes software developed by
 	The Apache Software Foundation (http://www.apache.org/).

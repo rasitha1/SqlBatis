@@ -23,9 +23,9 @@
  ********************************************************************************/
 #endregion
 
-using IBatisNet.Common;
+using SqlBatis.DataMapper;
 
-namespace IBatisNet.DataMapper
+namespace SqlBatis.DataMapper
 {
     /// <summary>
     /// SqlMap Session contract

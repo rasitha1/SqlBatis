@@ -4,15 +4,15 @@ using System.Configuration;
 
 using NUnit.Framework;
 
-using IBatisNet.DataMapper; //<-- To access the definition of the deleagte RowDelegate
-using IBatisNet.DataMapper.MappedStatements; //<-- To access the definition of the PageinatedList
-using IBatisNet.Common;
-using IBatisNet.Common.Exceptions;
+using SqlBatis.DataMapper; //<-- To access the definition of the deleagte RowDelegate
+using SqlBatis.DataMapper.MappedStatements; //<-- To access the definition of the PageinatedList
+using SqlBatis.DataMapper;
+using SqlBatis.DataMapper.Exceptions;
 
-using IBatisNet.DataMapper.Test;
-using IBatisNet.DataMapper.Test.Domain;
+using SqlBatis.DataMapper.Test;
+using SqlBatis.DataMapper.Test.Domain;
 
-namespace IBatisNet.DataMapper.Test.NUnit.SqlMapTests
+namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
 {
 	/// <summary>
 	/// Summary description for InheritanceTest.

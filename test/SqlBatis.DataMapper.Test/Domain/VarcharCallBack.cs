@@ -1,9 +1,9 @@
 using System;
 using System.Data;
 using System.Data.SqlClient;
-using IBatisNet.DataMapper.TypeHandlers;
+using SqlBatis.DataMapper.TypeHandlers;
 
-namespace IBatisNet.DataMapper.Test.Domain
+namespace SqlBatis.DataMapper.Test.Domain
 {
 
 }

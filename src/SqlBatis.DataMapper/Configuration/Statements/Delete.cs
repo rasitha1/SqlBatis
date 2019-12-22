@@ -31,7 +31,7 @@ using System.Xml.Serialization;
 #endregion
 
 
-namespace IBatisNet.DataMapper.Configuration.Statements
+namespace SqlBatis.DataMapper.Configuration.Statements
 {
 	/// <summary>
 	/// Summary description for delete.

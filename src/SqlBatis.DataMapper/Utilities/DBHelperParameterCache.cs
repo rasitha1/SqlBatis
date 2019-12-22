@@ -28,9 +28,9 @@ using System;
 using System.Collections;
 using System.Data;
 using System.Reflection;
-using IBatisNet.Common.Exceptions;
+using SqlBatis.DataMapper.Exceptions;
 
-namespace IBatisNet.Common.Utilities
+namespace SqlBatis.DataMapper.Utilities
 {
 	/// <summary>
 	/// DBHelperParameterCache provides functions to leverage a 

@@ -28,7 +28,7 @@ using System.Collections;
 using System.Collections.Specialized;
 using System.Text;
 
-namespace IBatisNet.Common.Utilities.Objects
+namespace SqlBatis.DataMapper.Utilities.Objects
 {
 	/// <summary>
     /// A <see cref="IObjectFactory"/> implementation that can create objects via IL code

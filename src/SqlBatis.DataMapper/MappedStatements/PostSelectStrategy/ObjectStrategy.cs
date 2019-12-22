@@ -23,9 +23,9 @@
  ********************************************************************************/
 #endregion
 
-using IBatisNet.DataMapper.Scope;
+using SqlBatis.DataMapper.Scope;
 
-namespace IBatisNet.DataMapper.MappedStatements.PostSelectStrategy
+namespace SqlBatis.DataMapper.MappedStatements.PostSelectStrategy
 {
 	/// <summary>
 	/// <see cref="IPostSelectStrategy"/> implementation to exceute a query for object.

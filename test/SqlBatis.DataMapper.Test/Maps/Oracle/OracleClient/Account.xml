@@ -62,7 +62,7 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
     </cacheModels>
        
 	<alias>
-		<typeAlias alias="HundredsBool" type="IBatisNet.DataMapper.Test.Domain.HundredsTypeHandlerCallback, IBatisNet.DataMapper.Test"/>
+		<typeAlias alias="HundredsBool" type="SqlBatis.DataMapper.Test.Domain.HundredsTypeHandlerCallback, SqlBatis.DataMapper.Test"/>
 	</alias>         
 	       
 	<resultMaps>                                    
@@ -423,7 +423,7 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
 		StatementTest.TestSimpleDynamicSubstitution()
 		Throws OracleException since test is geared towards MSSQL 
 		and does not properly place the parameter prefix ":" in front of "id"
-		DEBUG IBatisNet.DataMapper.Configuration.Statements.PreparedStatementFactory [] - 
+		DEBUG SqlBatis.DataMapper.Configuration.Statements.PreparedStatementFactory [] - 
 		SQL for statement 'SimpleDynamicSubstitution' :
 		select    
 				Account_ID          as Id,    

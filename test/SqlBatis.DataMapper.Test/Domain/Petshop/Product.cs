@@ -3,7 +3,7 @@ using System.Collections;
 
 using System.Collections.Generic;
 
-namespace IBatisNet.DataMapper.Test.Domain.Petshop
+namespace SqlBatis.DataMapper.Test.Domain.Petshop
 {
     /// <summary>
     /// Business entity used to model a product

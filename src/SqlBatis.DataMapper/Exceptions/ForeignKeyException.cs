@@ -27,7 +27,7 @@
 using System;
 using System.Runtime.Serialization;
 
-namespace IBatisNet.Common.Exceptions
+namespace SqlBatis.DataMapper.Exceptions
 {
 	/// <summary>
 	/// A DALForeignKeyException is thrown when foreign key error occured in a sql statement.
@@ -48,7 +48,7 @@ namespace IBatisNet.Common.Exceptions
 		public ForeignKeyException() : base("A foreign key conflict has occurred.") { }
 
 		/// <summary>
-		/// Initializes a new instance of the <see cref="IBatisNet.Common.Exceptions.ForeignKeyException"/> 
+		/// Initializes a new instance of the <see cref="SqlBatis.DataMapper.Exceptions.ForeignKeyException"/> 
 		/// class with a reference to the inner exception that is the cause of this exception.
 		/// </summary>
 		/// <remarks>
@@ -63,7 +63,7 @@ namespace IBatisNet.Common.Exceptions
 		public ForeignKeyException(Exception ex) : base (ex.Message,ex) {}
 
 		/// <summary>
-		/// Initializes a new instance of the <see cref="IBatisNet.Common.Exceptions.ForeignKeyException"/> 
+		/// Initializes a new instance of the <see cref="SqlBatis.DataMapper.Exceptions.ForeignKeyException"/> 
 		/// class with a specified error message.
 		/// </summary>
 		/// <remarks>
@@ -74,7 +74,7 @@ namespace IBatisNet.Common.Exceptions
 		public ForeignKeyException( string message ) : base ( message ) { }
 
 		/// <summary>
-		/// Initializes a new instance of the <see cref="IBatisNet.Common.Exceptions.ForeignKeyException"/> 
+		/// Initializes a new instance of the <see cref="SqlBatis.DataMapper.Exceptions.ForeignKeyException"/> 
 		/// class with a specified error message and a reference to the inner exception that is the cause of this exception.
 		/// </summary>
 		/// <remarks>

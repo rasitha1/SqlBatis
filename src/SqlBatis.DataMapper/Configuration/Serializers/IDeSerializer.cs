@@ -26,10 +26,10 @@
 #region Using
 
 using System.Xml;
-using IBatisNet.DataMapper.Configuration.Sql.Dynamic.Elements;
+using SqlBatis.DataMapper.Configuration.Sql.Dynamic.Elements;
 #endregion 
 
-namespace IBatisNet.DataMapper.Configuration.Serializers
+namespace SqlBatis.DataMapper.Configuration.Serializers
 {
 	/// <summary>
 	/// Summary description for IDeSerializer.

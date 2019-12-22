@@ -25,7 +25,7 @@
 
 using System;
 
-namespace IBatisNet.DataMapper.Configuration.ResultMapping
+namespace SqlBatis.DataMapper.Configuration.ResultMapping
 {
 	/// <summary>
 	/// A ResultProperty Collection.
@@ -54,7 +54,7 @@ namespace IBatisNet.DataMapper.Configuration.ResultMapping
 		/// </summary>
 		public ResultPropertyCollection() 
 		{
-            this.Clear();
+            Clear();
 		}
 
         /// <summary>

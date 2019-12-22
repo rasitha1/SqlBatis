@@ -29,7 +29,7 @@ using System.Collections.Specialized;
 using System.Reflection;
 using System.Reflection.Emit;
 
-namespace IBatisNet.Common.Utilities.Objects.Members
+namespace SqlBatis.DataMapper.Utilities.Objects.Members
 {
     /// <summary>
     /// Abstract base class for member accessor

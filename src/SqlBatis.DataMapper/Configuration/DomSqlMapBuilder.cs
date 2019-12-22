@@ -35,36 +35,36 @@ using System.Reflection;
 using System.Threading;
 using System.Xml;
 using System.Xml.Schema;
-using IBatisNet.Common;
-using IBatisNet.Common.Exceptions;
-using IBatisNet.Common.Logging;
-using IBatisNet.Common.Utilities;
-using IBatisNet.Common.Utilities.Objects;
-using IBatisNet.Common.Utilities.Objects.Members;
-using IBatisNet.Common.Xml;
-using IBatisNet.DataMapper.Configuration.Alias;
-using IBatisNet.DataMapper.Configuration.Cache;
-using IBatisNet.DataMapper.Configuration.Cache.Fifo;
-using IBatisNet.DataMapper.Configuration.Cache.Lru;
-using IBatisNet.DataMapper.Configuration.Cache.Memory;
-using IBatisNet.DataMapper.Configuration.ParameterMapping;
-using IBatisNet.DataMapper.Configuration.ResultMapping;
-using IBatisNet.DataMapper.Configuration.Serializers;
-using IBatisNet.DataMapper.Configuration.Sql;
-using IBatisNet.DataMapper.Configuration.Sql.Dynamic;
-using IBatisNet.DataMapper.Configuration.Sql.Dynamic.Elements;
-using IBatisNet.DataMapper.Configuration.Sql.SimpleDynamic;
-using IBatisNet.DataMapper.Configuration.Sql.Static;
-using IBatisNet.DataMapper.Configuration.Statements;
-using IBatisNet.DataMapper.MappedStatements;
-using IBatisNet.DataMapper.MappedStatements.ArgumentStrategy;
-using IBatisNet.DataMapper.MappedStatements.PropertyStrategy;
-using IBatisNet.DataMapper.Scope;
-using IBatisNet.DataMapper.TypeHandlers;
+using SqlBatis.DataMapper;
+using SqlBatis.DataMapper.Exceptions;
+using SqlBatis.DataMapper.Logging;
+using SqlBatis.DataMapper.Utilities;
+using SqlBatis.DataMapper.Utilities.Objects;
+using SqlBatis.DataMapper.Utilities.Objects.Members;
+using SqlBatis.DataMapper.Xml;
+using SqlBatis.DataMapper.Configuration.Alias;
+using SqlBatis.DataMapper.Configuration.Cache;
+using SqlBatis.DataMapper.Configuration.Cache.Fifo;
+using SqlBatis.DataMapper.Configuration.Cache.Lru;
+using SqlBatis.DataMapper.Configuration.Cache.Memory;
+using SqlBatis.DataMapper.Configuration.ParameterMapping;
+using SqlBatis.DataMapper.Configuration.ResultMapping;
+using SqlBatis.DataMapper.Configuration.Serializers;
+using SqlBatis.DataMapper.Configuration.Sql;
+using SqlBatis.DataMapper.Configuration.Sql.Dynamic;
+using SqlBatis.DataMapper.Configuration.Sql.Dynamic.Elements;
+using SqlBatis.DataMapper.Configuration.Sql.SimpleDynamic;
+using SqlBatis.DataMapper.Configuration.Sql.Static;
+using SqlBatis.DataMapper.Configuration.Statements;
+using SqlBatis.DataMapper.MappedStatements;
+using SqlBatis.DataMapper.MappedStatements.ArgumentStrategy;
+using SqlBatis.DataMapper.MappedStatements.PropertyStrategy;
+using SqlBatis.DataMapper.Scope;
+using SqlBatis.DataMapper.TypeHandlers;
 
 #endregion
 
-namespace IBatisNet.DataMapper.Configuration
+namespace SqlBatis.DataMapper.Configuration
 {
     /// <summary>
 	/// Builds an ISqlMapper instance from the supplied resources (e.g. XML configuration files).
@@ -497,7 +497,7 @@ namespace IBatisNet.DataMapper.Configuration
 			ConfigWatcherHandler.ClearFilesMonitored();
 			ConfigWatcherHandler.AddFileToWatch( Resources.GetFileInfo( resource ) );
 
-			TimerCallback callBakDelegate = new TimerCallback( OnConfigFileChange );
+			TimerCallback callBakDelegate = OnConfigFileChange;
 
 			StateConfig state = new StateConfig();
 			state.FileName = resource;
@@ -609,11 +609,11 @@ namespace IBatisNet.DataMapper.Configuration
 
 				if (xsdFile == null)
 				{
-					// TODO: avoid using hard-coded value "IBatisNet.DataMapper"
-					throw new ConfigurationException( "Unable to locate embedded resource [IBatisNet.DataMapper."+schemaFileName+"]. If you are building from source, verfiy the file is marked as an embedded resource.");
+					// TODO: avoid using hard-coded value "SqlBatis.DataMapper"
+					throw new ConfigurationException( "Unable to locate embedded resource [SqlBatis.DataMapper."+schemaFileName+"]. If you are building from source, verfiy the file is marked as an embedded resource.");
 				}
 				
-				XmlSchema schema = XmlSchema.Read( xsdFile, new ValidationEventHandler(ValidationCallBack) );
+				XmlSchema schema = XmlSchema.Read( xsdFile, ValidationCallBack );
 
                 XmlReaderSettings settings = new XmlReaderSettings();
                 settings.ValidationType = ValidationType.Schema;
@@ -627,7 +627,7 @@ namespace IBatisNet.DataMapper.Configuration
 
 				// Wire up the call back.  The ValidationEvent is fired when the
 				// XmlValidatingReader hits an issue validating a section of the xml
-                settings.ValidationEventHandler += new ValidationEventHandler(ValidationCallBack);
+                settings.ValidationEventHandler += ValidationCallBack;
 
                 // Validate the document
 				while (validatingReader.Read()){}
@@ -770,7 +770,7 @@ namespace IBatisNet.DataMapper.Configuration
 
 			#region Cache Alias
 
-			TypeAlias cacheAlias = new TypeAlias(typeof(MemoryCacheControler));
+			TypeAlias cacheAlias = new TypeAlias(typeof(MemoryCacheController));
 			cacheAlias.Name = "MEMORY";
 			_configScope.SqlMapper.TypeHandlerFactory.AddTypeAlias(cacheAlias.Name, cacheAlias);
 			cacheAlias = new TypeAlias(typeof(LruCacheController));
@@ -1911,7 +1911,7 @@ namespace IBatisNet.DataMapper.Configuration
 		/// <returns>A resource stream.</returns>
 		public Stream GetStream( string schemaResourceKey )
 		{
-			return Assembly.GetExecutingAssembly().GetManifestResourceStream("IBatisNet.DataMapper." + schemaResourceKey); 
+			return Assembly.GetExecutingAssembly().GetManifestResourceStream("SqlBatis.DataMapper." + schemaResourceKey); 
 		}
 
 

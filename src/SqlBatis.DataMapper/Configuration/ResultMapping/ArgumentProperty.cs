@@ -28,20 +28,19 @@
 
 using System;
 using System.Collections;
-using System.Configuration;
 using System.Reflection;
 using System.Xml.Serialization;
 
-using IBatisNet.Common.Exceptions;
-using IBatisNet.Common.Utilities;
-using IBatisNet.DataMapper.MappedStatements.ArgumentStrategy;
-using IBatisNet.DataMapper.Scope;
-using IBatisNet.DataMapper.TypeHandlers;
+using SqlBatis.DataMapper.Exceptions;
+using SqlBatis.DataMapper.Utilities;
+using SqlBatis.DataMapper.MappedStatements.ArgumentStrategy;
+using SqlBatis.DataMapper.Scope;
+using SqlBatis.DataMapper.TypeHandlers;
 
 #endregion
 
 
-namespace IBatisNet.DataMapper.Configuration.ResultMapping
+namespace SqlBatis.DataMapper.Configuration.ResultMapping
 {
 	/// <summary>
 	/// Summary description for ArgumentProperty.
@@ -55,9 +54,9 @@ namespace IBatisNet.DataMapper.Configuration.ResultMapping
 		[NonSerialized]
 		private string _argumentName = string.Empty;
 		[NonSerialized]
-		private Type _argumentType = null;
+		private Type _argumentType;
 		[NonSerialized]
-		private IArgumentStrategy _argumentStrategy = null;
+		private IArgumentStrategy _argumentStrategy;
 		#endregion
 
 		#region Properties
@@ -83,7 +82,7 @@ namespace IBatisNet.DataMapper.Configuration.ResultMapping
 			{
 				if ((value == null) || (value.Length < 1))
 				{
-					throw new ArgumentNullException("The name attribute is mandatory in a argument tag.");				
+					throw new ArgumentNullException( nameof(value), "The name attribute is mandatory in a argument tag.");				
 				}
 				_argumentName = value;
 			}
@@ -141,14 +140,14 @@ namespace IBatisNet.DataMapper.Configuration.ResultMapping
 					break;
 				}
 			}
-			if (this.CallBackName!=null && this.CallBackName.Length >0)
+			if (!string.IsNullOrEmpty(CallBackName))
 			{
-				configScope.ErrorContext.MoreInfo = "Argument property ("+_argumentName+"), check the typeHandler attribute '" + this.CallBackName + "' (must be a ITypeHandlerCallback implementation).";
+				configScope.ErrorContext.MoreInfo = "Argument property ("+_argumentName+"), check the typeHandler attribute '" + CallBackName + "' (must be a ITypeHandlerCallback implementation).";
 				try 
 				{
-					Type type = configScope.SqlMapper.TypeHandlerFactory.GetType(this.CallBackName);
+					Type type = configScope.SqlMapper.TypeHandlerFactory.GetType(CallBackName);
 					ITypeHandlerCallback typeHandlerCallback = (ITypeHandlerCallback) Activator.CreateInstance( type );
-					this.TypeHandler = new CustomTypeHandler(typeHandlerCallback);
+					TypeHandler = new CustomTypeHandler(typeHandlerCallback);
 				}
 				catch (Exception e) 
 				{
@@ -158,7 +157,7 @@ namespace IBatisNet.DataMapper.Configuration.ResultMapping
 			else
 			{
 				configScope.ErrorContext.MoreInfo = "Argument property ("+_argumentName+") set the typeHandler attribute.";	
-				this.TypeHandler = this.ResolveTypeHandler(configScope, _argumentType, this.CLRType, this.DbType);
+				TypeHandler = ResolveTypeHandler(configScope, _argumentType, CLRType, DbType);
 			}
 		}
 
@@ -172,7 +171,7 @@ namespace IBatisNet.DataMapper.Configuration.ResultMapping
 		/// <returns></returns>
 		public ITypeHandler ResolveTypeHandler(ConfigurationScope configScope, Type argumenType, string clrType, string dbType)
 		{
-			ITypeHandler handler = null;
+			ITypeHandler handler;
 			if (argumenType==null)
 			{
 				handler = configScope.DataExchangeFactory.TypeHandlerFactory.GetUnkownTypeHandler();
@@ -180,7 +179,7 @@ namespace IBatisNet.DataMapper.Configuration.ResultMapping
 			else if (typeof(IDictionary).IsAssignableFrom(argumenType)) 
 			{
 				// IDictionary
-				if (clrType ==null ||clrType.Length == 0) 
+				if (string.IsNullOrEmpty(clrType)) 
 				{
 					handler = configScope.DataExchangeFactory.TypeHandlerFactory.GetUnkownTypeHandler(); 
 				} 

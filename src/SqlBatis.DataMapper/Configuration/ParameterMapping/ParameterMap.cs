@@ -32,15 +32,15 @@ using System.Data;
 using System.Reflection;
 using System.Xml;
 using System.Xml.Serialization;
-using IBatisNet.Common.Logging;
-using IBatisNet.DataMapper.Configuration.Serializers;
-using IBatisNet.DataMapper.DataExchange;
-using IBatisNet.DataMapper.Scope;
-using IBatisNet.DataMapper.TypeHandlers;
+using SqlBatis.DataMapper.Logging;
+using SqlBatis.DataMapper.Configuration.Serializers;
+using SqlBatis.DataMapper.DataExchange;
+using SqlBatis.DataMapper.Scope;
+using SqlBatis.DataMapper.TypeHandlers;
 
 #endregion
 
-namespace IBatisNet.DataMapper.Configuration.ParameterMapping
+namespace SqlBatis.DataMapper.Configuration.ParameterMapping
 {
 	/// <summary>
 	/// Summary description for ParameterMap.
@@ -55,7 +55,7 @@ namespace IBatisNet.DataMapper.Configuration.ParameterMapping
 		private const string XML_PARAMATER = "parameter";
 
 		#region private
-		private static readonly ILog _logger = LogManager.GetLogger( MethodBase.GetCurrentMethod().DeclaringType );
+		private static readonly ILog Logger = LogManager.GetLogger( MethodBase.GetCurrentMethod().DeclaringType );
 		
 		[NonSerialized]
 		private string _id = string.Empty;
@@ -92,11 +92,11 @@ namespace IBatisNet.DataMapper.Configuration.ParameterMapping
 			get { return _className; }
 			set 
 			{ 
-				if (_logger.IsInfoEnabled)
+				if (Logger.IsInfoEnabled)
 				{
 					if ((value == null) || (value.Length < 1))
 					{
-						_logger.Info("The class attribute is recommended for better performance in a ParameterMap tag '"+_id+"'.");
+						Logger.Info("The class attribute is recommended for better performance in a ParameterMap tag '"+_id+"'.");
 					}					
 				}
 

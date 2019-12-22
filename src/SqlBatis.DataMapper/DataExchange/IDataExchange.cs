@@ -23,10 +23,10 @@
  ********************************************************************************/
 #endregion
 
-using IBatisNet.DataMapper.Configuration.ParameterMapping;
-using IBatisNet.DataMapper.Configuration.ResultMapping;
+using SqlBatis.DataMapper.Configuration.ParameterMapping;
+using SqlBatis.DataMapper.Configuration.ResultMapping;
 
-namespace IBatisNet.DataMapper.DataExchange
+namespace SqlBatis.DataMapper.DataExchange
 {
 	/// <summary>
 	/// Interface for exchanging data between a parameter map/result map and the related objects

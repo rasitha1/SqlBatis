@@ -2,13 +2,13 @@
 using System;
 using System.Collections;
 using System.Threading;
-using IBatisNet.Common.Utilities;
-using IBatisNet.DataMapper.Configuration.Cache;
-using IBatisNet.DataMapper.MappedStatements;
-using IBatisNet.DataMapper.Test.Domain;
+using SqlBatis.DataMapper.Utilities;
+using SqlBatis.DataMapper.Configuration.Cache;
+using SqlBatis.DataMapper.MappedStatements;
+using SqlBatis.DataMapper.Test.Domain;
 using NUnit.Framework;
 
-namespace IBatisNet.DataMapper.Test.NUnit.SqlMapTests
+namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
 {
 	/// <summary>
 	/// Summary description for ParameterMapTest.
@@ -387,7 +387,7 @@ namespace IBatisNet.DataMapper.Test.NUnit.SqlMapTests
 			CacheModel cache = new CacheModel();
 			cache.FlushInterval = new FlushInterval();
 			cache.FlushInterval.Minutes = 5;
-			cache.Implementation = "IBatisNet.DataMapper.Configuration.Cache.Lru.LruCacheController, IBatisNet.DataMapper";
+			cache.Implementation = "SqlBatis.DataMapper.Configuration.Cache.Lru.LruCacheController, SqlBatis.DataMapper";
 			cache.Initialize();
 
 			return cache;

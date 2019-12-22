@@ -27,14 +27,14 @@
 #region Imports
 using System;
 using System.Collections;
-using IBatisNet.Common.Utilities.Objects.Members;
-using IBatisNet.DataMapper.Configuration.Sql.Dynamic.Elements;
-using IBatisNet.Common.Utilities.Objects;
+using SqlBatis.DataMapper.Utilities.Objects.Members;
+using SqlBatis.DataMapper.Configuration.Sql.Dynamic.Elements;
+using SqlBatis.DataMapper.Utilities.Objects;
 
 #endregion
 
 
-namespace IBatisNet.DataMapper.Configuration.Sql.Dynamic.Handlers
+namespace SqlBatis.DataMapper.Configuration.Sql.Dynamic.Handlers
 {
 	/// <summary>
 	/// IsEmptyTagHandler represent a isEmpty tag element in a dynamic mapped statement.
@@ -69,9 +69,9 @@ namespace IBatisNet.DataMapper.Configuration.Sql.Dynamic.Handlers
 			{
 				string propertyName = ((BaseTag)tag).Property;
 				object value = null;
-				if (propertyName != null && propertyName.Length>0) 
+				if (!string.IsNullOrEmpty(propertyName)) 
 				{
-					value = ObjectProbe.GetMemberValue(parameterObject, propertyName, this.AccessorFactory);
+					value = ObjectProbe.GetMemberValue(parameterObject, propertyName, AccessorFactory);
 				} 
 				else 
 				{

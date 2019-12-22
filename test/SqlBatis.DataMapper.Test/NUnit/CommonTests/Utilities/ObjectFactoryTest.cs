@@ -1,12 +1,12 @@
-using IBatisNet.Common.Exceptions;
-using IBatisNet.Common.Test.Domain;
-using IBatisNet.Common.Utilities.Objects;
+using SqlBatis.DataMapper.Exceptions;
+using SqlBatis.DataMapper.Test.Domain;
+using SqlBatis.DataMapper.Utilities.Objects;
 using NUnit.Framework;
 using System;
-using IBatisNet.DataMapper.Test.Domain;
+using SqlBatis.DataMapper.Test.Domain;
 
 
-namespace IBatisNet.Common.Test.NUnit.CommonTests.Utilities
+namespace SqlBatis.DataMapper.Test.NUnit.CommonTests.Utilities
 {
 
     [TestFixture] 

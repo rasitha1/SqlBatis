@@ -24,10 +24,10 @@
 #endregion
 
 using System.Data;
-using IBatisNet.DataMapper.Configuration.ResultMapping;
-using IBatisNet.DataMapper.Scope;
+using SqlBatis.DataMapper.Configuration.ResultMapping;
+using SqlBatis.DataMapper.Scope;
 
-namespace IBatisNet.DataMapper.MappedStatements.ResultStrategy
+namespace SqlBatis.DataMapper.MappedStatements.ResultStrategy
 {
     /// <summary>
     /// Delegates on the <see cref="ResultMapStrategy"/>  or on the 

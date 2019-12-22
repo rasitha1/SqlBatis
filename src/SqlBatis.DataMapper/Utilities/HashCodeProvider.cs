@@ -30,7 +30,7 @@ using System.Runtime.CompilerServices;
 
 #endregion
 
-namespace IBatisNet.Common.Utilities
+namespace SqlBatis.DataMapper.Utilities
 {
 	using System.Reflection;
 

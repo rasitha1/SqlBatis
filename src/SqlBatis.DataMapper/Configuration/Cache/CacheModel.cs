@@ -34,15 +34,14 @@ using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Xml.Serialization;
-using IBatisNet.Common.Exceptions;
-using IBatisNet.Common.Logging;
-using IBatisNet.Common.Utilities;
-using IBatisNet.DataMapper.Exceptions;
-using IBatisNet.DataMapper.MappedStatements;
+using SqlBatis.DataMapper.Exceptions;
+using SqlBatis.DataMapper.Logging;
+using SqlBatis.DataMapper.Utilities;
+using SqlBatis.DataMapper.MappedStatements;
 
 #endregion
 
-namespace IBatisNet.DataMapper.Configuration.Cache
+namespace SqlBatis.DataMapper.Configuration.Cache
 {
 
 	/// <summary>
@@ -57,13 +56,13 @@ namespace IBatisNet.DataMapper.Configuration.Cache
 		private static IDictionary  _lockMap = new HybridDictionary();
 
 		[NonSerialized]
-		private static readonly ILog _logger = LogManager.GetLogger( MethodBase.GetCurrentMethod().DeclaringType );
+		private static readonly ILog Logger = LogManager.GetLogger( MethodBase.GetCurrentMethod().DeclaringType );
 		/// <summary>
 		/// This is used to represent null objects that are returned from the cache so 
 		/// that they can be cached, too.
 		/// </summary>
 		[NonSerialized] 
-		public readonly static object NULL_OBJECT = new Object(); 
+		public static readonly object NULL_OBJECT = new Object(); 
 
 		/// <summary>
 		/// Constant to turn off periodic cache flushes
@@ -103,11 +102,11 @@ namespace IBatisNet.DataMapper.Configuration.Cache
 		[XmlAttribute("id")]
 		public string Id
 		{
-			get { return _id; }
-			set 
+			get => _id;
+            set 
 			{ 
 				if ((value == null) || (value.Length < 1))
-					throw new ArgumentNullException("The id attribute is mandatory in a cacheModel tag.");
+					throw new ArgumentNullException( nameof(value), "The id attribute is mandatory in a cacheModel tag.");
 
 				_id = value; 
 			}
@@ -119,11 +118,11 @@ namespace IBatisNet.DataMapper.Configuration.Cache
 		[XmlAttribute("implementation")]
 		public string Implementation
 		{
-			get { return _implementation; }
-			set 
+			get => _implementation;
+            set 
 			{ 
 				if ((value == null) || (value.Length < 1))
-					throw new ArgumentNullException("The implementation attribute is mandatory in a cacheModel tag.");
+					throw new ArgumentNullException( nameof(value), "The implementation attribute is mandatory in a cacheModel tag.");
 
 				_implementation = value; 
 			}
@@ -235,7 +234,7 @@ namespace IBatisNet.DataMapper.Configuration.Cache
 		/// <param name="mappedStatement">A MappedStatement on which we listen ExecuteEventArgs event.</param>
 		public void RegisterTriggerStatement(IMappedStatement mappedStatement)
 		{
-			mappedStatement.Execute +=new ExecuteEventHandler(FlushHandler);
+			mappedStatement.Execute +=FlushHandler;
 		}
 		
 		
@@ -246,9 +245,9 @@ namespace IBatisNet.DataMapper.Configuration.Cache
 		/// <param name="e"></param>
 		private void FlushHandler(object sender, ExecuteEventArgs e)
 		{
-			if (_logger.IsDebugEnabled) 
+			if (Logger.IsDebugEnabled) 
 			{
-				_logger.Debug("Flush cacheModel named "+_id+" for statement '"+e.StatementName+"'");
+				Logger.Debug("Flush cacheModel named "+_id+" for statement '"+e.StatementName+"'");
 			}
 
 			Flush();
@@ -287,7 +286,7 @@ namespace IBatisNet.DataMapper.Configuration.Cache
 					}
 				}
 
-				object value = null;
+				object value;
 				lock (GetLock(key)) 
 				{
 					value = _controller[key];
@@ -319,15 +318,15 @@ namespace IBatisNet.DataMapper.Configuration.Cache
 					}
 				}
 
-                if (_logger.IsDebugEnabled)
+                if (Logger.IsDebugEnabled)
                 {
                     if (value != null)
                     {
-                        _logger.Debug(String.Format("Retrieved cached object '{0}' using key '{1}' ", value, key));
+                        Logger.Debug(String.Format("Retrieved cached object '{0}' using key '{1}' ", value, key));
                     }
                     else
                     {
-                        _logger.Debug(String.Format("Cache miss using key '{0}' ", key));
+                        Logger.Debug(String.Format("Cache miss using key '{0}' ", key));
                     }
                 }
 				return value;
@@ -350,9 +349,9 @@ namespace IBatisNet.DataMapper.Configuration.Cache
 					}
 				}
 				_controller[key] = value;
-                if (_logger.IsDebugEnabled)
+                if (Logger.IsDebugEnabled)
                 {
-                    _logger.Debug(String.Format("Cache object '{0}' using key '{1}' ", value, key));
+                    Logger.Debug($"Cache object '{value}' using key '{key}' ");
                 }
 			}
 		}
@@ -366,7 +365,7 @@ namespace IBatisNet.DataMapper.Configuration.Cache
 			{
 				if (_requests!=0)
 				{
-					return (double)_hits/(double)_requests;
+					return _hits/(double)_requests;
 				}
 				else
 				{

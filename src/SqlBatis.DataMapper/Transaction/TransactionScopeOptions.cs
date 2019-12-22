@@ -28,7 +28,7 @@
 using System;
 #endregion
 
-namespace IBatisNet.Common.Transaction
+namespace SqlBatis.DataMapper.Transaction
 {
 	/// <summary>
 	/// Describes how a transaction scope is associated with a transaction.

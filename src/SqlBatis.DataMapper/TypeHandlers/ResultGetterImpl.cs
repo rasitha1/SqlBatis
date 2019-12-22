@@ -29,7 +29,7 @@ using System.Data;
 
 #endregion 
 
-namespace IBatisNet.DataMapper.TypeHandlers
+namespace SqlBatis.DataMapper.TypeHandlers
 {
 	/// <summary>
 	/// Description résumée de ResultGetterImpl.

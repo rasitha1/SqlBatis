@@ -3,7 +3,7 @@
 http://ibatis.apache.org/xsd/SqlMap.xsd">
 		
 	<alias>
-		<typeAlias alias="Search" type="IBatisNet.DataMapper.Test.Domain.Search, IBatisNet.DataMapper.Test"/>
+		<typeAlias alias="Search" type="SqlBatis.DataMapper.Test.Domain.Search, SqlBatis.DataMapper.Test"/>
 	</alias>
 			
 	<statements>

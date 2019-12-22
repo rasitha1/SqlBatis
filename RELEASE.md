@@ -2,8 +2,8 @@
 
 ## 4.0.0
 * Removed **SqlBatis.DataAccess** project
-* Removed **SqlBatis.Common.Logging.Log4Net** project
-* Merged **SqlBatis.Common** info **SqlBatis.DataMapper** to be in a single assembly
+* Removed **SqlBatis.DataMapper.Logging.Log4Net** project
+* Merged **SqlBatis.DataMapper** info **SqlBatis.DataMapper** to be in a single assembly
 * Azure DevOps pipelines
 
 
@@ -30,7 +30,7 @@ ___
 
 ### 2.1.0
 * Merged changes from [rev 709676](http://archive.apache.org/dist/ibatis/source/ibatis.net/) which picked up a number fixes 
-* Including `IBatisNet.Common.Logging.Log4Net` .Net Framework assembly as well. 
+* Including `SqlBatis.DataMapper.Logging.Log4Net` .Net Framework assembly as well. 
 * Getting rid of rest of the .net framework version.
 
 ### 2.0.0

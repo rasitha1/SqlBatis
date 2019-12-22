@@ -28,11 +28,11 @@
 
 using System;
 using System.Xml.Serialization;
-using IBatisNet.Common.Utilities;
+using SqlBatis.DataMapper.Utilities;
 
 #endregion
 
-namespace IBatisNet.DataMapper.Configuration.Alias
+namespace SqlBatis.DataMapper.Configuration.Alias
 {
 	/// <summary>
 	/// TypeAlias.
@@ -48,7 +48,7 @@ namespace IBatisNet.DataMapper.Configuration.Alias
 		[NonSerialized]
 		private string _className = string.Empty;
 		[NonSerialized]
-		private Type _class = null;
+		private Type _class;
 		#endregion
 
 		#region Properties
@@ -59,12 +59,12 @@ namespace IBatisNet.DataMapper.Configuration.Alias
 		[XmlAttribute("alias")]
 		public string Name
 		{
-			get { return _name; }
-			set 
+			get => _name;
+            set 
 			{ 
 				if ((value == null) || (value.Length < 1))
 				{
-					throw new ArgumentNullException("The name attribute is mandatory in the typeAlias ");
+					throw new ArgumentNullException( nameof(value), "The name attribute is mandatory in the typeAlias ");
 				}
 				_name = value; 
 			}

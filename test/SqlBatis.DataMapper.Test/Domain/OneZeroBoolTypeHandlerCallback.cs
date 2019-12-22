@@ -1,8 +1,8 @@
 using System;
-using IBatisNet.DataMapper.Exceptions;
-using IBatisNet.DataMapper.TypeHandlers;
+using SqlBatis.DataMapper.Exceptions;
+using SqlBatis.DataMapper.TypeHandlers;
 
-namespace IBatisNet.DataMapper.Test.Domain
+namespace SqlBatis.DataMapper.Test.Domain
 {
 	/// <summary>
 	/// OneZeroBoolTypeHandlerCallback.

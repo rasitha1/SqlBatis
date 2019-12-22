@@ -27,13 +27,13 @@
 #region using
 
 using System.Text;
-using IBatisNet.Common.Utilities.Objects.Members;
-using IBatisNet.DataMapper.Configuration.Sql.Dynamic.Elements;
-using IBatisNet.Common.Utilities.Objects;
+using SqlBatis.DataMapper.Utilities.Objects.Members;
+using SqlBatis.DataMapper.Configuration.Sql.Dynamic.Elements;
+using SqlBatis.DataMapper.Utilities.Objects;
 #endregion
 
 
-namespace IBatisNet.DataMapper.Configuration.Sql.Dynamic.Handlers
+namespace SqlBatis.DataMapper.Configuration.Sql.Dynamic.Handlers
 {
 	/// <summary>
 	/// Summary description for IterateTagHandler.
@@ -66,7 +66,7 @@ namespace IBatisNet.DataMapper.Configuration.Sql.Dynamic.Handlers
 				object collection;
 				if (propertyName != null && propertyName.Length>0) 
 				{
-					collection = ObjectProbe.GetMemberValue(parameterObject, propertyName, this.AccessorFactory);
+					collection = ObjectProbe.GetMemberValue(parameterObject, propertyName, AccessorFactory);
 				} 
 				else 
 				{

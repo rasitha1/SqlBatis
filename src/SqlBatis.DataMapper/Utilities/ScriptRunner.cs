@@ -29,9 +29,9 @@ using System.Collections;
 using System.Data;
 using System.IO;
 
-using IBatisNet.Common.Exceptions;
+using SqlBatis.DataMapper.Exceptions;
 
-namespace IBatisNet.Common.Utilities
+namespace SqlBatis.DataMapper.Utilities
 {
 	/// <summary>
 	/// Description résumée de ScriptRunner.

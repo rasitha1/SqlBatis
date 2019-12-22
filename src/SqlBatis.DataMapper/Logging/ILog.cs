@@ -27,7 +27,7 @@
 
 using System;
 
-namespace IBatisNet.Common.Logging
+namespace SqlBatis.DataMapper.Logging
 {
     /// <summary>
     ///     The 7 logging levels used by Log are (in order):

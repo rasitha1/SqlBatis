@@ -40,7 +40,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 #endregion
 
-namespace IBatisNet.Common.Utilities.TypesResolver
+namespace SqlBatis.DataMapper.Utilities.TypesResolver
 {
 	/// <summary>
 	/// Resolves a <see cref="System.Type"/> by name.

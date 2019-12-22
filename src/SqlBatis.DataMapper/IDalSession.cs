@@ -33,7 +33,7 @@ using System.Data;
 #endregion
 
 
-namespace IBatisNet.Common
+namespace SqlBatis.DataMapper
 {
     /// <summary>
     ///     A template for a session in the iBATIS.NET framwork.

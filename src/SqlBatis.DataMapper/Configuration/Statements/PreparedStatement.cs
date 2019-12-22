@@ -31,7 +31,7 @@ using System.Data;
 
 #endregion 
 
-namespace IBatisNet.DataMapper.Configuration.Statements
+namespace SqlBatis.DataMapper.Configuration.Statements
 {
 	/// <summary>
 	/// Construct the list of IDataParameters for the statement

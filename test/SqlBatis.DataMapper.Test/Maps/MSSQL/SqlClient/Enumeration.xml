@@ -4,7 +4,7 @@ xmlns="http://ibatis.apache.org/mapping"
 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	
 	<alias>
-		<typeAlias alias="Enumeration" type="IBatisNet.DataMapper.Test.Domain.Enumeration, IBatisNet.DataMapper.Test"/>
+		<typeAlias alias="Enumeration" type="SqlBatis.DataMapper.Test.Domain.Enumeration, SqlBatis.DataMapper.Test"/>
 	</alias>
 	
 	<resultMaps>                                    

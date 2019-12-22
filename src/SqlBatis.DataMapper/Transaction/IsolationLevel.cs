@@ -28,7 +28,7 @@
 using System;
 #endregion
 
-namespace IBatisNet.Common.Transaction
+namespace SqlBatis.DataMapper.Transaction
 {
 	/// <summary>
 	/// Specifies the isolation level of a transaction.

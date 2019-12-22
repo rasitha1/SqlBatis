@@ -25,10 +25,10 @@
 
 using System;
 
-using IBatisNet.DataMapper.MappedStatements;
-using IBatisNet.Common.Utilities.Objects.Members;
+using SqlBatis.DataMapper.MappedStatements;
+using SqlBatis.DataMapper.Utilities.Objects.Members;
 
-namespace IBatisNet.DataMapper.Proxy
+namespace SqlBatis.DataMapper.Proxy
 {
     /// <summary>
     /// Contract of an <see cref="ILazyFactory"/>

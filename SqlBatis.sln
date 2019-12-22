@@ -5,11 +5,13 @@ VisualStudioVersion = 16.0.29613.14
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionItems", "{1D7A00BE-B0BC-474F-AF6A-C0A720CA274B}"
 	ProjectSection(SolutionItems) = preProject
+		azure-pipelines.yml = azure-pipelines.yml
 		HtmlHelpOverview.html = HtmlHelpOverview.html
 		LICENSE.txt = LICENSE.txt
 		NOTICE.txt = NOTICE.txt
 		README.md = README.md
 		RELEASE.md = RELEASE.md
+		setupdb.cmd = setupdb.cmd
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{892E3ACE-AA44-42CE-9BF3-D778BCD81677}"

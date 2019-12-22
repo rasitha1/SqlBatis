@@ -27,10 +27,9 @@ using System;
 using System.Collections;
 using System.Collections.Specialized;
 using System.Data;
-using IBatisNet.Common;
-using IBatisNet.DataMapper.Exceptions;
+using SqlBatis.DataMapper.Exceptions;
 
-namespace IBatisNet.DataMapper.Commands
+namespace SqlBatis.DataMapper.Commands
 {
 	/// <summary>
 	/// An implementation of <see cref="IDataReader"/> that will copy the contents
@@ -40,12 +39,12 @@ namespace IBatisNet.DataMapper.Commands
 	/// </summary>
 	public class InMemoryDataReader : IDataReader
 	{
-		private int _currentRowIndex = 0;
-		private int _currentResultIndex = 0;
+		private int _currentRowIndex;
+		private int _currentResultIndex;
 
-		private bool _isClosed = false;
+		private bool _isClosed;
 
-		private InMemoryResultSet[ ] _results = null;
+		private InMemoryResultSet[ ] _results;
 
 	
 		/// <summary>
@@ -205,7 +204,7 @@ namespace IBatisNet.DataMapper.Commands
 		/// <returns>The object which will contain the field value upon return.</returns>
 		public object GetValue(int fieldIndex)
 		{
-			return this.CurrentResultSet.GetValue( _currentRowIndex, fieldIndex );
+			return CurrentResultSet.GetValue( _currentRowIndex, fieldIndex );
 		}
 
 		/// <summary>
@@ -233,7 +232,7 @@ namespace IBatisNet.DataMapper.Commands
 			object value = GetValue(fieldIndex);
 			if (!(value is byte []))
 			{
-				throw new InvalidCastException ("Type is " + value.GetType ().ToString ());
+				throw new InvalidCastException ("Type is " + value.GetType ());
 			}
                                                                                                    
 			if ( buffer == null ) 
@@ -273,7 +272,7 @@ namespace IBatisNet.DataMapper.Commands
 		/// <returns>The value of the column.</returns>
 		public Type GetFieldType(int fieldIndex)
 		{
-			return this.CurrentResultSet.GetFieldType(fieldIndex);
+			return CurrentResultSet.GetFieldType(fieldIndex);
 		}
 
 		/// <summary>
@@ -293,7 +292,7 @@ namespace IBatisNet.DataMapper.Commands
 		/// <returns></returns>
 		public int GetValues(object[] values)
 		{
-			return this.CurrentResultSet.GetValues( _currentRowIndex, values );
+			return CurrentResultSet.GetValues( _currentRowIndex, values );
 		}
 
 		/// <summary>
@@ -303,18 +302,15 @@ namespace IBatisNet.DataMapper.Commands
 		/// <returns>The value of the column.</returns>
 		public string GetName(int fieldIndex)
 		{
-			return this.CurrentResultSet.GetName( fieldIndex );
+			return CurrentResultSet.GetName( fieldIndex );
 		}
 
 		/// <summary>
 		/// Indicates the number of fields within the current record. This property is read-only.
 		/// </summary>
-		public int FieldCount
-		{
-			get { return this.CurrentResultSet.FieldCount; }
-		}
+		public int FieldCount => CurrentResultSet.FieldCount;
 
-		/// <summary>
+        /// <summary>
 		/// 
 		/// </summary>
 		/// <param name="fieldIndex">The zero-based column ordinal. </param>
@@ -371,7 +367,7 @@ namespace IBatisNet.DataMapper.Commands
 		/// <returns>The value of the column.</returns>
 		public int GetOrdinal(string colName)
 		{
-			return this.CurrentResultSet.GetOrdinal(colName);
+			return CurrentResultSet.GetOrdinal(colName);
 		}
 
 		/// <summary>
@@ -381,7 +377,7 @@ namespace IBatisNet.DataMapper.Commands
 		/// <returns>The database type information for the specified field.</returns>
 		public string GetDataTypeName(int fieldIndex)
 		{
-			return this.CurrentResultSet.GetDataTypeName(fieldIndex);
+			return CurrentResultSet.GetDataTypeName(fieldIndex);
 		}
 
 		/// <summary>
@@ -417,7 +413,7 @@ namespace IBatisNet.DataMapper.Commands
 		public long GetChars(int fieldIndex, long dataIndex, char[] buffer, int bufferIndex, int length)
 		{
 			object value = GetValue(fieldIndex);
-			char [] valueBuffer = null;
+			char [] valueBuffer;
                                                                                                     
 			if (value is char[])
 			{
@@ -429,7 +425,7 @@ namespace IBatisNet.DataMapper.Commands
 			}
 			else
 			{
-				throw new InvalidCastException ("Type is " + value.GetType ().ToString ());
+				throw new InvalidCastException ("Type is " + value.GetType ());
 			}
 
 			if ( buffer == null ) 
@@ -494,13 +490,13 @@ namespace IBatisNet.DataMapper.Commands
 		private class InMemoryResultSet
 		{
 			// [row][column]
-			private readonly object[ ][ ] _records = null;
-			private int _fieldCount = 0;
+			private readonly object[ ][ ] _records;
+			private readonly int _fieldCount;
 
-			private string[] _fieldsName = null;
-			private Type[] _fieldsType = null;
-			StringDictionary _fieldsNameLookup = new StringDictionary();
-			private string[] _dataTypeName = null;
+			private readonly string[] _fieldsName;
+			private readonly Type[] _fieldsType;
+            readonly StringDictionary _fieldsNameLookup = new StringDictionary();
+			private readonly string[] _dataTypeName;
 
 			/// <summary>
 			///  Creates an in-memory ResultSet from a <see cref="IDataReader" />

@@ -30,11 +30,11 @@ using System;
 using System.Data;
 using System.Globalization;
 
-using IBatisNet.DataMapper.Configuration.ResultMapping;
+using SqlBatis.DataMapper.Configuration.ResultMapping;
 #endregion
 
 
-namespace IBatisNet.DataMapper.TypeHandlers
+namespace SqlBatis.DataMapper.TypeHandlers
 {
     /// <summary>
     /// SByteTypeHandler.

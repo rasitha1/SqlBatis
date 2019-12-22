@@ -1,8 +1,8 @@
 ﻿using System;
-using IBatisNet.DataMapper.Configuration;
+using SqlBatis.DataMapper.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace IBatisNet.DataMapper.DependencyInjection
+namespace SqlBatis.DataMapper.DependencyInjection
 {
     /// <summary>
     /// Extension methods for setting up an <see cref="ISqlMapper"/> in the DI pipeline

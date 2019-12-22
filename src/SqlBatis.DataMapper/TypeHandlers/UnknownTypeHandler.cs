@@ -27,12 +27,12 @@
 
 using System;
 using System.Data;
-using IBatisNet.DataMapper.Configuration.ParameterMapping;
-using IBatisNet.DataMapper.Configuration.ResultMapping;
+using SqlBatis.DataMapper.Configuration.ParameterMapping;
+using SqlBatis.DataMapper.Configuration.ResultMapping;
 
 #endregion 
 
-namespace IBatisNet.DataMapper.TypeHandlers
+namespace SqlBatis.DataMapper.TypeHandlers
 {
 	/// <summary>
 	///  Implementation of TypeHandler for dealing with unknown types

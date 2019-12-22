@@ -4,7 +4,7 @@ using System.Collections.ObjectModel;
 
 using System.Text;
 
-namespace IBatisNet.DataMapper.Test.Domain
+namespace SqlBatis.DataMapper.Test.Domain
 {
     [Serializable]
     public class LineItemCollection2 : Collection<LineItem>

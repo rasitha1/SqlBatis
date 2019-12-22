@@ -30,13 +30,13 @@ using System;
 using System.Collections.Specialized;
 using System.Data;
 using System.Xml.Serialization;
-using IBatisNet.Common.Utilities.Objects;
-using IBatisNet.DataMapper.DataExchange;
-using IBatisNet.Common.Utilities;
+using SqlBatis.DataMapper.Utilities.Objects;
+using SqlBatis.DataMapper.DataExchange;
+using SqlBatis.DataMapper.Utilities;
 
 #endregion
 
-namespace IBatisNet.DataMapper.Configuration.ResultMapping
+namespace SqlBatis.DataMapper.Configuration.ResultMapping
 {
     /// <summary>
     /// Implementation of <see cref="IResultMap"/> interface for auto mapping
@@ -44,16 +44,16 @@ namespace IBatisNet.DataMapper.Configuration.ResultMapping
     public class AutoResultMap : IResultMap 
     {
         [NonSerialized]
-        private bool _isInitalized = false;
+        private bool _isInitialized;
         [NonSerialized]
-        private Type _resultClass = null;
+        private readonly Type _resultClass;
         [NonSerialized]
-        private IFactory _resultClassFactory = null;
+        private readonly IFactory _resultClassFactory;
         [NonSerialized]
-        private ResultPropertyCollection _properties = new ResultPropertyCollection();
+        private readonly ResultPropertyCollection _properties = new ResultPropertyCollection();
 
         [NonSerialized]
-        private IDataExchange _dataExchange = null;
+        private IDataExchange _dataExchange;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AutoResultMap"/> class.
@@ -114,8 +114,8 @@ namespace IBatisNet.DataMapper.Configuration.ResultMapping
         /// </value>
         public bool IsInitalized
         {
-            get { return _isInitalized; }
-            set { _isInitalized = value; }
+            get { return _isInitialized; }
+            set { _isInitialized = value; }
         }
 
         /// <summary>

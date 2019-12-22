@@ -32,17 +32,16 @@ using System.Data;
 using System.Reflection;
 using System.Xml;
 using System.Xml.Serialization;
-using IBatisNet.Common.Exceptions;
-using IBatisNet.Common.Utilities.Objects;
-using IBatisNet.DataMapper.Configuration.Serializers;
-using IBatisNet.DataMapper.DataExchange;
-using IBatisNet.DataMapper.Exceptions;
-using IBatisNet.DataMapper.Scope;
-using IBatisNet.Common.Utilities;
+using SqlBatis.DataMapper.Exceptions;
+using SqlBatis.DataMapper.Utilities.Objects;
+using SqlBatis.DataMapper.Configuration.Serializers;
+using SqlBatis.DataMapper.DataExchange;
+using SqlBatis.DataMapper.Scope;
+using SqlBatis.DataMapper.Utilities;
 
 #endregion
 
-namespace IBatisNet.DataMapper.Configuration.ResultMapping
+namespace SqlBatis.DataMapper.Configuration.ResultMapping
 {
 	/// <summary>
     /// Main implementation of ResultMap interface
@@ -299,8 +298,8 @@ namespace IBatisNet.DataMapper.Configuration.ResultMapping
         {
             for (int i = 0; i < GroupByPropertyNames.Count; i++)
             {
-                ResultProperty resultProperty = Properties.FindByPropertyName(this.GroupByPropertyNames[i]);
-                this.GroupByProperties.Add(resultProperty);
+                ResultProperty resultProperty = Properties.FindByPropertyName(GroupByPropertyNames[i]);
+                GroupByProperties.Add(resultProperty);
             }
         }
 
@@ -326,7 +325,7 @@ namespace IBatisNet.DataMapper.Configuration.ResultMapping
 					_parameters.Add( argumentMapping  );
 					parametersName[i] = argumentMapping.ArgumentName;
 				}
-				ConstructorInfo constructorInfo = this.GetConstructor( _class, parametersName );
+				ConstructorInfo constructorInfo = GetConstructor( _class, parametersName );
 				for(int i=0;i<_parameters.Count;i++)
 				{
 					ArgumentProperty argumentMapping = (ArgumentProperty)_parameters[i];
@@ -369,14 +368,14 @@ namespace IBatisNet.DataMapper.Configuration.ResultMapping
 			{
 				configScope.ErrorContext.MoreInfo = "initialize discriminator";
 
-				this.Discriminator = DiscriminatorDeSerializer.Deserialize(discriminatorNode, configScope); 
-				this.Discriminator.SetMapping( configScope, _class );
+				Discriminator = DiscriminatorDeSerializer.Deserialize(discriminatorNode, configScope); 
+				Discriminator.SetMapping( configScope, _class );
 			}
 			#endregion 
 
 			#region Load the SubMap Properties
 
-			if (configScope.NodeContext.SelectNodes(DomSqlMapBuilder.ApplyMappingNamespacePrefix(XML_SUBMAP), configScope.XmlNamespaceManager).Count>0 && this.Discriminator==null)
+			if (configScope.NodeContext.SelectNodes(DomSqlMapBuilder.ApplyMappingNamespacePrefix(XML_SUBMAP), configScope.XmlNamespaceManager).Count>0 && Discriminator==null)
 			{
 				throw new ConfigurationException("The discriminator is null, but somehow a subMap was reached.  This is a bug.");
 			}
@@ -385,7 +384,7 @@ namespace IBatisNet.DataMapper.Configuration.ResultMapping
 				configScope.ErrorContext.MoreInfo = "initialize subMap";
 				subMap = SubMapDeSerializer.Deserialize(resultNode, configScope);
 
-				this.Discriminator.Add( subMap );
+				Discriminator.Add( subMap );
 			}
 			#endregion 
 		}

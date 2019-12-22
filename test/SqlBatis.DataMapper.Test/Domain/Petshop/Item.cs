@@ -1,6 +1,6 @@
 
 
-namespace IBatisNet.DataMapper.Test.Domain.Petshop
+namespace SqlBatis.DataMapper.Test.Domain.Petshop
 {
     /// <summary>
     /// Summary description for Item.

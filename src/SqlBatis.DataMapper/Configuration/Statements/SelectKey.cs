@@ -28,13 +28,13 @@
 
 using System;
 using System.Xml.Serialization;
-using IBatisNet.Common.Utilities.Objects;
-using IBatisNet.DataMapper.MappedStatements;
-using IBatisNet.DataMapper.Scope;
+using SqlBatis.DataMapper.Utilities.Objects;
+using SqlBatis.DataMapper.MappedStatements;
+using SqlBatis.DataMapper.Scope;
 
 #endregion
 
-namespace IBatisNet.DataMapper.Configuration.Statements
+namespace SqlBatis.DataMapper.Configuration.Statements
 {
 	/// <summary>
 	/// Represent a SelectKey tag element.

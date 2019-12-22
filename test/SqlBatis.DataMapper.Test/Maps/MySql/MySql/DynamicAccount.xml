@@ -3,7 +3,7 @@
 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
 		
 	<alias>
-		<typeAlias alias="Search" type="IBatisNet.DataMapper.Test.Domain.Search, IBatisNet.DataMapper.Test"/>
+		<typeAlias alias="Search" type="SqlBatis.DataMapper.Test.Domain.Search, SqlBatis.DataMapper.Test"/>
 	</alias>
 			
 	<statements>

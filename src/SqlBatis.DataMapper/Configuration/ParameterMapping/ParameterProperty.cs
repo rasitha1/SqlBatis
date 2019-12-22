@@ -31,16 +31,16 @@ using System.Collections;
 using System.Data;
 using System.Reflection;
 using System.Xml.Serialization;
-using IBatisNet.Common.Exceptions;
-using IBatisNet.Common.Utilities;
-using IBatisNet.Common.Utilities.Objects;
-using IBatisNet.Common.Utilities.Objects.Members;
-using IBatisNet.DataMapper.Scope;
-using IBatisNet.DataMapper.TypeHandlers;
+using SqlBatis.DataMapper.Exceptions;
+using SqlBatis.DataMapper.Utilities;
+using SqlBatis.DataMapper.Utilities.Objects;
+using SqlBatis.DataMapper.Utilities.Objects.Members;
+using SqlBatis.DataMapper.Scope;
+using SqlBatis.DataMapper.TypeHandlers;
 
 #endregion
 
-namespace IBatisNet.DataMapper.Configuration.ParameterMapping
+namespace SqlBatis.DataMapper.Configuration.ParameterMapping
 {
 	/// <summary>
 	/// Summary description for ParameterProperty.
@@ -300,12 +300,12 @@ namespace IBatisNet.DataMapper.Configuration.ParameterMapping
 				}
 			}
 
-			scope.ErrorContext.MoreInfo = "Check the parameter mapping typeHandler attribute '" + this.CallBackName + "' (must be a ITypeHandlerCallback implementation).";
-			if (this.CallBackName.Length >0)
+			scope.ErrorContext.MoreInfo = "Check the parameter mapping typeHandler attribute '" + CallBackName + "' (must be a ITypeHandlerCallback implementation).";
+			if (CallBackName.Length >0)
 			{
 				try 
 				{
-                    Type type = scope.DataExchangeFactory.TypeHandlerFactory.GetType(this.CallBackName);
+                    Type type = scope.DataExchangeFactory.TypeHandlerFactory.GetType(CallBackName);
 					ITypeHandlerCallback typeHandlerCallback = (ITypeHandlerCallback) Activator.CreateInstance( type );
 					_typeHandler = new CustomTypeHandler(typeHandlerCallback);
 				}
@@ -316,7 +316,7 @@ namespace IBatisNet.DataMapper.Configuration.ParameterMapping
 			}
 			else
 			{
-				if (this.CLRType.Length == 0 )  // Unknown
+				if (CLRType.Length == 0 )  // Unknown
 				{
                     if (_getAccessor!= null &&
                         scope.DataExchangeFactory.TypeHandlerFactory.IsSimpleType(_getAccessor.MemberType)) 
@@ -331,7 +331,7 @@ namespace IBatisNet.DataMapper.Configuration.ParameterMapping
 				}
 				else // If we specify a CLR type, use it
 				{
-                    Type type = TypeUtils.ResolveType(this.CLRType);
+                    Type type = TypeUtils.ResolveType(CLRType);
 
                     if (scope.DataExchangeFactory.TypeHandlerFactory.IsSimpleType(type)) 
 					{
@@ -341,7 +341,7 @@ namespace IBatisNet.DataMapper.Configuration.ParameterMapping
 					else
 					{
 						// .NET object
-						type = ObjectProbe.GetMemberTypeForGetter(type, this.PropertyName);
+						type = ObjectProbe.GetMemberTypeForGetter(type, PropertyName);
 						_typeHandler = scope.DataExchangeFactory.TypeHandlerFactory.GetTypeHandler(type, _dbType);
 					}
 				}
@@ -363,7 +363,7 @@ namespace IBatisNet.DataMapper.Configuration.ParameterMapping
 			//Check for null and compare run-time types.
 			if (obj == null || GetType() != obj.GetType()) return false;
 			ParameterProperty p = (ParameterProperty)obj;
-			return (this.PropertyName == p.PropertyName);
+			return (PropertyName == p.PropertyName);
 		}
 
 
@@ -389,16 +389,16 @@ namespace IBatisNet.DataMapper.Configuration.ParameterMapping
         {
             ParameterProperty property = new ParameterProperty();
 
-            property.CallBackName = this.CallBackName;
-            property.CLRType = this.CLRType;
-            property.ColumnName = this.ColumnName;
-            property.DbType = this.DbType;
-            property.DirectionAttribute = this.DirectionAttribute;
-            property.NullValue = this.NullValue;
-            property.PropertyName = this.PropertyName;
-            property.Precision = this.Precision;
-            property.Scale = this.Scale;
-            property.Size = this.Size;
+            property.CallBackName = CallBackName;
+            property.CLRType = CLRType;
+            property.ColumnName = ColumnName;
+            property.DbType = DbType;
+            property.DirectionAttribute = DirectionAttribute;
+            property.NullValue = NullValue;
+            property.PropertyName = PropertyName;
+            property.Precision = Precision;
+            property.Scale = Scale;
+            property.Size = Size;
 
             return property;
         }

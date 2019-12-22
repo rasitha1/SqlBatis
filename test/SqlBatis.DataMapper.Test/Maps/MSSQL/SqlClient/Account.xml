@@ -47,9 +47,9 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
        ============================================= -->
        
 	<alias>
-		<typeAlias alias="HundredsBool" type="IBatisNet.DataMapper.Test.Domain.HundredsTypeHandlerCallback, IBatisNet.DataMapper.Test"/>
-    <typeAlias alias="Category2" type="IBatisNet.DataMapper.Test.Domain.Category, IBatisNet.DataMapper.Test"/>
-    <typeAlias alias="IAccount" type="IBatisNet.DataMapper.Test.Domain.IAccount, IBatisNet.DataMapper.Test"/>
+		<typeAlias alias="HundredsBool" type="SqlBatis.DataMapper.Test.Domain.HundredsTypeHandlerCallback, SqlBatis.DataMapper.Test"/>
+    <typeAlias alias="Category2" type="SqlBatis.DataMapper.Test.Domain.Category, SqlBatis.DataMapper.Test"/>
+    <typeAlias alias="IAccount" type="SqlBatis.DataMapper.Test.Domain.IAccount, SqlBatis.DataMapper.Test"/>
 
   </alias>       
   

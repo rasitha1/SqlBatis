@@ -4,24 +4,24 @@ using System.Data;
 using System.IO;
 using System.Reflection;
 using System.Configuration;
-using IBatisNet.DataMapper.Configuration;
+using SqlBatis.DataMapper.Configuration;
 //using log4net;
 
 using NUnit.Framework;
 
-using IBatisNet.Common; // DataSource definition
-using IBatisNet.Common.Utilities; // ScriptRunner definition
-using IBatisNet.DataMapper; // SqlMap API
+using SqlBatis.DataMapper; // DataSource definition
+using SqlBatis.DataMapper.Utilities; // ScriptRunner definition
+using SqlBatis.DataMapper; // SqlMap API
 
-using IBatisNet.Common.Test.Domain;
+using SqlBatis.DataMapper.Test.Domain;
 using Microsoft.Extensions.Configuration;
 using System.Collections.Generic;
 using System.Collections.Specialized;
-using IBatisNet.DataMapper.Test.Domain;
+using SqlBatis.DataMapper.Test.Domain;
 
 //[assembly:log4net.Config.XmlConfigurator(Watch=true)]
 
-namespace IBatisNet.Common.Test.NUnit.CommonTests.Transaction
+namespace SqlBatis.DataMapper.Test.NUnit.CommonTests.Transaction
 {
 	/// <summary>
 	/// Summary description for BaseTest.

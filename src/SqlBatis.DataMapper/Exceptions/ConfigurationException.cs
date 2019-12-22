@@ -32,7 +32,7 @@ using System.Runtime.Serialization;
 
 
 
-namespace IBatisNet.Common.Exceptions
+namespace SqlBatis.DataMapper.Exceptions
 {
 
 	/// <summary>
@@ -46,7 +46,7 @@ namespace IBatisNet.Common.Exceptions
 	{
 
 		/// <summary>
-		/// Initializes a new instance of the <see cref="IBatisNet.Common.Exceptions.ConfigurationException"/> class.
+		/// Initializes a new instance of the <see cref="SqlBatis.DataMapper.Exceptions.ConfigurationException"/> class.
 		/// </summary>
 		/// <remarks>
 		/// This constructor initializes the Message property of the new instance to a system-supplied message 
@@ -55,7 +55,7 @@ namespace IBatisNet.Common.Exceptions
 		public ConfigurationException() :base ("Could not configure the iBatis.NET framework."){ }
 
 		/// <summary>
-		/// Initializes a new instance of the <see cref="IBatisNet.Common.Exceptions.ConfigurationException"/> 
+		/// Initializes a new instance of the <see cref="SqlBatis.DataMapper.Exceptions.ConfigurationException"/> 
 		/// class with a reference to the inner exception that is the cause of this exception.
 		/// </summary>
 		/// <remarks>
@@ -70,7 +70,7 @@ namespace IBatisNet.Common.Exceptions
 		public ConfigurationException(Exception ex) : base (ex.Message,ex) {}
 
 		/// <summary>
-		/// Initializes a new instance of the <see cref="IBatisNet.Common.Exceptions.ConfigurationException"/> 
+		/// Initializes a new instance of the <see cref="SqlBatis.DataMapper.Exceptions.ConfigurationException"/> 
 		/// class with a specified error message.
 		/// </summary>
 		/// <remarks>
@@ -81,7 +81,7 @@ namespace IBatisNet.Common.Exceptions
 		public ConfigurationException( string message ) : base ( message ) { }
 
 		/// <summary>
-		/// Initializes a new instance of the <see cref="IBatisNet.Common.Exceptions.ConfigurationException"/> 
+		/// Initializes a new instance of the <see cref="SqlBatis.DataMapper.Exceptions.ConfigurationException"/> 
 		/// class with a specified error message and a reference to the inner exception that is the cause of this exception.
 		/// </summary>
 		/// <remarks>

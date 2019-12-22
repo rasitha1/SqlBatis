@@ -3,13 +3,13 @@
 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
 	
 	<alias>
-		<typeAlias alias="Other" type="IBatisNet.DataMapper.Test.Domain.Other, IBatisNet.DataMapper.Test"/>
-		<typeAlias alias="A" type="IBatisNet.DataMapper.Test.Domain.A, IBatisNet.DataMapper.Test"/>
-		<typeAlias alias="B" type="IBatisNet.DataMapper.Test.Domain.B, IBatisNet.DataMapper.Test"/>
-		<typeAlias alias="C" type="IBatisNet.DataMapper.Test.Domain.C, IBatisNet.DataMapper.Test"/>
-		<typeAlias alias="D" type="IBatisNet.DataMapper.Test.Domain.D, IBatisNet.DataMapper.Test"/>
-		<typeAlias alias="E" type="IBatisNet.DataMapper.Test.Domain.E, IBatisNet.DataMapper.Test"/>
-		<typeAlias alias="F" type="IBatisNet.DataMapper.Test.Domain.F, IBatisNet.DataMapper.Test"/>
+		<typeAlias alias="Other" type="SqlBatis.DataMapper.Test.Domain.Other, SqlBatis.DataMapper.Test"/>
+		<typeAlias alias="A" type="SqlBatis.DataMapper.Test.Domain.A, SqlBatis.DataMapper.Test"/>
+		<typeAlias alias="B" type="SqlBatis.DataMapper.Test.Domain.B, SqlBatis.DataMapper.Test"/>
+		<typeAlias alias="C" type="SqlBatis.DataMapper.Test.Domain.C, SqlBatis.DataMapper.Test"/>
+		<typeAlias alias="D" type="SqlBatis.DataMapper.Test.Domain.D, SqlBatis.DataMapper.Test"/>
+		<typeAlias alias="E" type="SqlBatis.DataMapper.Test.Domain.E, SqlBatis.DataMapper.Test"/>
+		<typeAlias alias="F" type="SqlBatis.DataMapper.Test.Domain.F, SqlBatis.DataMapper.Test"/>
 	</alias>	
 	
 	<resultMaps>                                    

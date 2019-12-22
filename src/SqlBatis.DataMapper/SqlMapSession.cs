@@ -28,14 +28,14 @@
 using System;
 using System.Data;
 
-using IBatisNet.Common;
-using IBatisNet.Common.Logging;
-using IBatisNet.DataMapper.Exceptions;
+using SqlBatis.DataMapper;
+using SqlBatis.DataMapper.Logging;
+using SqlBatis.DataMapper.Exceptions;
 
 #endregion
 
 
-namespace IBatisNet.DataMapper
+namespace SqlBatis.DataMapper
 {
 	/// <summary>
 	/// Summary description for SqlMapSession.

@@ -31,7 +31,7 @@ using System.Collections;
 
 #endregion
 
-namespace IBatisNet.DataMapper.Configuration.Cache.Lru
+namespace SqlBatis.DataMapper.Configuration.Cache.Lru
 {
 	/// <summary>
 	/// Summary description for LruCacheController.
@@ -39,9 +39,9 @@ namespace IBatisNet.DataMapper.Configuration.Cache.Lru
 	public class LruCacheController : ICacheController	
 	{
 		#region Fields 
-		private int _cacheSize = 0;
-		private Hashtable _cache = null;
-		private IList _keyList = null;
+		private int _cacheSize;
+		private readonly Hashtable _cache;
+		private readonly IList _keyList;
 		#endregion
 
 		#region Constructor (s) / Destructor
@@ -114,7 +114,7 @@ namespace IBatisNet.DataMapper.Configuration.Cache.Lru
 		/// </summary>
 		public void Configure(IDictionary properties)
 		{
-			string size = (string)properties["CacheSize"];;
+			string size = (string)properties["CacheSize"];
 			if (size != null) 
 			{
 				_cacheSize = Convert.ToInt32(size);		

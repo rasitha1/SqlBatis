@@ -4,8 +4,8 @@
 http://ibatis.apache.org/xsd/SqlMap.xsd">
 
 	<alias>
-		<typeAlias alias="LineItem" type="IBatisNet.DataMapper.Test.Domain.LineItem, IBatisNet.DataMapper.Test" />
-		<typeAlias alias="LineItemCollection" type="IBatisNet.DataMapper.Test.Domain.LineItemCollection, IBatisNet.DataMapper.Test" />
+		<typeAlias alias="LineItem" type="SqlBatis.DataMapper.Test.Domain.LineItem, SqlBatis.DataMapper.Test" />
+		<typeAlias alias="LineItemCollection" type="SqlBatis.DataMapper.Test.Domain.LineItemCollection, SqlBatis.DataMapper.Test" />
 	</alias>
 	
 	<resultMaps>  	

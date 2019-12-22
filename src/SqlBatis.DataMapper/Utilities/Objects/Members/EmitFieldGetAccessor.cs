@@ -27,7 +27,7 @@ using System;
 using System.Reflection;
 using System.Reflection.Emit;
 
-namespace IBatisNet.Common.Utilities.Objects.Members
+namespace SqlBatis.DataMapper.Utilities.Objects.Members
 {
     /// <summary>
     /// The <see cref="EmitFieldGetAccessor"/> class provides an IL-based get access   

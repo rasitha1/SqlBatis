@@ -28,10 +28,10 @@
 using System;
 using System.Xml.Serialization;
 
-using IBatisNet.DataMapper.Exceptions;
+using SqlBatis.DataMapper.Exceptions;
 #endregion
 
-namespace IBatisNet.DataMapper.Configuration.Statements
+namespace SqlBatis.DataMapper.Configuration.Statements
 {
 	/// <summary>
 	/// Represent an insert statement.

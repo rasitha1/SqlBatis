@@ -25,7 +25,7 @@
 
 using System;
 
-namespace IBatisNet.Common.Utilities.Objects.Members
+namespace SqlBatis.DataMapper.Utilities.Objects.Members
 {
     /// <summary>
     /// Factory contact to build <see cref="IGetAccessor"/> for a type.

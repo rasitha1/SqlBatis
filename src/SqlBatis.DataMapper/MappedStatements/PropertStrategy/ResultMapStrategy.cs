@@ -24,10 +24,10 @@
 #endregion
 
 using System.Data;
-using IBatisNet.DataMapper.Configuration.ResultMapping;
-using IBatisNet.DataMapper.Scope;
+using SqlBatis.DataMapper.Configuration.ResultMapping;
+using SqlBatis.DataMapper.Scope;
 
-namespace IBatisNet.DataMapper.MappedStatements.PropertyStrategy
+namespace SqlBatis.DataMapper.MappedStatements.PropertyStrategy
 {
 	/// <summary>
 	/// <see cref="IPropertyStrategy"/> implementation when a 'resultMapping' attribute exists
@@ -95,7 +95,7 @@ namespace IBatisNet.DataMapper.MappedStatements.PropertyStrategy
                 obj = resultMapping.CreateInstanceOfResult(parameters);
 
                 // Fills properties on the new object
-                if (this.FillObjectWithReaderAndResultMap(request, reader, resultMapping, ref obj) == false)
+                if (FillObjectWithReaderAndResultMap(request, reader, resultMapping, ref obj) == false)
                 {
                     obj = null;
                 }

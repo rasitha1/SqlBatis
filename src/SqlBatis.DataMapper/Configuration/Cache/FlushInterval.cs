@@ -29,7 +29,7 @@ using System;
 using System.Xml.Serialization;
 #endregion
 
-namespace IBatisNet.DataMapper.Configuration.Cache
+namespace SqlBatis.DataMapper.Configuration.Cache
 {
 	/// <summary>
 	/// Summary description for FlushInterval.
@@ -41,10 +41,10 @@ namespace IBatisNet.DataMapper.Configuration.Cache
 		
 		#region Fields 
 
-		private int _hours = 0;
-		private int _minutes= 0;
-		private int _seconds = 0;
-		private int _milliseconds = 0;
+		private int _hours;
+		private int _minutes;
+		private int _seconds;
+		private int _milliseconds;
 		private long _interval = CacheModel.NO_FLUSH_INTERVAL;
 
 		#endregion

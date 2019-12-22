@@ -3,7 +3,7 @@ using System.ComponentModel;
 using System.Runtime.InteropServices;
 using System.Threading;
 
-namespace IBatisNet.Common.Test.NUnit.CommonTests.Utilities
+namespace SqlBatis.DataMapper.Test.NUnit.CommonTests.Utilities
 {
     public class Timer
     {

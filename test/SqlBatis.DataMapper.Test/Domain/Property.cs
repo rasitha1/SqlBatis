@@ -1,7 +1,7 @@
 using System;
-using IBatisNet.DataMapper.Test.Domain;
+using SqlBatis.DataMapper.Test.Domain;
 
-namespace IBatisNet.Common.Test.Domain
+namespace SqlBatis.DataMapper.Test.Domain
 {
 
     /// <summary>

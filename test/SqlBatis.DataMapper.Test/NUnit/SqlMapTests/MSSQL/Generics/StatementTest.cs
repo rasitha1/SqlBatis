@@ -4,10 +4,10 @@ using System.Collections.Generic;
 
 using NUnit.Framework;
 
-using IBatisNet.DataMapper.Test.NUnit;
-using IBatisNet.DataMapper.Test.Domain;
+using SqlBatis.DataMapper.Test.NUnit;
+using SqlBatis.DataMapper.Test.Domain;
 
-namespace IBatisNet.DataMapper.Test.NUnit.SqlMapTests.MSSQL.Generics
+namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests.MSSQL.Generics
 {
 	/// <summary>
 	/// Summary description for StatementTest.

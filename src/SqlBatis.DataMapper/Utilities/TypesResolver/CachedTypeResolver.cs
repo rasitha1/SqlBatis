@@ -35,7 +35,7 @@ using System.Collections.Specialized;
 
 #endregion
 
-namespace IBatisNet.Common.Utilities.TypesResolver
+namespace SqlBatis.DataMapper.Utilities.TypesResolver
 {
     /// <summary>
     /// Resolves (instantiates) a <see cref="System.Type"/> by it's (possibly
@@ -56,10 +56,10 @@ namespace IBatisNet.Common.Utilities.TypesResolver
 
         #region Constructor (s) / Destructor
         /// <summary>
-        /// Creates a new instance of the <see cref="IBatisNet.Common.Utilities.TypesResolver.CachedTypeResolver"/> class.
+        /// Creates a new instance of the <see cref="SqlBatis.DataMapper.Utilities.TypesResolver.CachedTypeResolver"/> class.
         /// </summary>
         /// <param name="typeResolver">
-        /// The <see cref="IBatisNet.Common.Utilities.TypesResolver.ITypeResolver"/> that this instance will delegate
+        /// The <see cref="SqlBatis.DataMapper.Utilities.TypesResolver.ITypeResolver"/> that this instance will delegate
         /// actual <see cref="System.Type"/> resolution to if a <see cref="System.Type"/>
         /// cannot be found in this instance's <see cref="System.Type"/> cache.
         /// </param>

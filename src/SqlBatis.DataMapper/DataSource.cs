@@ -32,7 +32,7 @@ using System.Xml.Serialization;
 
 #endregion
 
-namespace IBatisNet.Common
+namespace SqlBatis.DataMapper
 {
     /// <summary>
     ///     Information about a data source.

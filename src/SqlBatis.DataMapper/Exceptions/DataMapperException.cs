@@ -27,9 +27,9 @@
 using System;
 using System.Runtime.Serialization;
 
-using IBatisNet.Common.Exceptions;
+using SqlBatis.DataMapper.Exceptions;
 
-namespace IBatisNet.DataMapper.Exceptions
+namespace SqlBatis.DataMapper.Exceptions
 {
 	/// <summary>
 	/// The DataMapperException is thrown when an error in the SqlMapper component occurs.
@@ -38,7 +38,7 @@ namespace IBatisNet.DataMapper.Exceptions
 	public class DataMapperException : IBatisNetException
 	{
 		/// <summary>
-		/// Initializes a new instance of the <see cref="IBatisNet.DataMapper.Exceptions.DataMapperException"/> class.
+		/// Initializes a new instance of the <see cref="SqlBatis.DataMapper.Exceptions.DataMapperException"/> class.
 		/// </summary>
 		/// <remarks>
 		/// This constructor initializes the <para>Message</para> property of the new instance 
@@ -47,7 +47,7 @@ namespace IBatisNet.DataMapper.Exceptions
 		public DataMapperException(): base("iBATIS.NET DataMapper component caused an exception.") { }
 		
 		/// <summary>
-		/// Initializes a new instance of the <see cref="IBatisNet.DataMapper.Exceptions.DataMapperException"/> 
+		/// Initializes a new instance of the <see cref="SqlBatis.DataMapper.Exceptions.DataMapperException"/> 
 		/// class with a reference to the inner exception that is the cause of this exception.
 		/// </summary>
 		/// <remarks>
@@ -63,7 +63,7 @@ namespace IBatisNet.DataMapper.Exceptions
 
 
 		/// <summary>
-		/// Initializes a new instance of the <see cref="IBatisNet.DataMapper.Exceptions.DataMapperException"/> 
+		/// Initializes a new instance of the <see cref="SqlBatis.DataMapper.Exceptions.DataMapperException"/> 
 		/// class with a specified error message.
 		/// </summary>
 		/// <remarks>
@@ -74,7 +74,7 @@ namespace IBatisNet.DataMapper.Exceptions
 		public DataMapperException( string message ) : base ( message ) { }
 
 		/// <summary>
-		/// Initializes a new instance of the <see cref="IBatisNet.DataMapper.Exceptions.DataMapperException"/> 
+		/// Initializes a new instance of the <see cref="SqlBatis.DataMapper.Exceptions.DataMapperException"/> 
 		/// class with a specified error message and a reference to the inner exception 
 		/// that is the cause of this exception.
 		/// </summary>
@@ -89,7 +89,7 @@ namespace IBatisNet.DataMapper.Exceptions
 		public DataMapperException( string message, Exception inner ) : base ( message, inner ) { }
 
 		/// <summary>
-		/// Initializes a new instance of the <see cref="IBatisNet.DataMapper.Exceptions.DataMapperException"/> 
+		/// Initializes a new instance of the <see cref="SqlBatis.DataMapper.Exceptions.DataMapperException"/> 
 		/// class with serialized data.
 		/// </summary>
 		/// <remarks>

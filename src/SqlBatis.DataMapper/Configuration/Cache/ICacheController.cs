@@ -25,12 +25,12 @@
 #endregion
 
 #region Imports
-using System;
+
 using System.Collections;
-using System.Collections.Specialized;
+
 #endregion
 
-namespace IBatisNet.DataMapper.Configuration.Cache
+namespace SqlBatis.DataMapper.Configuration.Cache
 {
 	/// <summary>
 	/// Summary description for ICacheController.

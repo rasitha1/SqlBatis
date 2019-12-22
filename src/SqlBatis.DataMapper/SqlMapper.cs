@@ -31,22 +31,22 @@ using System.Collections;
 using System.Collections.Specialized;
 using System.Data;
 using System.Text;
-using IBatisNet.Common;
-using IBatisNet.Common.Utilities;
-using IBatisNet.Common.Utilities.Objects;
-using IBatisNet.Common.Utilities.Objects.Members;
-using IBatisNet.DataMapper.Configuration.Cache;
-using IBatisNet.DataMapper.Configuration.ParameterMapping;
-using IBatisNet.DataMapper.Configuration.ResultMapping;
-using IBatisNet.DataMapper.DataExchange;
-using IBatisNet.DataMapper.Exceptions;
-using IBatisNet.DataMapper.MappedStatements;
-using IBatisNet.DataMapper.SessionStore;
-using IBatisNet.DataMapper.TypeHandlers;
+using SqlBatis.DataMapper;
+using SqlBatis.DataMapper.Utilities;
+using SqlBatis.DataMapper.Utilities.Objects;
+using SqlBatis.DataMapper.Utilities.Objects.Members;
+using SqlBatis.DataMapper.Configuration.Cache;
+using SqlBatis.DataMapper.Configuration.ParameterMapping;
+using SqlBatis.DataMapper.Configuration.ResultMapping;
+using SqlBatis.DataMapper.DataExchange;
+using SqlBatis.DataMapper.Exceptions;
+using SqlBatis.DataMapper.MappedStatements;
+using SqlBatis.DataMapper.SessionStore;
+using SqlBatis.DataMapper.TypeHandlers;
 
 #endregion
 
-namespace IBatisNet.DataMapper
+namespace SqlBatis.DataMapper
 {
 	/// <summary>
 	/// Summary description for SqlMap.

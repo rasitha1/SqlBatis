@@ -25,9 +25,9 @@
 
 using System;
 using System.Collections.Specialized;
-using IBatisNet.DataMapper.DataExchange;
+using SqlBatis.DataMapper.DataExchange;
 
-namespace IBatisNet.DataMapper.Configuration.ResultMapping
+namespace SqlBatis.DataMapper.Configuration.ResultMapping
 {
     /// <summary>
     /// 

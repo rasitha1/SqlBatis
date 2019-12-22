@@ -28,10 +28,10 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 
-using IBatisNet.DataMapper.Configuration.ResultMapping;
-using IBatisNet.DataMapper.Scope;
+using SqlBatis.DataMapper.Configuration.ResultMapping;
+using SqlBatis.DataMapper.Scope;
 
-namespace IBatisNet.DataMapper.MappedStatements.PropertyStrategy
+namespace SqlBatis.DataMapper.MappedStatements.PropertyStrategy
 {
     /// <summary>
     /// <see cref="IPropertyStrategy"/> implementation when a 'select' attribute exists

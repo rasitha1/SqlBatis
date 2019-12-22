@@ -25,9 +25,9 @@
 
 using System;
 using System.Reflection;
-using IBatisNet.Common.Logging;
+using SqlBatis.DataMapper.Logging;
 
-namespace IBatisNet.Common.Utilities.Objects
+namespace SqlBatis.DataMapper.Utilities.Objects
 {
 	/// <summary>
 	/// A factory to create objects 

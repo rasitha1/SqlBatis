@@ -25,7 +25,7 @@
 
 using System;
 
-namespace IBatisNet.Common.Utilities.Proxy
+namespace SqlBatis.DataMapper.Utilities.Proxy
 {
 	/// <summary>
 	/// Description résumée de IProxyGenerator.

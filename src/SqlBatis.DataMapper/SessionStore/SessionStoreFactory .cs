@@ -27,7 +27,7 @@
 
 using System.Web;
 
-namespace IBatisNet.DataMapper.SessionStore
+namespace SqlBatis.DataMapper.SessionStore
 {
     /// <summary>
     ///     Build a session container for a Windows or Web context.

@@ -62,7 +62,7 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
     </cacheModels>
        
 	<alias>
-		<typeAlias alias="HundredsBool" type="IBatisNet.DataMapper.Test.Domain.HundredsTypeHandlerCallback, IBatisNet.DataMapper.Test"/>
+		<typeAlias alias="HundredsBool" type="SqlBatis.DataMapper.Test.Domain.HundredsTypeHandlerCallback, SqlBatis.DataMapper.Test"/>
 	</alias>     
 	       
 	<resultMaps>                                    

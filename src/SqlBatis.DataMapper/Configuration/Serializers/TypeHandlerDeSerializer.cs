@@ -28,16 +28,16 @@
 using System;
 using System.Collections.Specialized;
 using System.Xml;
-using IBatisNet.Common.Exceptions;
-using IBatisNet.Common.Utilities;
-using IBatisNet.Common.Xml;
-using IBatisNet.DataMapper.Configuration.Alias;
-using IBatisNet.DataMapper.Scope;
-using IBatisNet.DataMapper.TypeHandlers;
+using SqlBatis.DataMapper.Exceptions;
+using SqlBatis.DataMapper.Utilities;
+using SqlBatis.DataMapper.Xml;
+using SqlBatis.DataMapper.Configuration.Alias;
+using SqlBatis.DataMapper.Scope;
+using SqlBatis.DataMapper.TypeHandlers;
 
 #endregion 
 
-namespace IBatisNet.DataMapper.Configuration.Serializers
+namespace SqlBatis.DataMapper.Configuration.Serializers
 {
 	/// <summary>
 	/// Summary description for TypeHandlerDeSerializer.

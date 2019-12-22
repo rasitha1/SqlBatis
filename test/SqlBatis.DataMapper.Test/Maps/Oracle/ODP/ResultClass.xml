@@ -59,15 +59,15 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
 		Using ODP.NET 10.1
 		Throws System.InvalidCastException
 		at Oracle.DataAccess.Client.OracleDataReader.GetDouble(Int32 i)
-		at IBatisNet.DataMapper.TypeHandlers.DoubleTypeHandler.GetValueByIndex(ResultProperty mapping, IDataReader dataReader) in C:\projects\ibatis\asf\trunk\cs\mapper\IBatisNet.DataMapper\TypeHandlers\DoubleTypeHandler.cs:line 69
-		at IBatisNet.DataMapper.TypeHandlers.BaseTypeHandler.GetDataBaseValue(ResultProperty mapping, IDataReader dataReader) in C:\projects\ibatis\asf\trunk\cs\mapper\IBatisNet.DataMapper\TypeHandlers\BaseTypeHandler.cs:line 58
-		at IBatisNet.DataMapper.MappedStatements.MappedStatement.SetObjectProperty(RequestScope request, ResultMap resultMap, ResultProperty mapping, Object& target, IDataReader reader) in C:\projects\ibatis\asf\trunk\cs\mapper\IBatisNet.DataMapper\MappedStatements\MappedStatement.cs:line 1059
-		at IBatisNet.DataMapper.MappedStatements.MappedStatement.ApplyResultMap(RequestScope request, IDataReader reader, Object resultObject) in C:\projects\ibatis\asf\trunk\cs\mapper\IBatisNet.DataMapper\MappedStatements\MappedStatement.cs:line 403
-		at IBatisNet.DataMapper.MappedStatements.MappedStatement.RunQueryForObject(RequestScope request, IDalSession session, Object parameterObject, Object resultObject) in C:\projects\ibatis\asf\trunk\cs\mapper\IBatisNet.DataMapper\MappedStatements\MappedStatement.cs:line 562
-		at IBatisNet.DataMapper.MappedStatements.MappedStatement.ExecuteQueryForObject(IDalSession session, Object parameterObject, Object resultObject) in C:\projects\ibatis\asf\trunk\cs\mapper\IBatisNet.DataMapper\MappedStatements\MappedStatement.cs:line 505
-		at IBatisNet.DataMapper.MappedStatements.MappedStatement.ExecuteQueryForObject(IDalSession session, Object parameterObject) in C:\projects\ibatis\asf\trunk\cs\mapper\IBatisNet.DataMapper\MappedStatements\MappedStatement.cs:line 486
-		at IBatisNet.DataMapper.SqlMapper.QueryForObject(String statementName, Object parameterObject) in C:\projects\ibatis\asf\trunk\cs\mapper\IBatisNet.DataMapper\SqlMapper.cs:line 489
-		at IBatisNet.DataMapper.Test.NUnit.SqlMapTests.ResultClassTest.TestDouble() in C:\projects\ibatis\asf\trunk\cs\mapper\IBatisNet.DataMapper.Test\NUnit\SqlMapTests\ResultClassTest.cs:line 103
+		at SqlBatis.DataMapper.TypeHandlers.DoubleTypeHandler.GetValueByIndex(ResultProperty mapping, IDataReader dataReader) in C:\projects\ibatis\asf\trunk\cs\mapper\SqlBatis.DataMapper\TypeHandlers\DoubleTypeHandler.cs:line 69
+		at SqlBatis.DataMapper.TypeHandlers.BaseTypeHandler.GetDataBaseValue(ResultProperty mapping, IDataReader dataReader) in C:\projects\ibatis\asf\trunk\cs\mapper\SqlBatis.DataMapper\TypeHandlers\BaseTypeHandler.cs:line 58
+		at SqlBatis.DataMapper.MappedStatements.MappedStatement.SetObjectProperty(RequestScope request, ResultMap resultMap, ResultProperty mapping, Object& target, IDataReader reader) in C:\projects\ibatis\asf\trunk\cs\mapper\SqlBatis.DataMapper\MappedStatements\MappedStatement.cs:line 1059
+		at SqlBatis.DataMapper.MappedStatements.MappedStatement.ApplyResultMap(RequestScope request, IDataReader reader, Object resultObject) in C:\projects\ibatis\asf\trunk\cs\mapper\SqlBatis.DataMapper\MappedStatements\MappedStatement.cs:line 403
+		at SqlBatis.DataMapper.MappedStatements.MappedStatement.RunQueryForObject(RequestScope request, IDalSession session, Object parameterObject, Object resultObject) in C:\projects\ibatis\asf\trunk\cs\mapper\SqlBatis.DataMapper\MappedStatements\MappedStatement.cs:line 562
+		at SqlBatis.DataMapper.MappedStatements.MappedStatement.ExecuteQueryForObject(IDalSession session, Object parameterObject, Object resultObject) in C:\projects\ibatis\asf\trunk\cs\mapper\SqlBatis.DataMapper\MappedStatements\MappedStatement.cs:line 505
+		at SqlBatis.DataMapper.MappedStatements.MappedStatement.ExecuteQueryForObject(IDalSession session, Object parameterObject) in C:\projects\ibatis\asf\trunk\cs\mapper\SqlBatis.DataMapper\MappedStatements\MappedStatement.cs:line 486
+		at SqlBatis.DataMapper.SqlMapper.QueryForObject(String statementName, Object parameterObject) in C:\projects\ibatis\asf\trunk\cs\mapper\SqlBatis.DataMapper\SqlMapper.cs:line 489
+		at SqlBatis.DataMapper.Test.NUnit.SqlMapTests.ResultClassTest.TestDouble() in C:\projects\ibatis\asf\trunk\cs\mapper\SqlBatis.DataMapper.Test\NUnit\SqlMapTests\ResultClassTest.cs:line 103
 		-->
 		<statement id="GetDouble"
 					parameterClass="Int"
@@ -121,15 +121,15 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
 		Using ODP.NET 10.1
 		Throws System.InvalidCastException
 		at Oracle.DataAccess.Client.OracleDataReader.GetFloat(Int32 i)
-		at IBatisNet.DataMapper.TypeHandlers.SingleTypeHandler.GetValueByIndex(ResultProperty mapping, IDataReader dataReader) in C:\projects\ibatis\asf\trunk\cs\mapper\IBatisNet.DataMapper\TypeHandlers\SingleTypeHandler.cs:line 75
-		at IBatisNet.DataMapper.TypeHandlers.BaseTypeHandler.GetDataBaseValue(ResultProperty mapping, IDataReader dataReader) in C:\projects\ibatis\asf\trunk\cs\mapper\IBatisNet.DataMapper\TypeHandlers\BaseTypeHandler.cs:line 58
-		at IBatisNet.DataMapper.MappedStatements.MappedStatement.SetObjectProperty(RequestScope request, ResultMap resultMap, ResultProperty mapping, Object& target, IDataReader reader) in C:\projects\ibatis\asf\trunk\cs\mapper\IBatisNet.DataMapper\MappedStatements\MappedStatement.cs:line 1059
-		at IBatisNet.DataMapper.MappedStatements.MappedStatement.ApplyResultMap(RequestScope request, IDataReader reader, Object resultObject) in C:\projects\ibatis\asf\trunk\cs\mapper\IBatisNet.DataMapper\MappedStatements\MappedStatement.cs:line 403
-		at IBatisNet.DataMapper.MappedStatements.MappedStatement.RunQueryForObject(RequestScope request, IDalSession session, Object parameterObject, Object resultObject) in C:\projects\ibatis\asf\trunk\cs\mapper\IBatisNet.DataMapper\MappedStatements\MappedStatement.cs:line 562
-		at IBatisNet.DataMapper.MappedStatements.MappedStatement.ExecuteQueryForObject(IDalSession session, Object parameterObject, Object resultObject) in C:\projects\ibatis\asf\trunk\cs\mapper\IBatisNet.DataMapper\MappedStatements\MappedStatement.cs:line 505
-		at IBatisNet.DataMapper.MappedStatements.MappedStatement.ExecuteQueryForObject(IDalSession session, Object parameterObject) in C:\projects\ibatis\asf\trunk\cs\mapper\IBatisNet.DataMapper\MappedStatements\MappedStatement.cs:line 486
-		at IBatisNet.DataMapper.SqlMapper.QueryForObject(String statementName, Object parameterObject) in C:\projects\ibatis\asf\trunk\cs\mapper\IBatisNet.DataMapper\SqlMapper.cs:line 489
-		at IBatisNet.DataMapper.Test.NUnit.SqlMapTests.ResultClassTest.TestSingle() in C:\projects\ibatis\asf\trunk\cs\mapper\IBatisNet.DataMapper.Test\NUnit\SqlMapTests\ResultClassTest.cs:line 161
+		at SqlBatis.DataMapper.TypeHandlers.SingleTypeHandler.GetValueByIndex(ResultProperty mapping, IDataReader dataReader) in C:\projects\ibatis\asf\trunk\cs\mapper\SqlBatis.DataMapper\TypeHandlers\SingleTypeHandler.cs:line 75
+		at SqlBatis.DataMapper.TypeHandlers.BaseTypeHandler.GetDataBaseValue(ResultProperty mapping, IDataReader dataReader) in C:\projects\ibatis\asf\trunk\cs\mapper\SqlBatis.DataMapper\TypeHandlers\BaseTypeHandler.cs:line 58
+		at SqlBatis.DataMapper.MappedStatements.MappedStatement.SetObjectProperty(RequestScope request, ResultMap resultMap, ResultProperty mapping, Object& target, IDataReader reader) in C:\projects\ibatis\asf\trunk\cs\mapper\SqlBatis.DataMapper\MappedStatements\MappedStatement.cs:line 1059
+		at SqlBatis.DataMapper.MappedStatements.MappedStatement.ApplyResultMap(RequestScope request, IDataReader reader, Object resultObject) in C:\projects\ibatis\asf\trunk\cs\mapper\SqlBatis.DataMapper\MappedStatements\MappedStatement.cs:line 403
+		at SqlBatis.DataMapper.MappedStatements.MappedStatement.RunQueryForObject(RequestScope request, IDalSession session, Object parameterObject, Object resultObject) in C:\projects\ibatis\asf\trunk\cs\mapper\SqlBatis.DataMapper\MappedStatements\MappedStatement.cs:line 562
+		at SqlBatis.DataMapper.MappedStatements.MappedStatement.ExecuteQueryForObject(IDalSession session, Object parameterObject, Object resultObject) in C:\projects\ibatis\asf\trunk\cs\mapper\SqlBatis.DataMapper\MappedStatements\MappedStatement.cs:line 505
+		at SqlBatis.DataMapper.MappedStatements.MappedStatement.ExecuteQueryForObject(IDalSession session, Object parameterObject) in C:\projects\ibatis\asf\trunk\cs\mapper\SqlBatis.DataMapper\MappedStatements\MappedStatement.cs:line 486
+		at SqlBatis.DataMapper.SqlMapper.QueryForObject(String statementName, Object parameterObject) in C:\projects\ibatis\asf\trunk\cs\mapper\SqlBatis.DataMapper\SqlMapper.cs:line 489
+		at SqlBatis.DataMapper.Test.NUnit.SqlMapTests.ResultClassTest.TestSingle() in C:\projects\ibatis\asf\trunk\cs\mapper\SqlBatis.DataMapper.Test\NUnit\SqlMapTests\ResultClassTest.cs:line 161
 		-->
 		<statement id="GetSingle"
 					parameterClass="Int"

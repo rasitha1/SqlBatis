@@ -30,7 +30,7 @@ using System.Data;
 
 #endregion 
 
-namespace IBatisNet.DataMapper.TypeHandlers
+namespace SqlBatis.DataMapper.TypeHandlers
 {
 	/// <summary>
 	/// A ParameterSetter implementation

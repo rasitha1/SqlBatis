@@ -26,15 +26,15 @@
 
 using System;
 using System.Collections;
-using IBatisNet.Common;
-using IBatisNet.Common.Exceptions;
-using IBatisNet.Common.Utilities;
-using IBatisNet.DataMapper.MappedStatements;
-using IBatisNet.DataMapper.Test.Domain;
+using SqlBatis.DataMapper;
+using SqlBatis.DataMapper.Exceptions;
+using SqlBatis.DataMapper.Utilities;
+using SqlBatis.DataMapper.MappedStatements;
+using SqlBatis.DataMapper.Test.Domain;
 using System.Collections.Generic;
 using NUnit.Framework;
 
-namespace IBatisNet.DataMapper.Test.NUnit.SqlMapTests.Generics
+namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests.Generics
 {
     [TestFixture]
     public class StatementTest : BaseTest

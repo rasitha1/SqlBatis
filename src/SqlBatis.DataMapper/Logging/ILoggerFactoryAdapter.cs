@@ -27,9 +27,9 @@
 
 using System;
 using System.Collections.Specialized;
-using IBatisNet.Common.Logging.Impl;
+using SqlBatis.DataMapper.Logging.Impl;
 
-namespace IBatisNet.Common.Logging
+namespace SqlBatis.DataMapper.Logging
 {
     /// <summary>
     ///     Defines the members that logging implementations must implement.
@@ -39,7 +39,7 @@ namespace IBatisNet.Common.Logging
     ///     a <see cref="NameValueCollection" /> which will contain zero or more user supplied configuration
     ///     properties.
     ///     <para>
-    ///         The IBatisNet.Common assembly ships with the following built-in <see cref="ILoggerFactoryAdapter" />
+    ///         The SqlBatis.DataMapper assembly ships with the following built-in <see cref="ILoggerFactoryAdapter" />
     ///         implementations:
     ///     </para>
     ///     <list type="table">

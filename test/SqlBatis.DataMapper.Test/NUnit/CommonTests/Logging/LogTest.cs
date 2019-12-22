@@ -2,12 +2,12 @@ using System;
 using System.Collections.Specialized;
 using System.IO;
 using System.Reflection;
-using IBatisNet.Common.Logging;
-using IBatisNet.Common.Logging.Impl;
+using SqlBatis.DataMapper.Logging;
+using SqlBatis.DataMapper.Logging.Impl;
 using NUnit.Framework;
 
 
-namespace IBatisNet.Common.Test.NUnit.CommonTests.Logging
+namespace SqlBatis.DataMapper.Test.NUnit.CommonTests.Logging
 {
 	/// <summary>
 	/// Summary description for LogTest.
@@ -42,7 +42,7 @@ namespace IBatisNet.Common.Test.NUnit.CommonTests.Logging
 		[Test]
 		public void LogDebug()
 		{
-			string expectedLogOutput = "[DEBUG] IBatisNet.Common.Test.NUnit.CommonTests.Logging.LogTest - LogDebug";
+			string expectedLogOutput = "[DEBUG] SqlBatis.DataMapper.Test.NUnit.CommonTests.Logging.LogTest - LogDebug";
 			string actualLogOutput = "";
 
 			_log.Debug("LogDebug");
@@ -54,7 +54,7 @@ namespace IBatisNet.Common.Test.NUnit.CommonTests.Logging
 		[Test]
 		public void LogInfo()
 		{
-			string expectedLogOutput = "[INFO]  IBatisNet.Common.Test.NUnit.CommonTests.Logging.LogTest - LogInfo";
+			string expectedLogOutput = "[INFO]  SqlBatis.DataMapper.Test.NUnit.CommonTests.Logging.LogTest - LogInfo";
 			string actualLogOutput = "";
 
 			_log.Info("LogInfo");
@@ -66,7 +66,7 @@ namespace IBatisNet.Common.Test.NUnit.CommonTests.Logging
 		[Test]
 		public void LogError()
 		{
-			string expectedLogOutput = "[ERROR] IBatisNet.Common.Test.NUnit.CommonTests.Logging.LogTest - LogError";
+			string expectedLogOutput = "[ERROR] SqlBatis.DataMapper.Test.NUnit.CommonTests.Logging.LogTest - LogError";
 			string actualLogOutput = "";
 
 			_log.Error("LogError");
@@ -78,7 +78,7 @@ namespace IBatisNet.Common.Test.NUnit.CommonTests.Logging
 		[Test]
 		public void LogFatal()
 		{
-			string expectedLogOutput = "[FATAL] IBatisNet.Common.Test.NUnit.CommonTests.Logging.LogTest - LogFatal";
+			string expectedLogOutput = "[FATAL] SqlBatis.DataMapper.Test.NUnit.CommonTests.Logging.LogTest - LogFatal";
 			string actualLogOutput = "";
 
 			_log.Fatal("LogFatal");
@@ -91,7 +91,7 @@ namespace IBatisNet.Common.Test.NUnit.CommonTests.Logging
 		[Test]
 		public void LogWarn()
 		{
-			string expectedLogOutput = "[WARN]  IBatisNet.Common.Test.NUnit.CommonTests.Logging.LogTest - LogWarn";
+			string expectedLogOutput = "[WARN]  SqlBatis.DataMapper.Test.NUnit.CommonTests.Logging.LogTest - LogWarn";
 			string actualLogOutput = "";
 
 			_log.Warn("LogWarn");

@@ -30,7 +30,7 @@ using System.Collections;
 #endregion
 
 
-namespace IBatisNet.Common.Pagination
+namespace SqlBatis.DataMapper.Pagination
 {
 	/// <summary>
 	/// Summary description for PaginatedArrayList.
@@ -195,7 +195,7 @@ namespace IBatisNet.Common.Pagination
 		{
 			get
 			{
-				return !(this.IsFirstPage || this.IsLastPage);
+				return !(IsFirstPage || IsLastPage);
 			}
 		}
 
@@ -217,7 +217,7 @@ namespace IBatisNet.Common.Pagination
 		{
 			get
 			{
-				return !this.IsLastPage;
+				return !IsLastPage;
 			}
 		}
 
@@ -228,7 +228,7 @@ namespace IBatisNet.Common.Pagination
 		{
 			get
 			{
-				return !this.IsFirstPage;
+				return !IsFirstPage;
 			}
 		}
 
@@ -238,7 +238,7 @@ namespace IBatisNet.Common.Pagination
 		/// <returns></returns>
 		public bool NextPage()
 		{
-			if (this.IsNextPageAvailable) 
+			if (IsNextPageAvailable) 
 			{
 				_pageIndex++;
 				Repaginate();
@@ -256,7 +256,7 @@ namespace IBatisNet.Common.Pagination
 		/// <returns></returns>
 		public bool PreviousPage()
 		{
-			if (this.IsPreviousPageAvailable) 
+			if (IsPreviousPageAvailable) 
 			{
 				_pageIndex--;
 				Repaginate();

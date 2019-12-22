@@ -1,14 +1,14 @@
 
 using System;
 using System.Collections;
-using IBatisNet.Common;
-using IBatisNet.Common.Exceptions;
-using IBatisNet.Common.Utilities;
-using IBatisNet.DataMapper.MappedStatements;
-using IBatisNet.DataMapper.Test.Domain;
+using SqlBatis.DataMapper;
+using SqlBatis.DataMapper.Exceptions;
+using SqlBatis.DataMapper.Utilities;
+using SqlBatis.DataMapper.MappedStatements;
+using SqlBatis.DataMapper.Test.Domain;
 using NUnit.Framework;
 
-namespace IBatisNet.DataMapper.Test.NUnit.SqlMapTests
+namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
 {
     /// <summary>
     /// Summary description for ParameterMapTest.

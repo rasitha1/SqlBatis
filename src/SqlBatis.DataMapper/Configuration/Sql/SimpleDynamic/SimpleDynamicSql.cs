@@ -29,18 +29,18 @@
 using System.Collections;
 using System.Text;
 
-using IBatisNet.DataMapper.Configuration.Sql;
-using IBatisNet.DataMapper.Configuration.Statements;
-using IBatisNet.DataMapper.DataExchange;
-using IBatisNet.DataMapper.MappedStatements;
-using IBatisNet.DataMapper.Scope;
-using IBatisNet.DataMapper.Exceptions;
-using IBatisNet.Common.Utilities;
-using IBatisNet.Common.Utilities.Objects;
+using SqlBatis.DataMapper.Configuration.Sql;
+using SqlBatis.DataMapper.Configuration.Statements;
+using SqlBatis.DataMapper.DataExchange;
+using SqlBatis.DataMapper.MappedStatements;
+using SqlBatis.DataMapper.Scope;
+using SqlBatis.DataMapper.Exceptions;
+using SqlBatis.DataMapper.Utilities;
+using SqlBatis.DataMapper.Utilities.Objects;
 #endregion
 
 
-namespace IBatisNet.DataMapper.Configuration.Sql.SimpleDynamic
+namespace SqlBatis.DataMapper.Configuration.Sql.SimpleDynamic
 {
 	/// <summary>
 	/// Summary description for SimpleDynamicSql.

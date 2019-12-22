@@ -28,7 +28,7 @@ using System;
 using System.Collections;
 using System.Text;
 
-namespace IBatisNet.Common.Utilities
+namespace SqlBatis.DataMapper.Utilities
 {
 		
 	/// <summary>

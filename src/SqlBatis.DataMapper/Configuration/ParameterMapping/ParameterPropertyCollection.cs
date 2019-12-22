@@ -25,7 +25,7 @@
 
 using System;
 
-namespace IBatisNet.DataMapper.Configuration.ParameterMapping
+namespace SqlBatis.DataMapper.Configuration.ParameterMapping
 {
 	/// <summary>
 	/// A ParameterProperty Collection.
@@ -41,13 +41,10 @@ namespace IBatisNet.DataMapper.Configuration.ParameterMapping
 		/// <summary>
 		/// Read-only property describing how many elements are in the Collection.
 		/// </summary>
-		public int Count 
-		{
-			get { return _count; }
-		}
+		public int Count => _count;
 
 
-		/// <summary>
+        /// <summary>
 		/// Constructs a ParameterProperty collection. The list is initially empty and has a capacity
 		/// of zero. Upon adding the first element to the list the capacity is
 		/// increased to 8, and then increased in multiples of two as required.
@@ -68,7 +65,7 @@ namespace IBatisNet.DataMapper.Configuration.ParameterMapping
 		{
 			if (capacity < 0)
 			{
-				throw new ArgumentOutOfRangeException("Capacity", "The size of the list must be >0.");
+				throw new ArgumentOutOfRangeException(nameof(capacity), "The size of the list must be >0.");
 			}
 			_innerList = new ParameterProperty[capacity];
 		}

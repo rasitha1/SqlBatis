@@ -2,11 +2,11 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using IBatisNet.DataMapper.Test.Domain;
+using SqlBatis.DataMapper.Test.Domain;
 
 using NUnit.Framework;
 
-namespace IBatisNet.DataMapper.Test.NUnit.SqlMapTests
+namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
 {
     /// <summary>
     /// Summary description for ParameterMapTest.

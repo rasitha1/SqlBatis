@@ -24,7 +24,7 @@
  ********************************************************************************/
 #endregion
 
-namespace IBatisNet.Common.Utilities.Objects
+namespace SqlBatis.DataMapper.Utilities.Objects
 {
 	/// <summary>
 	/// Factory to create object for a given type

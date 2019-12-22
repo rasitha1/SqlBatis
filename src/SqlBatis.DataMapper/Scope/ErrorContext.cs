@@ -31,7 +31,7 @@ using System.Text;
 
 #endregion
 
-namespace IBatisNet.DataMapper.Scope
+namespace SqlBatis.DataMapper.Scope
 {
 	/// <summary>
 	/// An error context to help us create meaningful error messages.

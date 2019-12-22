@@ -25,9 +25,9 @@
 
 using System;
 using System.Data;
-using IBatisNet.DataMapper.Scope;
+using SqlBatis.DataMapper.Scope;
 
-namespace IBatisNet.DataMapper.Commands
+namespace SqlBatis.DataMapper.Commands
 {
     /// <summary>
     /// Decorate an <see cref="System.Data.IDbCommand"></see>
@@ -35,8 +35,8 @@ namespace IBatisNet.DataMapper.Commands
     /// </summary>
     public class DbCommandDecorator : IDbCommand
     {
-        private IDbCommand _innerDbCommand = null;
-        private RequestScope _request = null;
+        private readonly IDbCommand _innerDbCommand;
+        private readonly RequestScope _request;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DbCommandDecorator"/> class.

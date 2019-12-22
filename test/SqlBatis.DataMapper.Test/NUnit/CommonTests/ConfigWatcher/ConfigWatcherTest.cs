@@ -4,13 +4,13 @@ using System.Collections;
 using System.Reflection;
 using System.Threading;
 
-using IBatisNet.Common.Utilities;
+using SqlBatis.DataMapper.Utilities;
 
-using IBatisNet.Common.Test.NUnit;
+using SqlBatis.DataMapper.Test.NUnit;
 
 using NUnit.Framework;
 
-namespace IBatisNet.Common.Test.NUnit.CommonTests.ConfigWatcher
+namespace SqlBatis.DataMapper.Test.NUnit.CommonTests.ConfigWatcher
 {
 	/// <summary>
 	/// Summary description for ConfigWatcherTest.

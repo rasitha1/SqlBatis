@@ -3,11 +3,11 @@
 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
 
 	<alias>
-		<typeAlias alias="Document" type="IBatisNet.DataMapper.Test.Domain.Document, IBatisNet.DataMapper.Test" />
-		<typeAlias alias="Book" type="IBatisNet.DataMapper.Test.Domain.Book, IBatisNet.DataMapper.Test" />
-		<typeAlias alias="Newspaper" type="IBatisNet.DataMapper.Test.Domain.Newspaper, IBatisNet.DataMapper.Test" />
-		<typeAlias alias="DocumentCollection" type="IBatisNet.DataMapper.Test.Domain.DocumentCollection, IBatisNet.DataMapper.Test" />		
-		<typeAlias alias="CustomInheritance" type="IBatisNet.DataMapper.Test.Domain.CustomInheritance, IBatisNet.DataMapper.Test"/>		
+		<typeAlias alias="Document" type="SqlBatis.DataMapper.Test.Domain.Document, SqlBatis.DataMapper.Test" />
+		<typeAlias alias="Book" type="SqlBatis.DataMapper.Test.Domain.Book, SqlBatis.DataMapper.Test" />
+		<typeAlias alias="Newspaper" type="SqlBatis.DataMapper.Test.Domain.Newspaper, SqlBatis.DataMapper.Test" />
+		<typeAlias alias="DocumentCollection" type="SqlBatis.DataMapper.Test.Domain.DocumentCollection, SqlBatis.DataMapper.Test" />		
+		<typeAlias alias="CustomInheritance" type="SqlBatis.DataMapper.Test.Domain.CustomInheritance, SqlBatis.DataMapper.Test"/>		
 	</alias>
 	
 	<resultMaps>  	

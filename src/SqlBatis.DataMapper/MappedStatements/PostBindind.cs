@@ -24,9 +24,9 @@
 #endregion
 
 using System.Data;
-using IBatisNet.DataMapper.Configuration.ResultMapping;
+using SqlBatis.DataMapper.Configuration.ResultMapping;
 
-namespace IBatisNet.DataMapper.MappedStatements
+namespace SqlBatis.DataMapper.MappedStatements
 {
 	/// <summary>
 	/// All dataq tor retrieve 'select' <see cref="ResultProperty"/>

@@ -28,13 +28,13 @@
 
 using System.Collections;
 using System.Text;
-using IBatisNet.DataMapper.Configuration.ParameterMapping;
-using IBatisNet.DataMapper.Configuration.Sql.Dynamic.Elements;
+using SqlBatis.DataMapper.Configuration.ParameterMapping;
+using SqlBatis.DataMapper.Configuration.Sql.Dynamic.Elements;
 
 #endregion
 
 
-namespace IBatisNet.DataMapper.Configuration.Sql.Dynamic.Handlers
+namespace SqlBatis.DataMapper.Configuration.Sql.Dynamic.Handlers
 {
 	/// <summary>
 	/// Summary description for SqlTagContext.

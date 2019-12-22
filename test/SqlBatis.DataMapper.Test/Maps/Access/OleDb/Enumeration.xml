@@ -3,7 +3,7 @@
 http://ibatis.apache.org/xsd/SqlMap.xsd">
 	
 	<alias>
-		<typeAlias alias="Enumeration" type="IBatisNet.DataMapper.Test.Domain.Enumeration, IBatisNet.DataMapper.Test"/>
+		<typeAlias alias="Enumeration" type="SqlBatis.DataMapper.Test.Domain.Enumeration, SqlBatis.DataMapper.Test"/>
 	</alias>
 	
 	<resultMaps>                                    

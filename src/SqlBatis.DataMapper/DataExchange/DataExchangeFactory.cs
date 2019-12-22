@@ -25,13 +25,13 @@
 
 using System;
 using System.Collections;
-using IBatisNet.Common.Utilities.Objects;
-using IBatisNet.Common.Utilities.Objects.Members;
-using IBatisNet.DataMapper.TypeHandlers;
+using SqlBatis.DataMapper.Utilities.Objects;
+using SqlBatis.DataMapper.Utilities.Objects.Members;
+using SqlBatis.DataMapper.TypeHandlers;
 
 using System.Collections.Generic;
 
-namespace IBatisNet.DataMapper.DataExchange
+namespace SqlBatis.DataMapper.DataExchange
 {
 	/// <summary>
 	/// Factory for DataExchange objects

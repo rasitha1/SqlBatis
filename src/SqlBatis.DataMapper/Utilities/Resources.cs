@@ -32,14 +32,14 @@ using System.IO;
 using System.Reflection;
 using System.Security.Permissions;
 using System.Xml;
-using IBatisNet.Common.Exceptions;
-using IBatisNet.Common.Logging;
-using IBatisNet.Common.Utilities.TypesResolver;
-using IBatisNet.Common.Xml;
+using SqlBatis.DataMapper.Exceptions;
+using SqlBatis.DataMapper.Logging;
+using SqlBatis.DataMapper.Utilities.TypesResolver;
+using SqlBatis.DataMapper.Xml;
 
 #endregion
 
-namespace IBatisNet.Common.Utilities
+namespace SqlBatis.DataMapper.Utilities
 {
 	/// <summary>
 	/// A class to simplify access to resources.
@@ -511,7 +511,7 @@ namespace IBatisNet.Common.Utilities
         /// <exception cref="System.TypeLoadException">
         /// If the type cannot be resolved.
         /// </exception>
-        [Obsolete("Use IBatisNet.Common.Utilities.TypeUtils")]
+        [Obsolete("Use SqlBatis.DataMapper.Utilities.TypeUtils")]
 		public static Type TypeForName(string typeName)
 		{
 			return TypeUtils.ResolveType(typeName);

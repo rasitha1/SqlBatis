@@ -30,11 +30,11 @@ using System.Data;
 using System.Globalization;
 using System.IO;
 
-using IBatisNet.DataMapper.Configuration.ResultMapping;
-using IBatisNet.DataMapper.Exceptions;
+using SqlBatis.DataMapper.Configuration.ResultMapping;
+using SqlBatis.DataMapper.Exceptions;
 #endregion
 
-namespace IBatisNet.DataMapper.TypeHandlers
+namespace SqlBatis.DataMapper.TypeHandlers
 {
 	/// <summary>
 	/// Description résumée de ByteArrayTypeHandler.

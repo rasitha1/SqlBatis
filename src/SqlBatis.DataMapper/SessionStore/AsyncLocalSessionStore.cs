@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Threading;
 
-namespace IBatisNet.DataMapper.SessionStore
+namespace SqlBatis.DataMapper.SessionStore
 {
     /// <summary>
     ///     This implementation of <see cref="ISessionStore" /> using <see cref="AsyncLocal{T}"/>.

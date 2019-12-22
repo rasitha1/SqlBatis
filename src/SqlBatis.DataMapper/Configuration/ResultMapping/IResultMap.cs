@@ -30,10 +30,10 @@ using System;
 using System.Collections.Specialized;
 using System.Data;
 using System.Xml.Serialization;
-using IBatisNet.DataMapper.DataExchange;
+using SqlBatis.DataMapper.DataExchange;
 #endregion
 
-namespace IBatisNet.DataMapper.Configuration.ResultMapping
+namespace SqlBatis.DataMapper.Configuration.ResultMapping
 {
     /// <summary>
     /// This is a grouping of ResultMapping objects used to map results back to objects

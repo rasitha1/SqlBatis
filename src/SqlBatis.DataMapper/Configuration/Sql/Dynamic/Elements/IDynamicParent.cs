@@ -26,9 +26,9 @@
 
 using System;
 
-using IBatisNet.DataMapper.Configuration.Sql;
+using SqlBatis.DataMapper.Configuration.Sql;
 
-namespace IBatisNet.DataMapper.Configuration.Sql.Dynamic.Elements
+namespace SqlBatis.DataMapper.Configuration.Sql.Dynamic.Elements
 {
 	/// <summary>
 	/// Summary description for DynamicParent.

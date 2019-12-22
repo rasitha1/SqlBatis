@@ -30,10 +30,10 @@ using System.Collections;
 using System.Collections.Specialized;
 using System.Configuration;
 using System.Xml;
-using IBatisNet.Common.Logging.Impl;
-using ConfigurationException = IBatisNet.Common.Exceptions.ConfigurationException;
+using SqlBatis.DataMapper.Logging.Impl;
+using ConfigurationException = SqlBatis.DataMapper.Exceptions.ConfigurationException;
 
-namespace IBatisNet.Common.Logging
+namespace SqlBatis.DataMapper.Logging
 {
     /// <summary>
     ///     Used in an application's configuration file (App.Config or Web.Config) to configure the logging subsystem.
@@ -47,12 +47,12 @@ namespace IBatisNet.Common.Logging
     ///                 <configSections>
     ///                     <sectionGroup name="iBATIS">
     ///                         <section name="logging"
-    ///                             type="IBatisNet.Common.Logging.ConfigurationSectionHandler, IBatisNet.Common" />
+    ///                             type="SqlBatis.DataMapper.Logging.ConfigurationSectionHandler, SqlBatis.DataMapper" />
     ///                     </sectionGroup>
     ///                 </configSections>
     ///                 <iBATIS>
     ///                     <logging>
-    ///                         <logFactoryAdapter type="IBatisNet.Common.Logging.Impl.ConsoleOutLoggerFA, IBatisNet.Common">
+    ///                         <logFactoryAdapter type="SqlBatis.DataMapper.Logging.Impl.ConsoleOutLoggerFA, SqlBatis.DataMapper">
     ///                             <arg key="showLogName" value="true" />
     ///                             <arg key="showDataTime" value="true" />
     ///                             <arg key="level" value="ALL" />
@@ -69,15 +69,15 @@ namespace IBatisNet.Common.Logging
     ///     <list type="table">
     ///         <item>
     ///             <term>CONSOLE</term>
-    ///             <description>Alias for IBatisNet.Common.Logging.Impl.ConsoleOutLoggerFA, IBatisNet.Common</description>
+    ///             <description>Alias for SqlBatis.DataMapper.Logging.Impl.ConsoleOutLoggerFA, SqlBatis.DataMapper</description>
     ///         </item>
     ///         <item>
     ///             <term>TRACE</term>
-    ///             <description>Alias for IBatisNet.Common.Logging.Impl.TraceLoggerFA, IBatisNet.Common</description>
+    ///             <description>Alias for SqlBatis.DataMapper.Logging.Impl.TraceLoggerFA, SqlBatis.DataMapper</description>
     ///         </item>
     ///         <item>
     ///             <term>NOOP</term>
-    ///             <description>Alias IBatisNet.Common.Logging.Impl.NoOpLoggerFA, IBatisNet.Common</description>
+    ///             <description>Alias SqlBatis.DataMapper.Logging.Impl.NoOpLoggerFA, SqlBatis.DataMapper</description>
     ///         </item>
     ///     </list>
     /// </remarks>

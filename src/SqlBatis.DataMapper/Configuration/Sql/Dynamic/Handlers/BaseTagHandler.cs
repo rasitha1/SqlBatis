@@ -26,11 +26,11 @@
 
 #region Using
 using System.Text;
-using IBatisNet.Common.Utilities.Objects.Members;
-using IBatisNet.DataMapper.Configuration.Sql.Dynamic.Elements;
+using SqlBatis.DataMapper.Utilities.Objects.Members;
+using SqlBatis.DataMapper.Configuration.Sql.Dynamic.Elements;
 #endregion
 
-namespace IBatisNet.DataMapper.Configuration.Sql.Dynamic.Handlers
+namespace SqlBatis.DataMapper.Configuration.Sql.Dynamic.Handlers
 {
 	/// <summary>
 	/// Description résumée de BaseTagHandler.

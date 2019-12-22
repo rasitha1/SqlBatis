@@ -26,7 +26,7 @@
 using System;
 using System.Reflection;
 
-namespace IBatisNet.Common.Utilities.Objects.Members
+namespace SqlBatis.DataMapper.Utilities.Objects.Members
 {
     /// <summary>
     /// The <see cref="ReflectionFieldGetAccessor"/> class provides an reflection get access   

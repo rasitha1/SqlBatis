@@ -5,10 +5,10 @@ using System.Collections.Generic;
 
 using NUnit.Framework;
 
-using IBatisNet.DataMapper.Test.Domain;
+using SqlBatis.DataMapper.Test.Domain;
 
 
-namespace IBatisNet.DataMapper.Test.NUnit.SqlMapTests.Generics
+namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests.Generics
 {
     /// <summary>
     /// Tests generic list

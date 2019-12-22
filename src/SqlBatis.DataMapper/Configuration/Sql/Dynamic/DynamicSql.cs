@@ -29,18 +29,18 @@
 using System.Collections;
 using System.Data;
 using System.Text;
-using IBatisNet.DataMapper.Configuration.ParameterMapping;
-using IBatisNet.DataMapper.Configuration.Sql.Dynamic.Elements;
-using IBatisNet.DataMapper.Configuration.Sql.Dynamic.Handlers;
-using IBatisNet.DataMapper.Configuration.Sql.SimpleDynamic;
-using IBatisNet.DataMapper.Configuration.Statements;
-using IBatisNet.DataMapper.DataExchange;
-using IBatisNet.DataMapper.MappedStatements;
-using IBatisNet.DataMapper.Scope;
+using SqlBatis.DataMapper.Configuration.ParameterMapping;
+using SqlBatis.DataMapper.Configuration.Sql.Dynamic.Elements;
+using SqlBatis.DataMapper.Configuration.Sql.Dynamic.Handlers;
+using SqlBatis.DataMapper.Configuration.Sql.SimpleDynamic;
+using SqlBatis.DataMapper.Configuration.Statements;
+using SqlBatis.DataMapper.DataExchange;
+using SqlBatis.DataMapper.MappedStatements;
+using SqlBatis.DataMapper.Scope;
 
 #endregion
 
-namespace IBatisNet.DataMapper.Configuration.Sql.Dynamic
+namespace SqlBatis.DataMapper.Configuration.Sql.Dynamic
 {
 	/// <summary>
 	/// DynamicSql represent the root element of a dynamic sql statement

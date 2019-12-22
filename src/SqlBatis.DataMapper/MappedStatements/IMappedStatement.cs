@@ -27,11 +27,11 @@
 #region Imports
 using System.Collections;
 using System.Collections.Generic;
-using IBatisNet.DataMapper.Commands;
-using IBatisNet.DataMapper.Configuration.Statements;
+using SqlBatis.DataMapper.Commands;
+using SqlBatis.DataMapper.Configuration.Statements;
 #endregion
 
-namespace IBatisNet.DataMapper.MappedStatements
+namespace SqlBatis.DataMapper.MappedStatements
 {
 	/// <summary>
 	/// 
@@ -103,7 +103,7 @@ namespace IBatisNet.DataMapper.MappedStatements
 		/// <param name="keyProperty">The property of the result object to be used as the key. </param>
 		/// <param name="valueProperty">The property of the result object to be used as the value (or null)</param>
 		/// <returns>A hashtable of object containing the rows keyed by keyProperty.</returns>
-		///<exception cref="IBatisNet.DataMapper.Exceptions.DataMapperException">If a transaction is not in progress, or the database throws an exception.</exception>
+		///<exception cref="SqlBatis.DataMapper.Exceptions.DataMapperException">If a transaction is not in progress, or the database throws an exception.</exception>
 		IDictionary ExecuteQueryForMap( ISqlMapSession session, object parameterObject, string keyProperty, string valueProperty );
 
 		#endregion
@@ -119,7 +119,7 @@ namespace IBatisNet.DataMapper.MappedStatements
         /// <param name="keyProperty">The property of the result object to be used as the key. </param>
         /// <param name="valueProperty">The property of the result object to be used as the value (or null)</param>
         /// <returns>A IDictionary of object containing the rows keyed by keyProperty.</returns>
-        ///<exception cref="IBatisNet.DataMapper.Exceptions.DataMapperException">If a transaction is not in progress, or the database throws an exception.</exception>
+        ///<exception cref="SqlBatis.DataMapper.Exceptions.DataMapperException">If a transaction is not in progress, or the database throws an exception.</exception>
         IDictionary<K, V> ExecuteQueryForDictionary<K, V>(ISqlMapSession session, object parameterObject, string keyProperty, string valueProperty);
 
         /// <summary>
@@ -132,7 +132,7 @@ namespace IBatisNet.DataMapper.MappedStatements
         /// <param name="valueProperty">The property of the result object to be used as the value (or null)</param>
         /// <param name="rowDelegate">A delegate called once per row in the QueryForDictionary method</param>
         /// <returns>A hashtable of object containing the rows keyed by keyProperty.</returns>
-        /// <exception cref="IBatisNet.DataMapper.Exceptions.DataMapperException">If a transaction is not in progress, or the database throws an exception.</exception>
+        /// <exception cref="SqlBatis.DataMapper.Exceptions.DataMapperException">If a transaction is not in progress, or the database throws an exception.</exception>
         IDictionary<K, V> ExecuteQueryForDictionary<K, V>(ISqlMapSession session, object parameterObject, string keyProperty, string valueProperty, DictionaryRowDelegate<K, V> rowDelegate);
 
 
@@ -290,7 +290,7 @@ namespace IBatisNet.DataMapper.MappedStatements
 		/// <param name="valueProperty">The property of the result object to be used as the value (or null)</param>
 		/// <param name="rowDelegate"></param>
 		/// <returns>A hashtable of object containing the rows keyed by keyProperty.</returns>
-		/// <exception cref="IBatisNet.DataMapper.Exceptions.DataMapperException">If a transaction is not in progress, or the database throws an exception.</exception>
+		/// <exception cref="SqlBatis.DataMapper.Exceptions.DataMapperException">If a transaction is not in progress, or the database throws an exception.</exception>
 		IDictionary ExecuteQueryForMapWithRowDelegate( ISqlMapSession session, object parameterObject, string keyProperty, string valueProperty, DictionaryRowDelegate rowDelegate );
 
 		#endregion 

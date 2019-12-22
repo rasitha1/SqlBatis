@@ -24,7 +24,7 @@
 #endregion
 
 
-namespace IBatisNet.Common.Utilities.Objects.Members
+namespace SqlBatis.DataMapper.Utilities.Objects.Members
 {
     /// <summary>
     /// The <see cref="IGet"/> interface defines a field/property get contrat to get the

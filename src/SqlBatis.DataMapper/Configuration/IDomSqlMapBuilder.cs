@@ -1,6 +1,6 @@
 using System.Collections.Specialized;
 
-namespace IBatisNet.DataMapper.Configuration
+namespace SqlBatis.DataMapper.Configuration
 {
     /// <summary>
     /// Represents a builder that can configure an <see cref="ISqlMapper"/> instance

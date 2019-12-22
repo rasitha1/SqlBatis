@@ -32,21 +32,21 @@ using System.Collections.Generic;
 using System.Data;
 using System.Text;
 
-using IBatisNet.Common.Utilities.Objects;
+using SqlBatis.DataMapper.Utilities.Objects;
 
 
-using IBatisNet.DataMapper.Commands;
-using IBatisNet.DataMapper.Configuration.ParameterMapping;
-using IBatisNet.DataMapper.Configuration.Statements;
-using IBatisNet.DataMapper.MappedStatements.ResultStrategy;
-using IBatisNet.DataMapper.Scope;
-using IBatisNet.DataMapper.MappedStatements.PostSelectStrategy;
-using IBatisNet.DataMapper.Exceptions;
-using IBatisNet.DataMapper.TypeHandlers;
+using SqlBatis.DataMapper.Commands;
+using SqlBatis.DataMapper.Configuration.ParameterMapping;
+using SqlBatis.DataMapper.Configuration.Statements;
+using SqlBatis.DataMapper.MappedStatements.ResultStrategy;
+using SqlBatis.DataMapper.Scope;
+using SqlBatis.DataMapper.MappedStatements.PostSelectStrategy;
+using SqlBatis.DataMapper.Exceptions;
+using SqlBatis.DataMapper.TypeHandlers;
 
 #endregion
 
-namespace IBatisNet.DataMapper.MappedStatements
+namespace SqlBatis.DataMapper.MappedStatements
 {
 
     /// <summary>
@@ -55,7 +55,7 @@ namespace IBatisNet.DataMapper.MappedStatements
     public class MappedStatement : IMappedStatement
     {
         /// <summary>
-        /// Event launch on exceute query
+        /// Event launch on execute query
         /// </summary>
         public event ExecuteEventHandler Execute;
 
@@ -230,7 +230,7 @@ namespace IBatisNet.DataMapper.MappedStatements
             object obj = null;
             RequestScope request = _statement.Sql.GetRequestScope(this, parameterObject, session);
 
-            _preparedCommand.Create(request, session, this.Statement, parameterObject);
+            _preparedCommand.Create(request, session, Statement, parameterObject);
 
             obj = RunQueryForObject(request, session, parameterObject, resultObject);
 
@@ -319,7 +319,7 @@ namespace IBatisNet.DataMapper.MappedStatements
             T obj = default(T);
             RequestScope request = _statement.Sql.GetRequestScope(this, parameterObject, session);
 
-            _preparedCommand.Create(request, session, this.Statement, parameterObject);
+            _preparedCommand.Create(request, session, Statement, parameterObject);
 
             obj = RunQueryForObject<T>(request, session, parameterObject, resultObject);
 
@@ -393,7 +393,7 @@ namespace IBatisNet.DataMapper.MappedStatements
         {
             RequestScope request = _statement.Sql.GetRequestScope(this, parameterObject, session);
 
-            _preparedCommand.Create(request, session, this.Statement, parameterObject);
+            _preparedCommand.Create(request, session, Statement, parameterObject);
 
             if (rowDelegate == null)
             {
@@ -423,7 +423,7 @@ namespace IBatisNet.DataMapper.MappedStatements
                 throw new DataMapperException("A null DictionaryRowDelegate was passed to QueryForMapWithRowDelegate.");
             }
 
-            _preparedCommand.Create(request, session, this.Statement, parameterObject);
+            _preparedCommand.Create(request, session, Statement, parameterObject);
 
             return RunQueryForMap(request, session, parameterObject, keyProperty, valueProperty, rowDelegate);
         }
@@ -440,7 +440,7 @@ namespace IBatisNet.DataMapper.MappedStatements
         {
             RequestScope request = _statement.Sql.GetRequestScope(this, parameterObject, session);
 
-            _preparedCommand.Create(request, session, this.Statement, parameterObject);
+            _preparedCommand.Create(request, session, Statement, parameterObject);
 
             return RunQueryForList(request, session, parameterObject, null, null);
         }
@@ -458,7 +458,7 @@ namespace IBatisNet.DataMapper.MappedStatements
         {
             RequestScope request = _statement.Sql.GetRequestScope(this, parameterObject, session);
 
-            _preparedCommand.Create(request, session, this.Statement, parameterObject);
+            _preparedCommand.Create(request, session, Statement, parameterObject);
 
             return RunQueryForList(request, session, parameterObject, skipResults, maxResults);
         }
@@ -614,7 +614,7 @@ namespace IBatisNet.DataMapper.MappedStatements
         {
             RequestScope request = _statement.Sql.GetRequestScope(this, parameterObject, session);
 
-            _preparedCommand.Create(request, session, this.Statement, parameterObject);
+            _preparedCommand.Create(request, session, Statement, parameterObject);
 
             RunQueryForList(request, session, parameterObject, resultObject, null);
         }
@@ -635,7 +635,7 @@ namespace IBatisNet.DataMapper.MappedStatements
         {
             RequestScope request = _statement.Sql.GetRequestScope(this, parameterObject, session);
 
-            _preparedCommand.Create(request, session, this.Statement, parameterObject);
+            _preparedCommand.Create(request, session, Statement, parameterObject);
 
             if (rowDelegate == null)
             {
@@ -656,7 +656,7 @@ namespace IBatisNet.DataMapper.MappedStatements
         {
             RequestScope request = _statement.Sql.GetRequestScope(this, parameterObject, session);
 
-            _preparedCommand.Create(request, session, this.Statement, parameterObject);
+            _preparedCommand.Create(request, session, Statement, parameterObject);
 
             return RunQueryForList<T>(request, session, parameterObject, null, null);
         }
@@ -674,7 +674,7 @@ namespace IBatisNet.DataMapper.MappedStatements
         {
             RequestScope request = _statement.Sql.GetRequestScope(this, parameterObject, session);
 
-            _preparedCommand.Create(request, session, this.Statement, parameterObject);
+            _preparedCommand.Create(request, session, Statement, parameterObject);
 
             return RunQueryForList<T>(request, session, parameterObject, skipResults, maxResults);
         }
@@ -828,7 +828,7 @@ namespace IBatisNet.DataMapper.MappedStatements
         {
             RequestScope request = _statement.Sql.GetRequestScope(this, parameterObject, session);
 
-            _preparedCommand.Create(request, session, this.Statement, parameterObject);
+            _preparedCommand.Create(request, session, Statement, parameterObject);
 
             RunQueryForList<T>(request, session, parameterObject, resultObject, null);
         }
@@ -849,7 +849,7 @@ namespace IBatisNet.DataMapper.MappedStatements
             int rows = 0; // the number of rows affected
             RequestScope request = _statement.Sql.GetRequestScope(this, parameterObject, session);
 
-            _preparedCommand.Create(request, session, this.Statement, parameterObject);
+            _preparedCommand.Create(request, session, Statement, parameterObject);
 
             using (IDbCommand command = request.IDbCommand)
             {
@@ -894,7 +894,7 @@ namespace IBatisNet.DataMapper.MappedStatements
                     request.DataExchangeFactory.AccessorFactory);
             }
 
-            _preparedCommand.Create(request, session, this.Statement, parameterObject);
+            _preparedCommand.Create(request, session, Statement, parameterObject);
             using (IDbCommand command = request.IDbCommand)
             {
                 if (_statement is Insert)
@@ -965,7 +965,7 @@ namespace IBatisNet.DataMapper.MappedStatements
         {
             RequestScope request = _statement.Sql.GetRequestScope(this, parameterObject, session);
 
-            _preparedCommand.Create(request, session, this.Statement, parameterObject);
+            _preparedCommand.Create(request, session, Statement, parameterObject);
 
             return RunQueryForMap(request, session, parameterObject, keyProperty, valueProperty, null);
         }
@@ -1054,12 +1054,12 @@ namespace IBatisNet.DataMapper.MappedStatements
         /// <param name="keyProperty">The property of the result object to be used as the key. </param>
         /// <param name="valueProperty">The property of the result object to be used as the value (or null)</param>
         /// <returns>A IDictionary of object containing the rows keyed by keyProperty.</returns>
-        ///<exception cref="IBatisNet.DataMapper.Exceptions.DataMapperException">If a transaction is not in progress, or the database throws an exception.</exception>
+        ///<exception cref="SqlBatis.DataMapper.Exceptions.DataMapperException">If a transaction is not in progress, or the database throws an exception.</exception>
         public virtual IDictionary<K, V> ExecuteQueryForDictionary<K, V>(ISqlMapSession session, object parameterObject, string keyProperty, string valueProperty)
         {
             RequestScope request = _statement.Sql.GetRequestScope(this, parameterObject, session);
 
-            _preparedCommand.Create(request, session, this.Statement, parameterObject);
+            _preparedCommand.Create(request, session, Statement, parameterObject);
 
             return RunQueryForDictionary<K, V>(request, session, parameterObject, keyProperty, valueProperty, null);
 
@@ -1085,7 +1085,7 @@ namespace IBatisNet.DataMapper.MappedStatements
                 throw new DataMapperException("A null DictionaryRowDelegate was passed to QueryForDictionary.");
             }
 
-            _preparedCommand.Create(request, session, this.Statement, parameterObject);
+            _preparedCommand.Create(request, session, Statement, parameterObject);
 
             return RunQueryForDictionary<K, V>(request, session, parameterObject, keyProperty, valueProperty, rowDelegate);
         }
@@ -1209,7 +1209,7 @@ namespace IBatisNet.DataMapper.MappedStatements
         public override string ToString()
         {
             StringBuilder buffer = new StringBuilder();
-            buffer.Append("\tMappedStatement: " + this.Id);
+            buffer.Append("\tMappedStatement: " + Id);
             buffer.Append(Environment.NewLine);
             if (_statement.ParameterMap != null) buffer.Append(_statement.ParameterMap.Id);
 

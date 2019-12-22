@@ -26,9 +26,9 @@
 using System;
 using System.Reflection;
 using System.Reflection.Emit;
-using IBatisNet.Common.Exceptions;
+using SqlBatis.DataMapper.Exceptions;
 
-namespace IBatisNet.Common.Utilities.Objects
+namespace SqlBatis.DataMapper.Utilities.Objects
 {
     /// <summary>
     /// A <see cref="IFactory"/> implementation that builds object via DynamicMethod.

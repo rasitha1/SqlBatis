@@ -27,9 +27,9 @@
 
 using System;
 using System.Configuration;
-using IBatisNet.Common.Logging.Impl;
+using SqlBatis.DataMapper.Logging.Impl;
 
-namespace IBatisNet.Common.Logging
+namespace SqlBatis.DataMapper.Logging
 {
     /// <summary>
     ///     Uses the specified <see cref="ILoggerFactoryAdapter" /> to create <see cref="ILog" /> instances
@@ -56,7 +56,7 @@ namespace IBatisNet.Common.Logging
         /// </summary>
         /// <remarks>
         ///     <para>
-        ///         The IBatisNet.Common assembly ships with the following built-in <see cref="ILoggerFactoryAdapter" />
+        ///         The SqlBatis.DataMapper assembly ships with the following built-in <see cref="ILoggerFactoryAdapter" />
         ///         implementations:
         ///     </para>
         ///     <list type="table">

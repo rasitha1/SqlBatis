@@ -29,11 +29,11 @@
 
 using System.Collections.Specialized;
 using System.Xml;
-using IBatisNet.Common.Xml;
+using SqlBatis.DataMapper.Xml;
 
 #endregion
 
-namespace IBatisNet.Common
+namespace SqlBatis.DataMapper
 {
     /// <summary>
     ///     Summary description for DataSourceDeSerializer.

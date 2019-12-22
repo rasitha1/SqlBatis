@@ -1,9 +1,9 @@
 using System;
 using System.Collections;
-using IBatisNet.DataMapper.Test.Domain;
+using SqlBatis.DataMapper.Test.Domain;
 using NUnit.Framework;
 
-namespace IBatisNet.DataMapper.Test.NUnit.SqlMapTests.MSSQL
+namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests.MSSQL
 {
 	/// <summary>
 	/// Summary description for ProcedureTest.

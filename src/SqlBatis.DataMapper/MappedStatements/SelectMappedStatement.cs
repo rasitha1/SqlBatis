@@ -24,10 +24,10 @@
 #endregion
 
 
-using IBatisNet.DataMapper.Exceptions;
-using IBatisNet.DataMapper.Configuration.Statements;
+using SqlBatis.DataMapper.Exceptions;
+using SqlBatis.DataMapper.Configuration.Statements;
 
-namespace IBatisNet.DataMapper.MappedStatements
+namespace SqlBatis.DataMapper.MappedStatements
 {
 	/// <summary>
 	/// Summary description for SelectMappedStatement.

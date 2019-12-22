@@ -31,18 +31,18 @@ using System.Collections;
 using System.Collections.Specialized;
 using System.Configuration;
 using System.Xml;
-using IBatisNet.Common;
-using IBatisNet.Common.Exceptions;
-using IBatisNet.Common.Utilities;
-using IBatisNet.Common.Utilities.Objects;
-using IBatisNet.Common.Utilities.Objects.Members;
-using IBatisNet.DataMapper.Configuration;
-using IBatisNet.DataMapper.DataExchange;
-using IBatisNet.DataMapper.TypeHandlers;
+using SqlBatis.DataMapper;
+using SqlBatis.DataMapper.Exceptions;
+using SqlBatis.DataMapper.Utilities;
+using SqlBatis.DataMapper.Utilities.Objects;
+using SqlBatis.DataMapper.Utilities.Objects.Members;
+using SqlBatis.DataMapper.Configuration;
+using SqlBatis.DataMapper.DataExchange;
+using SqlBatis.DataMapper.TypeHandlers;
 
 #endregion
 
-namespace IBatisNet.DataMapper.Scope
+namespace SqlBatis.DataMapper.Scope
 {
 	/// <summary>
 	/// The ConfigurationScope maintains the state of the build process.
@@ -291,8 +291,8 @@ namespace IBatisNet.DataMapper.Scope
         {
             string newId = id;
 
-            if (_sqlMapNamespace != null && _sqlMapNamespace.Length > 0
-                && id != null && id.Length > 0 && id.IndexOf(".") < 0)
+            if (!string.IsNullOrEmpty(_sqlMapNamespace)
+                && !string.IsNullOrEmpty(id) && id.IndexOf(".") < 0)
             {
                 newId = _sqlMapNamespace + DomSqlMapBuilder.DOT + id;
             }
@@ -313,21 +313,21 @@ namespace IBatisNet.DataMapper.Scope
 			ITypeHandler handler = null;
 			if (clazz==null)
 			{
-                handler = this.DataExchangeFactory.TypeHandlerFactory.GetUnkownTypeHandler();
+                handler = DataExchangeFactory.TypeHandlerFactory.GetUnkownTypeHandler();
 			}
 			else if (typeof(IDictionary).IsAssignableFrom(clazz)) 
 			{
 				// IDictionary
-				if (clrType ==null ||clrType.Length == 0) 
+				if (string.IsNullOrEmpty(clrType)) 
 				{
-                    handler = this.DataExchangeFactory.TypeHandlerFactory.GetUnkownTypeHandler(); 
+                    handler = DataExchangeFactory.TypeHandlerFactory.GetUnkownTypeHandler(); 
 				} 
 				else 
 				{
 					try 
 					{
 						Type type = TypeUtils.ResolveType(clrType);
-                        handler = this.DataExchangeFactory.TypeHandlerFactory.GetTypeHandler(type, dbType);
+                        handler = DataExchangeFactory.TypeHandlerFactory.GetTypeHandler(type, dbType);
 					} 
 					catch (Exception e) 
 					{
@@ -335,10 +335,10 @@ namespace IBatisNet.DataMapper.Scope
                     }
 				}
 			}
-            else if (this.DataExchangeFactory.TypeHandlerFactory.GetTypeHandler(clazz, dbType) != null) 
+            else if (DataExchangeFactory.TypeHandlerFactory.GetTypeHandler(clazz, dbType) != null) 
 			{
 				// Primitive
-                handler = this.DataExchangeFactory.TypeHandlerFactory.GetTypeHandler(clazz, dbType);
+                handler = DataExchangeFactory.TypeHandlerFactory.GetTypeHandler(clazz, dbType);
 			}
 			else 
 			{
@@ -354,14 +354,14 @@ namespace IBatisNet.DataMapper.Scope
 					{
 						type = ObjectProbe.GetMemberTypeForGetter(clazz, memberName);	
 					}
-                    handler = this.DataExchangeFactory.TypeHandlerFactory.GetTypeHandler(type, dbType);
+                    handler = DataExchangeFactory.TypeHandlerFactory.GetTypeHandler(type, dbType);
 				} 
 				else 
 				{
 					try 
 					{
 						Type type = TypeUtils.ResolveType(clrType);
-                        handler = this.DataExchangeFactory.TypeHandlerFactory.GetTypeHandler(type, dbType);
+                        handler = DataExchangeFactory.TypeHandlerFactory.GetTypeHandler(type, dbType);
 					} 
 					catch (Exception e) 
 					{

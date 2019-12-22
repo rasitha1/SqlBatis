@@ -27,12 +27,12 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Data;
-using IBatisNet.Common.Utilities.Objects;
-using IBatisNet.DataMapper.Configuration.ResultMapping;
-using IBatisNet.DataMapper.MappedStatements.PropertyStrategy;
-using IBatisNet.DataMapper.Scope;
+using SqlBatis.DataMapper.Utilities.Objects;
+using SqlBatis.DataMapper.Configuration.ResultMapping;
+using SqlBatis.DataMapper.MappedStatements.PropertyStrategy;
+using SqlBatis.DataMapper.Scope;
 
-namespace IBatisNet.DataMapper.MappedStatements.PropertStrategy
+namespace SqlBatis.DataMapper.MappedStatements.PropertStrategy
 {
     /// <summary>
     /// <see cref="IPropertyStrategy"/> implementation when a 'resultMapping' attribute exists

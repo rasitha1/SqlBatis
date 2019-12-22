@@ -3,15 +3,15 @@ using System.Configuration;
 using System.IO;
 using System.Reflection;
 using System.Threading;
-using IBatisNet.Common.Utilities;
-using IBatisNet.DataMapper; // SqlMap API
-using IBatisNet.DataMapper.Configuration;
-using IBatisNet.DataMapper.SessionStore;
-using IBatisNet.DataMapper.Test.Domain;
+using SqlBatis.DataMapper.Utilities;
+using SqlBatis.DataMapper; // SqlMap API
+using SqlBatis.DataMapper.Configuration;
+using SqlBatis.DataMapper.SessionStore;
+using SqlBatis.DataMapper.Test.Domain;
 using NUnit.Framework;
 using System.Collections.Specialized;
 
-namespace IBatisNet.DataMapper.Test.NUnit.SqlMapTests
+namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
 {
 	/// <summary>
 	/// Description résumée de ConfigureTest.
@@ -58,7 +58,7 @@ namespace IBatisNet.DataMapper.Test.NUnit.SqlMapTests
 			DomSqlMapBuilder builder = new DomSqlMapBuilder();
 
             NameValueCollection properties = new NameValueCollection();
-            properties.Add("collection2Namespace", "IBatisNet.DataMapper.Test.Domain.LineItemCollection, IBatisNet.DataMapper.Test");
+            properties.Add("collection2Namespace", "SqlBatis.DataMapper.Test.Domain.LineItemCollection, SqlBatis.DataMapper.Test");
             properties.Add("nullableInt", "int");
 		    ChildSetupProperties(properties);
             builder.Properties = properties;
@@ -80,7 +80,7 @@ namespace IBatisNet.DataMapper.Test.NUnit.SqlMapTests
 			DomSqlMapBuilder builder = new DomSqlMapBuilder();
 
             NameValueCollection properties = new NameValueCollection();
-            properties.Add("collection2Namespace", "IBatisNet.DataMapper.Test.Domain.LineItemCollection, IBatisNet.DataMapper.Test");
+            properties.Add("collection2Namespace", "SqlBatis.DataMapper.Test.Domain.LineItemCollection, SqlBatis.DataMapper.Test");
             properties.Add("nullableInt", "int");
 		    ChildSetupProperties(properties);
             builder.Properties = properties;
@@ -99,7 +99,7 @@ namespace IBatisNet.DataMapper.Test.NUnit.SqlMapTests
 			DomSqlMapBuilder builder = new DomSqlMapBuilder();
 
             NameValueCollection properties = new NameValueCollection();
-            properties.Add("collection2Namespace", "IBatisNet.DataMapper.Test.Domain.LineItemCollection, IBatisNet.DataMapper.Test");
+            properties.Add("collection2Namespace", "SqlBatis.DataMapper.Test.Domain.LineItemCollection, SqlBatis.DataMapper.Test");
             properties.Add("nullableInt", "int");
 		    ChildSetupProperties(properties);
             builder.Properties = properties;
@@ -120,7 +120,7 @@ namespace IBatisNet.DataMapper.Test.NUnit.SqlMapTests
 			DomSqlMapBuilder builder = new DomSqlMapBuilder();
 
             NameValueCollection properties = new NameValueCollection();
-            properties.Add("collection2Namespace", "IBatisNet.DataMapper.Test.Domain.LineItemCollection, IBatisNet.DataMapper.Test");
+            properties.Add("collection2Namespace", "SqlBatis.DataMapper.Test.Domain.LineItemCollection, SqlBatis.DataMapper.Test");
             properties.Add("nullableInt", "int");
 		    ChildSetupProperties(properties);
             builder.Properties = properties;
@@ -144,7 +144,7 @@ namespace IBatisNet.DataMapper.Test.NUnit.SqlMapTests
 			DomSqlMapBuilder builder = new DomSqlMapBuilder();
 
             NameValueCollection properties = new NameValueCollection();
-            properties.Add("collection2Namespace", "IBatisNet.DataMapper.Test.Domain.LineItemCollection, IBatisNet.DataMapper.Test");
+            properties.Add("collection2Namespace", "SqlBatis.DataMapper.Test.Domain.LineItemCollection, SqlBatis.DataMapper.Test");
             properties.Add("nullableInt", "int");
 		    ChildSetupProperties(properties);
             builder.Properties = properties;
@@ -165,7 +165,7 @@ namespace IBatisNet.DataMapper.Test.NUnit.SqlMapTests
 			DomSqlMapBuilder builder = new DomSqlMapBuilder();
 
             NameValueCollection properties = new NameValueCollection();
-            properties.Add("collection2Namespace", "IBatisNet.DataMapper.Test.Domain.LineItemCollection, IBatisNet.DataMapper.Test");
+            properties.Add("collection2Namespace", "SqlBatis.DataMapper.Test.Domain.LineItemCollection, SqlBatis.DataMapper.Test");
             properties.Add("nullableInt", "int");
 		    ChildSetupProperties(properties);
             builder.Properties = properties;
@@ -186,7 +186,7 @@ namespace IBatisNet.DataMapper.Test.NUnit.SqlMapTests
 			DomSqlMapBuilder builder = new DomSqlMapBuilder();
 
             NameValueCollection properties = new NameValueCollection();
-            properties.Add("collection2Namespace", "IBatisNet.DataMapper.Test.Domain.LineItemCollection, IBatisNet.DataMapper.Test");
+            properties.Add("collection2Namespace", "SqlBatis.DataMapper.Test.Domain.LineItemCollection, SqlBatis.DataMapper.Test");
             properties.Add("nullableInt", "int");
 		    ChildSetupProperties(properties);
             builder.Properties = properties;
@@ -207,7 +207,7 @@ namespace IBatisNet.DataMapper.Test.NUnit.SqlMapTests
 			DomSqlMapBuilder builder = new DomSqlMapBuilder();
 
             NameValueCollection properties = new NameValueCollection();
-            properties.Add("collection2Namespace", "IBatisNet.DataMapper.Test.Domain.LineItemCollection, IBatisNet.DataMapper.Test");
+            properties.Add("collection2Namespace", "SqlBatis.DataMapper.Test.Domain.LineItemCollection, SqlBatis.DataMapper.Test");
             properties.Add("nullableInt", "int");
 		    ChildSetupProperties(properties);
             builder.Properties = properties;
@@ -229,7 +229,7 @@ namespace IBatisNet.DataMapper.Test.NUnit.SqlMapTests
 			DomSqlMapBuilder builder = new DomSqlMapBuilder();
 
             NameValueCollection properties = new NameValueCollection();
-            properties.Add("collection2Namespace", "IBatisNet.DataMapper.Test.Domain.LineItemCollection, IBatisNet.DataMapper.Test");
+            properties.Add("collection2Namespace", "SqlBatis.DataMapper.Test.Domain.LineItemCollection, SqlBatis.DataMapper.Test");
             properties.Add("nullableInt", "int");
 		    ChildSetupProperties(properties);
             builder.Properties = properties;
@@ -251,7 +251,7 @@ namespace IBatisNet.DataMapper.Test.NUnit.SqlMapTests
 			DomSqlMapBuilder builder = new DomSqlMapBuilder();
 
             NameValueCollection properties = new NameValueCollection();
-            properties.Add("collection2Namespace", "IBatisNet.DataMapper.Test.Domain.LineItemCollection, IBatisNet.DataMapper.Test");
+            properties.Add("collection2Namespace", "SqlBatis.DataMapper.Test.Domain.LineItemCollection, SqlBatis.DataMapper.Test");
             properties.Add("nullableInt", "int");
 		    ChildSetupProperties(properties);
             builder.Properties = properties;
@@ -273,7 +273,7 @@ namespace IBatisNet.DataMapper.Test.NUnit.SqlMapTests
 			DomSqlMapBuilder builder = new DomSqlMapBuilder();
 
             NameValueCollection properties = new NameValueCollection();
-            properties.Add("collection2Namespace", "IBatisNet.DataMapper.Test.Domain.LineItemCollection, IBatisNet.DataMapper.Test");
+            properties.Add("collection2Namespace", "SqlBatis.DataMapper.Test.Domain.LineItemCollection, SqlBatis.DataMapper.Test");
             properties.Add("nullableInt", "int");
 		    ChildSetupProperties(properties);
             builder.Properties = properties;
@@ -295,7 +295,7 @@ namespace IBatisNet.DataMapper.Test.NUnit.SqlMapTests
 			DomSqlMapBuilder builder = new DomSqlMapBuilder();
 
             NameValueCollection properties = new NameValueCollection();
-            properties.Add("collection2Namespace", "IBatisNet.DataMapper.Test.Domain.LineItemCollection, IBatisNet.DataMapper.Test");
+            properties.Add("collection2Namespace", "SqlBatis.DataMapper.Test.Domain.LineItemCollection, SqlBatis.DataMapper.Test");
             properties.Add("nullableInt", "int");
 		    ChildSetupProperties(properties);
             builder.Properties = properties;
@@ -317,7 +317,7 @@ namespace IBatisNet.DataMapper.Test.NUnit.SqlMapTests
 			DomSqlMapBuilder builder = new DomSqlMapBuilder();
 
             NameValueCollection properties = new NameValueCollection();
-            properties.Add("collection2Namespace", "IBatisNet.DataMapper.Test.Domain.LineItemCollection, IBatisNet.DataMapper.Test");
+            properties.Add("collection2Namespace", "SqlBatis.DataMapper.Test.Domain.LineItemCollection, SqlBatis.DataMapper.Test");
             properties.Add("nullableInt", "int");
 		    ChildSetupProperties(properties);
             builder.Properties = properties;
@@ -339,7 +339,7 @@ namespace IBatisNet.DataMapper.Test.NUnit.SqlMapTests
 			DomSqlMapBuilder builder = new DomSqlMapBuilder();
 
             NameValueCollection properties = new NameValueCollection();
-            properties.Add("collection2Namespace", "IBatisNet.DataMapper.Test.Domain.LineItemCollection, IBatisNet.DataMapper.Test");
+            properties.Add("collection2Namespace", "SqlBatis.DataMapper.Test.Domain.LineItemCollection, SqlBatis.DataMapper.Test");
             properties.Add("nullableInt", "int");
 		    ChildSetupProperties(properties);
             builder.Properties = properties;
@@ -363,7 +363,7 @@ namespace IBatisNet.DataMapper.Test.NUnit.SqlMapTests
 			DomSqlMapBuilder builder = new DomSqlMapBuilder();
 
             NameValueCollection properties = new NameValueCollection();
-            properties.Add("collection2Namespace", "IBatisNet.DataMapper.Test.Domain.LineItemCollection, IBatisNet.DataMapper.Test");
+            properties.Add("collection2Namespace", "SqlBatis.DataMapper.Test.Domain.LineItemCollection, SqlBatis.DataMapper.Test");
             properties.Add("nullableInt", "int");
 		    ChildSetupProperties(properties);
             builder.Properties = properties;
@@ -382,15 +382,15 @@ namespace IBatisNet.DataMapper.Test.NUnit.SqlMapTests
 		[Test] 
 		public void TestConfigureViaStream()
 		{
-			// embeddedResource = "bin.Debug.SqlMap_MSSQL_SqlClient.config, IBatisNet.DataMapper.Test";
+			// embeddedResource = "bin.Debug.SqlMap_MSSQL_SqlClient.config, SqlBatis.DataMapper.Test";
 			
-            Assembly assembly = Assembly.Load("IBatisNet.DataMapper.Test");
-			Stream stream = assembly.GetManifestResourceStream("IBatisNet.DataMapper.Test.SqlMap_MSSQL_SqlClient.config");
+            Assembly assembly = Assembly.Load("SqlBatis.DataMapper.Test");
+			Stream stream = assembly.GetManifestResourceStream("SqlBatis.DataMapper.Test.SqlMap_MSSQL_SqlClient.config");
 
 			DomSqlMapBuilder builder = new DomSqlMapBuilder();
 
             NameValueCollection properties = new NameValueCollection();
-            properties.Add("collection2Namespace", "IBatisNet.DataMapper.Test.Domain.LineItemCollection, IBatisNet.DataMapper.Test");
+            properties.Add("collection2Namespace", "SqlBatis.DataMapper.Test.Domain.LineItemCollection, SqlBatis.DataMapper.Test");
             properties.Add("nullableInt", "int");
 		    ChildSetupProperties(properties);
             builder.Properties = properties;
@@ -417,7 +417,7 @@ namespace IBatisNet.DataMapper.Test.NUnit.SqlMapTests
             DomSqlMapBuilder builder = new DomSqlMapBuilder();
 
             NameValueCollection properties = new NameValueCollection();
-            properties.Add("collection2Namespace", "IBatisNet.DataMapper.Test.Domain.LineItemCollection, IBatisNet.DataMapper.Test");
+            properties.Add("collection2Namespace", "SqlBatis.DataMapper.Test.Domain.LineItemCollection, SqlBatis.DataMapper.Test");
             properties.Add("nullableInt", "int");
             ChildSetupProperties(properties);
             builder.Properties = properties;
@@ -457,7 +457,7 @@ namespace IBatisNet.DataMapper.Test.NUnit.SqlMapTests
             DomSqlMapBuilder builder = new DomSqlMapBuilder();
 
             NameValueCollection properties = new NameValueCollection();
-            properties.Add("collection2Namespace", "IBatisNet.DataMapper.Test.Domain.LineItemCollection, IBatisNet.DataMapper.Test");
+            properties.Add("collection2Namespace", "SqlBatis.DataMapper.Test.Domain.LineItemCollection, SqlBatis.DataMapper.Test");
             properties.Add("nullableInt", "int");
             
             ChildSetupProperties(properties);

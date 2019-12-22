@@ -6,6 +6,9 @@ pool:
 
 variables:
   buildConfiguration: 'Release'
+  majorVersion: 4
+  minorVersion: 0
+  patchVersion: 0
 
 steps:
 - script: dotnet build --configuration $(buildConfiguration)
@@ -29,3 +32,27 @@ steps:
     command: test
     projects: 'test/**/*.csproj'
     arguments: '--configuration $(buildConfiguration) --filter Category=MSSQL'
+
+- task: DotNetCoreCLI@2
+  displayName: Create CI Package
+  inputs:
+    command: pack
+    nobuild: true
+    requestedMajorVersion: $(majorVersion)
+    requestedMinorVersion: $(minorVersion)
+    requestedPatchVersion: $(patchVersion)
+    versioningScheme : byPrereleaseNumber
+    packagesToPack: 'src/**/*.csproj'
+    arguments: '--configuration $(buildConfiguration)'
+
+- task: DotNetCoreCLI@2
+  displayName: Create Release Package
+  inputs:
+    command: pack
+    nobuild: true
+    versioningScheme : off
+    requestedMajorVersion: $(majorVersion)
+    requestedMinorVersion: $(minorVersion)
+    requestedPatchVersion: $(patchVersion)
+    packagesToPack: 'src/**/*.csproj'
+    arguments: '--configuration $(buildConfiguration)'

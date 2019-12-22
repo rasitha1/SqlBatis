@@ -23,7 +23,7 @@
  ********************************************************************************/
 #endregion
 
-namespace IBatisNet.DataMapper.MappedStatements.ResultStrategy
+namespace SqlBatis.DataMapper.MappedStatements.ResultStrategy
 {
 	
 }

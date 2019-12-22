@@ -4,15 +4,15 @@ using System.Collections.Concurrent;
 using System.Threading;
 using System.Configuration;
 using System.Linq;
-using IBatisNet.Common.Logging;
+using SqlBatis.DataMapper.Logging;
 using NUnit.Framework;
 
-using IBatisNet.DataMapper.Exceptions;
+using SqlBatis.DataMapper.Exceptions;
 
-using IBatisNet.DataMapper.Test;
-using IBatisNet.DataMapper.Test.Domain;
+using SqlBatis.DataMapper.Test;
+using SqlBatis.DataMapper.Test.Domain;
 
-namespace IBatisNet.DataMapper.Test.NUnit.SqlMapTests
+namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
 {
 	/// <summary>
 	/// Summary description for TransactionTest.

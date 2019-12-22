@@ -31,17 +31,17 @@ using System.Collections.Specialized;
 using System.Data;
 using System.Reflection;
 using System.Text;
-using IBatisNet.Common;
-using IBatisNet.Common.Logging;
-using IBatisNet.Common.Utilities.Objects;
-using IBatisNet.DataMapper.Configuration.ParameterMapping;
-using IBatisNet.DataMapper.Configuration.Statements;
-using IBatisNet.DataMapper.Exceptions;
-using IBatisNet.DataMapper.Scope;
+using SqlBatis.DataMapper;
+using SqlBatis.DataMapper.Logging;
+using SqlBatis.DataMapper.Utilities.Objects;
+using SqlBatis.DataMapper.Configuration.ParameterMapping;
+using SqlBatis.DataMapper.Configuration.Statements;
+using SqlBatis.DataMapper.Exceptions;
+using SqlBatis.DataMapper.Scope;
 
 #endregion
 
-namespace IBatisNet.DataMapper.Commands
+namespace SqlBatis.DataMapper.Commands
 {
 	/// <summary>
 	/// Summary description for DefaultPreparedCommand.

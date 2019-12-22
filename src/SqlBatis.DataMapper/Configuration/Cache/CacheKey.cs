@@ -27,23 +27,23 @@
 using System.Collections;
 using System.Text;
 
-namespace IBatisNet.DataMapper.Configuration.Cache
+namespace SqlBatis.DataMapper.Configuration.Cache
 {
-	using IBatisNet.Common.Utilities;
+	using SqlBatis.DataMapper.Utilities;
 
 	/// <summary>
 	///  Hash value generator for cache keys
 	/// </summary>
 	public class CacheKey
 	{
-		private const int DEFAULT_MULTIPLYER = 37;
+		private const int DEFAULT_MULTIPLIER = 37;
 		private const int DEFAULT_HASHCODE = 17;
 
-		private int _multiplier = DEFAULT_MULTIPLYER;
+		private readonly int _multiplier = DEFAULT_MULTIPLIER;
 		private int _hashCode = DEFAULT_HASHCODE;
 		private long _checksum = long.MinValue;
 		private int _count = 0;
-		private IList _paramList = new ArrayList();
+		private readonly IList _paramList = new ArrayList();
 
 		/// <summary>
 		/// Default constructor
@@ -51,7 +51,7 @@ namespace IBatisNet.DataMapper.Configuration.Cache
 		public CacheKey()
 		{
 			_hashCode = DEFAULT_HASHCODE;
-			_multiplier = DEFAULT_MULTIPLYER;
+			_multiplier = DEFAULT_MULTIPLIER;
 			_count = 0;
 		}
 
@@ -62,7 +62,7 @@ namespace IBatisNet.DataMapper.Configuration.Cache
 		public CacheKey(int initialNonZeroOddNumber) 
 		{
 			_hashCode = initialNonZeroOddNumber;
-			_multiplier = DEFAULT_MULTIPLYER;
+			_multiplier = DEFAULT_MULTIPLIER;
 			_count = 0;
 		}
 

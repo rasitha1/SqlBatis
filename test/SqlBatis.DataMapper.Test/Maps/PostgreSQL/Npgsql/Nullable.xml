@@ -4,7 +4,7 @@ xmlns="http://ibatis.apache.org/mapping"
 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 
   <alias>
-    <typeAlias alias="Nullable" type="IBatisNet.DataMapper.Test.Domain.NullableClass, IBatisNet.DataMapper.Test"/>
+    <typeAlias alias="Nullable" type="SqlBatis.DataMapper.Test.Domain.NullableClass, SqlBatis.DataMapper.Test"/>
   </alias>
 
   <resultMaps>

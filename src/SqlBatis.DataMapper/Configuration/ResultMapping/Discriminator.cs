@@ -30,12 +30,11 @@ using System;
 using System.Collections;
 using System.Collections.Specialized;
 using System.Xml.Serialization;
-using IBatisNet.DataMapper.MappedStatements.PropertyStrategy;
-using IBatisNet.DataMapper.Scope;
+using SqlBatis.DataMapper.Scope;
 
 #endregion
 
-namespace IBatisNet.DataMapper.Configuration.ResultMapping
+namespace SqlBatis.DataMapper.Configuration.ResultMapping
 {
 	/// <summary>
 	/// Summary description for Discriminator.

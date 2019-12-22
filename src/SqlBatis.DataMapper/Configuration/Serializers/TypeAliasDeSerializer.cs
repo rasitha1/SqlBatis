@@ -27,12 +27,12 @@
 
 using System.Collections.Specialized;
 using System.Xml;
-using IBatisNet.Common.Xml;
-using IBatisNet.DataMapper.Configuration.Alias;
-using IBatisNet.DataMapper.Scope;
+using SqlBatis.DataMapper.Xml;
+using SqlBatis.DataMapper.Configuration.Alias;
+using SqlBatis.DataMapper.Scope;
 #endregion 
 
-namespace IBatisNet.DataMapper.Configuration.Serializers
+namespace SqlBatis.DataMapper.Configuration.Serializers
 {
 	/// <summary>
 	/// Summary description for TypeAliasDeSerializer.

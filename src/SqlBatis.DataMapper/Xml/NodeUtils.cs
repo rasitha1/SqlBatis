@@ -2,7 +2,7 @@ using System;
 using System.Xml;
 using System.Collections.Specialized;
 
-namespace IBatisNet.Common.Xml
+namespace SqlBatis.DataMapper.Xml
 {
 	/// <summary>
 	/// Summary description for NodeUtils.

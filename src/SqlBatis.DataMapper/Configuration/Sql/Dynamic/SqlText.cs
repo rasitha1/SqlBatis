@@ -27,12 +27,12 @@
 #region Using
 using System;
 
-using IBatisNet.Common;
-using IBatisNet.DataMapper.Configuration.Statements;
-using IBatisNet.DataMapper.Configuration.ParameterMapping;
+using SqlBatis.DataMapper;
+using SqlBatis.DataMapper.Configuration.Statements;
+using SqlBatis.DataMapper.Configuration.ParameterMapping;
 #endregion
 
-namespace IBatisNet.DataMapper.Configuration.Sql.Dynamic
+namespace SqlBatis.DataMapper.Configuration.Sql.Dynamic
 {
 	/// <summary>
 	/// Summary description for SqlText.

@@ -29,7 +29,7 @@
 
 #endregion
 
-namespace IBatisNet.DataMapper.Commands
+namespace SqlBatis.DataMapper.Commands
 {
 	/// <summary>
 	/// Summary description for PreparedCommandFactory.
@@ -40,9 +40,9 @@ namespace IBatisNet.DataMapper.Commands
 		/// Get an IPreparedCommand.
 		/// </summary>
 		/// <returns></returns>
-		static public IPreparedCommand GetPreparedCommand(bool isEmbedStatementParams)
+		public static IPreparedCommand GetPreparedCommand(bool isEmbedStatementParams)
 		{
-			IPreparedCommand preparedCommand = null;
+			IPreparedCommand preparedCommand;
 
 //			if (isEmbedStatementParams)
 //			{

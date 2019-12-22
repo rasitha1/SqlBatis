@@ -23,9 +23,9 @@
  ********************************************************************************/
 #endregion
 
-using IBatisNet.DataMapper.Configuration.ResultMapping;
+using SqlBatis.DataMapper.Configuration.ResultMapping;
 
-namespace IBatisNet.DataMapper.MappedStatements.ArgumentStrategy
+namespace SqlBatis.DataMapper.MappedStatements.ArgumentStrategy
 {
 	/// <summary>
 	/// Factory to get <see cref="IArgumentStrategy"/> implementation.

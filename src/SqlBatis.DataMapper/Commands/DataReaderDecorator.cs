@@ -25,9 +25,9 @@
 
 using System;
 using System.Data;
-using IBatisNet.DataMapper.Scope;
+using SqlBatis.DataMapper.Scope;
 
-namespace IBatisNet.DataMapper.Commands
+namespace SqlBatis.DataMapper.Commands
 {
     /// <summary>
     /// Decorate an <see cref="System.Data.IDataReader"></see>
@@ -35,8 +35,8 @@ namespace IBatisNet.DataMapper.Commands
     /// </summary>
     public class DataReaderDecorator : IDataReader
     {
-        private IDataReader _innerDataReader = null;
-        private RequestScope _request = null;
+        private readonly IDataReader _innerDataReader;
+        private readonly RequestScope _request;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DataReaderDecorator"/> class.

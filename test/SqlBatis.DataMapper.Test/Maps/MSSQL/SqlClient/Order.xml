@@ -5,7 +5,7 @@ xmlns="http://ibatis.apache.org/mapping"
 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
 
 	<alias>
-		<typeAlias alias="Order" type="IBatisNet.DataMapper.Test.Domain.Order, IBatisNet.DataMapper.Test" />
+		<typeAlias alias="Order" type="SqlBatis.DataMapper.Test.Domain.Order, SqlBatis.DataMapper.Test" />
 	</alias>
 
 		<!-- If the type is not specified, ADO.NET infers the 

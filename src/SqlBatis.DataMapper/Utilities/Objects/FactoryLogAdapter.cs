@@ -26,9 +26,9 @@
 using System;
 using System.Reflection;
 using System.Text;
-using IBatisNet.Common.Logging;
+using SqlBatis.DataMapper.Logging;
 
-namespace IBatisNet.Common.Utilities.Objects
+namespace SqlBatis.DataMapper.Utilities.Objects
 {
 	/// <summary>
     /// A wrapper arround an <see cref="IFactory"/> implementation which logs argument type and value

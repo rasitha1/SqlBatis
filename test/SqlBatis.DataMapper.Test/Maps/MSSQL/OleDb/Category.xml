@@ -3,7 +3,7 @@
 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
 	
 	<alias>
-		<typeAlias alias="Category" type="IBatisNet.DataMapper.Test.Domain.Category, IBatisNet.DataMapper.Test"/>
+		<typeAlias alias="Category" type="SqlBatis.DataMapper.Test.Domain.Category, SqlBatis.DataMapper.Test"/>
 	</alias>
 	
   <resultMaps>
@@ -156,10 +156,10 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
 		at System.Data.OleDb.OleDbCommand.ExecuteReaderInternal(CommandBehavior behavior, String method)
 		at System.Data.OleDb.OleDbCommand.ExecuteReader(CommandBehavior behavior)
 		at System.Data.OleDb.OleDbCommand.System.Data.IDbCommand.ExecuteReader()
-		at IBatisNet.DataMapper.MappedStatements.MappedStatement.RunQueryForObject(RequestScope request, IDalSession session, Object parameterObject, Object resultObject) in c:\projects\ibatis\svn\trunk\source\ibatisnet.datamapper\mappedstatements\mappedstatement.cs:line 555
-		at IBatisNet.DataMapper.MappedStatements.MappedStatement.ExecuteQueryForObject(IDalSession session, Object parameterObject, Object resultObject) in c:\projects\ibatis\svn\trunk\source\ibatisnet.datamapper\mappedstatements\mappedstatement.cs:line 502
-		at IBatisNet.DataMapper.MappedStatements.MappedStatement.ExecuteQueryForObject(IDalSession session, Object parameterObject) in c:\projects\ibatis\svn\trunk\source\ibatisnet.datamapper\mappedstatements\mappedstatement.cs:line 483
-		at IBatisNet.DataMapper.SqlMapper.QueryForObject(String statementName, Object parameterObject) in C:\projects\ibatis\svn\trunk\Source\IBatisNet.DataMapper\SqlMapper.cs:line 489
+		at SqlBatis.DataMapper.MappedStatements.MappedStatement.RunQueryForObject(RequestScope request, IDalSession session, Object parameterObject, Object resultObject) in c:\projects\ibatis\svn\trunk\source\ibatisnet.datamapper\mappedstatements\mappedstatement.cs:line 555
+		at SqlBatis.DataMapper.MappedStatements.MappedStatement.ExecuteQueryForObject(IDalSession session, Object parameterObject, Object resultObject) in c:\projects\ibatis\svn\trunk\source\ibatisnet.datamapper\mappedstatements\mappedstatement.cs:line 502
+		at SqlBatis.DataMapper.MappedStatements.MappedStatement.ExecuteQueryForObject(IDalSession session, Object parameterObject) in c:\projects\ibatis\svn\trunk\source\ibatisnet.datamapper\mappedstatements\mappedstatement.cs:line 483
+		at SqlBatis.DataMapper.SqlMapper.QueryForObject(String statementName, Object parameterObject) in C:\projects\ibatis\svn\trunk\Source\SqlBatis.DataMapper\SqlMapper.cs:line 489
 		at IBatisNet.Test.NUnit.SqlMapTests.MSSQL.StatementGenerate.TestSelectByPK() in C:\projects\ibatis\svn\trunk\Source\IBatisNet.Test\NUnit\SqlMapTests\MSSQL\StatementGenerate.cs:line 54
 		InvalidOperationException
 		

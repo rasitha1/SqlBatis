@@ -29,13 +29,13 @@ using System;
 using System.Data;
 using System.Xml.Serialization;
 
-using IBatisNet.Common.Exceptions;
-using IBatisNet.DataMapper.Configuration.ParameterMapping;
-using IBatisNet.DataMapper.Exceptions;
-using IBatisNet.DataMapper.Scope;
+using SqlBatis.DataMapper.Exceptions;
+using SqlBatis.DataMapper.Configuration.ParameterMapping;
+using SqlBatis.DataMapper.Exceptions;
+using SqlBatis.DataMapper.Scope;
 #endregion
 
-namespace IBatisNet.DataMapper.Configuration.Statements
+namespace SqlBatis.DataMapper.Configuration.Statements
 {
 	/// <summary>
 	/// Represent a store Procedure.
@@ -83,10 +83,10 @@ namespace IBatisNet.DataMapper.Configuration.Statements
 		override internal void Initialize(ConfigurationScope configurationScope)
 		{
 			base.Initialize( configurationScope );
-			if (this.ParameterMap == null)
+			if (ParameterMap == null)
 			{
-				//throw new ConfigurationException("The parameterMap attribute is required in the procedure tag named '"+ this.Id +"'.");
-                this.ParameterMap = configurationScope.SqlMapper.GetParameterMap(ConfigurationScope.EMPTY_PARAMETER_MAP);
+				//throw new ConfigurationException("The parameterMap attribute is required in the procedure tag named '"+ Id +"'.");
+                ParameterMap = configurationScope.SqlMapper.GetParameterMap(ConfigurationScope.EMPTY_PARAMETER_MAP);
 			}
 		}
 		#endregion

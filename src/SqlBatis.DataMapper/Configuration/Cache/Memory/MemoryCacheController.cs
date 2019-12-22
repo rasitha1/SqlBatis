@@ -31,23 +31,23 @@ using System.Collections;
 
 #endregion
 
-namespace IBatisNet.DataMapper.Configuration.Cache.Memory
+namespace SqlBatis.DataMapper.Configuration.Cache.Memory
 {
 	/// <summary>
-	/// Summary description for MemoryCacheControler.
+	/// Summary description for MemoryCacheController.
 	/// </summary>
-	public class MemoryCacheControler : ICacheController	
+	public class MemoryCacheController : ICacheController	
 	{
 		#region Fields 
 		private MemoryCacheLevel _cacheLevel = MemoryCacheLevel.Weak;
-		private Hashtable _cache = null;
+		private readonly Hashtable _cache;
 		#endregion
 
 		#region Constructor (s) / Destructor
 		/// <summary>
 		/// Constructor
 		/// </summary>
-		public MemoryCacheControler() 
+		public MemoryCacheController() 
 		{
 			_cache = Hashtable.Synchronized( new Hashtable() );
 		}
@@ -136,7 +136,7 @@ namespace IBatisNet.DataMapper.Configuration.Cache.Memory
 		/// </summary>
 		public void Configure(IDictionary properties)
 		{
-			string referenceType = (string)properties["Type"];;
+			string referenceType = (string)properties["Type"];
 			if (referenceType != null) 
 			{
 				_cacheLevel = MemoryCacheLevel.GetByRefenceType(referenceType.ToUpper());
@@ -150,7 +150,7 @@ namespace IBatisNet.DataMapper.Configuration.Cache.Memory
 		/// </summary>
 		private class StrongReference 
 		{
-			private object _target = null;
+			private readonly object _target;
 
 			public StrongReference(object obj) 
 			{

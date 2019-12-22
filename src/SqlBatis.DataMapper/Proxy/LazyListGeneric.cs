@@ -28,11 +28,11 @@ using System.Collections.Generic;
 using System.Collections;
 using System.Reflection;
 
-using IBatisNet.Common.Utilities.Objects.Members;
-using IBatisNet.DataMapper.MappedStatements;
-using IBatisNet.Common.Logging;
+using SqlBatis.DataMapper.Utilities.Objects.Members;
+using SqlBatis.DataMapper.MappedStatements;
+using SqlBatis.DataMapper.Logging;
 
-namespace IBatisNet.DataMapper.Proxy
+namespace SqlBatis.DataMapper.Proxy
 {
     /// <summary>
     /// A lazy generic list
@@ -309,7 +309,7 @@ namespace IBatisNet.DataMapper.Proxy
         /// <exception cref="T:System.NotSupportedException">The <see cref="T:System.Collections.Generic.ICollection`1"></see> is read-only. </exception>
         void IList.Clear()
         {
-            this.Clear();
+            Clear();
         }
 
         /// <summary>
@@ -392,7 +392,7 @@ namespace IBatisNet.DataMapper.Proxy
         /// <exception cref="T:System.ArgumentOutOfRangeException">index is not a valid index in the <see cref="T:System.Collections.Generic.IList`1"></see>.</exception>
         void IList.RemoveAt(int index)
         {
-            this.RemoveAt(index);
+            RemoveAt(index);
         }
 
         /// <summary>
@@ -437,10 +437,7 @@ namespace IBatisNet.DataMapper.Proxy
         /// </summary>
         /// <value></value>
         /// <returns>The number of elements contained in the <see cref="System.Collections.Generic.ICollection"></see>.</returns>
-        int ICollection.Count
-        {
-            get { return this.Count; }
-        }
+        int ICollection.Count => Count;
 
         /// <summary>
         /// Gets a value indicating whether access to the <see cref="System.Collections.ICollection"></see> is synchronized (thread safe).

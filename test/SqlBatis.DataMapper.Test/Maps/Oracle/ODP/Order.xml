@@ -4,7 +4,7 @@
 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
 
 	<alias>
-		<typeAlias alias="Order" type="IBatisNet.DataMapper.Test.Domain.Order, IBatisNet.DataMapper.Test" />
+		<typeAlias alias="Order" type="SqlBatis.DataMapper.Test.Domain.Order, SqlBatis.DataMapper.Test" />
 	</alias>
 
 		<!-- If the type is not specified, ADO.NET infers the 
@@ -384,15 +384,15 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
 		
 		at Oracle.DataAccess.Client.OracleCommand.ExecuteReader(Boolean requery, Boolean fillRequest, CommandBehavior behavior)
 		at Oracle.DataAccess.Client.OracleCommand.System.Data.IDbCommand.ExecuteReader()
-		at IBatisNet.DataMapper.MappedStatements.MappedStatement.RunQueryForObject(RequestScope request, IDalSession session, Object parameterObject, Object resultObject) in C:\projects\ibatis\asf\trunk\cs\mapper\IBatisNet.DataMapper\MappedStatements\MappedStatement.cs:line 571
-		at IBatisNet.DataMapper.MappedStatements.MappedStatement.ExecuteQueryForObject(IDalSession session, Object parameterObject, Object resultObject) in C:\projects\ibatis\asf\trunk\cs\mapper\IBatisNet.DataMapper\MappedStatements\MappedStatement.cs:line 517
-		at IBatisNet.DataMapper.MappedStatements.MappedStatement.ExecuteQueryForObject(IDalSession session, Object parameterObject) in C:\projects\ibatis\asf\trunk\cs\mapper\IBatisNet.DataMapper\MappedStatements\MappedStatement.cs:line 498
-		at IBatisNet.DataMapper.MappedStatements.MappedStatement.ExecutePostSelect(IDalSession session, RequestScope request) in C:\projects\ibatis\asf\trunk\cs\mapper\IBatisNet.DataMapper\MappedStatements\MappedStatement.cs:line 1027
-		at IBatisNet.DataMapper.MappedStatements.MappedStatement.RunQueryForObject(RequestScope request, IDalSession session, Object parameterObject, Object resultObject) in C:\projects\ibatis\asf\trunk\cs\mapper\IBatisNet.DataMapper\MappedStatements\MappedStatement.cs:line 579
-		at IBatisNet.DataMapper.MappedStatements.MappedStatement.ExecuteQueryForObject(IDalSession session, Object parameterObject, Object resultObject) in C:\projects\ibatis\asf\trunk\cs\mapper\IBatisNet.DataMapper\MappedStatements\MappedStatement.cs:line 517
-		at IBatisNet.DataMapper.MappedStatements.MappedStatement.ExecuteQueryForObject(IDalSession session, Object parameterObject) in C:\projects\ibatis\asf\trunk\cs\mapper\IBatisNet.DataMapper\MappedStatements\MappedStatement.cs:line 498
-		at IBatisNet.DataMapper.SqlMapper.QueryForObject(String statementName, Object parameterObject) in c:\projects\ibatis\asf\trunk\cs\mapper\ibatisnet.datamapper\sqlmapper.cs:line 508
-		at IBatisNet.DataMapper.Test.NUnit.SqlMapTests.ResultMapTest.TestDynamiqueCompositeKeyMapping() in C:\projects\ibatis\asf\trunk\cs\mapper\IBatisNet.DataMapper.Test\NUnit\SqlMapTests\ResultMapTest.cs:line 276
+		at SqlBatis.DataMapper.MappedStatements.MappedStatement.RunQueryForObject(RequestScope request, IDalSession session, Object parameterObject, Object resultObject) in C:\projects\ibatis\asf\trunk\cs\mapper\SqlBatis.DataMapper\MappedStatements\MappedStatement.cs:line 571
+		at SqlBatis.DataMapper.MappedStatements.MappedStatement.ExecuteQueryForObject(IDalSession session, Object parameterObject, Object resultObject) in C:\projects\ibatis\asf\trunk\cs\mapper\SqlBatis.DataMapper\MappedStatements\MappedStatement.cs:line 517
+		at SqlBatis.DataMapper.MappedStatements.MappedStatement.ExecuteQueryForObject(IDalSession session, Object parameterObject) in C:\projects\ibatis\asf\trunk\cs\mapper\SqlBatis.DataMapper\MappedStatements\MappedStatement.cs:line 498
+		at SqlBatis.DataMapper.MappedStatements.MappedStatement.ExecutePostSelect(IDalSession session, RequestScope request) in C:\projects\ibatis\asf\trunk\cs\mapper\SqlBatis.DataMapper\MappedStatements\MappedStatement.cs:line 1027
+		at SqlBatis.DataMapper.MappedStatements.MappedStatement.RunQueryForObject(RequestScope request, IDalSession session, Object parameterObject, Object resultObject) in C:\projects\ibatis\asf\trunk\cs\mapper\SqlBatis.DataMapper\MappedStatements\MappedStatement.cs:line 579
+		at SqlBatis.DataMapper.MappedStatements.MappedStatement.ExecuteQueryForObject(IDalSession session, Object parameterObject, Object resultObject) in C:\projects\ibatis\asf\trunk\cs\mapper\SqlBatis.DataMapper\MappedStatements\MappedStatement.cs:line 517
+		at SqlBatis.DataMapper.MappedStatements.MappedStatement.ExecuteQueryForObject(IDalSession session, Object parameterObject) in C:\projects\ibatis\asf\trunk\cs\mapper\SqlBatis.DataMapper\MappedStatements\MappedStatement.cs:line 498
+		at SqlBatis.DataMapper.SqlMapper.QueryForObject(String statementName, Object parameterObject) in c:\projects\ibatis\asf\trunk\cs\mapper\ibatisnet.datamapper\sqlmapper.cs:line 508
+		at SqlBatis.DataMapper.Test.NUnit.SqlMapTests.ResultMapTest.TestDynamiqueCompositeKeyMapping() in C:\projects\ibatis\asf\trunk\cs\mapper\SqlBatis.DataMapper.Test\NUnit\SqlMapTests\ResultMapTest.cs:line 276
 		
 		PostSelect ApplyParameterMap is not grabbing sqlParameter.DbType (Int32)
 		and setting new parameter DbType.

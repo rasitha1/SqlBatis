@@ -7,15 +7,15 @@ using System.Configuration;
 
 using NUnit.Framework;
 
-using IBatisNet.Common;
-using IBatisNet.Common.Utilities;
-using IBatisNet.DataMapper;
-using IBatisNet.DataMapper.MappedStatements;
+using SqlBatis.DataMapper;
+using SqlBatis.DataMapper.Utilities;
+using SqlBatis.DataMapper;
+using SqlBatis.DataMapper.MappedStatements;
 
-using IBatisNet.DataMapper.Test;
-using IBatisNet.DataMapper.Test.Domain;
+using SqlBatis.DataMapper.Test;
+using SqlBatis.DataMapper.Test.Domain;
 
-namespace IBatisNet.DataMapper.Test.NUnit.SqlMapTests
+namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
 {
 	/// <summary>
 	/// To test statement namespaces,

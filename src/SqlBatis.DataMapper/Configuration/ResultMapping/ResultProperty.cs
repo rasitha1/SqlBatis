@@ -33,20 +33,19 @@ using System.Data;
 using System.Globalization;
 using System.Reflection;
 using System.Xml.Serialization;
-using IBatisNet.Common.Exceptions;
-using IBatisNet.Common.Utilities;
-using IBatisNet.Common.Utilities.Objects;
-using IBatisNet.Common.Utilities.Objects.Members;
-using IBatisNet.DataMapper.Exceptions;
-using IBatisNet.DataMapper.MappedStatements.ArgumentStrategy;
-using IBatisNet.DataMapper.MappedStatements.PropertyStrategy;
-using IBatisNet.DataMapper.Scope;
-using IBatisNet.DataMapper.TypeHandlers;
-using IBatisNet.DataMapper.Proxy;
+using SqlBatis.DataMapper.Exceptions;
+using SqlBatis.DataMapper.Utilities;
+using SqlBatis.DataMapper.Utilities.Objects;
+using SqlBatis.DataMapper.Utilities.Objects.Members;
+using SqlBatis.DataMapper.MappedStatements.ArgumentStrategy;
+using SqlBatis.DataMapper.MappedStatements.PropertyStrategy;
+using SqlBatis.DataMapper.Scope;
+using SqlBatis.DataMapper.TypeHandlers;
+using SqlBatis.DataMapper.Proxy;
 
 #endregion
 
-namespace IBatisNet.DataMapper.Configuration.ResultMapping
+namespace SqlBatis.DataMapper.Configuration.ResultMapping
 {
 	/// <summary>
 	/// Summary description for ResultProperty.
