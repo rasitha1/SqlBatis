@@ -29,10 +29,3 @@ steps:
     command: test
     projects: 'test/**/*.csproj'
     arguments: '--configuration $(buildConfiguration) --filter Category=MSSQL'
-
-- task: DotNetCoreCLI@2
-  displayName: Publish
-  inputs:
-    command: publish    
-    publishTestResults: True
-    arguments: '--configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)'
