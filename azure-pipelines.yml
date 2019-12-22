@@ -12,7 +12,7 @@ steps:
 #  displayName: 'dotnet build $(buildConfiguration)'
   
 - script: |
-    sqllocaldb create "SqlBatis" 14.0 -s  
+    sqllocaldb create "SqlBatis" 13.0 -s  
     sqlcmd -S (localdb)\SqlBatis -E -i .\test\SqlBatis.DataMapper.Test\Scripts\MSSQL\DataBase.sql
   displayName: 'Setup LocalDB for Tests'
   
