@@ -13,6 +13,17 @@ A fork of the Apache IBatisNet distribution which has been refactored and migrat
 ```
 services.AddSqlMapper(options => Configuration.GetSection("DB").Bind(options));
 ```
+3. Configure properties in appsettings.json
+```
+{
+  "DB": {
+    "Resource": "embedded://MyApp.DataAccess.Configuration.SqlMap.config, MyApp.DataAccess",
+    "Parameters": {
+      "connectionString" :  "-injected-" 
+    } 
+  }
+}
+```
 3. Use `ISqlMapper` in Data Access objects
 ```
 public class CustomerDao : ICustomerDao
@@ -109,17 +120,15 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
 
 	<database>
 		<provider name="SqlServer"/>
-		<dataSource name="Primary" connectionString="data source=${datasource};database=${database};Integrated Security=true;"/>
+		<dataSource name="Primary" connectionString="${connectionString}"/>
 	</database>
   
 	<alias>
-		<typeAlias alias="Account" type="MyApp.Model.Account, MyApp.Model"/>
 		<typeAlias alias="Customer" type="MyApp.Model.Customer, MyApp.Model"/>
 	</alias>
 	
 	<sqlMaps>
-		<sqlMap resource="../../../${directory}/MSSQL/SqlClient/Account.xml"/>
-		<sqlMap embedded="MyApp.DataAccess.SqlMaps.Customers.xml, MyApp.DataAccess"/>-->
+		<sqlMap embedded="MyApp.DataAccess.SqlMaps.Customers.xml, MyApp.DataAccess"/>
 	</sqlMaps>
 </sqlMapConfig>
 
