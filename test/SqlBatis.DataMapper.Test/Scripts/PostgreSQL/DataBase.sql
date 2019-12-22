@@ -1,5 +1,4 @@
 DROP database "IBatisNet";
-DROP database "NHibernate";
 
 -- User: "IBatisNet"
 
@@ -9,13 +8,6 @@ CREATE USER "IBatisNet" PASSWORD 'test'
   CREATEDB CREATEUSER
    VALID UNTIL 'infinity';
 
--- User: "NHibernate"
-  
-DROP USER "NHibernate";
-
-CREATE USER "NHibernate" PASSWORD 'test'
-  CREATEDB CREATEUSER
-   VALID UNTIL 'infinity';
 
 
 -- Database: "IBatisNet"
@@ -23,14 +15,6 @@ CREATE USER "NHibernate" PASSWORD 'test'
 CREATE DATABASE "IBatisNet"
 WITH ENCODING='UNICODE'
      OWNER="IBatisNet";
-
--- Database: "NHibernate"
-
-CREATE DATABASE "NHibernate"
-  WITH ENCODING='UNICODE'
-       OWNER="NHibernate";
-
-
 
 
 \connect "IBatisNet" "IBatisNet" using test;
@@ -173,23 +157,3 @@ WITHOUT OIDS;
 ALTER TABLE Documents OWNER TO "IBatisNet";
 
 
-
-
-\connect "NHibernate" "NHibernate" using test;
-
--- DROP TABLE Users;
-
-/*==============================================================*/
-/* Table : Users                                                */
-/*==============================================================*/
-CREATE TABLE Users
-(
-  LogonId varchar(20) NOT NULL DEFAULT '0'::character varying,
-  Name varchar(40),
-  Password varchar(20),
-  EmailAddress varchar(40),
-  LastLogon date,
-  CONSTRAINT PK_Users PRIMARY KEY (LogonId)
-) 
-WITHOUT OIDS;
-ALTER TABLE Users OWNER TO "NHibernate";

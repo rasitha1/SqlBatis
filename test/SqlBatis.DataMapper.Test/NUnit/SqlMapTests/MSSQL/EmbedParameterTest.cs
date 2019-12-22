@@ -25,14 +25,20 @@ namespace IBatisNet.DataMapper.Test.NUnit.SqlMapTests.MSSQL
 	{
 		
 		#region SetUp & TearDown
+
+        [OneTimeSetUp]
+        public void FixureInit()
+        {
+            InitSqlMap();
+			InitScript(sqlMap.DataSource, ScriptDirectory + "embed-param-setup-init.sql", false);
+		}
 		/// <summary>
 		/// SetUp
 		/// </summary>
 		[SetUp] 
 		public void Init() 
 		{
-			InitSqlMap();
-			//InitScript( sqlMap.DataSource, ScriptDirectory + "embed-param-test-init.sql", false );
+            InitScript( sqlMap.DataSource, ScriptDirectory + "embed-param-test-init.sql", false );
 		}
 
 	    protected override void ChildSetupProperties(NameValueCollection nvc)

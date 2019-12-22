@@ -11,11 +11,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="properties.xml" />
     <None Remove="providers.config" />
     <None Remove="SqlMap_MSSQL_SqlClient.config" />
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="properties.xml" />
     <EmbeddedResource Include="providers.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
@@ -25,21 +27,20 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="3.0.1" />
-    <PackageReference Include="Microsoft.Extensions.Options" Version="3.0.1" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="3.1.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="3.1.0" />
+    <PackageReference Include="Microsoft.Extensions.Options" Version="3.1.0" />
     <PackageReference Include="nunit" Version="3.12.0" />
     <PackageReference Include="NUnit3TestAdapter" Version="3.15.1" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.4.0" />
-    <PackageReference Include="System.Data.SqlClient" Version="4.7.0" />
-    <PackageReference Include="System.Drawing.Common" Version="4.6.1" />
-    <PackageReference Include="System.Security.Permissions" Version="4.6.0" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.8.0" />
+    <PackageReference Include="System.Drawing.Common" Version="4.7.0" />
+    <PackageReference Include="System.Security.Permissions" Version="4.7.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\SqlBatis.Common\SqlBatis.Common.csproj" />
     <ProjectReference Include="..\..\src\SqlBatis.DataMapper\SqlBatis.DataMapper.csproj" />
     <ProjectReference Include="..\..\src\SqlBatis.DynamicProxy\SqlBatis.DynamicProxy.csproj" />
-    <ProjectReference Include="..\SqlBatis.Common.Test\SqlBatis.Common.Test.csproj" />
   </ItemGroup>
 
   <ItemGroup>
@@ -48,6 +49,9 @@
     </None>
     <None Update="DataBase.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="OctopusService.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="ReadMe.txt">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>

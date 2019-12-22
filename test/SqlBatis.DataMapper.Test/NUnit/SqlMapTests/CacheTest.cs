@@ -409,6 +409,9 @@ namespace IBatisNet.DataMapper.Test.NUnit.SqlMapTests
 				_statementName = statementName;
 			}
 
+			public bool Success { get; private set; }
+			public Exception Error { get; private set; }
+
 			public void Run() 
 			{
 				try 
@@ -426,25 +429,32 @@ namespace IBatisNet.DataMapper.Test.NUnit.SqlMapTests
 					_results["id"] = secondId ;
 					_results["list"] = list;
 					session.CloseConnection();
-				} 
-				catch (Exception e) 
-				{
-					throw e;
-				}
+                    Success = true;
+                } 
+				catch (Exception e)
+                {
+                    Success = false;
+                    Error = e;
+
+                }
 			}
 
 			public static void StartThread(ISqlMapper sqlMap, Hashtable results, string statementName) 
 			{
-				TestCacheThread tct = new TestCacheThread(sqlMap, results, statementName);
-				Thread thread = new Thread( new ThreadStart(tct.Run) );
-				thread.Start();
-				try 
+                try 
 				{
+                    TestCacheThread tct = new TestCacheThread(sqlMap, results, statementName);
+                    Thread thread = new Thread(new ThreadStart(tct.Run));
+                    thread.Start();
 					thread.Join();
+                    if (!tct.Success)
+                    {
+                        throw tct.Error;
+                    }
 				} 
 				catch (Exception e) 
 				{
-					throw e;
+					throw;
 				}
 			}
 		}

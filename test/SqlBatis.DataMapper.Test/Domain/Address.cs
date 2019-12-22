@@ -1,20 +1,15 @@
 
+using System;
+using IBatisNet.Common.Test.Domain;
+
 namespace IBatisNet.DataMapper.Test.Domain
 {
-    public class Address
+    public class Address : IAddress
     {
-        private int id;
-        public int Id
-        {
-            get { return id; }
-            set { id = value; }
-        }
 
-        private string street;
-        public string Street
-        {
-            get { return street; }
-            set { street = value; }
-        }
+        public Guid Id { get; set; }
+
+        public string Street { get; set; }
+        public string Streetname { get; set; }
     }
 }

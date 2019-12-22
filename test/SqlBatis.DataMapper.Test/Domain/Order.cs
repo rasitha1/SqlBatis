@@ -4,6 +4,11 @@ using System.Collections.Generic;
 
 namespace IBatisNet.DataMapper.Test.Domain
 {
+    public class PrivateOrder
+    {
+        private PrivateOrder()
+        { }
+	}
 	/// <summary>
 	/// Description résumée de Order.
 	/// </summary>
