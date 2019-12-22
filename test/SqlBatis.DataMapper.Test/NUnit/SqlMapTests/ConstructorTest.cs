@@ -30,6 +30,7 @@ namespace IBatisNet.DataMapper.Test.NUnit.SqlMapTests
 			InitScript(sqlMap.DataSource, ScriptDirectory + "other-init.sql");
             InitScript(sqlMap.DataSource, ScriptDirectory + "Nullable-init.sql");
             InitScript(sqlMap.DataSource, ScriptDirectory + "category-init.sql");
+            InitScript(sqlMap.DataSource, ScriptDirectory + "documents-init.sql");
 		}
 
 		/// <summary>
