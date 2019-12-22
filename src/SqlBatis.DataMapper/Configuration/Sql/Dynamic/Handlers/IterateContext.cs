@@ -28,10 +28,10 @@
 using System;
 using System.Collections;
 
-using IBatisNet.DataMapper.Exceptions;
+using SqlBatis.DataMapper.Exceptions;
 #endregion
 
-namespace IBatisNet.DataMapper.Configuration.Sql.Dynamic.Handlers
+namespace SqlBatis.DataMapper.Configuration.Sql.Dynamic.Handlers
 {
 	/// <summary>
 	/// Summary description for IterateContext.
@@ -165,11 +165,11 @@ namespace IBatisNet.DataMapper.Configuration.Sql.Dynamic.Handlers
 		{
 			if (_collection is IList)
 			{
-				((IList)_collection).Remove(this.Current);
+				((IList)_collection).Remove(Current);
 			}
 			else if (_collection is IDictionary)
 			{
-				((IDictionary)_collection).Remove(this.Current);
+				((IDictionary)_collection).Remove(Current);
 			}
 		}
 

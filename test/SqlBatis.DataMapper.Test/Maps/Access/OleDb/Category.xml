@@ -3,7 +3,7 @@
 http://ibatis.apache.org/xsd/SqlMap.xsd">
 	
 	<alias>
-		<typeAlias alias="Category" type="IBatisNet.DataMapper.Test.Domain.Category, IBatisNet.DataMapper.Test"/>
+		<typeAlias alias="Category" type="SqlBatis.DataMapper.Test.Domain.Category, SqlBatis.DataMapper.Test"/>
 	</alias>
 	
 	<statements>

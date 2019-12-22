@@ -24,9 +24,9 @@
 #endregion
 
 using System;
-using IBatisNet.Common.Exceptions;
+using SqlBatis.DataMapper.Exceptions;
 
-namespace IBatisNet.Common.Utilities.Objects
+namespace SqlBatis.DataMapper.Utilities.Objects
 {
 	/// <summary>
 	/// A <see cref="IObjectFactory"/> implementation that for abstract type

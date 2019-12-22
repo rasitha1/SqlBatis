@@ -27,14 +27,14 @@
 
 using System.Collections.Specialized;
 using System.Xml;
-using IBatisNet.Common.Xml;
-using IBatisNet.DataMapper.Configuration.Sql.Dynamic.Elements;
-using IBatisNet.DataMapper.Scope;
+using SqlBatis.DataMapper.Xml;
+using SqlBatis.DataMapper.Configuration.Sql.Dynamic.Elements;
+using SqlBatis.DataMapper.Scope;
 #endregion 
 
 
 
-namespace IBatisNet.DataMapper.Configuration.Serializers
+namespace SqlBatis.DataMapper.Configuration.Serializers
 {
 	/// <summary>
 	/// Summary description for IsEmptyDeSerializer.

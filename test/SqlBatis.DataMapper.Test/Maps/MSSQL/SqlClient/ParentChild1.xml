@@ -3,8 +3,8 @@
 
   <!--Type aliases allow you to use a shorter name for long fully qualified class names.-->
   <alias>
-    <typeAlias alias="Parent" type="IBatisNet.DataMapper.Test.Domain.Parent, IBatisNet.DataMapper.Test" />
-    <typeAlias alias="Child" type="IBatisNet.DataMapper.Test.Domain.Child, IBatisNet.DataMapper.Test" />
+    <typeAlias alias="Parent" type="SqlBatis.DataMapper.Test.Domain.Parent, SqlBatis.DataMapper.Test" />
+    <typeAlias alias="Child" type="SqlBatis.DataMapper.Test.Domain.Child, SqlBatis.DataMapper.Test" />
   </alias>
 
   <resultMaps>

@@ -25,7 +25,7 @@
 
 using System;
 
-namespace IBatisNet.Common.Utilities.Objects.Members
+namespace SqlBatis.DataMapper.Utilities.Objects.Members
 {
     /// <summary>
     /// The <see cref="IAccessor"/> interface defines a field/property contract.

@@ -29,7 +29,7 @@ using System;
 using System.Globalization;
 using System.Text;
 
-namespace IBatisNet.Common.Logging.Impl
+namespace SqlBatis.DataMapper.Logging.Impl
 {
     /// <summary>
     ///     Sends log messages to <see cref="Console.Out" />.

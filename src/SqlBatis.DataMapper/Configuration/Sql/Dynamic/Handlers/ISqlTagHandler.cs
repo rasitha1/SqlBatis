@@ -28,11 +28,11 @@
 using System;
 using System.Text;
 
-using IBatisNet.DataMapper.Configuration.Sql.Dynamic.Elements;
+using SqlBatis.DataMapper.Configuration.Sql.Dynamic.Elements;
 #endregion
 
 
-namespace IBatisNet.DataMapper.Configuration.Sql.Dynamic.Handlers
+namespace SqlBatis.DataMapper.Configuration.Sql.Dynamic.Handlers
 {
 	/// <summary>
 	/// Summary description for ISqlTagHandler.

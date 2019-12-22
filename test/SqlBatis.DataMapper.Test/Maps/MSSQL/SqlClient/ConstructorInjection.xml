@@ -4,8 +4,8 @@ xmlns="http://ibatis.apache.org/mapping"
 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 
 	<alias>
-		<typeAlias alias="ImmutableCategory" type="IBatisNet.DataMapper.Test.Domain.ImmutableCategory, IBatisNet.DataMapper.Test"/>
-		<typeAlias alias="ImmutableCategoryPropertyContainer" type="IBatisNet.DataMapper.Test.Domain.ImmutableCategoryPropertyContainer, IBatisNet.DataMapper.Test"/>
+		<typeAlias alias="ImmutableCategory" type="SqlBatis.DataMapper.Test.Domain.ImmutableCategory, SqlBatis.DataMapper.Test"/>
+		<typeAlias alias="ImmutableCategoryPropertyContainer" type="SqlBatis.DataMapper.Test.Domain.ImmutableCategoryPropertyContainer, SqlBatis.DataMapper.Test"/>
 	</alias>
 
 	<resultMaps>

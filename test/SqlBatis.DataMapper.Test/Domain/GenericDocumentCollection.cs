@@ -1,7 +1,7 @@
 using System.Collections.Generic;
-using IBatisNet.DataMapper.Test.Domain;
+using SqlBatis.DataMapper.Test.Domain;
 
-namespace IBatisNet.Common.Test.Domain
+namespace SqlBatis.DataMapper.Test.Domain
 {
     public class GenericDocumentCollection : List<Document>
     {

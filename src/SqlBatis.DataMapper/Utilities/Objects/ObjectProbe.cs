@@ -28,10 +28,10 @@ using System;
 using System.Collections;
 using System.Reflection;
 
-using IBatisNet.Common.Exceptions;
-using IBatisNet.Common.Utilities.Objects.Members;
+using SqlBatis.DataMapper.Exceptions;
+using SqlBatis.DataMapper.Utilities.Objects.Members;
 
-namespace IBatisNet.Common.Utilities.Objects
+namespace SqlBatis.DataMapper.Utilities.Objects
 {
 	/// <summary>
 	/// Description résumée de ObjectProbe.

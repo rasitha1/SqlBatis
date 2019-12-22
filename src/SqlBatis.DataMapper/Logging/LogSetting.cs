@@ -28,7 +28,7 @@
 using System;
 using System.Collections.Specialized;
 
-namespace IBatisNet.Common.Logging
+namespace SqlBatis.DataMapper.Logging
 {
     /// <summary>
     ///     Container used to hold configuration information from config file.

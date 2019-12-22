@@ -25,9 +25,9 @@
 
 using System.Collections;
 using System.Collections.Specialized;
-using IBatisNet.DataMapper.Scope;
+using SqlBatis.DataMapper.Scope;
 
-namespace IBatisNet.DataMapper.Configuration.Serializers
+namespace SqlBatis.DataMapper.Configuration.Serializers
 {
 	/// <summary>
 	/// Summary description for DeSerializerFactory.

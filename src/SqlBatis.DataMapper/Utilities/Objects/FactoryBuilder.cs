@@ -26,10 +26,10 @@
 using System;
 using System.Reflection;
 using System.Reflection.Emit;
-using IBatisNet.Common.Exceptions;
-using IBatisNet.Common.Logging;
+using SqlBatis.DataMapper.Exceptions;
+using SqlBatis.DataMapper.Logging;
 
-namespace IBatisNet.Common.Utilities.Objects
+namespace SqlBatis.DataMapper.Utilities.Objects
 {
 	/// <summary>
 	/// Build IFactory object via IL 

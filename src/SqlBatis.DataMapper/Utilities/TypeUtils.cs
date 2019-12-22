@@ -25,9 +25,9 @@
 
 using System;
 using System.Collections.Generic;
-using IBatisNet.Common.Utilities.TypesResolver;
+using SqlBatis.DataMapper.Utilities.TypesResolver;
 
-namespace IBatisNet.Common.Utilities
+namespace SqlBatis.DataMapper.Utilities
 {
     /// <summary>
     ///  Helper methods with regard to type.
@@ -48,7 +48,7 @@ namespace IBatisNet.Common.Utilities
         #region Constructor (s) / Destructor
 
 		/// <summary>
-        /// Creates a new instance of the <see cref="IBatisNet.Common.Utilities.TypeUtils"/> class.
+        /// Creates a new instance of the <see cref="SqlBatis.DataMapper.Utilities.TypeUtils"/> class.
 		/// </summary>
 		/// <remarks>
 		/// <p>

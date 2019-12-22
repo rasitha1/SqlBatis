@@ -3,7 +3,7 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 
-namespace IBatisNet.DataMapper.Test.Domain
+namespace SqlBatis.DataMapper.Test.Domain
 {
 	/// <summary>
 	/// Description résumée de LineItem.

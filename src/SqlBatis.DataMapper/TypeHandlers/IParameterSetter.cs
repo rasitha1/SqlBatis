@@ -31,7 +31,7 @@ using System.Data;
 
 #endregion 
 
-namespace IBatisNet.DataMapper.TypeHandlers
+namespace SqlBatis.DataMapper.TypeHandlers
 {
 	/// <summary>
 	/// Allows parameters to be set on the underlying prepared IDbCommand.
@@ -39,7 +39,7 @@ namespace IBatisNet.DataMapper.TypeHandlers
 	/// process values before they are set on the IDbCommand.
 	/// </summary>
 	/// <remarks>
-	/// There is no need to implement this.  The implementation
+	/// There is no need to implement   The implementation
 	/// will be passed into the TypeHandlerCallback automatically.
 	/// </remarks>
 	public interface IParameterSetter

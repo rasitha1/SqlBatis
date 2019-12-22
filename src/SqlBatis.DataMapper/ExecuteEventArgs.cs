@@ -26,7 +26,7 @@
 
 using System;
 
-namespace IBatisNet.DataMapper
+namespace SqlBatis.DataMapper
 {
 	/// <summary>
 	/// Summary description for ExecuteEventArgs.

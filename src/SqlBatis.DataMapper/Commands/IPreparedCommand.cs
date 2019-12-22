@@ -26,12 +26,12 @@
 
 #region Imports
 
-using IBatisNet.DataMapper.Configuration.Statements;
-using IBatisNet.DataMapper.Scope;
+using SqlBatis.DataMapper.Configuration.Statements;
+using SqlBatis.DataMapper.Scope;
 
 #endregion
 
-namespace IBatisNet.DataMapper.Commands
+namespace SqlBatis.DataMapper.Commands
 {
 	/// <summary>
 	/// Summary description for IPreparedCommand.

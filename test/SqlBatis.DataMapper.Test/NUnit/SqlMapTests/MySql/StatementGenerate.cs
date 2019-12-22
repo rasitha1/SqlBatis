@@ -3,10 +3,10 @@ using System.Collections;
 
 using NUnit.Framework;
 
-using IBatisNet.DataMapper.Test.NUnit;
-using IBatisNet.DataMapper.Test.Domain;
+using SqlBatis.DataMapper.Test.NUnit;
+using SqlBatis.DataMapper.Test.Domain;
 
-namespace IBatisNet.DataMapper.Test.NUnit.SqlMapTests.MySql
+namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests.MySql
 {
 	/// <summary>
 	/// Summary description for StatementGenerate.

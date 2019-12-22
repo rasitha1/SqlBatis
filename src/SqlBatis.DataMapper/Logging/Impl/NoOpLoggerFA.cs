@@ -28,7 +28,7 @@
 using System;
 using System.Collections.Specialized;
 
-namespace IBatisNet.Common.Logging.Impl
+namespace SqlBatis.DataMapper.Logging.Impl
 {
     /// <summary>
     ///     Factory for creating "no operation" loggers that do nothing and whose Is*Enabled properties always

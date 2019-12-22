@@ -26,12 +26,12 @@
 using System;
 using System.Collections;
 
-using IBatisNet.DataMapper.MappedStatements;
-using IBatisNet.Common.Utilities.Objects.Members;
-using IBatisNet.Common.Logging;
+using SqlBatis.DataMapper.MappedStatements;
+using SqlBatis.DataMapper.Utilities.Objects.Members;
+using SqlBatis.DataMapper.Logging;
 using System.Reflection;
 
-namespace IBatisNet.DataMapper.Proxy
+namespace SqlBatis.DataMapper.Proxy
 {
     /// <summary>
     /// A lazy list

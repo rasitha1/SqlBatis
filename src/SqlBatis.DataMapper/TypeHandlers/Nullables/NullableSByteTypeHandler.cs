@@ -28,11 +28,11 @@ using System;
 using System.Data;
 
 using System.Collections.Generic;
-using IBatisNet.DataMapper.Configuration.ParameterMapping;
-using IBatisNet.DataMapper.Configuration.ResultMapping;
+using SqlBatis.DataMapper.Configuration.ParameterMapping;
+using SqlBatis.DataMapper.Configuration.ResultMapping;
 #endregion
 
-namespace IBatisNet.DataMapper.TypeHandlers.Nullables
+namespace SqlBatis.DataMapper.TypeHandlers.Nullables
 {
     /// <summary>
     /// TypeHandler for SByte TimeSpan Type

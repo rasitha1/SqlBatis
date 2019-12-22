@@ -1,4 +1,4 @@
-namespace IBatisNet.DataMapper.Test.Domain
+namespace SqlBatis.DataMapper.Test.Domain
 {
     public class ProtectedItem
     {

@@ -28,18 +28,17 @@
 using System;
 using System.Collections;
 using System.Text;
-using IBatisNet.Common.Exceptions;
-using IBatisNet.Common.Utilities;
-using IBatisNet.Common.Utilities.Objects;
-using IBatisNet.DataMapper.Configuration.Sql.Dynamic;
-using IBatisNet.DataMapper.Configuration.Statements;
-using IBatisNet.DataMapper.Exceptions;
-using IBatisNet.DataMapper.Scope;
-using IBatisNet.DataMapper.TypeHandlers;
+using SqlBatis.DataMapper.Exceptions;
+using SqlBatis.DataMapper.Utilities;
+using SqlBatis.DataMapper.Utilities.Objects;
+using SqlBatis.DataMapper.Configuration.Sql.Dynamic;
+using SqlBatis.DataMapper.Configuration.Statements;
+using SqlBatis.DataMapper.Scope;
+using SqlBatis.DataMapper.TypeHandlers;
 
 #endregion 
 
-namespace IBatisNet.DataMapper.Configuration.ParameterMapping
+namespace SqlBatis.DataMapper.Configuration.ParameterMapping
 {
 	/// <summary>
 	/// Summary description for InlineParameterMapParser.
@@ -120,7 +119,7 @@ namespace IBatisNet.DataMapper.Configuration.ParameterMapping
 						token = (string)enumerator.Current;
 						if (!PARAMETER_TOKEN.Equals(token)) 
 						{
-							throw new DataMapperException("Unterminated inline parameter in mapped statement (" + statement.Id + ").");
+							throw new DataMapperException("Unterminated inline parameter in mapped statement (" + statement?.Id + ").");
 						}
 						token = null;
 					}
@@ -200,11 +199,11 @@ namespace IBatisNet.DataMapper.Configuration.ParameterMapping
 				} 
 				else 
 				{
-					throw new DataMapperException("Incorrect inline parameter map format (missmatched name=value pairs): " + token);
+					throw new DataMapperException("Incorrect inline parameter map format mismatched name=value pairs): " + token);
 				}
 			}
 
-			if (mapping.CallBackName.Length >0)
+			if (!string.IsNullOrEmpty(mapping.CallBackName))
 			{
 				mapping.Initialize( scope, parameterClassType );
 			}

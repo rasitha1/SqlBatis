@@ -29,16 +29,16 @@
 using System.Collections;
 using System.Data;
 using System.Runtime.CompilerServices;
-using IBatisNet.DataMapper;
-using IBatisNet.DataMapper.Configuration.ParameterMapping;
-using IBatisNet.DataMapper.Configuration.ResultMapping;
-using IBatisNet.DataMapper.Configuration.Statements;
-using IBatisNet.DataMapper.DataExchange;
-using IBatisNet.DataMapper.MappedStatements;
+using SqlBatis.DataMapper;
+using SqlBatis.DataMapper.Configuration.ParameterMapping;
+using SqlBatis.DataMapper.Configuration.ResultMapping;
+using SqlBatis.DataMapper.Configuration.Statements;
+using SqlBatis.DataMapper.DataExchange;
+using SqlBatis.DataMapper.MappedStatements;
 
 #endregion
 
-namespace IBatisNet.DataMapper.Scope
+namespace SqlBatis.DataMapper.Scope
 {
     /// <summary>
     /// Hold data during the process of a mapped statement.

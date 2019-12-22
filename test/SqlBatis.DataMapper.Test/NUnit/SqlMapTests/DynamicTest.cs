@@ -4,10 +4,10 @@ using System.Configuration;
 
 using NUnit.Framework;
 
-using IBatisNet.DataMapper.Test;
-using IBatisNet.DataMapper.Test.Domain;
+using SqlBatis.DataMapper.Test;
+using SqlBatis.DataMapper.Test.Domain;
 
-namespace IBatisNet.DataMapper.Test.NUnit.SqlMapTests
+namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
 {
     /// <summary>
     /// Summary description for DynamicTest.

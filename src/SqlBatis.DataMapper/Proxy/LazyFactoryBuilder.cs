@@ -27,9 +27,9 @@ using System;
 using System.Collections;
 using System.Collections.Specialized;
 using System.Collections.Generic;
-using IBatisNet.DataMapper.Exceptions;
+using SqlBatis.DataMapper.Exceptions;
 
-namespace IBatisNet.DataMapper.Proxy
+namespace SqlBatis.DataMapper.Proxy
 {
     /// <summary>
     /// Gets <see cref="ILazyFactory"/> instance.

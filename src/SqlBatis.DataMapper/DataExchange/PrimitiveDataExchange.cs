@@ -23,11 +23,11 @@
  ********************************************************************************/
 #endregion
 
-using IBatisNet.Common.Utilities.Objects;
-using IBatisNet.DataMapper.Configuration.ParameterMapping;
-using IBatisNet.DataMapper.Configuration.ResultMapping;
+using SqlBatis.DataMapper.Utilities.Objects;
+using SqlBatis.DataMapper.Configuration.ParameterMapping;
+using SqlBatis.DataMapper.Configuration.ResultMapping;
 
-namespace IBatisNet.DataMapper.DataExchange
+namespace SqlBatis.DataMapper.DataExchange
 {
 	/// <summary>
 	/// DataExchange implementation for "primitive" objects.
@@ -58,7 +58,7 @@ namespace IBatisNet.DataMapper.DataExchange
 			if (mapping.IsComplexMemberName)
 			{
 				return ObjectProbe.GetMemberValue(parameterObject, mapping.PropertyName, 
-					this.DataExchangeFactory.AccessorFactory);
+					DataExchangeFactory.AccessorFactory);
 			}
 			else
 			{

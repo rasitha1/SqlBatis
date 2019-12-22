@@ -1,13 +1,13 @@
 using System;
 using System.Collections;
 
-using IBatisNet.Common.Pagination;
+using SqlBatis.DataMapper.Pagination;
 
-using IBatisNet.Common.Test.NUnit;
+using SqlBatis.DataMapper.Test.NUnit;
 
 using NUnit.Framework;
 
-namespace IBatisNet.Common.Test.NUnit.CommonTests.Pagination
+namespace SqlBatis.DataMapper.Test.NUnit.CommonTests.Pagination
 {
 	/// <summary>
 	/// Summary description for PaginatedArrayListTest.

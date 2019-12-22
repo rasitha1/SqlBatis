@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using System.Collections;
-using IBatisNet.Common.Test.Domain;
+using SqlBatis.DataMapper.Test.Domain;
 
-namespace IBatisNet.DataMapper.Test.Domain
+namespace SqlBatis.DataMapper.Test.Domain
 {
     public class User : BaseDomain, IUser
     {

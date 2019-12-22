@@ -27,7 +27,7 @@
 
 using System;
 
-namespace IBatisNet.Common.Logging.Impl
+namespace SqlBatis.DataMapper.Logging.Impl
 {
     /// <summary>
     ///     Silently ignores all log messages.

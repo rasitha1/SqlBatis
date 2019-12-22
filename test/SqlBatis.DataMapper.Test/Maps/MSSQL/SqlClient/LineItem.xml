@@ -5,8 +5,8 @@ xmlns="http://ibatis.apache.org/mapping"
 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
 
 	<alias>
-		<typeAlias alias="LineItem" type="IBatisNet.DataMapper.Test.Domain.LineItem, IBatisNet.DataMapper.Test" />
-		<typeAlias alias="LineItemCollection" type="IBatisNet.DataMapper.Test.Domain.LineItemCollection, IBatisNet.DataMapper.Test" />
+		<typeAlias alias="LineItem" type="SqlBatis.DataMapper.Test.Domain.LineItem, SqlBatis.DataMapper.Test" />
+		<typeAlias alias="LineItemCollection" type="SqlBatis.DataMapper.Test.Domain.LineItemCollection, SqlBatis.DataMapper.Test" />
     <typeAlias alias="LineItemCollection2" type="${collection2Namespace}" />
 	</alias>
 	

@@ -2,12 +2,12 @@
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Collections.Specialized;
-using IBatisNet.DataMapper.Configuration;
-using IBatisNet.DataMapper.DependencyInjection;
+using SqlBatis.DataMapper.Configuration;
+using SqlBatis.DataMapper.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 
-namespace IBatisNet.DataMapper
+namespace SqlBatis.DataMapper
 {
     internal class DefaultSqlMapperFactory : ISqlMapperFactory
     {

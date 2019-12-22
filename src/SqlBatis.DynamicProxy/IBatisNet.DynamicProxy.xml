@@ -33,7 +33,7 @@
                 Static Constructor for a lazy list loader
             </summary>
         </member>
-        <member name="M:IBatisNet.DynamicProxy.LazyLoadInterceptor.#ctor(IBatisNet.DataMapper.MappedStatements.IMappedStatement,System.Object,System.Object,IBatisNet.Common.Utilities.Objects.Members.ISetAccessor)">
+        <member name="M:IBatisNet.DynamicProxy.LazyLoadInterceptor.#ctor(SqlBatis.DataMapper.MappedStatements.IMappedStatement,System.Object,System.Object,SqlBatis.DataMapper.Utilities.Objects.Members.ISetAccessor)">
             <summary>
                 Constructor for a lazy list loader
             </summary>
@@ -47,7 +47,7 @@
                 This class is responsible of create lazy load proxies for a concrete class with virtual method.
             </summary>
         </member>
-        <member name="M:IBatisNet.DynamicProxy.LazyLoadProxyFactory.CreateProxy(IBatisNet.DataMapper.MappedStatements.IMappedStatement,System.Object,System.Object,IBatisNet.Common.Utilities.Objects.Members.ISetAccessor)">
+        <member name="M:IBatisNet.DynamicProxy.LazyLoadProxyFactory.CreateProxy(SqlBatis.DataMapper.MappedStatements.IMappedStatement,System.Object,System.Object,SqlBatis.DataMapper.Utilities.Objects.Members.ISetAccessor)">
             <summary>
                 Builds the specified lazy load proxy for a concrete class with virtual method.
             </summary>

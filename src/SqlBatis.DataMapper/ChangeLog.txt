@@ -127,13 +127,13 @@ or
     Example (for log4NET) :
 	<configSections>
 		<sectionGroup name="iBATIS">
-			<section name="logging" type="IBatisNet.Common.Logging.Impl.LocationInfoLog4NetLoggerFA, IBatisNet.Common.Logging.Log4Net" />
+			<section name="logging" type="SqlBatis.DataMapper.Logging.Impl.LocationInfoLog4NetLoggerFA, SqlBatis.DataMapper.Logging.Log4Net" />
 		</sectionGroup>	
 		<section name="log4net" type="log4net.Config.Log4NetConfigurationSectionHandler, log4net" />
 	</configSections>	
 	<iBATIS>
 		<logging>		
-			<logFactoryAdapter type="IBatisNet.Common.Logging.Impl.Log4NetLoggerFA, IBatisNet.Common.Logging.Log4Net">
+			<logFactoryAdapter type="SqlBatis.DataMapper.Logging.Impl.Log4NetLoggerFA, SqlBatis.DataMapper.Logging.Log4Net">
 				<arg key="configType" value="inline" />
 			</logFactoryAdapter>
 		</logging>
@@ -297,7 +297,7 @@ or
 - Removed 'assembly' attribut on <daoFactory> element of Dao.Config
   the implementation structure attribut of <dao> element become the namespace-qualified name of the class is specified, followed by a comma, followed by (at a bare minimum) the name of the assembly that contains the class.
 - Removed 'static' usage in DomSqlMapBuilder
-- Moved Alias management to IBatisNet.Common.Utilities
+- Moved Alias management to SqlBatis.DataMapper.Utilities
 - Fixed request support 1032436, ByteArrayTypeHandler misses the last byte
 - Fixed support request 1050704, Unable to use <selectKey> with useStatementNamespaces=true
 - Added 'extends' attribute on statement, see Unit tests TestExtends*
@@ -343,7 +343,7 @@ or
 - In typeAlias element, Renamed attribute 'name' to 'alias' (SqlMap and SqlMapConfig).
 - In SqlMapConfig, removed <datasources> since only one dataSource element can be declared.
 - In SqlMapConfig, rename <setting useFullyQualifiedStatementNames=... to <setting useStatementNamespaces=...
-- In IBatisNet.DataMapper rename SqlMap class to SqlMapper class. SqlMap is the object graph. SqlMapper is the object which exposes SqlMap.
+- In SqlBatis.DataMapper rename SqlMap class to SqlMapper class. SqlMap is the object graph. SqlMapper is the object which exposes SqlMap.
 - In SqlMap, rename attribute 'name' to 'id' on resultMap, parameterMap, and statement elements.
 - Removed Nausicaa references
 - Renamed DaoException to DataAccessException
@@ -365,9 +365,9 @@ or
 - Added providers tag in SqlMap.Config
 - Changed name for IBatisNet.
 - Splitted main dll in three : 
-    IBatisNet.Common.dll for common API.
+    SqlBatis.DataMapper.dll for common API.
     IBatisNet.DataAccess.dll for DAO API.
-    IBatisNet.DataMapper.dll for Mapper API.      
+    SqlBatis.DataMapper.dll for Mapper API.      
 - Passed all Unit tests for provider SqlClient, OleDb, ObDc (which was not the case for older version
   because config was incorrect).
 - Internal refactoring for support dynamic sql.

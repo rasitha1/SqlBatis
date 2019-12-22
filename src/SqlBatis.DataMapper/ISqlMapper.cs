@@ -30,21 +30,21 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Data;
 
-using IBatisNet.Common;
-using IBatisNet.Common.Utilities.Objects;
-using IBatisNet.Common.Utilities.Objects.Members;
-using IBatisNet.DataMapper.Configuration.Cache;
-using IBatisNet.DataMapper.Configuration.ParameterMapping;
-using IBatisNet.DataMapper.Configuration.ResultMapping;
-using IBatisNet.DataMapper.DataExchange;
-using IBatisNet.DataMapper.Exceptions;
-using IBatisNet.DataMapper.MappedStatements;
-using IBatisNet.DataMapper.SessionStore;
-using IBatisNet.DataMapper.TypeHandlers;
-using IBatisNet.Common.Utilities;
+using SqlBatis.DataMapper;
+using SqlBatis.DataMapper.Utilities.Objects;
+using SqlBatis.DataMapper.Utilities.Objects.Members;
+using SqlBatis.DataMapper.Configuration.Cache;
+using SqlBatis.DataMapper.Configuration.ParameterMapping;
+using SqlBatis.DataMapper.Configuration.ResultMapping;
+using SqlBatis.DataMapper.DataExchange;
+using SqlBatis.DataMapper.Exceptions;
+using SqlBatis.DataMapper.MappedStatements;
+using SqlBatis.DataMapper.SessionStore;
+using SqlBatis.DataMapper.TypeHandlers;
+using SqlBatis.DataMapper.Utilities;
 #endregion
 
-namespace IBatisNet.DataMapper
+namespace SqlBatis.DataMapper
 {
     /// <summary>
     /// Contract for an <see cref="ISqlMapper"/>

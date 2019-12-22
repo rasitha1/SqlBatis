@@ -28,9 +28,9 @@ using System.Collections;
 using System.Collections.Specialized;
 using System.IO;
 using System.Threading;
-using IBatisNet.Common.Logging;
+using SqlBatis.DataMapper.Logging;
 
-namespace IBatisNet.Common.Utilities
+namespace SqlBatis.DataMapper.Utilities
 {
 
 	/// <summary>

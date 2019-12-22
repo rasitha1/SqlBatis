@@ -1,8 +1,8 @@
 using System;
 
-using IBatisNet.DataMapper.TypeHandlers;
+using SqlBatis.DataMapper.TypeHandlers;
 
-namespace IBatisNet.DataMapper.Test.Domain
+namespace SqlBatis.DataMapper.Test.Domain
 {
 	/// <summary>
 	/// OuiNonBoolTypeHandlerCallback.

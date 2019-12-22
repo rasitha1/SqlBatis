@@ -25,7 +25,7 @@
 
 #endregion
 
-namespace IBatisNet.Common
+namespace SqlBatis.DataMapper
 {
     /// <summary>
     ///     IDataSource

@@ -27,7 +27,7 @@
 
 using System;
 using Castle.DynamicProxy;
-using IBatisNet.Common.Logging;
+using SqlBatis.DataMapper.Logging;
 
 namespace IBatisNet.DynamicProxy
 {

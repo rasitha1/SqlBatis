@@ -4,8 +4,8 @@
 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
 
 	<alias>
-		<typeAlias alias="LineItem" type="IBatisNet.DataMapper.Test.Domain.LineItem, IBatisNet.DataMapper.Test" />
-		<typeAlias alias="LineItemCollection" type="IBatisNet.DataMapper.Test.Domain.LineItemCollection, IBatisNet.DataMapper.Test" />
+		<typeAlias alias="LineItem" type="SqlBatis.DataMapper.Test.Domain.LineItem, SqlBatis.DataMapper.Test" />
+		<typeAlias alias="LineItemCollection" type="SqlBatis.DataMapper.Test.Domain.LineItemCollection, SqlBatis.DataMapper.Test" />
 	</alias>
 	
 	<resultMaps>  	
@@ -173,9 +173,9 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
   		Throws OracleException: SQL command not properly ended
 		at Oracle.DataAccess.Client.OracleException.HandleErrorHelper(Int32 errCode, OracleConnection conn, IntPtr opsErrCtx, OpoSqlValCtx* pOpoSqlValCtx, Object src, String procedure)
 		at Oracle.DataAccess.Client.OracleCommand.ExecuteNonQuery()
-		at IBatisNet.DataMapper.MappedStatements.MappedStatement.ExecuteUpdate(IDalSession session, Object parameterObject) in C:\projects\ibatis\asf\trunk\cs\mapper\IBatisNet.DataMapper\MappedStatements\MappedStatement.cs:line 788
-		at IBatisNet.DataMapper.SqlMapper.Delete(String statementName, Object parameterObject) in C:\projects\ibatis\asf\trunk\cs\mapper\IBatisNet.DataMapper\SqlMapper.cs:line 984
-		at IBatisNet.DataMapper.Test.NUnit.SqlMapTests.StatementTest.TestDeleteWithComments() in c:\projects\ibatis\asf\trunk\cs\mapper\ibatisnet.datamapper.test\nunit\sqlmaptests\statementtest.cs:line 1000
+		at SqlBatis.DataMapper.MappedStatements.MappedStatement.ExecuteUpdate(IDalSession session, Object parameterObject) in C:\projects\ibatis\asf\trunk\cs\mapper\SqlBatis.DataMapper\MappedStatements\MappedStatement.cs:line 788
+		at SqlBatis.DataMapper.SqlMapper.Delete(String statementName, Object parameterObject) in C:\projects\ibatis\asf\trunk\cs\mapper\SqlBatis.DataMapper\SqlMapper.cs:line 984
+		at SqlBatis.DataMapper.Test.NUnit.SqlMapTests.StatementTest.TestDeleteWithComments() in c:\projects\ibatis\asf\trunk\cs\mapper\ibatisnet.datamapper.test\nunit\sqlmaptests\statementtest.cs:line 1000
   		
   		Cannot run multiple statements through single command
   		with ODP.NET provider

@@ -31,7 +31,7 @@ using System.Xml.Serialization;
 
 #endregion
 
-namespace IBatisNet.DataMapper.Configuration.ResultMapping
+namespace SqlBatis.DataMapper.Configuration.ResultMapping
 {
 	/// <summary>
 	/// Summary description for SubMap.

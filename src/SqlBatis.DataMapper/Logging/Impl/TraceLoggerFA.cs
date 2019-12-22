@@ -29,7 +29,7 @@ using System;
 using System.Collections;
 using System.Collections.Specialized;
 
-namespace IBatisNet.Common.Logging.Impl
+namespace SqlBatis.DataMapper.Logging.Impl
 {
     /// <summary>
     ///     Summary description for  TraceLoggerFA.

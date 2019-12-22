@@ -24,9 +24,8 @@
 #endregion
 
 using System.Data;
-using IBatisNet.Common;
 
-namespace IBatisNet.DataMapper.Commands
+namespace SqlBatis.DataMapper.Commands
 {
 	/// <summary>
 	/// For <see cref="IDataReader"/> which don't support M.A.R.S, wraps the current <see cref="IDataReader"/>
@@ -39,7 +38,7 @@ namespace IBatisNet.DataMapper.Commands
 		///  Creates a DataReaderAdapter from a <see cref="IDataReader" />
 		/// </summary>
 		/// <param name="reader">The <see cref="IDataReader" /> which holds the records from the Database.</param>
-		/// <param name="dbProvider">The databse provider <see cref="IDbProvider"/></param>
+		/// <param name="dbProvider">The database provider <see cref="IDbProvider"/></param>
 		public static IDataReader Transform(IDataReader reader, IDbProvider dbProvider)
 		{
             if (!dbProvider.AllowMARS && !(reader is InMemoryDataReader))

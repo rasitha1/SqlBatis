@@ -1,12 +1,12 @@
 
 using System.Collections;
 using System.Collections.Generic;
-using IBatisNet.DataMapper.Test.Domain;
+using SqlBatis.DataMapper.Test.Domain;
 using NUnit.Framework;
 
-using Category=IBatisNet.DataMapper.Test.Domain.Petshop.Category;
+using Category=SqlBatis.DataMapper.Test.Domain.Petshop.Category;
 
-namespace IBatisNet.DataMapper.Test.NUnit.SqlMapTests
+namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
 {
     /// <summary>
     /// Summary description for GroupByTest.

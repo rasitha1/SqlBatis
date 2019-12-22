@@ -26,10 +26,10 @@
 
 using System;
 using System.Xml.Serialization;
-using IBatisNet.Common.Utilities.Objects.Members;
-using IBatisNet.DataMapper.Configuration.Sql.Dynamic.Handlers;
+using SqlBatis.DataMapper.Utilities.Objects.Members;
+using SqlBatis.DataMapper.Configuration.Sql.Dynamic.Handlers;
 
-namespace IBatisNet.DataMapper.Configuration.Sql.Dynamic.Elements
+namespace SqlBatis.DataMapper.Configuration.Sql.Dynamic.Elements
 {
 	/// <summary>
 	/// Represent an isGreaterEqual sql tag element.
@@ -45,7 +45,7 @@ namespace IBatisNet.DataMapper.Configuration.Sql.Dynamic.Elements
         /// <param name="accessorFactory">The accessor factory.</param>
         public IsGreaterEqual(AccessorFactory accessorFactory)
 		{
-            this.Handler = new IsGreaterEqualTagHandler(accessorFactory);
+            Handler = new IsGreaterEqualTagHandler(accessorFactory);
 		}
 	}
 }

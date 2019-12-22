@@ -7,13 +7,13 @@ INTRODUCTION
 INSTALL
 
 If you only use the Dao API, add a reference to the IBatisNet.DataAccess.dll, 
-IBatisNet.Common.dll in your own projects.
+SqlBatis.DataMapper.dll in your own projects.
 
 If you only use the Dao API with DataMapper API, add a reference to the IBatisNet.DataAccess.dll, 
-IBatisNet.DataMapper.dll, IBatisNet.Common.dll in your own projects.
+SqlBatis.DataMapper.dll, SqlBatis.DataMapper.dll in your own projects.
 
-If you only use DataMapper API, add a reference to the IBatisNet.DataMapper.dll, 
-IBatisNet.Common.dll in your own projects.
+If you only use DataMapper API, add a reference to the SqlBatis.DataMapper.dll, 
+SqlBatis.DataMapper.dll in your own projects.
 
 In web context, if you used put the dao.config, the providers.config, sqlmap.config 
 at the same level as your web.config.

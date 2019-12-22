@@ -27,10 +27,10 @@
 using System;
 using System.Collections;
 
-using IBatisNet.Common.Pagination;
-using IBatisNet.DataMapper.Exceptions;
+using SqlBatis.DataMapper.Pagination;
+using SqlBatis.DataMapper.Exceptions;
 
-namespace IBatisNet.DataMapper.MappedStatements
+namespace SqlBatis.DataMapper.MappedStatements
 {
 	/// <summary>
 	/// Summary description for PaginatedDataList.
@@ -324,7 +324,7 @@ namespace IBatisNet.DataMapper.MappedStatements
 		/// <returns></returns>
 		public bool NextPage()
 		{
-			if (this.IsNextPageAvailable == true) 
+			if (IsNextPageAvailable == true) 
 			{
 				_index++;
 				PageForward();
@@ -343,7 +343,7 @@ namespace IBatisNet.DataMapper.MappedStatements
 		{
 			get
 			{
-				return !(this.IsFirstPage || this.IsLastPage);
+				return !(IsFirstPage || IsLastPage);
 
 			}
 		}
@@ -354,7 +354,7 @@ namespace IBatisNet.DataMapper.MappedStatements
 		/// <returns></returns>
 		public bool PreviousPage()
 		{
-			if (this.IsPreviousPageAvailable == true) 
+			if (IsPreviousPageAvailable == true) 
 			{
 				_index--;
 				PageBack();

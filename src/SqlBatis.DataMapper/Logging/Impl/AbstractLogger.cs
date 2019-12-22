@@ -27,7 +27,7 @@
 
 using System;
 
-namespace IBatisNet.Common.Logging.Impl
+namespace SqlBatis.DataMapper.Logging.Impl
 {
     /// <summary>
     ///     Base class that implements the ILog interface.

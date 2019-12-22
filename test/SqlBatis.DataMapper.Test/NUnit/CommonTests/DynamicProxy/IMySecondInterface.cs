@@ -1,6 +1,6 @@
 using System;
 
-namespace IBatisNet.Common.Test.NUnit.CommonTests.DynamicProxy
+namespace SqlBatis.DataMapper.Test.NUnit.CommonTests.DynamicProxy
 {
 	/// <summary>
 	///  Summary description for IMySecondInterface.

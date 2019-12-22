@@ -28,9 +28,9 @@ using System;
 using System.Collections;
 using System.Xml.Serialization;
 
-using IBatisNet.DataMapper.Configuration.Sql.Dynamic.Handlers;
+using SqlBatis.DataMapper.Configuration.Sql.Dynamic.Handlers;
 
-namespace IBatisNet.DataMapper.Configuration.Sql.Dynamic.Elements
+namespace SqlBatis.DataMapper.Configuration.Sql.Dynamic.Elements
 {
 	/// <summary>
 	/// SqlTag is a children element of dynamic Sql element.

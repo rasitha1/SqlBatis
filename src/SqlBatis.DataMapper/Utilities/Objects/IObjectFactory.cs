@@ -26,7 +26,7 @@
 
 using System;
 
-namespace IBatisNet.Common.Utilities.Objects
+namespace SqlBatis.DataMapper.Utilities.Objects
 {
 	/// <summary>
 	/// A factory that can create objects 

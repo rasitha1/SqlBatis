@@ -1,7 +1,7 @@
 using System;
 using System.Collections;
 
-namespace IBatisNet.DataMapper.Test.Domain
+namespace SqlBatis.DataMapper.Test.Domain
 {
 	/// <summary>
 	/// Summary description for Category.

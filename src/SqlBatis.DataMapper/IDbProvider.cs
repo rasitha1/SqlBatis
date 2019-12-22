@@ -2,7 +2,7 @@ using System;
 using System.Data;
 using System.Xml.Serialization;
 
-namespace IBatisNet.Common
+namespace SqlBatis.DataMapper
 {
     /// <summary>
     ///     Factory interface to create provider specific ado.net objects.

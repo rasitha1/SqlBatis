@@ -3,11 +3,11 @@ using System.Collections;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
-using IBatisNet.Common.Utilities;
-using IBatisNet.DataMapper.Test.Domain;
+using SqlBatis.DataMapper.Utilities;
+using SqlBatis.DataMapper.Test.Domain;
 using NUnit.Framework;
 
-namespace IBatisNet.DataMapper.Test.NUnit.SqlMapTests
+namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
 {
 	/// <summary>
 	/// Summary description for ParameterMapTest.

@@ -29,7 +29,7 @@ using System;
 using System.Xml.Serialization;
 #endregion
 
-namespace IBatisNet.DataMapper.Configuration.Sql.Dynamic.Elements
+namespace SqlBatis.DataMapper.Configuration.Sql.Dynamic.Elements
 {
 	/// <summary>
 	/// Summary description for BaseTag.

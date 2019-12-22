@@ -29,9 +29,9 @@ using System.Collections;
 using System.Collections.Specialized;
 using System.Reflection;
 
-using IBatisNet.Common.Exceptions;
+using SqlBatis.DataMapper.Exceptions;
 
-namespace IBatisNet.Common.Utilities.Objects
+namespace SqlBatis.DataMapper.Utilities.Objects
 {
 	/// <summary>
 	/// This class represents a cached set of class definition information that

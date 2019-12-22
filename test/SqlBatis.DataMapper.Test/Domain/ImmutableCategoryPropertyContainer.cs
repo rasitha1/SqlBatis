@@ -1,5 +1,5 @@
 
-namespace IBatisNet.DataMapper.Test.Domain {
+namespace SqlBatis.DataMapper.Test.Domain {
 	
 	/// <summary>
 	/// A Container object that stores an immutable category as a property.

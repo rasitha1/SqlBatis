@@ -4,14 +4,14 @@ using System.Data;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
-using IBatisNet.DataMapper.Test.Domain;
+using SqlBatis.DataMapper.Test.Domain;
 
 using NUnit.Framework;
-using IBatisNet.DataMapper;
-using IBatisNet.Common;
+using SqlBatis.DataMapper;
+using SqlBatis.DataMapper;
 using CategoryAttribute = NUnit.Framework.CategoryAttribute;
 
-namespace IBatisNet.DataMapper.Test.NUnit.SqlMapTests.Perf
+namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests.Perf
 {
     [TestFixture]
     [Category("Performance")]

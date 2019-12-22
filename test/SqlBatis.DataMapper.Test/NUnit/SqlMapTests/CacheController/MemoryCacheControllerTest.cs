@@ -1,8 +1,8 @@
-using IBatisNet.DataMapper.Configuration.Cache;
-using IBatisNet.DataMapper.Configuration.Cache.Memory;
+using SqlBatis.DataMapper.Configuration.Cache;
+using SqlBatis.DataMapper.Configuration.Cache.Memory;
 using NUnit.Framework;
 
-namespace IBatisNet.DataMapper.Test.NUnit.SqlMapTests.CacheController
+namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests.CacheController
 {
 	/// <summary>
 	/// Description résumée de MemoryCacheControllerTest.
@@ -13,7 +13,7 @@ namespace IBatisNet.DataMapper.Test.NUnit.SqlMapTests.CacheController
 
 		protected override ICacheController GetController() 
 		{
-			return new MemoryCacheControler();
+			return new MemoryCacheController();
 		}
 
 		[Test]

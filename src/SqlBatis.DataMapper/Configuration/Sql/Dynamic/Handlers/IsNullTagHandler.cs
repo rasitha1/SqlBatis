@@ -24,11 +24,11 @@
  ********************************************************************************/
 #endregion
 
-using IBatisNet.Common.Utilities.Objects;
-using IBatisNet.Common.Utilities.Objects.Members;
-using IBatisNet.DataMapper.Configuration.Sql.Dynamic.Elements;
+using SqlBatis.DataMapper.Utilities.Objects;
+using SqlBatis.DataMapper.Utilities.Objects.Members;
+using SqlBatis.DataMapper.Configuration.Sql.Dynamic.Elements;
 
-namespace IBatisNet.DataMapper.Configuration.Sql.Dynamic.Handlers
+namespace SqlBatis.DataMapper.Configuration.Sql.Dynamic.Handlers
 {
 	/// <summary>
 	/// Summary description for IsNullTagHandler.
@@ -64,7 +64,7 @@ namespace IBatisNet.DataMapper.Configuration.Sql.Dynamic.Handlers
 				object value;
 				if (propertyName != null && propertyName.Length>0 ) 
 				{
-					value = ObjectProbe.GetMemberValue(parameterObject, propertyName, this.AccessorFactory);
+					value = ObjectProbe.GetMemberValue(parameterObject, propertyName, AccessorFactory);
 				} 
 				else 
 				{

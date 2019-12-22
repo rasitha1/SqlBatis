@@ -1,12 +1,12 @@
 
 using System;
-using IBatisNet.Common.Test.Domain;
-using IBatisNet.Common.Utilities;
-using IBatisNet.Common.Utilities.Objects.Members;
-using IBatisNet.DataMapper.Test.Domain;
+using SqlBatis.DataMapper.Test.Domain;
+using SqlBatis.DataMapper.Utilities;
+using SqlBatis.DataMapper.Utilities.Objects.Members;
+using SqlBatis.DataMapper.Test.Domain;
 using NUnit.Framework;
 
-namespace IBatisNet.Common.Test.NUnit.CommonTests.Utilities
+namespace SqlBatis.DataMapper.Test.NUnit.CommonTests.Utilities
 {
     [TestFixture] 
     public class PublicFieldAccessorTest

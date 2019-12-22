@@ -23,7 +23,7 @@
  ********************************************************************************/
 #endregion
 
-namespace IBatisNet.Common.Utilities.Objects.Members
+namespace SqlBatis.DataMapper.Utilities.Objects.Members
 {
     /// <summary>
     /// Accessor factory

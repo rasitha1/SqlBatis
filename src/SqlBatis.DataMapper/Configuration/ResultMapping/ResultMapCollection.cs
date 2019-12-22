@@ -29,7 +29,7 @@ using System;
 
 #endregion
 
-namespace IBatisNet.DataMapper.Configuration.ResultMapping
+namespace SqlBatis.DataMapper.Configuration.ResultMapping
 {
     /// <summary>
     /// Collection of <see cref="IResultMap"/>
@@ -58,7 +58,7 @@ namespace IBatisNet.DataMapper.Configuration.ResultMapping
         /// </summary>
         public ResultMapCollection()
         {
-            this.Clear();
+            Clear();
         }
 
         /// <summary>

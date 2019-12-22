@@ -1,10 +1,10 @@
 using System.Collections;
 using System.Collections.Specialized;
-using IBatisNet.DataMapper.Configuration.Cache;
-using IBatisNet.DataMapper.Configuration.Cache.Lru;
+using SqlBatis.DataMapper.Configuration.Cache;
+using SqlBatis.DataMapper.Configuration.Cache.Lru;
 using NUnit.Framework;
 
-namespace IBatisNet.DataMapper.Test.NUnit.SqlMapTests.CacheController
+namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests.CacheController
 {
 	/// <summary>
 	/// Description résumée de LruCacheControllerTest.

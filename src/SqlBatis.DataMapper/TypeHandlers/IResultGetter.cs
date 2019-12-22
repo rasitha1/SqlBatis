@@ -30,7 +30,7 @@ using System.Data;
 
 #endregion 
 
-namespace IBatisNet.DataMapper.TypeHandlers
+namespace SqlBatis.DataMapper.TypeHandlers
 {
 	/// <summary>
 	/// Allows values to be retrieved from the underlying IDataReader.
@@ -39,7 +39,7 @@ namespace IBatisNet.DataMapper.TypeHandlers
 	/// having them returned.  																																																														   * or index with these methods.
 	/// </summary>
 	/// <remarks>
-	/// There is no need to implement this.  The implementation
+	/// There is no need to implement   The implementation
 	/// will be passed into the TypeHandlerCallback automatically.
 	/// </remarks>
 	public interface IResultGetter

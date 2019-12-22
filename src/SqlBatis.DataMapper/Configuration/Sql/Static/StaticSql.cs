@@ -26,14 +26,14 @@
 
 #region Imports
 
-using IBatisNet.DataMapper.Configuration.Statements;
-using IBatisNet.DataMapper.DataExchange;
-using IBatisNet.DataMapper.MappedStatements;
-using IBatisNet.DataMapper.Scope;
+using SqlBatis.DataMapper.Configuration.Statements;
+using SqlBatis.DataMapper.DataExchange;
+using SqlBatis.DataMapper.MappedStatements;
+using SqlBatis.DataMapper.Scope;
 
 #endregion
 
-namespace IBatisNet.DataMapper.Configuration.Sql.Static
+namespace SqlBatis.DataMapper.Configuration.Sql.Static
 {
 	/// <summary>
 	/// Summary description for StaticSql.

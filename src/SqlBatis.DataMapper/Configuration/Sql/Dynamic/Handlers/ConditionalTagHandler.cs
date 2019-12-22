@@ -27,14 +27,14 @@
 #region Imports
 using System;
 using System.Text;
-using IBatisNet.Common.Utilities.Objects.Members;
-using IBatisNet.DataMapper.Exceptions;
-using IBatisNet.DataMapper.Configuration.Sql.Dynamic.Elements;
-using IBatisNet.Common.Utilities.Objects;
+using SqlBatis.DataMapper.Utilities.Objects.Members;
+using SqlBatis.DataMapper.Exceptions;
+using SqlBatis.DataMapper.Configuration.Sql.Dynamic.Elements;
+using SqlBatis.DataMapper.Utilities.Objects;
 
 #endregion
 
-namespace IBatisNet.DataMapper.Configuration.Sql.Dynamic.Handlers
+namespace SqlBatis.DataMapper.Configuration.Sql.Dynamic.Handlers
 {
 	/// <summary>
 	/// Description résumée de ConditionalTagHandler.
@@ -54,7 +54,7 @@ namespace IBatisNet.DataMapper.Configuration.Sql.Dynamic.Handlers
         /// Initializes a new instance of the <see cref="ConditionalTagHandler"/> class.
         /// </summary>
         /// <param name="accessorFactory">The accessor factory.</param>
-        public ConditionalTagHandler(AccessorFactory accessorFactory)
+        protected ConditionalTagHandler(AccessorFactory accessorFactory)
             : base(accessorFactory)
 		{
 		}
@@ -117,9 +117,9 @@ namespace IBatisNet.DataMapper.Configuration.Sql.Dynamic.Handlers
 
 			object value1 = null;
 			Type type = null;
-			if (propertyName != null && propertyName.Length > 0) 
+			if (!string.IsNullOrEmpty(propertyName)) 
 			{
-				value1 = ObjectProbe.GetMemberValue(parameterObject, propertyName, this.AccessorFactory);
+				value1 = ObjectProbe.GetMemberValue(parameterObject, propertyName, AccessorFactory);
 				type = value1.GetType();
 			} 
 			else 
@@ -134,18 +134,18 @@ namespace IBatisNet.DataMapper.Configuration.Sql.Dynamic.Handlers
 					type = typeof(object);
 				}
 			}
-			if (comparePropertyName != null && comparePropertyName.Length > 0) 
+			if (!string.IsNullOrEmpty(comparePropertyName)) 
 			{
-                object value2 = ObjectProbe.GetMemberValue(parameterObject, comparePropertyName, this.AccessorFactory);
+                object value2 = ObjectProbe.GetMemberValue(parameterObject, comparePropertyName, AccessorFactory);
 				return CompareValues(type, value1, value2);
 			} 
-			else if (compareValue != null && compareValue != "") 
+			else if (!string.IsNullOrEmpty(compareValue)) 
 			{
 				return CompareValues(type, value1, compareValue);
 			} 
 			else 
 			{
-				throw new DataMapperException("Error comparing in conditional fragment.  Uknown 'compare to' values.");
+				throw new DataMapperException("Error comparing in conditional fragment.  Unknown 'compare to' values.");
 			}
 		}
 

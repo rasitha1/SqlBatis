@@ -1,9 +1,9 @@
 
 
-using IBatisNet.DataMapper.Configuration.Cache;
+using SqlBatis.DataMapper.Configuration.Cache;
 using NUnit.Framework;
 
-namespace IBatisNet.DataMapper.Test.NUnit.SqlMapTests
+namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
 {
 	/// <summary>
 	/// Summary description for CacheKeyTest.

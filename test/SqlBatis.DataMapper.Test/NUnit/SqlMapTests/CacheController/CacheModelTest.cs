@@ -1,14 +1,14 @@
 using System;
 using System.Collections;
 using System.Collections.Specialized;
-using IBatisNet.Common.Utilities;
-using IBatisNet.DataMapper.Configuration.Cache;
-using IBatisNet.DataMapper.Configuration.Cache.Lru;
+using SqlBatis.DataMapper.Utilities;
+using SqlBatis.DataMapper.Configuration.Cache;
+using SqlBatis.DataMapper.Configuration.Cache.Lru;
 using NUnit.Framework;
 
-using IBatisNet.DataMapper.Test.Domain;
+using SqlBatis.DataMapper.Test.Domain;
 
-namespace IBatisNet.DataMapper.Test.NUnit.SqlMapTests.CacheController
+namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests.CacheController
 {
 	/// <summary>
 	/// Summary description for CacheKeyTest.

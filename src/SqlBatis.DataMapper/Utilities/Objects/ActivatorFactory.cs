@@ -25,7 +25,7 @@
 
 using System;
 
-namespace IBatisNet.Common.Utilities.Objects
+namespace SqlBatis.DataMapper.Utilities.Objects
 {
 	/// <summary>
 	/// Create objects via Activator.CreateInstance

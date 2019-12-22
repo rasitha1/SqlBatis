@@ -28,13 +28,13 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 //using System.Reflection;
-//using IBatisNet.Common;
-//using IBatisNet.DataMapper.Commands;
-using IBatisNet.DataMapper.Configuration.ResultMapping;
-using IBatisNet.DataMapper.Exceptions;
-using IBatisNet.DataMapper.Scope;
+//using SqlBatis.DataMapper;
+//using SqlBatis.DataMapper.Commands;
+using SqlBatis.DataMapper.Configuration.ResultMapping;
+using SqlBatis.DataMapper.Exceptions;
+using SqlBatis.DataMapper.Scope;
 
-namespace IBatisNet.DataMapper.MappedStatements.ArgumentStrategy
+namespace SqlBatis.DataMapper.MappedStatements.ArgumentStrategy
 {
 	/// <summary>
 	/// <see cref="IArgumentStrategy"/> implementation when a 'select' attribute exists

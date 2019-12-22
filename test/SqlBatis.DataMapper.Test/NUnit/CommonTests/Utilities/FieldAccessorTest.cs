@@ -1,11 +1,11 @@
 using System;
 using System.Reflection;
-using IBatisNet.Common.Test.Domain;
-using IBatisNet.Common.Utilities;
-using IBatisNet.Common.Utilities.Objects.Members;
+using SqlBatis.DataMapper.Test.Domain;
+using SqlBatis.DataMapper.Utilities;
+using SqlBatis.DataMapper.Utilities.Objects.Members;
 using NUnit.Framework;
 
-namespace IBatisNet.Common.Test.NUnit.CommonTests.Utilities
+namespace SqlBatis.DataMapper.Test.NUnit.CommonTests.Utilities
 {
 	/// <summary>
 	/// Summary description for FieldAccessorTest.

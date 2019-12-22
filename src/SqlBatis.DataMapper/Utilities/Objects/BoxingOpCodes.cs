@@ -27,9 +27,9 @@ using System;
 using System.Collections;
 using System.Reflection;
 using System.Reflection.Emit;
-using IBatisNet.Common.Exceptions;
+using SqlBatis.DataMapper.Exceptions;
 
-namespace IBatisNet.Common.Utilities.Objects
+namespace SqlBatis.DataMapper.Utilities.Objects
 {
     /// <summary>  
     /// Helper class that returns appropriate boxing opcode based on type  

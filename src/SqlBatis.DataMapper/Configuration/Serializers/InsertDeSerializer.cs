@@ -27,13 +27,13 @@
 
 using System.Collections.Specialized;
 using System.Xml;
-using IBatisNet.Common.Exceptions;
-using IBatisNet.Common.Xml;
-using IBatisNet.DataMapper.Configuration.Statements;
-using IBatisNet.DataMapper.Scope;
+using SqlBatis.DataMapper.Exceptions;
+using SqlBatis.DataMapper.Xml;
+using SqlBatis.DataMapper.Configuration.Statements;
+using SqlBatis.DataMapper.Scope;
 #endregion 
 
-namespace IBatisNet.DataMapper.Configuration.Serializers
+namespace SqlBatis.DataMapper.Configuration.Serializers
 {
 	/// <summary>
 	/// Summary description for InsertDeSerializer.
@@ -92,8 +92,8 @@ namespace IBatisNet.DataMapper.Configuration.Serializers
 		{
 			switch (s) 
 			{
-				case @"pre": return IBatisNet.DataMapper.SelectKeyType.@pre;
-				case @"post": return IBatisNet.DataMapper.SelectKeyType.@post;
+				case @"pre": return SqlBatis.DataMapper.SelectKeyType.@pre;
+				case @"post": return SqlBatis.DataMapper.SelectKeyType.@post;
 				default: throw new ConfigurationException("Unknown selectKey type : '"+s+"'");
 			}
 		}

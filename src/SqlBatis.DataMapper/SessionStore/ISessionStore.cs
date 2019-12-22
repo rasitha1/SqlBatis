@@ -25,7 +25,7 @@
 
 #endregion
 
-namespace IBatisNet.DataMapper.SessionStore
+namespace SqlBatis.DataMapper.SessionStore
 {
     /// <summary>
     ///     Provides the contract for implementors who want to store session.

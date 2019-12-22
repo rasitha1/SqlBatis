@@ -23,11 +23,11 @@
  ********************************************************************************/
 #endregion
 
-using IBatisNet.Common.Utilities.Objects;
-using IBatisNet.DataMapper.Configuration.ParameterMapping;
-using IBatisNet.DataMapper.Configuration.ResultMapping;
+using SqlBatis.DataMapper.Utilities.Objects;
+using SqlBatis.DataMapper.Configuration.ParameterMapping;
+using SqlBatis.DataMapper.Configuration.ResultMapping;
 
-namespace IBatisNet.DataMapper.DataExchange
+namespace SqlBatis.DataMapper.DataExchange
 {
 	/// <summary>
 	/// IDataExchange implementation for IList objects
@@ -36,7 +36,7 @@ namespace IBatisNet.DataMapper.DataExchange
 	{
 
 		/// <summary>
-		/// Cosntructor
+		/// Constructor
 		/// </summary>
 		/// <param name="dataExchangeFactory"></param>
 		public ListDataExchange(DataExchangeFactory dataExchangeFactory):base(dataExchangeFactory)
@@ -53,7 +53,7 @@ namespace IBatisNet.DataMapper.DataExchange
 		public override object GetData(ParameterProperty mapping, object parameterObject)
 		{
 			return ObjectProbe.GetMemberValue(parameterObject, mapping.PropertyName,
-				this.DataExchangeFactory.AccessorFactory);
+				DataExchangeFactory.AccessorFactory);
 		}
 
 		/// <summary>
@@ -65,8 +65,8 @@ namespace IBatisNet.DataMapper.DataExchange
 		public override void SetData(ref object target, ResultProperty mapping, object dataBaseValue)
 		{
 			ObjectProbe.SetMemberValue(target, mapping.PropertyName, dataBaseValue, 
-				this.DataExchangeFactory.ObjectFactory,
-				this.DataExchangeFactory.AccessorFactory);
+				DataExchangeFactory.ObjectFactory,
+				DataExchangeFactory.AccessorFactory);
 		}
 
 		/// <summary>
@@ -79,8 +79,8 @@ namespace IBatisNet.DataMapper.DataExchange
 		public override void SetData(ref object target, ParameterProperty mapping, object dataBaseValue)
 		{
 			ObjectProbe.SetMemberValue(target, mapping.PropertyName, dataBaseValue, 
-				this.DataExchangeFactory.ObjectFactory,
-				this.DataExchangeFactory.AccessorFactory);
+				DataExchangeFactory.ObjectFactory,
+				DataExchangeFactory.AccessorFactory);
 		}
 
 		#endregion

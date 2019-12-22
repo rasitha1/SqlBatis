@@ -25,14 +25,12 @@
 #endregion
 
 #region Imports
-using System;
-using System.Collections;
 
-using IBatisNet.DataMapper.Configuration.Cache;
-using IBatisNet.DataMapper.Exceptions;
+using System.Collections;
+using SqlBatis.DataMapper.Exceptions;
 #endregion
 
-namespace IBatisNet.DataMapper.Configuration.Cache.Memory
+namespace SqlBatis.DataMapper.Configuration.Cache.Memory
 {
 	/// <summary>
 	/// Summary description for MemoryCacheLevel.

@@ -24,7 +24,7 @@
 #endregion
 
 
-namespace IBatisNet.Common.Utilities.Objects.Members
+namespace SqlBatis.DataMapper.Utilities.Objects.Members
 {
     /// <summary>
     /// The <see cref="ISetAccessor"/> interface defines a field/property set accessor.

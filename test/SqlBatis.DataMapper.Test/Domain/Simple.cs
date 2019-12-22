@@ -1,7 +1,7 @@
 using System;
 using System.Text;
 
-namespace IBatisNet.DataMapper.Test.Domain
+namespace SqlBatis.DataMapper.Test.Domain
 {
     [Serializable]
     public class Simple

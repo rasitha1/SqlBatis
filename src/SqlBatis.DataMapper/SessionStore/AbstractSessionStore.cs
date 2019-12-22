@@ -27,7 +27,7 @@
 
 using System;
 
-namespace IBatisNet.DataMapper.SessionStore
+namespace SqlBatis.DataMapper.SessionStore
 {
     /// <summary>
     /// </summary>

@@ -28,9 +28,9 @@
 using System;
 using System.Text;
 
-using IBatisNet.DataMapper.Configuration.ParameterMapping;
+using SqlBatis.DataMapper.Configuration.ParameterMapping;
 
-namespace IBatisNet.DataMapper.Configuration.Statements
+namespace SqlBatis.DataMapper.Configuration.Statements
 {
 	/// <summary>
 	/// Summary description for SqlGenerator.

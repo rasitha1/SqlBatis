@@ -30,17 +30,17 @@ using System;
 using System.Collections;
 using System.Data;
 using System.Reflection;
-using IBatisNet.Common.Logging;
-using IBatisNet.Common.Utilities.Objects;
-using IBatisNet.Common.Utilities.Objects.Members;
-using IBatisNet.DataMapper.Configuration.ResultMapping;
-using IBatisNet.DataMapper.DataExchange;
-using IBatisNet.DataMapper.Exceptions;
-using IBatisNet.DataMapper.MappedStatements.PropertyStrategy;
+using SqlBatis.DataMapper.Logging;
+using SqlBatis.DataMapper.Utilities.Objects;
+using SqlBatis.DataMapper.Utilities.Objects.Members;
+using SqlBatis.DataMapper.Configuration.ResultMapping;
+using SqlBatis.DataMapper.DataExchange;
+using SqlBatis.DataMapper.Exceptions;
+using SqlBatis.DataMapper.MappedStatements.PropertyStrategy;
 
 #endregion
 
-namespace IBatisNet.DataMapper.MappedStatements
+namespace SqlBatis.DataMapper.MappedStatements
 {
     /// <summary>
     /// Build a dynamic instance of a <see cref="ResultPropertyCollection"/>
@@ -106,7 +106,7 @@ namespace IBatisNet.DataMapper.MappedStatements
 						}
 						catch
 						{
-							_logger.Error("The column [" + columnName + "] could not be auto mapped to a property on [" + resultObject.ToString() + "]");
+							_logger.Error("The column [" + columnName + "] could not be auto mapped to a property on [" + resultObject + "]");
 						}
 					}
 					else

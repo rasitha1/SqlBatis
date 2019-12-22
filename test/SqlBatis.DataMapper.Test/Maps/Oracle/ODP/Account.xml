@@ -63,7 +63,7 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
     </cacheModels>
     
 	<alias>
-		<typeAlias alias="HundredsBool" type="IBatisNet.DataMapper.Test.Domain.HundredsTypeHandlerCallback, IBatisNet.DataMapper.Test"/>
+		<typeAlias alias="HundredsBool" type="SqlBatis.DataMapper.Test.Domain.HundredsTypeHandlerCallback, SqlBatis.DataMapper.Test"/>
 	</alias>         
        
 	<resultMaps>                                    
@@ -420,10 +420,10 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
 		at Oracle.DataAccess.Client.OracleException.HandleError(Int32 errCode, OracleConnection conn, String procedure, IntPtr opsErrCtx, OpoSqlValCtx* pOpoSqlValCtx, Object src)
 		at Oracle.DataAccess.Client.OracleCommand.ExecuteReader(Boolean requery, Boolean fillRequest, CommandBehavior behavior)
 		at Oracle.DataAccess.Client.OracleCommand.System.Data.IDbCommand.ExecuteReader()
-		at IBatisNet.DataMapper.MappedStatements.MappedStatement.RunQueryForList(RequestScope request, IDalSession session, Object parameterObject, Int32 skipResults, Int32 maxResults, RowDelegate rowDelegate) in c:\projects\ibatis\svn\source\ibatisnet.datamapper\mappedstatements\mappedstatement.cs:line 689
-		at IBatisNet.DataMapper.MappedStatements.MappedStatement.ExecuteQueryForList(IDalSession session, Object parameterObject, Int32 skipResults, Int32 maxResults) in c:\projects\ibatis\svn\source\ibatisnet.datamapper\mappedstatements\mappedstatement.cs:line 626
-		at IBatisNet.DataMapper.MappedStatements.MappedStatement.ExecuteQueryForList(IDalSession session, Object parameterObject) in c:\projects\ibatis\svn\source\ibatisnet.datamapper\mappedstatements\mappedstatement.cs:line 607
-		at IBatisNet.DataMapper.SqlMapper.QueryForList(String statementName, Object parameterObject) in c:\projects\ibatis\svn\source\ibatisnet.datamapper\sqlmapper.cs:line 600
+		at SqlBatis.DataMapper.MappedStatements.MappedStatement.RunQueryForList(RequestScope request, IDalSession session, Object parameterObject, Int32 skipResults, Int32 maxResults, RowDelegate rowDelegate) in c:\projects\ibatis\svn\source\ibatisnet.datamapper\mappedstatements\mappedstatement.cs:line 689
+		at SqlBatis.DataMapper.MappedStatements.MappedStatement.ExecuteQueryForList(IDalSession session, Object parameterObject, Int32 skipResults, Int32 maxResults) in c:\projects\ibatis\svn\source\ibatisnet.datamapper\mappedstatements\mappedstatement.cs:line 626
+		at SqlBatis.DataMapper.MappedStatements.MappedStatement.ExecuteQueryForList(IDalSession session, Object parameterObject) in c:\projects\ibatis\svn\source\ibatisnet.datamapper\mappedstatements\mappedstatement.cs:line 607
+		at SqlBatis.DataMapper.SqlMapper.QueryForList(String statementName, Object parameterObject) in c:\projects\ibatis\svn\source\ibatisnet.datamapper\sqlmapper.cs:line 600
 		at IBatisNet.Test.NUnit.SqlMapTests.StatementTest.TestSimpleDynamicSubstitution() in c:\projects\ibatis\svn\source\ibatisnet.test\nunit\sqlmaptests\statementtest.cs:line 216		
 
 		Statement does not have parameterPrefix:

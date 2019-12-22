@@ -27,7 +27,7 @@
 using System;
 using System.Runtime.Serialization;
 
-namespace IBatisNet.Common.Exceptions
+namespace SqlBatis.DataMapper.Exceptions
 {
 	/// <summary>
 	/// Summary description for ProbeException.
@@ -45,7 +45,7 @@ namespace IBatisNet.Common.Exceptions
 		public ProbeException() : base("A foreign key conflict has occurred.") { }
 
 		/// <summary>
-		/// Initializes a new instance of the <see cref="IBatisNet.Common.Exceptions.ProbeException"/> 
+		/// Initializes a new instance of the <see cref="SqlBatis.DataMapper.Exceptions.ProbeException"/> 
 		/// class with a reference to the inner exception that is the cause of this exception.
 		/// </summary>
 		/// <remarks>
@@ -60,7 +60,7 @@ namespace IBatisNet.Common.Exceptions
 		public ProbeException(Exception ex) : base (ex.Message,ex) {}
 
 		/// <summary>
-		/// Initializes a new instance of the <see cref="IBatisNet.Common.Exceptions.ProbeException"/> 
+		/// Initializes a new instance of the <see cref="SqlBatis.DataMapper.Exceptions.ProbeException"/> 
 		/// class with a specified error message.
 		/// </summary>
 		/// <remarks>
@@ -71,7 +71,7 @@ namespace IBatisNet.Common.Exceptions
 		public ProbeException( string message ) : base ( message ) { }
 
 		/// <summary>
-		/// Initializes a new instance of the <see cref="IBatisNet.Common.Exceptions.ProbeException"/> 
+		/// Initializes a new instance of the <see cref="SqlBatis.DataMapper.Exceptions.ProbeException"/> 
 		/// class with a specified error message and a reference to the inner exception that is the cause of this exception.
 		/// </summary>
 		/// <remarks>

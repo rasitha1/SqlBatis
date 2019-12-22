@@ -25,10 +25,10 @@
 #endregion
 
 using System.Data;
-using IBatisNet.DataMapper.MappedStatements;
-using IBatisNet.DataMapper.Scope;
+using SqlBatis.DataMapper.MappedStatements;
+using SqlBatis.DataMapper.Scope;
 
-namespace IBatisNet.DataMapper.Configuration.Sql
+namespace SqlBatis.DataMapper.Configuration.Sql
 {
 	/// <summary>
 	/// Summary description for ISql.

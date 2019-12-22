@@ -23,10 +23,10 @@
  ********************************************************************************/
 #endregion
 
-using IBatisNet.DataMapper.Configuration.ResultMapping;
-using IBatisNet.DataMapper.Configuration.Statements;
+using SqlBatis.DataMapper.Configuration.ResultMapping;
+using SqlBatis.DataMapper.Configuration.Statements;
 
-namespace IBatisNet.DataMapper.MappedStatements.ResultStrategy
+namespace SqlBatis.DataMapper.MappedStatements.ResultStrategy
 {
     /// <summary>
     /// Factory to get <see cref="IResultStrategy"/> implementation.

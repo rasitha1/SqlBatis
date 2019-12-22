@@ -3,14 +3,14 @@ using System.Text;
 using System.Collections.Generic;
 using System.Collections;
 
-using IBatisNet.Common.Test.Domain;
-using IBatisNet.Common.Utilities.TypesResolver;
+using SqlBatis.DataMapper.Test.Domain;
+using SqlBatis.DataMapper.Utilities.TypesResolver;
 using NUnit.Framework;
-using IBatisNet.Common.Utilities;
-using IBatisNet.DataMapper.Test.Domain;
+using SqlBatis.DataMapper.Utilities;
+using SqlBatis.DataMapper.Test.Domain;
 
 
-namespace IBatisNet.Common.Test.NUnit.CommonTests.Utilities
+namespace SqlBatis.DataMapper.Test.NUnit.CommonTests.Utilities
 {
     [TestFixture] 
     public class TypeResolverTest

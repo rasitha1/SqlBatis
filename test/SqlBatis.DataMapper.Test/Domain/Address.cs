@@ -1,8 +1,8 @@
 
 using System;
-using IBatisNet.Common.Test.Domain;
+using SqlBatis.DataMapper.Test.Domain;
 
-namespace IBatisNet.DataMapper.Test.Domain
+namespace SqlBatis.DataMapper.Test.Domain
 {
     public class Address : IAddress
     {

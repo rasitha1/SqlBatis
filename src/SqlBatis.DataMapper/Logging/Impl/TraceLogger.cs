@@ -30,7 +30,7 @@ using System.Diagnostics;
 using System.Globalization;
 using System.Text;
 
-namespace IBatisNet.Common.Logging.Impl
+namespace SqlBatis.DataMapper.Logging.Impl
 {
     /// <summary>
     ///     Logger that sends output to the <see cref="System.Diagnostics.Trace" /> sub-system.

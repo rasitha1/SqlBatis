@@ -31,10 +31,10 @@ using System;
 using System.Collections;
 using System.Reflection;
 using Castle.DynamicProxy;
-using IBatisNet.Common.Logging;
-using IBatisNet.Common.Utilities.Objects.Members;
-using IBatisNet.DataMapper;
-using IBatisNet.DataMapper.MappedStatements;
+using SqlBatis.DataMapper.Logging;
+using SqlBatis.DataMapper.Utilities.Objects.Members;
+using SqlBatis.DataMapper;
+using SqlBatis.DataMapper.MappedStatements;
 
 #endregion
 

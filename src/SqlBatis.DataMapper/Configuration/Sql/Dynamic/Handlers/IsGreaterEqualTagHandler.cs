@@ -26,12 +26,12 @@
 
 #region Imports
 using System;
-using IBatisNet.Common.Utilities.Objects.Members;
-using IBatisNet.DataMapper.Configuration.Sql.Dynamic.Elements;
+using SqlBatis.DataMapper.Utilities.Objects.Members;
+using SqlBatis.DataMapper.Configuration.Sql.Dynamic.Elements;
 #endregion
 
 
-namespace IBatisNet.DataMapper.Configuration.Sql.Dynamic.Handlers
+namespace SqlBatis.DataMapper.Configuration.Sql.Dynamic.Handlers
 {
 
 	/// <summary>
@@ -59,7 +59,7 @@ namespace IBatisNet.DataMapper.Configuration.Sql.Dynamic.Handlers
 		/// <returns></returns>
 		public override bool IsCondition(SqlTagContext ctx, SqlTag tag, object parameterObject)
 		{
-			long x = this.Compare(ctx, tag, parameterObject);
+			long x = Compare(ctx, tag, parameterObject);
 			return ((x >= 0) && (x != ConditionalTagHandler.NOT_COMPARABLE));
 		}
 		#endregion

@@ -32,7 +32,7 @@ using System.Collections.Specialized;
 
 #endregion
 
-namespace IBatisNet.Common.Utilities.TypesResolver
+namespace SqlBatis.DataMapper.Utilities.TypesResolver
 {
 	/// <summary> 
 	/// Provides access to a central registry of aliased <see cref="System.Type"/>s.

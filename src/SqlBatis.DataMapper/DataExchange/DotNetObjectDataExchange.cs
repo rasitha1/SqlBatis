@@ -24,12 +24,12 @@
 #endregion
 
 using System;
-using IBatisNet.Common.Utilities.Objects;
-using IBatisNet.Common.Utilities.Objects.Members;
-using IBatisNet.DataMapper.Configuration.ParameterMapping;
-using IBatisNet.DataMapper.Configuration.ResultMapping;
+using SqlBatis.DataMapper.Utilities.Objects;
+using SqlBatis.DataMapper.Utilities.Objects.Members;
+using SqlBatis.DataMapper.Configuration.ParameterMapping;
+using SqlBatis.DataMapper.Configuration.ResultMapping;
 
-namespace IBatisNet.DataMapper.DataExchange
+namespace SqlBatis.DataMapper.DataExchange
 {
 	/// <summary>
 	/// IDataExchange implementation for .NET object
@@ -62,7 +62,7 @@ namespace IBatisNet.DataMapper.DataExchange
             if (mapping.IsComplexMemberName || _parameterClass!=parameterObject.GetType())
 			{
 				return ObjectProbe.GetMemberValue(parameterObject, mapping.PropertyName,
-					this.DataExchangeFactory.AccessorFactory);
+					DataExchangeFactory.AccessorFactory);
 			}
 			else
 			{
@@ -88,8 +88,8 @@ namespace IBatisNet.DataMapper.DataExchange
 			if ( mapping.IsComplexMemberName)
 			{
 				ObjectProbe.SetMemberValue(target, mapping.PropertyName, dataBaseValue, 
-					this.DataExchangeFactory.ObjectFactory,
-					this.DataExchangeFactory.AccessorFactory);
+					DataExchangeFactory.ObjectFactory,
+					DataExchangeFactory.AccessorFactory);
 			}
 			else
 			{
@@ -109,12 +109,12 @@ namespace IBatisNet.DataMapper.DataExchange
 			if (mapping.IsComplexMemberName)
 			{	
 				ObjectProbe.SetMemberValue(target, mapping.PropertyName, dataBaseValue, 
-					this.DataExchangeFactory.ObjectFactory,
-					this.DataExchangeFactory.AccessorFactory);
+					DataExchangeFactory.ObjectFactory,
+					DataExchangeFactory.AccessorFactory);
 			}
 			else
 			{
-                ISetAccessorFactory setAccessorFactory = this.DataExchangeFactory.AccessorFactory.SetAccessorFactory;
+                ISetAccessorFactory setAccessorFactory = DataExchangeFactory.AccessorFactory.SetAccessorFactory;
                 ISetAccessor _setAccessor = setAccessorFactory.CreateSetAccessor(_parameterClass, mapping.PropertyName);
 
                 _setAccessor.Set(target, dataBaseValue);

@@ -23,11 +23,11 @@
  ********************************************************************************/
 #endregion
 
-using IBatisNet.Common.Utilities;
-using IBatisNet.DataMapper;
-using IBatisNet.DataMapper.Configuration;
+using SqlBatis.DataMapper.Utilities;
+using SqlBatis.DataMapper;
+using SqlBatis.DataMapper.Configuration;
 
-namespace IBatisNet.DataMapper
+namespace SqlBatis.DataMapper
 {
 	/// <summary>
 	/// A singleton class to access the default SqlMapper defined by the SqlMap.Config

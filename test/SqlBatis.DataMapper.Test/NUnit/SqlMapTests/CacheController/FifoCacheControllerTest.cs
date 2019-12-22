@@ -1,8 +1,8 @@
-using IBatisNet.DataMapper.Configuration.Cache;
-using IBatisNet.DataMapper.Configuration.Cache.Fifo;
+using SqlBatis.DataMapper.Configuration.Cache;
+using SqlBatis.DataMapper.Configuration.Cache.Fifo;
 using NUnit.Framework;
 
-namespace IBatisNet.DataMapper.Test.NUnit.SqlMapTests.CacheController
+namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests.CacheController
 {
 	/// <summary>
 	/// Description résumée de FifoCacheControllerTest.

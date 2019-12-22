@@ -5,9 +5,9 @@
 
     <IsPackable>false</IsPackable>
 
-    <AssemblyName>IBatisNet.DataMapper.Test</AssemblyName>
+    <AssemblyName>SqlBatis.DataMapper.Test</AssemblyName>
 
-    <RootNamespace>IBatisNet.DataMapper.Test</RootNamespace>
+    <RootNamespace>SqlBatis.DataMapper.Test</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>

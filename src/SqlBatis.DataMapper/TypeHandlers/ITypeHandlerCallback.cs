@@ -27,11 +27,11 @@
 #region Using
 
 using System.Data;
-using IBatisNet.DataMapper.Configuration.ParameterMapping;
+using SqlBatis.DataMapper.Configuration.ParameterMapping;
 
 #endregion 
 
-namespace IBatisNet.DataMapper.TypeHandlers
+namespace SqlBatis.DataMapper.TypeHandlers
 {
 	/// <summary>
 	/// A simple interface for implementing custom type handlers.

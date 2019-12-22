@@ -34,8 +34,8 @@ using System.Collections.Specialized;
 using System.Linq;
 using System.Reflection;
 using Castle.DynamicProxy;
-using IBatisNet.Common.Exceptions;
-using IBatisNet.Common.Logging;
+using SqlBatis.DataMapper.Exceptions;
+using SqlBatis.DataMapper.Logging;
 
 #endregion
 

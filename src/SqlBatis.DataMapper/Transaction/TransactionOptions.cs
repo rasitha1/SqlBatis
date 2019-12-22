@@ -28,7 +28,7 @@
 using System;
 #endregion
 
-namespace IBatisNet.Common.Transaction
+namespace SqlBatis.DataMapper.Transaction
 {
 	/// <summary>
 	/// Contains parameters that specify Transaction behaviors.

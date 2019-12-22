@@ -3,14 +3,14 @@
 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
 	
 	<alias>
-		<typeAlias alias="Other" type="IBatisNet.DataMapper.Test.Domain.Other, IBatisNet.DataMapper.Test"/>
-		<typeAlias alias="OneZeroBool" type="IBatisNet.DataMapper.Test.Domain.OneZeroBoolTypeHandlerCallback, IBatisNet.DataMapper.Test"/>
-		<typeAlias alias="A" type="IBatisNet.DataMapper.Test.Domain.A, IBatisNet.DataMapper.Test"/>
-		<typeAlias alias="B" type="IBatisNet.DataMapper.Test.Domain.B, IBatisNet.DataMapper.Test"/>
-		<typeAlias alias="C" type="IBatisNet.DataMapper.Test.Domain.C, IBatisNet.DataMapper.Test"/>
-		<typeAlias alias="D" type="IBatisNet.DataMapper.Test.Domain.D, IBatisNet.DataMapper.Test"/>
-		<typeAlias alias="E" type="IBatisNet.DataMapper.Test.Domain.E, IBatisNet.DataMapper.Test"/>
-		<typeAlias alias="F" type="IBatisNet.DataMapper.Test.Domain.F, IBatisNet.DataMapper.Test"/>		
+		<typeAlias alias="Other" type="SqlBatis.DataMapper.Test.Domain.Other, SqlBatis.DataMapper.Test"/>
+		<typeAlias alias="OneZeroBool" type="SqlBatis.DataMapper.Test.Domain.OneZeroBoolTypeHandlerCallback, SqlBatis.DataMapper.Test"/>
+		<typeAlias alias="A" type="SqlBatis.DataMapper.Test.Domain.A, SqlBatis.DataMapper.Test"/>
+		<typeAlias alias="B" type="SqlBatis.DataMapper.Test.Domain.B, SqlBatis.DataMapper.Test"/>
+		<typeAlias alias="C" type="SqlBatis.DataMapper.Test.Domain.C, SqlBatis.DataMapper.Test"/>
+		<typeAlias alias="D" type="SqlBatis.DataMapper.Test.Domain.D, SqlBatis.DataMapper.Test"/>
+		<typeAlias alias="E" type="SqlBatis.DataMapper.Test.Domain.E, SqlBatis.DataMapper.Test"/>
+		<typeAlias alias="F" type="SqlBatis.DataMapper.Test.Domain.F, SqlBatis.DataMapper.Test"/>		
 	</alias>
 	
 	<resultMaps>                                    
@@ -110,13 +110,13 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
 		Value does not fall within the expected range.
 		
 		at Oracle.DataAccess.Client.OracleParameter.set_Value(Object value)
-		at IBatisNet.DataMapper.Commands.DefaultPreparedCommand.ApplyParameterMap(IDalSession session, IDbCommand command, RequestScope request, IStatement statement, Object parameterObject) in c:\projects\ibatis\asf\trunk\cs\mapper\ibatisnet.datamapper\commands\defaultpreparedcommand.cs:line 169
-		at IBatisNet.DataMapper.Commands.DefaultPreparedCommand.Create(RequestScope request, IDalSession session, IStatement statement, Object parameterObject) in c:\projects\ibatis\asf\trunk\cs\mapper\ibatisnet.datamapper\commands\defaultpreparedcommand.cs:line 80
-		at IBatisNet.DataMapper.MappedStatements.MappedStatement.RunQueryForObject(RequestScope request, IDalSession session, Object parameterObject, Object resultObject) in C:\projects\ibatis\asf\trunk\cs\mapper\IBatisNet.DataMapper\MappedStatements\MappedStatement.cs:line 569
-		at IBatisNet.DataMapper.MappedStatements.MappedStatement.ExecuteQueryForObject(IDalSession session, Object parameterObject, Object resultObject) in C:\projects\ibatis\asf\trunk\cs\mapper\IBatisNet.DataMapper\MappedStatements\MappedStatement.cs:line 517
-		at IBatisNet.DataMapper.MappedStatements.MappedStatement.ExecuteQueryForObject(IDalSession session, Object parameterObject) in C:\projects\ibatis\asf\trunk\cs\mapper\IBatisNet.DataMapper\MappedStatements\MappedStatement.cs:line 498
-		at IBatisNet.DataMapper.SqlMapper.QueryForObject(String statementName, Object parameterObject) in C:\projects\ibatis\asf\trunk\cs\mapper\IBatisNet.DataMapper\SqlMapper.cs:line 508
-		at IBatisNet.DataMapper.Test.NUnit.SqlMapTests.DynamicPrependTest.TestDynamicSelectByBool() in C:\projects\ibatis\asf\trunk\cs\mapper\IBatisNet.DataMapper.Test\NUnit\SqlMapTests\DynamicPrependTest.cs:line 338
+		at SqlBatis.DataMapper.Commands.DefaultPreparedCommand.ApplyParameterMap(IDalSession session, IDbCommand command, RequestScope request, IStatement statement, Object parameterObject) in c:\projects\ibatis\asf\trunk\cs\mapper\ibatisnet.datamapper\commands\defaultpreparedcommand.cs:line 169
+		at SqlBatis.DataMapper.Commands.DefaultPreparedCommand.Create(RequestScope request, IDalSession session, IStatement statement, Object parameterObject) in c:\projects\ibatis\asf\trunk\cs\mapper\ibatisnet.datamapper\commands\defaultpreparedcommand.cs:line 80
+		at SqlBatis.DataMapper.MappedStatements.MappedStatement.RunQueryForObject(RequestScope request, IDalSession session, Object parameterObject, Object resultObject) in C:\projects\ibatis\asf\trunk\cs\mapper\SqlBatis.DataMapper\MappedStatements\MappedStatement.cs:line 569
+		at SqlBatis.DataMapper.MappedStatements.MappedStatement.ExecuteQueryForObject(IDalSession session, Object parameterObject, Object resultObject) in C:\projects\ibatis\asf\trunk\cs\mapper\SqlBatis.DataMapper\MappedStatements\MappedStatement.cs:line 517
+		at SqlBatis.DataMapper.MappedStatements.MappedStatement.ExecuteQueryForObject(IDalSession session, Object parameterObject) in C:\projects\ibatis\asf\trunk\cs\mapper\SqlBatis.DataMapper\MappedStatements\MappedStatement.cs:line 498
+		at SqlBatis.DataMapper.SqlMapper.QueryForObject(String statementName, Object parameterObject) in C:\projects\ibatis\asf\trunk\cs\mapper\SqlBatis.DataMapper\SqlMapper.cs:line 508
+		at SqlBatis.DataMapper.Test.NUnit.SqlMapTests.DynamicPrependTest.TestDynamicSelectByBool() in C:\projects\ibatis\asf\trunk\cs\mapper\SqlBatis.DataMapper.Test\NUnit\SqlMapTests\DynamicPrependTest.cs:line 338
 		-->
 		<statement id="DynamicSelectByBool" 
 			parameterClass="Other" 

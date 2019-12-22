@@ -26,10 +26,10 @@
 #region Using
 using System;
 using System.Data;
-using IBatisNet.DataMapper.Configuration.ResultMapping;
+using SqlBatis.DataMapper.Configuration.ResultMapping;
 #endregion
 
-namespace IBatisNet.DataMapper.TypeHandlers.Nullables
+namespace SqlBatis.DataMapper.TypeHandlers.Nullables
 {
     /// <summary>
     /// TypeHandler for Nullable TimeSpan Type

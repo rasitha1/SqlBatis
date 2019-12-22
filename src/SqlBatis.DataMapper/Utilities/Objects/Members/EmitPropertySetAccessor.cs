@@ -27,7 +27,7 @@ using System;
 using System.Reflection;
 using System.Reflection.Emit;
 
-namespace IBatisNet.Common.Utilities.Objects.Members
+namespace SqlBatis.DataMapper.Utilities.Objects.Members
 {
     /// <summary>
     /// The <see cref="EmitPropertySetAccessor"/> class provides an IL-based set access   

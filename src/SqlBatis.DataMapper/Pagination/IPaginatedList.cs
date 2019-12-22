@@ -27,7 +27,7 @@
 using System;
 using System.Collections;
 
-namespace IBatisNet.Common.Pagination
+namespace SqlBatis.DataMapper.Pagination
 {
 	/// <summary>
 	/// Summary description for IPaginatedList.

@@ -30,14 +30,14 @@ using System;
 using System.Collections;
 using System.Collections.Specialized;
 using System.Reflection;
-using IBatisNet.Common.Logging;
-using IBatisNet.Common.Utilities;
-using IBatisNet.DataMapper.Configuration.Alias;
-using IBatisNet.DataMapper.Exceptions;
-using IBatisNet.DataMapper.TypeHandlers.Nullables;
+using SqlBatis.DataMapper.Logging;
+using SqlBatis.DataMapper.Utilities;
+using SqlBatis.DataMapper.Configuration.Alias;
+using SqlBatis.DataMapper.Exceptions;
+using SqlBatis.DataMapper.TypeHandlers.Nullables;
 #endregion 
 
-namespace IBatisNet.DataMapper.TypeHandlers
+namespace SqlBatis.DataMapper.TypeHandlers
 {
 	/// <summary>
 	/// Not much of a suprise, this is a factory class for TypeHandler objects.

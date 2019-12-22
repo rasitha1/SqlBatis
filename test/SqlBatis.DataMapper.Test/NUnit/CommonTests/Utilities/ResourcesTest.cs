@@ -1,9 +1,9 @@
 using System.IO;
 using System.Xml;
-using IBatisNet.Common.Utilities;
+using SqlBatis.DataMapper.Utilities;
 using NUnit.Framework;
 
-namespace IBatisNet.Common.Test.NUnit.CommonTests.Utilities
+namespace SqlBatis.DataMapper.Test.NUnit.CommonTests.Utilities
 {
 	/// <summary>
 	/// Description résumée de ResourcesTest.
@@ -42,7 +42,7 @@ namespace IBatisNet.Common.Test.NUnit.CommonTests.Utilities
 		{
 			XmlDocument doc = null;
 
-			doc = Resources.GetEmbeddedResourceAsXmlDocument("IBatisNet.DataMapper.Test.properties.xml, IBatisNet.DataMapper.Test");
+			doc = Resources.GetEmbeddedResourceAsXmlDocument("SqlBatis.DataMapper.Test.properties.xml, SqlBatis.DataMapper.Test");
 
 			Assert.IsNotNull(doc);
 			Assert.IsTrue(doc.HasChildNodes);
@@ -71,7 +71,7 @@ namespace IBatisNet.Common.Test.NUnit.CommonTests.Utilities
 		[Test] 
 		public void GetFileInfoWithRelative() 
 		{ 
-			FileInfo fileInfo = Resources.GetFileInfo("IBatisNet.Common.Test.dll");
+			FileInfo fileInfo = Resources.GetFileInfo("SqlBatis.DataMapper.Test.dll");
 			Assert.IsNotNull(fileInfo);
 		}
 
@@ -79,7 +79,7 @@ namespace IBatisNet.Common.Test.NUnit.CommonTests.Utilities
 		[Test] 
 		public void GetFileInfoWithAbsolute() 
 		{ 
-			string resourcePath = Resources.ApplicationBase+Path.DirectorySeparatorChar+"IBatisNet.Common.Test.dll";
+			string resourcePath = Resources.ApplicationBase+Path.DirectorySeparatorChar+"SqlBatis.DataMapper.Test.dll";
 			FileInfo fileInfo = Resources.GetFileInfo(resourcePath);
 			Assert.IsNotNull(fileInfo);
 		}
@@ -87,7 +87,7 @@ namespace IBatisNet.Common.Test.NUnit.CommonTests.Utilities
 		[Test] 
 		public void GetFileInfoWithAbsoluteProtocol() 
 		{ 
-			string resourcePath = "file://"+Resources.ApplicationBase+Path.DirectorySeparatorChar+"IBatisNet.Common.Test.dll";
+			string resourcePath = "file://"+Resources.ApplicationBase+Path.DirectorySeparatorChar+"SqlBatis.DataMapper.Test.dll";
 			FileInfo fileInfo = Resources.GetFileInfo(resourcePath);
 			Assert.IsNotNull(fileInfo);
 		}
@@ -95,7 +95,7 @@ namespace IBatisNet.Common.Test.NUnit.CommonTests.Utilities
 		[Test] 
 		public void GetFileInfoWithAbsoluteProtocolPlusSlash() 
 		{ 
-			string resourcePath = "file:///"+Resources.ApplicationBase+Path.DirectorySeparatorChar+"IBatisNet.Common.Test.dll";
+			string resourcePath = "file:///"+Resources.ApplicationBase+Path.DirectorySeparatorChar+"SqlBatis.DataMapper.Test.dll";
 			FileInfo fileInfo = Resources.GetFileInfo(resourcePath);
 			Assert.IsNotNull(fileInfo);
 		}

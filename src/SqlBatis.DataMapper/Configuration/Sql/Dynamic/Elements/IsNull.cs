@@ -26,10 +26,10 @@
 
 using System;
 using System.Xml.Serialization;
-using IBatisNet.Common.Utilities.Objects.Members;
-using IBatisNet.DataMapper.Configuration.Sql.Dynamic.Handlers;
+using SqlBatis.DataMapper.Utilities.Objects.Members;
+using SqlBatis.DataMapper.Configuration.Sql.Dynamic.Handlers;
 
-namespace IBatisNet.DataMapper.Configuration.Sql.Dynamic.Elements
+namespace SqlBatis.DataMapper.Configuration.Sql.Dynamic.Elements
 {
 	/// <summary>
 	/// Represent an isNull sql tag element.
@@ -43,7 +43,7 @@ namespace IBatisNet.DataMapper.Configuration.Sql.Dynamic.Elements
 		/// </summary>
         public IsNull(AccessorFactory accessorFactory)
 		{
-            this.Handler = new IsNullTagHandler(accessorFactory);
+            Handler = new IsNullTagHandler(accessorFactory);
 		}
 	}
 }

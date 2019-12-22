@@ -23,14 +23,14 @@
  ********************************************************************************/
 #endregion
 
-using IBatisNet.Common.Utilities.Objects;
-using IBatisNet.DataMapper.Configuration.ParameterMapping;
-using IBatisNet.DataMapper.Configuration.ResultMapping;
+using SqlBatis.DataMapper.Utilities.Objects;
+using SqlBatis.DataMapper.Configuration.ParameterMapping;
+using SqlBatis.DataMapper.Configuration.ResultMapping;
 
-namespace IBatisNet.DataMapper.DataExchange
+namespace SqlBatis.DataMapper.DataExchange
 {
 	/// <summary>
-	/// A IDataExchange implemtation for working with .NET object
+	/// A IDataExchange implementation for working with .NET object
 	/// </summary>
 	public sealed class ComplexDataExchange : BaseDataExchange
 	{
@@ -54,13 +54,13 @@ namespace IBatisNet.DataMapper.DataExchange
 		{
             if (parameterObject!=null)
             {
- 			    if (this.DataExchangeFactory.TypeHandlerFactory.IsSimpleType(parameterObject.GetType()))
+ 			    if (DataExchangeFactory.TypeHandlerFactory.IsSimpleType(parameterObject.GetType()))
 			    {
 				    return parameterObject;
 			    }
 			    else
 			    {
-				    return ObjectProbe.GetMemberValue(parameterObject, mapping.PropertyName, this.DataExchangeFactory.AccessorFactory);
+				    return ObjectProbe.GetMemberValue(parameterObject, mapping.PropertyName, DataExchangeFactory.AccessorFactory);
 			    }               
             }
 		    else
@@ -79,8 +79,8 @@ namespace IBatisNet.DataMapper.DataExchange
 		public override void SetData(ref object target, ResultProperty mapping, object dataBaseValue)
 		{
 			ObjectProbe.SetMemberValue(target, mapping.PropertyName, dataBaseValue, 
-				this.DataExchangeFactory.ObjectFactory,
-				this.DataExchangeFactory.AccessorFactory);
+				DataExchangeFactory.ObjectFactory,
+				DataExchangeFactory.AccessorFactory);
 		}
 
 		/// <summary>
@@ -93,8 +93,8 @@ namespace IBatisNet.DataMapper.DataExchange
 		public override void SetData(ref object target, ParameterProperty mapping, object dataBaseValue)
 		{
 			ObjectProbe.SetMemberValue(target, mapping.PropertyName, dataBaseValue, 
-				this.DataExchangeFactory.ObjectFactory,
-				this.DataExchangeFactory.AccessorFactory);
+				DataExchangeFactory.ObjectFactory,
+				DataExchangeFactory.AccessorFactory);
 		}
 
 		#endregion

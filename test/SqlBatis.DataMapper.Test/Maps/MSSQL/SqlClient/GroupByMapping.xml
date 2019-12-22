@@ -4,13 +4,13 @@
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 
   <alias>
-    <typeAlias alias="NCategory" type="IBatisNet.DataMapper.Test.Domain.Petshop.Category, IBatisNet.DataMapper.Test"/>
-    <typeAlias alias="NProduct" type="IBatisNet.DataMapper.Test.Domain.Petshop.Product, IBatisNet.DataMapper.Test"/>
-    <typeAlias alias="NItem" type="IBatisNet.DataMapper.Test.Domain.Petshop.Item, IBatisNet.DataMapper.Test"/>
-    <typeAlias alias="Application" type="IBatisNet.DataMapper.Test.Domain.Application, IBatisNet.DataMapper.Test"/>
-    <typeAlias alias="ApplicationUser" type="IBatisNet.DataMapper.Test.Domain.ApplicationUser, IBatisNet.DataMapper.Test"/>
-    <typeAlias alias="Role" type="IBatisNet.DataMapper.Test.Domain.Role, IBatisNet.DataMapper.Test"/>
-    <typeAlias alias="Address" type="IBatisNet.DataMapper.Test.Domain.Address, IBatisNet.DataMapper.Test"/>
+    <typeAlias alias="NCategory" type="SqlBatis.DataMapper.Test.Domain.Petshop.Category, SqlBatis.DataMapper.Test"/>
+    <typeAlias alias="NProduct" type="SqlBatis.DataMapper.Test.Domain.Petshop.Product, SqlBatis.DataMapper.Test"/>
+    <typeAlias alias="NItem" type="SqlBatis.DataMapper.Test.Domain.Petshop.Item, SqlBatis.DataMapper.Test"/>
+    <typeAlias alias="Application" type="SqlBatis.DataMapper.Test.Domain.Application, SqlBatis.DataMapper.Test"/>
+    <typeAlias alias="ApplicationUser" type="SqlBatis.DataMapper.Test.Domain.ApplicationUser, SqlBatis.DataMapper.Test"/>
+    <typeAlias alias="Role" type="SqlBatis.DataMapper.Test.Domain.Role, SqlBatis.DataMapper.Test"/>
+    <typeAlias alias="Address" type="SqlBatis.DataMapper.Test.Domain.Address, SqlBatis.DataMapper.Test"/>
 
   </alias>
 

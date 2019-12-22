@@ -2,12 +2,12 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using IBatisNet.Common.Test.Domain;
-using IBatisNet.Common.Utilities;
-using IBatisNet.DataMapper.Test.Domain;
+using SqlBatis.DataMapper.Test.Domain;
+using SqlBatis.DataMapper.Utilities;
+using SqlBatis.DataMapper.Test.Domain;
 using NUnit.Framework;
 
-namespace IBatisNet.Common.Test.NUnit.CommonTests.Utilities
+namespace SqlBatis.DataMapper.Test.NUnit.CommonTests.Utilities
 {
     [TestFixture]
     public class TypeUtilsTest

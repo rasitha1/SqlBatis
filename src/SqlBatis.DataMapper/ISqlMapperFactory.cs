@@ -1,4 +1,4 @@
-﻿namespace IBatisNet.DataMapper
+﻿namespace SqlBatis.DataMapper
 {
     /// <summary>
     /// A factory for getting an instance of <see cref="ISqlMapper"/>.

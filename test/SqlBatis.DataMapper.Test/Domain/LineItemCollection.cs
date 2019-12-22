@@ -2,7 +2,7 @@
 using System;
 using System.Collections;
 
-namespace IBatisNet.DataMapper.Test.Domain 
+namespace SqlBatis.DataMapper.Test.Domain 
 {
 	/// <summary>
 	/// In order to make this class strongly-proxified you have to mark virtual 

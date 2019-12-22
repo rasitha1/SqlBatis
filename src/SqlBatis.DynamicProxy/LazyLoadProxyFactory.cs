@@ -28,10 +28,10 @@
 using System;
 using System.Reflection;
 using Castle.DynamicProxy;
-using IBatisNet.Common.Logging;
-using IBatisNet.Common.Utilities.Objects.Members;
-using IBatisNet.DataMapper.MappedStatements;
-using IBatisNet.DataMapper.Proxy;
+using SqlBatis.DataMapper.Logging;
+using SqlBatis.DataMapper.Utilities.Objects.Members;
+using SqlBatis.DataMapper.MappedStatements;
+using SqlBatis.DataMapper.Proxy;
 
 namespace IBatisNet.DynamicProxy
 {

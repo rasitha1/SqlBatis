@@ -24,7 +24,7 @@
 #endregion
 
 
-namespace IBatisNet.Common.Utilities.Objects.Members
+namespace SqlBatis.DataMapper.Utilities.Objects.Members
 {
     /// <summary>
     /// The <see cref="ISet"/> interface defines a field/property set contrat to set the

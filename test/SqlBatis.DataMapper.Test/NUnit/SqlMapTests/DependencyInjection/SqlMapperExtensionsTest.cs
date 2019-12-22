@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using IBatisNet.DataMapper.DependencyInjection;
+using SqlBatis.DataMapper.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using NUnit.Framework;
 
-namespace IBatisNet.DataMapper.Test.NUnit.SqlMapTests.DependencyInjection
+namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests.DependencyInjection
 {
     [TestFixture]
     public class SqlMapperExtensionsTest : BaseTest
@@ -38,7 +38,7 @@ namespace IBatisNet.DataMapper.Test.NUnit.SqlMapTests.DependencyInjection
                     { "useStatementNamespaces", "false"},
                     {
                         "collection2Namespace",
-                        "IBatisNet.DataMapper.Test.Domain.LineItemCollection, IBatisNet.DataMapper.Test"
+                        "SqlBatis.DataMapper.Test.Domain.LineItemCollection, SqlBatis.DataMapper.Test"
                     },
                     {"nullableInt", "int"}
                 };
@@ -78,7 +78,7 @@ namespace IBatisNet.DataMapper.Test.NUnit.SqlMapTests.DependencyInjection
                     { "useStatementNamespaces", "true"},
                     {
                         "collection2Namespace",
-                        "IBatisNet.DataMapper.Test.Domain.LineItemCollection, IBatisNet.DataMapper.Test"
+                        "SqlBatis.DataMapper.Test.Domain.LineItemCollection, SqlBatis.DataMapper.Test"
                     },
                     {"nullableInt", "int"}
                 };
@@ -93,7 +93,7 @@ namespace IBatisNet.DataMapper.Test.NUnit.SqlMapTests.DependencyInjection
                     { "useStatementNamespaces", "true"},
                     {
                         "collection2Namespace",
-                        "IBatisNet.DataMapper.Test.Domain.LineItemCollection, IBatisNet.DataMapper.Test"
+                        "SqlBatis.DataMapper.Test.Domain.LineItemCollection, SqlBatis.DataMapper.Test"
                     },
                     {"nullableInt", "int"}
                 };
@@ -130,7 +130,7 @@ namespace IBatisNet.DataMapper.Test.NUnit.SqlMapTests.DependencyInjection
                     { "useStatementNamespaces", "true"},
                     {
                         "collection2Namespace",
-                        "IBatisNet.DataMapper.Test.Domain.LineItemCollection, IBatisNet.DataMapper.Test"
+                        "SqlBatis.DataMapper.Test.Domain.LineItemCollection, SqlBatis.DataMapper.Test"
                     },
                     {"nullableInt", "int"}
                 };

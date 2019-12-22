@@ -28,11 +28,11 @@
 
 using System;
 using System.Xml.Serialization;
-using IBatisNet.Common.Utilities;
+using SqlBatis.DataMapper.Utilities;
 
 #endregion
 
-namespace IBatisNet.DataMapper.Configuration.Alias
+namespace SqlBatis.DataMapper.Configuration.Alias
 {
 	/// <summary>
 	/// Summary description for TypeHandler.
@@ -45,7 +45,7 @@ namespace IBatisNet.DataMapper.Configuration.Alias
 		[NonSerialized]
 		private string _className = string.Empty;
 		[NonSerialized]
-		private Type _class = null;
+		private Type _class;
 		[NonSerialized]
 		private string _dbType = string.Empty;
 		[NonSerialized]
@@ -99,9 +99,10 @@ namespace IBatisNet.DataMapper.Configuration.Alias
 		#region Constructors
 
 		/// <summary>
-		/// Do not use direclty, only for serialization.
+		/// Do not use directly, only for serialization.
 		/// </summary>
-		public TypeHandler()
+        // ReSharper disable once EmptyConstructor
+        public TypeHandler()
 		{}
 		#endregion 
 
