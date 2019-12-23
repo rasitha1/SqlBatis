@@ -48,7 +48,7 @@ namespace SqlBatis.DataMapper.Logging.Impl
         /// </summary>
         /// <param name="logName">The name, usually type name of the calling class, of the logger.</param>
         /// <param name="logLevel">
-        ///     The current logging threshold. Messages recieved that are beneath this threshold will not be
+        ///     The current logging threshold. Messages received that are beneath this threshold will not be
         ///     logged.
         /// </param>
         /// <param name="showDateTime">Include the current time in the log message.</param>
@@ -63,7 +63,7 @@ namespace SqlBatis.DataMapper.Logging.Impl
             _showLogName = showLogName;
             _dateTimeFormat = dateTimeFormat;
 
-            if (_dateTimeFormat != null && _dateTimeFormat.Length > 0) _hasDateTimeFormat = true;
+            if (!string.IsNullOrEmpty(_dateTimeFormat)) _hasDateTimeFormat = true;
         }
 
         /// <summary>

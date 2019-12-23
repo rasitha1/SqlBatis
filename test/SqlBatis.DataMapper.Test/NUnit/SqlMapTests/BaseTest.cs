@@ -34,7 +34,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
         /// The sqlMap
         /// </summary>
         protected static ISqlMapper sqlMap = null;
-        private static readonly ILog _logger = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         protected static string ScriptDirectory { get; }
 

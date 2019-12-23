@@ -35,7 +35,7 @@ namespace SqlBatis.DataMapper.Utilities.Objects
 	public class ObjectFactory : IObjectFactory
 	{
 		private IObjectFactory _objectFactory = null;
-        private static readonly ILog _logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
 		/// <summary>
 		/// Constructor
@@ -71,7 +71,7 @@ namespace SqlBatis.DataMapper.Utilities.Objects
 		/// <returns>Returns a new instance factory</returns>
 		public IFactory CreateFactory(Type typeToCreate, Type[] types)
 		{
-            if (_logger.IsDebugEnabled)
+            if (Logger.IsDebugEnabled)
             {
                 return new FactoryLogAdapter(typeToCreate, types, _objectFactory.CreateFactory(typeToCreate, types));
             }

@@ -59,7 +59,7 @@ namespace SqlBatis.DataMapper.Utilities
 		private static string _baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
         //private static CachedTypeResolver _cachedTypeResolver = null;
 
-		private static readonly ILog _logger = LogManager.GetLogger( MethodBase.GetCurrentMethod().DeclaringType );
+		private static readonly ILog Logger = LogManager.GetLogger( MethodBase.GetCurrentMethod().DeclaringType );
 
 		#endregion
 
@@ -457,7 +457,7 @@ namespace SqlBatis.DataMapper.Utilities
 
 			if (isLoad == false) 
 			{
-				_logger.Error("Could not load embedded resource from assembly");
+				Logger.Error("Could not load embedded resource from assembly");
 				throw new ConfigurationException(
 					string.Format("Unable to load embedded resource from assembly \"{0}\".",
 					fileInfo.OriginalFileName));

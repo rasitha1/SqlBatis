@@ -40,7 +40,7 @@ namespace SqlBatis.DataMapper.Utilities.Objects
     {
         private IDictionary _cachedfactories = new HybridDictionary();
 		private object _padlock = new object();
-        private static readonly ILog _logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
 
 		#region IObjectFactory members
         
@@ -65,9 +65,9 @@ namespace SqlBatis.DataMapper.Utilities.Objects
 					{
                         if (typeToCreate.IsAbstract)
                         {
-                            if (_logger.IsInfoEnabled)
+                            if (Logger.IsInfoEnabled)
                             {
-                                _logger.Info("Create a stub IFactory for abstract type " + typeToCreate.Name);
+                                Logger.Info("Create a stub IFactory for abstract type " + typeToCreate.Name);
                             }
                             factory = new AbstractFactory(typeToCreate);
                         }

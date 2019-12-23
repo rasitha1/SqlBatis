@@ -74,7 +74,7 @@ namespace SqlBatis.DataMapper.Utilities
 	public sealed class ConfigWatcherHandler
 	{
 		#region Fields
-		private static readonly ILog _logger = LogManager.GetLogger( System.Reflection.MethodBase.GetCurrentMethod().DeclaringType );
+		private static readonly ILog Logger = LogManager.GetLogger( System.Reflection.MethodBase.GetCurrentMethod().DeclaringType );
 
 		/// <summary>
 		/// The timer used to compress the notification events.
@@ -155,10 +155,10 @@ namespace SqlBatis.DataMapper.Utilities
 		/// <param name="configFile"></param>
 		public static void AddFileToWatch(FileInfo configFile)
 		{
-			if (_logger.IsDebugEnabled)
+			if (Logger.IsDebugEnabled)
 			{
 				// TODO: remove Path.GetFileName?
-				_logger.Debug("Adding file [" + Path.GetFileName(configFile.FullName) + "] to list of watched files.");
+				Logger.Debug("Adding file [" + Path.GetFileName(configFile.FullName) + "] to list of watched files.");
 			}
 
 			_filesToWatch.Add( configFile );
@@ -191,9 +191,9 @@ namespace SqlBatis.DataMapper.Utilities
 		/// </remarks>
 		private void ConfigWatcherHandler_OnChanged(object source, FileSystemEventArgs e)
 		{
-			if (_logger.IsDebugEnabled)
+			if (Logger.IsDebugEnabled)
 			{
-				_logger.Debug("ConfigWatcherHandler : "+e.ChangeType+" [" + e.Name + "]");
+				Logger.Debug("ConfigWatcherHandler : "+e.ChangeType+" [" + e.Name + "]");
 			}
 
 			// timer will fire only once
@@ -210,9 +210,9 @@ namespace SqlBatis.DataMapper.Utilities
 		/// </remarks>
 		private void ConfigWatcherHandler_OnRenamed(object source, RenamedEventArgs e)
 		{
-			if (_logger.IsDebugEnabled)
+			if (Logger.IsDebugEnabled)
 			{
-				_logger.Debug("ConfigWatcherHandler : " + e.ChangeType + " [" + e.OldName + "/" +e.Name +"]");
+				Logger.Debug("ConfigWatcherHandler : " + e.ChangeType + " [" + e.OldName + "/" +e.Name +"]");
 			}
 
 			// timer will fire only once

@@ -48,7 +48,7 @@ namespace SqlBatis.DataMapper.Commands
 	/// </summary>
 	internal class DefaultPreparedCommand : IPreparedCommand
 	{
-		private static readonly ILog _logger = LogManager.GetLogger( MethodBase.GetCurrentMethod().DeclaringType );
+		private static readonly ILog Logger = LogManager.GetLogger( MethodBase.GetCurrentMethod().DeclaringType );
 		
 		#region IPreparedCommand Members
 
@@ -70,9 +70,9 @@ namespace SqlBatis.DataMapper.Commands
 			
 			request.IDbCommand.CommandText = request.PreparedStatement.PreparedSql;
 
-			if (_logger.IsDebugEnabled)
+			if (Logger.IsDebugEnabled)
 			{
-				_logger.Debug("Statement Id: [" + statement.Id + "] PreparedStatement : [" + request.IDbCommand.CommandText + "]");
+				Logger.Debug("Statement Id: [" + statement.Id + "] PreparedStatement : [" + request.IDbCommand.CommandText + "]");
 			}
 
 			ApplyParameterMap( session, request.IDbCommand, request, statement, parameterObject  );
@@ -105,7 +105,7 @@ namespace SqlBatis.DataMapper.Commands
 				ParameterProperty property = request.ParameterMap.GetProperty(i);
 
 				#region Logging
-				if (_logger.IsDebugEnabled)
+				if (Logger.IsDebugEnabled)
 				{
                     paramLogList.Append(sqlParameter.ParameterName);
                     paramLogList.Append("=[");
@@ -137,7 +137,7 @@ namespace SqlBatis.DataMapper.Commands
 				}
 
 				#region Logging
-				if (_logger.IsDebugEnabled)
+				if (Logger.IsDebugEnabled)
 				{
                     paramLogList.Append(property.PropertyName);
                     paramLogList.Append(",");
@@ -170,7 +170,7 @@ namespace SqlBatis.DataMapper.Commands
 
 
 				#region Logging
-				if (_logger.IsDebugEnabled)
+				if (Logger.IsDebugEnabled)
 				{
 					if (parameterCopy.Value == DBNull.Value) 
 					{
@@ -225,10 +225,10 @@ namespace SqlBatis.DataMapper.Commands
 
 			#region Logging
 
-			if (_logger.IsDebugEnabled && properties.Count>0)
+			if (Logger.IsDebugEnabled && properties.Count>0)
 			{
-                _logger.Debug("Statement Id: [" + statement.Id + "] Parameters: [" + paramLogList.ToString(0, paramLogList.Length - 2) + "]");
-                _logger.Debug("Statement Id: [" + statement.Id + "] Types: [" + typeLogList.ToString(0, typeLogList.Length - 2) + "]");
+                Logger.Debug("Statement Id: [" + statement.Id + "] Parameters: [" + paramLogList.ToString(0, paramLogList.Length - 2) + "]");
+                Logger.Debug("Statement Id: [" + statement.Id + "] Types: [" + typeLogList.ToString(0, typeLogList.Length - 2) + "]");
 			}
 			#endregion 
 		}

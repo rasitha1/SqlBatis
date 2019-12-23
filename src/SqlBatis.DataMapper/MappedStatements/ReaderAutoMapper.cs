@@ -47,7 +47,7 @@ namespace SqlBatis.DataMapper.MappedStatements
     /// </summary>
     public sealed class ReaderAutoMapper 
 	{
-        private static readonly ILog _logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
         
         /// <summary>
         /// Builds a <see cref="ResultPropertyCollection"/> for an <see cref="AutoResultMap"/>.
@@ -106,7 +106,7 @@ namespace SqlBatis.DataMapper.MappedStatements
 						}
 						catch
 						{
-							_logger.Error("The column [" + columnName + "] could not be auto mapped to a property on [" + resultObject + "]");
+							Logger.Error("The column [" + columnName + "] could not be auto mapped to a property on [" + resultObject + "]");
 						}
 					}
 					else

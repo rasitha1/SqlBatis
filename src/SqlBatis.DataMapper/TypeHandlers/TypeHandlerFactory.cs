@@ -47,7 +47,7 @@ namespace SqlBatis.DataMapper.TypeHandlers
 
 		#region Fields
 		
-		private static readonly ILog _logger = LogManager.GetLogger( MethodBase.GetCurrentMethod().DeclaringType );
+		private static readonly ILog Logger = LogManager.GetLogger( MethodBase.GetCurrentMethod().DeclaringType );
 		private IDictionary _typeHandlerMap = new HybridDictionary();
 		private ITypeHandler _unknownTypeHandler = null;
 		private const string NULL = "_NULL_TYPE_";
@@ -273,7 +273,7 @@ namespace SqlBatis.DataMapper.TypeHandlers
 			}
 			if (dbType==null)
 			{
-				if (_logger.IsInfoEnabled)
+				if (Logger.IsInfoEnabled)
 				{
 					// notify the user that they are no longer using one of the built-in type handlers
 					ITypeHandler oldTypeHandler = (ITypeHandler)map[NULL];
@@ -296,7 +296,7 @@ namespace SqlBatis.DataMapper.TypeHandlers
 						}
 
 						// should oldTypeHandler be checked if its a CustomTypeHandler and if so report the Callback property ???
-						_logger.Info("Replacing type handler [" + oldTypeHandler.ToString() + "] with [" + replacement + "].");
+						Logger.Info("Replacing type handler [" + oldTypeHandler.ToString() + "] with [" + replacement + "].");
 					}
 				}
 

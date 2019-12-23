@@ -294,7 +294,7 @@ namespace SqlBatis.DataMapper.Configuration
 
         #region Fields
 
-        private static readonly ILog _logger = LogManager.GetLogger( MethodBase.GetCurrentMethod().DeclaringType );
+        private static readonly ILog Logger = LogManager.GetLogger( MethodBase.GetCurrentMethod().DeclaringType );
 
 		private ConfigurationScope _configScope = null;
 		private DeSerializerFactory _deSerializerFactory = null; 
@@ -920,18 +920,18 @@ namespace SqlBatis.DataMapper.Configuration
 						{
 							CacheModel cacheModel = _configScope.SqlMapper.GetCache(cacheModelId);
 
-							if (_logger.IsDebugEnabled)
+							if (Logger.IsDebugEnabled)
 							{
-								_logger.Debug("Registering trigger statement [" + mappedStatement.Id + "] to cache model [" + cacheModel.Id + "]");
+								Logger.Debug("Registering trigger statement [" + mappedStatement.Id + "] to cache model [" + cacheModel.Id + "]");
 							}
 
 							cacheModel.RegisterTriggerStatement(mappedStatement);
 						}
 						else
 						{
-							if (_logger.IsWarnEnabled)
+							if (Logger.IsWarnEnabled)
 							{
-								_logger.Warn("Unable to register trigger statement [" + statementName + "] to cache model [" + cacheModelId + "]. Statement does not exist.");
+								Logger.Warn("Unable to register trigger statement [" + statementName + "] to cache model [" + cacheModelId + "]. Statement does not exist.");
 							}
 						}
 					}
@@ -1677,9 +1677,9 @@ namespace SqlBatis.DataMapper.Configuration
 						{
 							_configScope.Properties.Add( keyAttrib.Value,  valueAttrib.Value);
 
-							if (_logger.IsDebugEnabled)
+							if (Logger.IsDebugEnabled)
 							{
-								_logger.Debug( string.Format("Add property \"{0}\" value \"{1}\"",keyAttrib.Value,valueAttrib.Value) );
+								Logger.Debug( string.Format("Add property \"{0}\" value \"{1}\"",keyAttrib.Value,valueAttrib.Value) );
 							}
 						}
 						else
@@ -1691,9 +1691,9 @@ namespace SqlBatis.DataMapper.Configuration
 							{
 								_configScope.Properties[node.Attributes[PROPERTY_ELEMENT_KEY_ATTRIB].Value] = node.Attributes[PROPERTY_ELEMENT_VALUE_ATTRIB].Value;
 
-								if (_logger.IsDebugEnabled)
+								if (Logger.IsDebugEnabled)
 								{
-									_logger.Debug( string.Format("Add property \"{0}\" value \"{1}\"",node.Attributes[PROPERTY_ELEMENT_KEY_ATTRIB].Value,node.Attributes[PROPERTY_ELEMENT_VALUE_ATTRIB].Value) );
+									Logger.Debug( string.Format("Add property \"{0}\" value \"{1}\"",node.Attributes[PROPERTY_ELEMENT_KEY_ATTRIB].Value,node.Attributes[PROPERTY_ELEMENT_VALUE_ATTRIB].Value) );
 								}
 							}
 						}
@@ -1714,9 +1714,9 @@ namespace SqlBatis.DataMapper.Configuration
 					{
 						_configScope.Properties[node.Attributes[PROPERTY_ELEMENT_KEY_ATTRIB].Value] = node.Attributes[PROPERTY_ELEMENT_VALUE_ATTRIB].Value;
 
-						if (_logger.IsDebugEnabled)
+						if (Logger.IsDebugEnabled)
 						{
-							_logger.Debug( string.Format("Add property \"{0}\" value \"{1}\"",node.Attributes[PROPERTY_ELEMENT_KEY_ATTRIB].Value,node.Attributes[PROPERTY_ELEMENT_VALUE_ATTRIB].Value) );
+							Logger.Debug( string.Format("Add property \"{0}\" value \"{1}\"",node.Attributes[PROPERTY_ELEMENT_KEY_ATTRIB].Value,node.Attributes[PROPERTY_ELEMENT_VALUE_ATTRIB].Value) );
 						}
 					}					
 				}

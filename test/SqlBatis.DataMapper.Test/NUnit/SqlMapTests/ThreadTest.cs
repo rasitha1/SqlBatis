@@ -20,7 +20,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
 	[TestFixture] 
 	public class ThreadTest: BaseTest
 	{
-		private static readonly ILog _logger = LogManager.GetLogger( System.Reflection.MethodBase.GetCurrentMethod().DeclaringType );
+		private static readonly ILog Logger = LogManager.GetLogger( System.Reflection.MethodBase.GetCurrentMethod().DeclaringType );
 
 		private static int _numberOfThreads = 10;
 		private ManualResetEvent  _startEvent = new ManualResetEvent(false);

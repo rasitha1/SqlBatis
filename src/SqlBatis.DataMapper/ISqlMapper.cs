@@ -24,13 +24,11 @@
 #endregion
 
 #region using
-using System;
+
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Data;
-
-using SqlBatis.DataMapper;
 using SqlBatis.DataMapper.Utilities.Objects;
 using SqlBatis.DataMapper.Utilities.Objects.Members;
 using SqlBatis.DataMapper.Configuration.Cache;
@@ -56,9 +54,9 @@ namespace SqlBatis.DataMapper
         /// Name used to identify the the <see cref="SqlMapper"/>
         /// </summary>
         string Id { get; }
-        
-         /// <summary>
-        /// Allow to set a custom session store like the <see cref="HybridWebThreadSessionStore"/>
+
+        /// <summary>
+        /// Allow to set a custom session store like the <see cref="AsyncLocalSessionStore"/>
         /// </summary>
         /// <remarks>Set it after the configuration and before use of the <see cref="SqlMapper"/></remarks>
         /// <example>
@@ -434,17 +432,6 @@ namespace SqlBatis.DataMapper
         object QueryForObject(string statementName, object parameterObject);
 
         /// <summary>
-        /// Executes the SQL and retuns a subset of the results in a dynamic PaginatedList that can be used to
-        /// automatically scroll through results from a database table.
-        /// </summary>
-        /// <param name="statementName">The name of the sql statement to execute.</param>
-        /// <param name="parameterObject">The object used to set the parameters in the SQL</param>
-        /// <param name="pageSize">The maximum number of objects to store in each page</param>
-        /// <returns>A PaginatedList of beans containing the rows</returns>
-        [Obsolete("This method will be remove in future version.", false)]
-        PaginatedList QueryForPaginatedList(string statementName, object parameterObject, int pageSize);
-
-        /// <summary>
         /// Runs a query for list with a custom object that gets a chance to deal 
         /// with each row as it is processed.
         /// <p/>
@@ -494,7 +481,7 @@ namespace SqlBatis.DataMapper
         /// <param name="valueProperty">The property of the result object to be used as the value (or null)</param>
         /// <returns>A IDictionary of object containing the rows keyed by keyProperty.</returns>
         ///<exception cref="DataMapperException">If a transaction is not in progress, or the database throws an exception.</exception>
-        IDictionary<K, V> QueryForDictionary<K, V>(string statementName, object parameterObject, string keyProperty, string valueProperty);
+        IDictionary<TK, TV> QueryForDictionary<TK, TV>(string statementName, object parameterObject, string keyProperty, string valueProperty);
 
         
         /// <summary>
@@ -505,7 +492,7 @@ namespace SqlBatis.DataMapper
         /// <param name="parameterObject">The object used to set the parameters in the SQL.</param>
         /// <param name="keyProperty">The property of the result object to be used as the key.</param>
         /// <returns>A IDictionary of object containing the rows keyed by keyProperty.</returns>
-        IDictionary<K, V> QueryForDictionary<K, V>(string statementName, object parameterObject, string keyProperty);
+        IDictionary<TK, TV> QueryForDictionary<TK, TV>(string statementName, object parameterObject, string keyProperty);
 
         /// <summary>
         /// Runs a query with a custom object that gets a chance to deal 
@@ -521,7 +508,7 @@ namespace SqlBatis.DataMapper
         /// <param name="rowDelegate">A delegate called once per row in the QueryForDictionary method></param>
         /// <returns>A IDictionary (Hashtable) of object containing the rows keyed by keyProperty.</returns>
         ///<exception cref="DataMapperException">If a transaction is not in progress, or the database throws an exception.</exception>
-        IDictionary<K, V> QueryForDictionary<K, V>(string statementName, object parameterObject, string keyProperty, string valueProperty, DictionaryRowDelegate<K, V> rowDelegate);
+        IDictionary<TK, TV> QueryForDictionary<TK, TV>(string statementName, object parameterObject, string keyProperty, string valueProperty, DictionaryRowDelegate<TK, TV> rowDelegate);
                 
         /// <summary>
         /// Executes a Sql SELECT statement that returns a single object of the type of the

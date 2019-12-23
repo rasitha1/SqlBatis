@@ -40,7 +40,7 @@ namespace SqlBatis.DataMapper.Utilities.Objects
 		private string _typeName = string.Empty;
 		private string _parametersTypeName = string.Empty;
 		
-		private static readonly ILog _logger = LogManager.GetLogger( MethodBase.GetCurrentMethod().DeclaringType );
+		private static readonly ILog Logger = LogManager.GetLogger( MethodBase.GetCurrentMethod().DeclaringType );
 
         /// <summary>
         /// Initializes a new instance of the <see cref="FactoryLogAdapter"/> class.
@@ -77,9 +77,9 @@ namespace SqlBatis.DataMapper.Utilities.Objects
 			}
 			catch
 			{
-				_logger.Debug("Enabled to create instance for type '" + _typeName);
-				_logger.Debug("  using parameters type : " + _parametersTypeName );
-				_logger.Debug("  using parameters value : " + GenerateLogInfoForParameterValue(parameters) );
+				Logger.Debug("Enabled to create instance for type '" + _typeName);
+				Logger.Debug("  using parameters type : " + _parametersTypeName );
+				Logger.Debug("  using parameters value : " + GenerateLogInfoForParameterValue(parameters) );
 				throw;
 			}
             			

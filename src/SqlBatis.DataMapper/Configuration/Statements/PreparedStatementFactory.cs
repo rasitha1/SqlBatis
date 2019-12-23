@@ -61,7 +61,7 @@ namespace SqlBatis.DataMapper.Configuration.Statements
 		// (property, DbParameter)
 		private HybridDictionary _propertyDbParameterMap = new HybridDictionary();
 
-		private static readonly ILog _logger = LogManager.GetLogger( MethodBase.GetCurrentMethod().DeclaringType );
+		private static readonly ILog Logger = LogManager.GetLogger( MethodBase.GetCurrentMethod().DeclaringType );
 
 		#endregion
 
@@ -149,9 +149,9 @@ namespace SqlBatis.DataMapper.Configuration.Statements
 				#endregion
 			}
 
-			if (_logger.IsDebugEnabled) 
+			if (Logger.IsDebugEnabled) 
 			{
-				_logger.Debug("Statement Id: [" + _statement.Id + "] Prepared SQL: [" + _preparedStatement.PreparedSql + "]");
+				Logger.Debug("Statement Id: [" + _statement.Id + "] Prepared SQL: [" + _preparedStatement.PreparedSql + "]");
 			}
 
 			return _preparedStatement;

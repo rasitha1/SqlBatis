@@ -44,7 +44,7 @@ namespace SqlBatis.DataMapper
     public class SqlMapSession : ISqlMapSession
 	{
 		#region Fields
-		private static readonly ILog _logger = LogManager.GetLogger( System.Reflection.MethodBase.GetCurrentMethod().DeclaringType );
+		private static readonly ILog Logger = LogManager.GetLogger( System.Reflection.MethodBase.GetCurrentMethod().DeclaringType );
 		private ISqlMapper _sqlMapper = null;
 		private IDataSource _dataSource = null;
 			
@@ -192,9 +192,9 @@ namespace SqlBatis.DataMapper
 				try
 				{
 					_connection.Open();
-					if (_logger.IsDebugEnabled)
+					if (Logger.IsDebugEnabled)
 					{
-						_logger.Debug( string.Format("Open Connection \"{0}\" to \"{1}\".", _connection.GetHashCode().ToString(), _dataSource.DbProvider.Description) );
+						Logger.Debug( string.Format("Open Connection \"{0}\" to \"{1}\".", _connection.GetHashCode().ToString(), _dataSource.DbProvider.Description) );
 					}
 				}
 				catch(Exception ex)
@@ -207,9 +207,9 @@ namespace SqlBatis.DataMapper
 				try
 				{
 					_connection.Open();
-					if (_logger.IsDebugEnabled)
+					if (Logger.IsDebugEnabled)
 					{
-						_logger.Debug(string.Format("Open Connection \"{0}\" to \"{1}\".", _connection.GetHashCode().ToString(), _dataSource.DbProvider.Description) );
+						Logger.Debug(string.Format("Open Connection \"{0}\" to \"{1}\".", _connection.GetHashCode().ToString(), _dataSource.DbProvider.Description) );
 					}
 				}
 				catch(Exception ex)
@@ -227,10 +227,10 @@ namespace SqlBatis.DataMapper
 			if ( (_connection != null) && (_connection.State != ConnectionState.Closed) )
 			{
 				_connection.Close();
-				if (_logger.IsDebugEnabled)
+				if (Logger.IsDebugEnabled)
 				{
 
-					_logger.Debug(string.Format("Close Connection \"{0}\" to \"{1}\".", _connection.GetHashCode().ToString(), _dataSource.DbProvider.Description));
+					Logger.Debug(string.Format("Close Connection \"{0}\" to \"{1}\".", _connection.GetHashCode().ToString(), _dataSource.DbProvider.Description));
 				}
 				_connection.Dispose();
 			}
@@ -256,9 +256,9 @@ namespace SqlBatis.DataMapper
 				this.OpenConnection( connectionString );
 			}
 			_transaction = _connection.BeginTransaction();
-			if (_logger.IsDebugEnabled)
+			if (Logger.IsDebugEnabled)
 			{
-				_logger.Debug("Begin Transaction.");
+				Logger.Debug("Begin Transaction.");
 			}
 			_isTransactionOpen = true;
 		}
@@ -280,9 +280,9 @@ namespace SqlBatis.DataMapper
                     this.OpenConnection();
                 }
 				_transaction = _connection.BeginTransaction();
-				if (_logger.IsDebugEnabled)
+				if (Logger.IsDebugEnabled)
 				{
-					_logger.Debug("Begin Transaction.");
+					Logger.Debug("Begin Transaction.");
 				}
 				_isTransactionOpen = true;
 			}
@@ -311,9 +311,9 @@ namespace SqlBatis.DataMapper
 				this.OpenConnection( connectionString );
 			}
 			_transaction = _connection.BeginTransaction(isolationLevel);
-			if (_logger.IsDebugEnabled)
+			if (Logger.IsDebugEnabled)
 			{
-				_logger.Debug("Begin Transaction.");
+				Logger.Debug("Begin Transaction.");
 			}
 			_isTransactionOpen = true;			
 		}
@@ -349,9 +349,9 @@ namespace SqlBatis.DataMapper
 					throw new DataMapperException("SqlMapSession could not invoke StartTransaction(). A Connection must be started. Call OpenConnection() first.");
 				}
 				_transaction = _connection.BeginTransaction(isolationLevel);
-				if (_logger.IsDebugEnabled)
+				if (Logger.IsDebugEnabled)
 				{
-					_logger.Debug("Begin Transaction.");
+					Logger.Debug("Begin Transaction.");
 				}
 				_isTransactionOpen = true;
 			}			
@@ -365,9 +365,9 @@ namespace SqlBatis.DataMapper
 		/// </remarks>
 		public void CommitTransaction()
 		{
-			if (_logger.IsDebugEnabled)
+			if (Logger.IsDebugEnabled)
 			{
-				_logger.Debug("Commit Transaction.");
+				Logger.Debug("Commit Transaction.");
 			}
 			_transaction.Commit();
 			_transaction.Dispose();
@@ -392,9 +392,9 @@ namespace SqlBatis.DataMapper
 			}
 			else
 			{
-				if (_logger.IsDebugEnabled)
+				if (Logger.IsDebugEnabled)
 				{
-					_logger.Debug("Commit Transaction.");
+					Logger.Debug("Commit Transaction.");
 				}				
                 _transaction.Commit();
 				_transaction.Dispose();
@@ -411,9 +411,9 @@ namespace SqlBatis.DataMapper
 		/// </remarks>
 		public void RollBackTransaction()
 		{
-			if (_logger.IsDebugEnabled)
+			if (Logger.IsDebugEnabled)
 			{
-				_logger.Debug("RollBack Transaction.");
+				Logger.Debug("RollBack Transaction.");
 			}
 			_transaction.Rollback();
 			_transaction.Dispose();
@@ -437,9 +437,9 @@ namespace SqlBatis.DataMapper
 			}
 			else
 			{
-				if (_logger.IsDebugEnabled)
+				if (Logger.IsDebugEnabled)
 				{
-					_logger.Debug("RollBack Transaction.");
+					Logger.Debug("RollBack Transaction.");
 				}
 				_transaction.Rollback();
 				_transaction.Dispose();
@@ -479,9 +479,9 @@ namespace SqlBatis.DataMapper
 				}
 				catch(NotSupportedException e)
 				{
-					if (_logger.IsInfoEnabled)
+					if (Logger.IsInfoEnabled)
 					{
-						_logger.Info(e.Message);
+						Logger.Info(e.Message);
 					}
 				}
 			}
@@ -537,9 +537,9 @@ namespace SqlBatis.DataMapper
 		/// </summary>
 		public void Dispose()
 		{
-			if (_logger.IsDebugEnabled)
+			if (Logger.IsDebugEnabled)
 			{
-				_logger.Debug("Dispose SqlMapSession");
+				Logger.Debug("Dispose SqlMapSession");
 			}
 			if (_isTransactionOpen == false)
 			{

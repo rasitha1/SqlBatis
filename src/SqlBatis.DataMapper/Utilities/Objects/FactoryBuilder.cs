@@ -38,7 +38,7 @@ namespace SqlBatis.DataMapper.Utilities.Objects
 	{
 		private const BindingFlags VISIBILITY = BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic;
         private const MethodAttributes CREATE_METHOD_ATTRIBUTES = MethodAttributes.Public | MethodAttributes.HideBySig | MethodAttributes.NewSlot | MethodAttributes.Virtual | MethodAttributes.Final;
-		private static readonly ILog _logger = LogManager.GetLogger( MethodBase.GetCurrentMethod().DeclaringType );
+		private static readonly ILog Logger = LogManager.GetLogger( MethodBase.GetCurrentMethod().DeclaringType );
 
         private ModuleBuilder _moduleBuilder = null;
        
@@ -66,9 +66,9 @@ namespace SqlBatis.DataMapper.Utilities.Objects
 		{
 			if (typeToCreate.IsAbstract)
 			{
-				if (_logger.IsInfoEnabled)
+				if (Logger.IsInfoEnabled)
 				{
-                    _logger.Info("Create a stub IFactory for abstract type " + typeToCreate.Name);
+                    Logger.Info("Create a stub IFactory for abstract type " + typeToCreate.Name);
                 }
                 return new AbstractFactory(typeToCreate);
 			}
