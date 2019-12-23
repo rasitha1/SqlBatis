@@ -56,3 +56,8 @@ steps:
     requestedPatchVersion: $(patchVersion)
     packagesToPack: 'src/**/*.csproj'
     arguments: '--configuration $(buildConfiguration)'
+
+- task: PublishBuildArtifacts@1
+  inputs:
+    pathtoPublish: '$(Build.ArtifactStagingDirectory)' 
+    artifactName: 'packages' 
