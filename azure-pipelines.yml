@@ -8,7 +8,7 @@ variables:
   buildConfiguration: 'Release'
   majorVersion: 4
   minorVersion: 0
-  patchVersion: 0
+  patchVersion: 1
 
 steps:
 - script: dotnet build --configuration $(buildConfiguration)
