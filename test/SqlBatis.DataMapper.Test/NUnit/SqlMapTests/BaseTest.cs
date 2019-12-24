@@ -18,6 +18,7 @@ using System.Collections.Specialized;
 using SqlBatis.DataMapper.Logging;
 using SqlBatis.DataMapper.Logging.Impl;
 using Microsoft.Extensions.Configuration;
+using ConfigurationBuilder = Microsoft.Extensions.Configuration.ConfigurationBuilder;
 
 
 namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests

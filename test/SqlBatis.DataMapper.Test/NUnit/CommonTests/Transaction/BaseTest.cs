@@ -18,6 +18,7 @@ using Microsoft.Extensions.Configuration;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using SqlBatis.DataMapper.Test.Domain;
+using ConfigurationBuilder= Microsoft.Extensions.Configuration.ConfigurationBuilder;
 
 //[assembly:log4net.Config.XmlConfigurator(Watch=true)]
 
