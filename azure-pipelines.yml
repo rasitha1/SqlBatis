@@ -42,6 +42,7 @@ steps:
     requestedMinorVersion: $(minorVersion)
     requestedPatchVersion: $(patchVersion)
     versioningScheme : byPrereleaseNumber
+    packDirectory: '$(Build.ArtifactStagingDirectory)/CI'
     packagesToPack: 'src/**/*.csproj'
     arguments: '--configuration $(buildConfiguration)'
 
@@ -54,6 +55,7 @@ steps:
     requestedMajorVersion: $(majorVersion)
     requestedMinorVersion: $(minorVersion)
     requestedPatchVersion: $(patchVersion)
+    packDirectory: '$(Build.ArtifactStagingDirectory)/Public'
     packagesToPack: 'src/**/*.csproj'
     arguments: '--configuration $(buildConfiguration)'
 
