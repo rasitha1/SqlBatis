@@ -5,7 +5,7 @@
     <AssemblyName>SqlBatis.DataMapper</AssemblyName>
     <RootNamespace>SqlBatis.DataMapper</RootNamespace>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Description>Map objects to your SQL statements or stored procedures.</Description>
+    <Description>A fork of the Apache IBatisNet.DataMapper refactored and migrated to .NET Standard with DI support.</Description>
     <Version>4.0.0</Version>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>AssemblyKey.snk</AssemblyOriginatorKeyFile>

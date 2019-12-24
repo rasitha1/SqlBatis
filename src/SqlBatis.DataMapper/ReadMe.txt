@@ -1,23 +1,6 @@
 INTRODUCTION
 
-  Track the project progress on the Sourceforge project page:
-  http://sourceforge.net/projects/ibatisnet/
-
-
-INSTALL
-
-If you only use the Dao API, add a reference to the IBatisNet.DataAccess.dll, 
-SqlBatis.DataMapper.dll in your own projects.
-
-If you only use the Dao API with DataMapper API, add a reference to the IBatisNet.DataAccess.dll, 
-SqlBatis.DataMapper.dll, SqlBatis.DataMapper.dll in your own projects.
-
-If you only use DataMapper API, add a reference to the SqlBatis.DataMapper.dll, 
-SqlBatis.DataMapper.dll in your own projects.
-
-In web context, if you used put the dao.config, the providers.config, sqlmap.config 
-at the same level as your web.config.
-In a console or windows context, put theses files in the same directory as you exe.
+  DataMapper library
 
 CONTRIBUTORS
 

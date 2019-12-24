@@ -1,11 +1,16 @@
 # Releases
 
 ## 4.0.0
-* Removed **SqlBatis.DataAccess** project
-* Removed **SqlBatis.DataMapper.Logging.Log4Net** project
-* Merged **SqlBatis.DataMapper** info **SqlBatis.DataMapper** to be in a single assembly
+* Removed **SqlBatis.DataAccess** project (breaking change)
+* Removed **SqlBatis.DataMapper.Logging.Log4Net** project (breaking change)
+* Merged **SqlBatis.Common** into **SqlBatis.DataMapper** to be in a single assembly (breaking change)
+  - Must manually remove SqlBatis.Common package when upgrading 
 * Azure DevOps pipelines
-
+* Removed deprecated method: `QueryForPaginatedList`
+* Testing against `net472;netcoreapp2.1;netcoreapp3.0`
+* Added NetStandardLogger and NetStandardLoggerAdapter to work with Microsoft.Extensions.Logging
+  - `LogManager.Adapter = new NetStandardLoggerAdapter(Provider.GetRequiredService<ILoggerFactory>());`
+* Added `SqlBatis.Schemas` NuGet Package to include `providers.xsd`, `sqlmap.xsd` and `sqlmapconfig.xsd` files for VS intellisense
 
 
 ### 3.1.0
