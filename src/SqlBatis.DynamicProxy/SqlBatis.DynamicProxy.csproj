@@ -21,7 +21,15 @@ https://github.com/rasitha1/SqlBatis/blob/master/README.md</PackageReleaseNotes>
     <Product>SqlBatis</Product>
     <PackageId>SqlBatis.DynamicProxy</PackageId>
     <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
   </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All" />
+  </ItemGroup>
+
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <DocumentationFile>IBatisNet.DynamicProxy.xml</DocumentationFile>
