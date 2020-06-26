@@ -51,7 +51,6 @@ steps:
   inputs:
     command: pack
     nobuild: true
-    versioningScheme : off
     requestedMajorVersion: $(majorVersion)
     requestedMinorVersion: $(minorVersion)
     requestedPatchVersion: $(patchVersion)
