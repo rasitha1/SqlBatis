@@ -18,7 +18,6 @@ Matching version with SqlBatis.DataMapper
     <IncludeBuildOutput>false</IncludeBuildOutput>
   </PropertyGroup>
 
-
   <ItemGroup>
     <None Remove="provider.xsd" />
     <None Remove="SqlMap.xsd" />
