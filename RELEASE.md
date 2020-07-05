@@ -1,5 +1,8 @@
 # Releases
 
+## 4.0.1
+* SourceLink support and symbol packages  #6 (Thanks [JTOne123](https://github.com/JTOne123))
+
 ## 4.0.0
 * Removed **SqlBatis.DataAccess** project (breaking change)
 * Removed **SqlBatis.DataMapper.Logging.Log4Net** project (breaking change)
