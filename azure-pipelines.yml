@@ -9,10 +9,10 @@ variables:
   majorVersion: 4
   minorVersion: 0
   patchVersion: 1
-  Version: $(majorVersion).$(minorVersion).$(patchVersion)
+  buildVersion: $(majorVersion).$(minorVersion).$(patchVersion)
 
 steps:
-- script: dotnet build --configuration $(buildConfiguration) -p:Version=$(Version)
+- script: dotnet build --configuration $(buildConfiguration) -p:Version=$(buildVersion)
   displayName: 'dotnet build $(buildConfiguration)'
   
 - script: |
@@ -47,8 +47,16 @@ steps:
     packagesToPack: 'src/**/*.csproj'
     arguments: '--configuration $(buildConfiguration)'
 
-- script: dotnet pack --no-build --configuration $(buildConfiguration) src/**/*.csproj -p:Version=$(Version) --output $(Build.ArtifactStagingDirectory)/Public
+- task: DotNetCoreCLI@2
   displayName: Create Release Package
+  inputs:
+    command: pack
+    nobuild: true
+    versioningScheme: byEnvVar
+    versionEnvVar: buildVersion
+    packDirectory: '$(Build.ArtifactStagingDirectory)/Public'
+    packagesToPack: 'src/**/*.csproj'
+    arguments: '--configuration $(buildConfiguration)'
 
 - task: PublishBuildArtifacts@1
   inputs:
