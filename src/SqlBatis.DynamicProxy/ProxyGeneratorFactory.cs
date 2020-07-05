@@ -50,7 +50,7 @@ namespace IBatisNet.DynamicProxy
         public static ProxyGenerator GetProxyGenerator()
         {
             //TODO: make this read from a configuration file!!!  At this point anybody
-            // could substitue in their own IProxyGenerator and LazyInitializer.
+            // could substitute in their own IProxyGenerator and LazyInitializer.
             return _generator;
         }
     }

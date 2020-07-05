@@ -2,21 +2,17 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Data;
 using System.IO;
-using System.Reflection;
-using System.Configuration;
 using SqlBatis.DataMapper.Configuration;
 
 using NUnit.Framework;
 
-using SqlBatis.DataMapper; // DataSource definition
+// DataSource definition
 using SqlBatis.DataMapper.Utilities; // ScriptRunner definition
-using SqlBatis.DataMapper; // SqlMap API
+// SqlMap API
 using SqlBatis.DataMapper.Test.Domain;
 using System.Collections.Specialized;
 using SqlBatis.DataMapper.Logging;
-using SqlBatis.DataMapper.Logging.Impl;
 using Microsoft.Extensions.Configuration;
 using ConfigurationBuilder = Microsoft.Extensions.Configuration.ConfigurationBuilder;
 

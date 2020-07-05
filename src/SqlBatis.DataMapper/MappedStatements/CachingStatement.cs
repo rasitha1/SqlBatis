@@ -45,7 +45,7 @@ namespace SqlBatis.DataMapper.MappedStatements
 		private MappedStatement _mappedStatement =null;
 
 		/// <summary>
-		/// Event launch on exceute query
+		/// Event launch on execute query
 		/// </summary>
 		public event ExecuteEventHandler Execute;
 

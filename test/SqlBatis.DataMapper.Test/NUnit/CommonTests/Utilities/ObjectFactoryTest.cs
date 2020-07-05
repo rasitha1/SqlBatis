@@ -3,7 +3,6 @@ using SqlBatis.DataMapper.Test.Domain;
 using SqlBatis.DataMapper.Utilities.Objects;
 using NUnit.Framework;
 using System;
-using SqlBatis.DataMapper.Test.Domain;
 
 
 namespace SqlBatis.DataMapper.Test.NUnit.CommonTests.Utilities

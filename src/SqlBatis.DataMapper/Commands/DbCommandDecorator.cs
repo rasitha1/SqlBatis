@@ -177,7 +177,7 @@ namespace SqlBatis.DataMapper.Commands
         /// <summary>
         /// Creates a prepared (or compiled) version of the command on the data source.
         /// </summary>
-        /// <exception cref="System.InvalidOperationException">The <see cref="P:System.Data.OleDb.OleDbCommand.Connection"></see> is not set.-or- The <see cref="System.Data.OleDb.OleDbCommand.Connection"></see> is not <see cref="System.Data.OleDb.OleDbConnection.Open"></see>. </exception>
+        /// <exception cref="System.InvalidOperationException">The <see cref="P:System.Data.OleDb.OleDbCommand.Connection"></see> is not set.-or- The <see cref="P:System.Data.OleDb.OleDbCommand.Connection"></see> is not <see cref="P:System.Data.OleDb.OleDbConnection.Open"></see>. </exception>
         void IDbCommand.Prepare()
         {
             _innerDbCommand.Prepare();

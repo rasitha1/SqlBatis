@@ -1,10 +1,8 @@
 
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using SqlBatis.DataMapper.Test.Domain;
 using SqlBatis.DataMapper.Utilities;
-using SqlBatis.DataMapper.Test.Domain;
 using NUnit.Framework;
 
 namespace SqlBatis.DataMapper.Test.NUnit.CommonTests.Utilities

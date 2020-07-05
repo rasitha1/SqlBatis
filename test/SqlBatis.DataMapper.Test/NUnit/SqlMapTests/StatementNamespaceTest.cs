@@ -1,18 +1,7 @@
 
 using System;
-using System.Collections;
 using System.Collections.Specialized;
-using System.Threading;
-using System.Configuration;
-
 using NUnit.Framework;
-
-using SqlBatis.DataMapper;
-using SqlBatis.DataMapper.Utilities;
-using SqlBatis.DataMapper;
-using SqlBatis.DataMapper.MappedStatements;
-
-using SqlBatis.DataMapper.Test;
 using SqlBatis.DataMapper.Test.Domain;
 
 namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests

@@ -1,15 +1,8 @@
-using System;
 using System.Collections;
-using System.Configuration;
-
 using NUnit.Framework;
 
-using SqlBatis.DataMapper; //<-- To access the definition of the deleagte RowDelegate
-using SqlBatis.DataMapper.MappedStatements; //<-- To access the definition of the PageinatedList
-using SqlBatis.DataMapper;
-using SqlBatis.DataMapper.Exceptions;
-
-using SqlBatis.DataMapper.Test;
+//<-- To access the definition of the deleagte RowDelegate
+//<-- To access the definition of the PageinatedList
 using SqlBatis.DataMapper.Test.Domain;
 
 namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests

@@ -90,15 +90,15 @@ namespace SqlBatis.DataMapper
         {
             get { return _id; }
         }
-	    
-        /// <summary>
-        /// Allow to set a custom session store like the <see cref="HybridWebThreadSessionStore"/>
-        /// </summary>
-        /// <remarks>Set it after the configuration and before use of the <see cref="SqlMapper"/></remarks>
-        /// <example>
-        /// sqlMapper.SessionStore = new HybridWebThreadSessionStore( sqlMapper.Id );
-        /// </example>
-        public ISessionStore SessionStore
+
+		/// <summary>
+		/// Allow to set a custom session store like the <see cref="AsyncLocalSessionStore"/>
+		/// </summary>
+		/// <remarks>Set it after the configuration and before use of the <see cref="SqlMapper"/></remarks>
+		/// <example>
+		/// sqlMapper.SessionStore = new AsyncLocalSessionStore( sqlMapper.Id );
+		/// </example>
+		public ISessionStore SessionStore
         {
             set { _sessionStore = value; }
         }

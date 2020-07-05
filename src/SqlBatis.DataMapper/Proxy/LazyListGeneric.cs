@@ -261,7 +261,7 @@ namespace SqlBatis.DataMapper.Proxy
         /// Returns an enumerator that iterates through the collection.
         /// </summary>
         /// <returns>
-        /// A <see cref="System.Collections.Generic.IEnumerator"></see> that can be used to iterate through the collection.
+        /// A <see cref="System.Collections.IEnumerator"></see> that can be used to iterate through the collection.
         /// </returns>
         public IEnumerator<T> GetEnumerator()
         {
@@ -433,10 +433,10 @@ namespace SqlBatis.DataMapper.Proxy
         }
 
         /// <summary>
-        /// Gets the number of elements contained in the <see cref="System.Collections.Generic.ICollection"></see>.
+        /// Gets the number of elements contained in the <see cref="System.Collections.ICollection"></see>.
         /// </summary>
         /// <value></value>
-        /// <returns>The number of elements contained in the <see cref="System.Collections.Generic.ICollection"></see>.</returns>
+        /// <returns>The number of elements contained in the <see cref="System.Collections.ICollection"></see>.</returns>
         int ICollection.Count => Count;
 
         /// <summary>

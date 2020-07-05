@@ -9,9 +9,10 @@ variables:
   majorVersion: 4
   minorVersion: 0
   patchVersion: 1
+  buildVersion: $(majorVersion).$(minorVersion).$(patchVersion)
 
 steps:
-- script: dotnet build --configuration $(buildConfiguration)
+- script: dotnet build --configuration $(buildConfiguration) -p:Version=$(buildVersion)
   displayName: 'dotnet build $(buildConfiguration)'
   
 - script: |
@@ -24,7 +25,7 @@ steps:
   inputs:
     command: test
     projects: 'test/**/*.csproj'
-    arguments: '--configuration $(buildConfiguration)'
+    arguments: '--configuration $(buildConfiguration) --filter Category!=MSSQL'
 
 - task: DotNetCoreCLI@2
   displayName: MSSQL Tests
@@ -51,10 +52,8 @@ steps:
   inputs:
     command: pack
     nobuild: true
-    versioningScheme : off
-    requestedMajorVersion: $(majorVersion)
-    requestedMinorVersion: $(minorVersion)
-    requestedPatchVersion: $(patchVersion)
+    versioningScheme: byEnvVar
+    versionEnvVar: buildVersion
     packDirectory: '$(Build.ArtifactStagingDirectory)/Public'
     packagesToPack: 'src/**/*.csproj'
     arguments: '--configuration $(buildConfiguration)'

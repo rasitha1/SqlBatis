@@ -441,22 +441,15 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
 
 			public static void StartThread(ISqlMapper sqlMap, Hashtable results, string statementName) 
 			{
-                try 
-				{
-                    TestCacheThread tct = new TestCacheThread(sqlMap, results, statementName);
-                    Thread thread = new Thread(new ThreadStart(tct.Run));
-                    thread.Start();
-					thread.Join();
-                    if (!tct.Success)
-                    {
-                        throw tct.Error;
-                    }
-				} 
-				catch (Exception e) 
-				{
-					throw;
-				}
-			}
+                TestCacheThread tct = new TestCacheThread(sqlMap, results, statementName);
+                Thread thread = new Thread(new ThreadStart(tct.Run));
+                thread.Start();
+                thread.Join();
+                if (!tct.Success)
+                {
+                    throw tct.Error;
+                }
+            }
 		}
 	}
 }
