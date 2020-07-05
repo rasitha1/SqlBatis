@@ -38,6 +38,7 @@ using SqlBatis.DataMapper.Utilities.Objects;
 using SqlBatis.DataMapper.Utilities.Objects.Members;
 using SqlBatis.DataMapper.Configuration;
 using SqlBatis.DataMapper.DataExchange;
+using SqlBatis.DataMapper.Proxy;
 using SqlBatis.DataMapper.TypeHandlers;
 
 #endregion

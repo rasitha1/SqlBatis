@@ -25,7 +25,7 @@ steps:
   inputs:
     command: test
     projects: 'test/**/*.csproj'
-    arguments: '--configuration $(buildConfiguration)'
+    arguments: '--configuration $(buildConfiguration) --filter Category!=MSSQL'
 
 - task: DotNetCoreCLI@2
   displayName: MSSQL Tests

@@ -28,10 +28,6 @@
 using System;
 using System.Data;
 using System.Xml.Serialization;
-
-using SqlBatis.DataMapper.Exceptions;
-using SqlBatis.DataMapper.Configuration.ParameterMapping;
-using SqlBatis.DataMapper.Exceptions;
 using SqlBatis.DataMapper.Scope;
 #endregion
 

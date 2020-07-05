@@ -2,13 +2,9 @@ using System;
 using System.ComponentModel;
 using System.Data;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading;
 using SqlBatis.DataMapper.Test.Domain;
 
 using NUnit.Framework;
-using SqlBatis.DataMapper;
-using SqlBatis.DataMapper;
 using CategoryAttribute = NUnit.Framework.CategoryAttribute;
 
 namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests.Perf

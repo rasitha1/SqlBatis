@@ -1,23 +1,17 @@
-using System;
 using System.Collections;
-using System.Data;
 using System.IO;
-using System.Reflection;
-using System.Configuration;
 using SqlBatis.DataMapper.Configuration;
 //using log4net;
 
 using NUnit.Framework;
 
-using SqlBatis.DataMapper; // DataSource definition
+// DataSource definition
 using SqlBatis.DataMapper.Utilities; // ScriptRunner definition
-using SqlBatis.DataMapper; // SqlMap API
+// SqlMap API
 
 using SqlBatis.DataMapper.Test.Domain;
 using Microsoft.Extensions.Configuration;
 using System.Collections.Generic;
-using System.Collections.Specialized;
-using SqlBatis.DataMapper.Test.Domain;
 using ConfigurationBuilder= Microsoft.Extensions.Configuration.ConfigurationBuilder;
 
 //[assembly:log4net.Config.XmlConfigurator(Watch=true)]
