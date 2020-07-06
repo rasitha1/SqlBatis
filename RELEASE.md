@@ -1,5 +1,8 @@
 # Releases
 
+## 4.0.2
+* Fix nuget publish issue with pipelines
+
 ## 4.0.1
 * SourceLink support and symbol packages  #6 (Thanks [JTOne123](https://github.com/JTOne123))
 
