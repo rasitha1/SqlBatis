@@ -23,7 +23,12 @@ steps:
 - script: dotnet build --configuration $(buildConfiguration) /p:Version="$(assemblyVersion)" /p:InformationalVersion="$(infoVersion)"
   displayName: 'dotnet build $(buildConfiguration)'
   
-- script: .\setupdb.cmd
+- script: |    
+    set db=sqllocaldb info SqlBatis
+    if "%db%"=="" sqllocaldb create "SqlBatis" 15.0 -s
+    set db=sqllocaldb info SqlBatis | findstr "Running"
+    if "%db%"=="" sqllocaldb s "SqlBatis"
+    sqlcmd -S "(localdb)\SqlBatis" -E -i .\test\SqlBatis.DataMapper.Test\Scripts\MSSQL\DataBase.sql
   displayName: 'Setup LocalDB for Tests'  
 
 - script: dotnet test --configuration $(buildConfiguration) --no-build --filter Category!=MSSQL --logger "trx;LogFileName=TestResults.trx" --logger "nunit;LogFileName=TestResults.xml" /p:CollectCoverage=true /p:CoverletOutput=TestResults\Coverage\coverage.cobertura.xml /p:CoverletOutputFormat=cobertura /p:Exclude="[NUnit.*]*"
@@ -32,7 +37,12 @@ steps:
 - script: dotnet test --configuration $(buildConfiguration) --no-build --filter Category=MSSQL
   displayName: 'MSSQL Tests'
 
-- script: .\teardowndb.cmd
+- script: |
+    sqlcmd -S "(localdb)\SqlBatis" -E -i .\test\SqlBatis.DataMapper.Test\Scripts\MSSQL\Teardown.sql
+    sqllocaldb p "SqlBatis"
+    sqllocaldb d "SqlBatis"
+    if exist %userprofile%\IBatisNet.mdf del %userprofile%\IBatisNet.mdf
+    if exist %userprofile%\IBatisNet_log.mdf del %userprofile%\IBatisNet_log.mdf
   displayName: 'Teardown LocalDB'  
 
 - script: dotnet tool install dotnet-reportgenerator-globaltool --tool-path tools
