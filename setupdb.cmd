@@ -6,6 +6,6 @@ set db=sqllocaldb info SqlBatis | findstr "Running"
 if "%db%"=="" sqllocaldb s "SqlBatis"
 
 echo Executing MSSQL Database Init Script...
-sqlcmd -S "(localdb)\SqlBatis" -E -i .\test\SqlBatis.DataMapper.Test\Scripts\MSSQL\DataBase.sql
+sqlcmd -S (localdb)\SqlBatis -E -i .\test\SqlBatis.DataMapper.Test\Scripts\MSSQL\DataBase.sql
 
 echo Done
