@@ -51,7 +51,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.CommonTests.ConfigWatcher
 			public void ConfigurationWatcherTest() 
 			{
 				Assembly a = Assembly.GetExecutingAssembly();
-				Uri uri = new System.Uri(a.CodeBase); 
+				Uri uri = new System.Uri(a.Location); 
 				string binDirectory = Path.GetDirectoryName(uri.LocalPath);
 				string fileName = "test.config";
 

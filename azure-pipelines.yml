@@ -6,59 +6,84 @@ pool:
 
 variables:
   buildConfiguration: 'Release'
-  majorVersion: 4
-  minorVersion: 0
-  patchVersion: 1
-  buildVersion: $(majorVersion).$(minorVersion).$(patchVersion)
+  version: '5.0.0'
+  counter: $[counter(variables['baseVersion'], 0)]
+  sourceVersion: $(Build.SourceVersion)
+  assemblyVersion: $(version).$(counter)
+  ciVersion: $(version)-CI.$(counter)
+  infoVersion: ''
 
 steps:
-- script: dotnet build --configuration $(buildConfiguration) -p:Version=$(buildVersion)
+- powershell: Write-Host "##vso[task.setvariable variable=sourceVersion;]"$(('$(sourceVersion)').SubString(0,7))"" 
+  displayName: 'Calculate short git hash'
+
+- powershell: Write-Host  "##vso[task.setvariable variable=infoVersion;]"$('$(version).$(Build.BuildId)-$(SourceVersion)').Replace(' ', '')""
+  displayName: 'Calculate informational version'
+
+- script: dotnet build --configuration $(buildConfiguration) /p:Version="$(assemblyVersion)" /p:InformationalVersion="$(infoVersion)"
   displayName: 'dotnet build $(buildConfiguration)'
   
-- script: |
-    sqllocaldb create "SqlBatis" 13.0 -s  
-    sqlcmd -S (localdb)\SqlBatis -E -i .\test\SqlBatis.DataMapper.Test\Scripts\MSSQL\DataBase.sql
-  displayName: 'Setup LocalDB for Tests'
-  
-- task: DotNetCoreCLI@2
-  displayName: Unit Tests
-  inputs:
-    command: test
-    projects: 'test/**/*.csproj'
-    arguments: '--configuration $(buildConfiguration) --filter Category!=MSSQL'
+- script: .\setupdb.cmd
+  displayName: 'Setup LocalDB for Tests'  
 
-- task: DotNetCoreCLI@2
-  displayName: MSSQL Tests
-  inputs:
-    command: test
-    projects: 'test/**/*.csproj'
-    arguments: '--configuration $(buildConfiguration) --filter Category=MSSQL'
+- script: dotnet test --configuration $(buildConfiguration) --no-build --filter Category!=MSSQL --logger "trx;LogFileName=TestResults.trx" --logger "nunit;LogFileName=TestResults.xml" /p:CollectCoverage=true /p:CoverletOutput=TestResults\Coverage\coverage.cobertura.xml /p:CoverletOutputFormat=cobertura /p:Exclude="[NUnit.*]*"
+  displayName: 'Unit Tests & Coverage'
+
+- script: dotnet test --configuration $(buildConfiguration) --no-build --filter Category=MSSQL
+  displayName: 'MSSQL Tests'
+
+- script: .\teardowndb.cmd
+  displayName: 'Teardown LocalDB'  
+
+- script: dotnet tool install dotnet-reportgenerator-globaltool --tool-path tools
+  displayName: 'Install Report Generator Tool'
+
+- script: tools\reportgenerator.exe "-reports:$(Build.SourcesDirectory)\test\**\TestResults\Coverage\coverage.cobertura.xml"  "-targetdir:$(Build.SourcesDirectory)\Coverage" -reporttypes:"HtmlInline_AzurePipelines;Cobertura"
+  displayName: 'Coverage Report'
 
 - task: DotNetCoreCLI@2
   displayName: Create CI Package
   inputs:
     command: pack
-    nobuild: true
-    requestedMajorVersion: $(majorVersion)
-    requestedMinorVersion: $(minorVersion)
-    requestedPatchVersion: $(patchVersion)
-    versioningScheme : byPrereleaseNumber
-    packDirectory: '$(Build.ArtifactStagingDirectory)/CI'
     packagesToPack: 'src/**/*.csproj'
-    arguments: '--configuration $(buildConfiguration)'
+    nobuild: true
+    packDirectory: '$(Build.ArtifactStagingDirectory)/CI'
+    versioningScheme : off
+    buildProperties: 'Version=$(ciVersion)'
+    verbosityPack: Normal
+
+
 
 - task: DotNetCoreCLI@2
   displayName: Create Release Package
   inputs:
     command: pack
-    nobuild: true
-    versioningScheme: byEnvVar
-    versionEnvVar: buildVersion
-    packDirectory: '$(Build.ArtifactStagingDirectory)/Public'
     packagesToPack: 'src/**/*.csproj'
-    arguments: '--configuration $(buildConfiguration)'
+    nobuild: true
+    packDirectory: '$(Build.ArtifactStagingDirectory)/Public'
+    versioningScheme: off
+    buildProperties: 'Version=$(version)'
+    verbosityPack: Normal
+
 
 - task: PublishBuildArtifacts@1
+  displayName: 'Publish NuGet Package Artifacts'
   inputs:
     pathtoPublish: '$(Build.ArtifactStagingDirectory)' 
     artifactName: 'packages' 
+
+- task: PublishTestResults@2
+  displayName: 'Publish Test Results'
+  inputs:
+    testResultsFormat: 'NUnit'
+    testResultsFiles: 'test/**/TestResults.xml'
+    mergeTestResults: true
+    failTaskOnFailedTests: true
+    testRunTitle: 'Unit Tests'
+
+- task: PublishCodeCoverageResults@1
+  displayName: 'Publish code coverage'
+  inputs:
+    codeCoverageTool: Cobertura
+    summaryFileLocation: '$(Build.SourcesDirectory)\Coverage\Cobertura.xml'
+    reportDirectory: '$(Build.SourcesDirectory)\Coverage'

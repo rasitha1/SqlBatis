@@ -160,9 +160,9 @@ namespace SqlBatis.DataMapper.Utilities
 				}
 				transaction.Commit();
 			}
-			catch(System.Exception e) {
+			catch(System.Exception) {
 				transaction.Rollback();
-				throw (e);
+				throw;
 			}
 			finally {
 				connection.Close();
