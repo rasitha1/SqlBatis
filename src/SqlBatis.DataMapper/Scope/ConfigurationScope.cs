@@ -70,7 +70,6 @@ namespace SqlBatis.DataMapper.Scope
 
 		private bool _useConfigFileWatcher = false;
 		private bool _useStatementNamespaces = false;
-		private bool _isCacheModelsEnabled = false;
 		private bool _useReflectionOptimizer = true;
 		private bool _validateSqlMap = false;
 		private bool _isCallFromDao = false;
@@ -169,15 +168,6 @@ namespace SqlBatis.DataMapper.Scope
 		{
 			set { _isCallFromDao = value; }
 			get { return _isCallFromDao; }
-		}
-
-		/// <summary>
-		/// Tell us if we cache model is enabled.
-		/// </summary>
-		public bool IsCacheModelsEnabled
-		{
-			set { _isCacheModelsEnabled = value; }
-			get { return _isCacheModelsEnabled; }
 		}
 
 		/// <summary>

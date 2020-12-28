@@ -34,7 +34,6 @@ namespace IBatisNet.DynamicProxy
     /// <summary>
     ///     A Factory for getting the ProxyGenerator.
     /// </summary>
-    [CLSCompliant(false)]
     public sealed class ProxyGeneratorFactory
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(ProxyGeneratorFactory));

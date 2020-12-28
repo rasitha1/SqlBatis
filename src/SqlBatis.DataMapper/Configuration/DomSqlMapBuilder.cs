@@ -43,10 +43,6 @@ using SqlBatis.DataMapper.Utilities.Objects;
 using SqlBatis.DataMapper.Utilities.Objects.Members;
 using SqlBatis.DataMapper.Xml;
 using SqlBatis.DataMapper.Configuration.Alias;
-using SqlBatis.DataMapper.Configuration.Cache;
-using SqlBatis.DataMapper.Configuration.Cache.Fifo;
-using SqlBatis.DataMapper.Configuration.Cache.Lru;
-using SqlBatis.DataMapper.Configuration.Cache.Memory;
 using SqlBatis.DataMapper.Configuration.ParameterMapping;
 using SqlBatis.DataMapper.Configuration.ResultMapping;
 using SqlBatis.DataMapper.Configuration.Serializers;
@@ -244,11 +240,6 @@ namespace SqlBatis.DataMapper.Configuration
 		private const string XML_PROCEDURE ="sqlMap/statements/procedure";
 
 		/// <summary>
-		/// Token for xml path to cacheModel elements.
-		/// </summary>
-		private const string XML_CACHE_MODEL = "sqlMap/cacheModels/cacheModel";
-
-		/// <summary>
 		/// Token for xml path to flushOnExecute elements.
 		/// </summary>
 		private const string XML_FLUSH_ON_EXECUTE = "flushOnExecute";
@@ -272,12 +263,7 @@ namespace SqlBatis.DataMapper.Configuration
 		/// Token for useStatementNamespaces attribute.
 		/// </summary>
 		private const string ATR_USE_STATEMENT_NAMESPACES = "useStatementNamespaces";
-		/// <summary>
-		/// Token for cacheModelsEnabled attribute.
-		/// </summary>
-		private const string ATR_CACHE_MODELS_ENABLED = "cacheModelsEnabled";
-
-		/// <summary>
+        /// <summary>
 		/// Token for validateSqlMap attribute.
 		/// </summary>
 		private const string ATR_VALIDATE_SQLMAP = "validateSqlMap";
@@ -714,11 +700,6 @@ namespace SqlBatis.DataMapper.Configuration
 						string value = NodeUtils.ParsePropertyTokens(setting.Attributes[ATR_USE_STATEMENT_NAMESPACES].Value, _configScope.Properties);
 						_configScope.UseStatementNamespaces =  Convert.ToBoolean( value ); 
 					}
-					if (setting.Attributes[ATR_CACHE_MODELS_ENABLED] != null )
-					{		
-						string value = NodeUtils.ParsePropertyTokens(setting.Attributes[ATR_CACHE_MODELS_ENABLED].Value, _configScope.Properties);
-						_configScope.IsCacheModelsEnabled =  Convert.ToBoolean( value ); 
-					}
 					if (setting.Attributes[ATR_USE_REFLECTION_OPTIMIZER] != null )
 					{		
 						string value = NodeUtils.ParsePropertyTokens(setting.Attributes[ATR_USE_REFLECTION_OPTIMIZER].Value, _configScope.Properties);
@@ -766,24 +747,9 @@ namespace SqlBatis.DataMapper.Configuration
             emptyParameterMap.Id = ConfigurationScope.EMPTY_PARAMETER_MAP;
             _configScope.SqlMapper.AddParameterMap( emptyParameterMap );
 
-            _configScope.SqlMapper.IsCacheModelsEnabled = _configScope.IsCacheModelsEnabled;
-
-			#region Cache Alias
-
-			TypeAlias cacheAlias = new TypeAlias(typeof(MemoryCacheController));
-			cacheAlias.Name = "MEMORY";
-			_configScope.SqlMapper.TypeHandlerFactory.AddTypeAlias(cacheAlias.Name, cacheAlias);
-			cacheAlias = new TypeAlias(typeof(LruCacheController));
-			cacheAlias.Name = "LRU";
-			_configScope.SqlMapper.TypeHandlerFactory.AddTypeAlias(cacheAlias.Name, cacheAlias);
-			cacheAlias = new TypeAlias(typeof(FifoCacheController));
-			cacheAlias.Name = "FIFO";
-			_configScope.SqlMapper.TypeHandlerFactory.AddTypeAlias(cacheAlias.Name, cacheAlias);
-            cacheAlias = new TypeAlias(typeof(AnsiStringTypeHandler));
-            cacheAlias.Name = "AnsiStringTypeHandler";
-            _configScope.SqlMapper.TypeHandlerFactory.AddTypeAlias(cacheAlias.Name, cacheAlias);
-
-			#endregion 
+            TypeAlias stringTypeHandler = new TypeAlias(typeof(AnsiStringTypeHandler));
+            stringTypeHandler.Name = "AnsiStringTypeHandler";
+            _configScope.SqlMapper.TypeHandlerFactory.AddTypeAlias(stringTypeHandler.Name, stringTypeHandler);
 
 			#region Load providers
 			if (_configScope.IsCallFromDao == false)
@@ -882,61 +848,6 @@ namespace SqlBatis.DataMapper.Configuration
 				ConfigureSqlMap();
 			}
 
-			#endregion
-
-			#region Attach CacheModel to statement
-
-			if (_configScope.IsCacheModelsEnabled)
-			{
-				foreach(DictionaryEntry entry in _configScope.SqlMapper.MappedStatements)
-				{
-					_configScope.ErrorContext.Activity = "Set CacheModel to statement";
-
-					IMappedStatement mappedStatement = (IMappedStatement)entry.Value;
-					if (mappedStatement.Statement.CacheModelName.Length >0)
-					{
-						_configScope.ErrorContext.MoreInfo = "statement : "+mappedStatement.Statement.Id;
-						_configScope.ErrorContext.Resource = "cacheModel : " +mappedStatement.Statement.CacheModelName;
-						mappedStatement.Statement.CacheModel = _configScope.SqlMapper.GetCache(mappedStatement.Statement.CacheModelName);
-					}
-				}
-			}
-			_configScope.ErrorContext.Reset();
-			#endregion 
-
-			#region Register Trigger Statements for Cache Models
-			foreach (DictionaryEntry entry in _configScope.CacheModelFlushOnExecuteStatements)
-			{
-				string cacheModelId = (string)entry.Key;
-				IList statementsToRegister = (IList)entry.Value;
-
-				if (statementsToRegister != null && statementsToRegister.Count > 0)
-				{
-					foreach (string statementName in statementsToRegister)
-					{
-						IMappedStatement mappedStatement = _configScope.SqlMapper.MappedStatements[statementName] as IMappedStatement;
-
-						if (mappedStatement != null)
-						{
-							CacheModel cacheModel = _configScope.SqlMapper.GetCache(cacheModelId);
-
-							if (Logger.IsDebugEnabled)
-							{
-								Logger.Debug("Registering trigger statement [" + mappedStatement.Id + "] to cache model [" + cacheModel.Id + "]");
-							}
-
-							cacheModel.RegisterTriggerStatement(mappedStatement);
-						}
-						else
-						{
-							if (Logger.IsWarnEnabled)
-							{
-								Logger.Warn("Unable to register trigger statement [" + statementName + "] to cache model [" + cacheModelId + "]. Statement does not exist.");
-							}
-						}
-					}
-				}
-			}
 			#endregion
 
 			#region Resolve resultMap / Discriminator / PropertyStategy attributes on Result/Argument Property 
@@ -1154,7 +1065,6 @@ namespace SqlBatis.DataMapper.Configuration
 				_configScope.NodeContext = xmlNode; // A statement tag
 
 				statement = StatementDeSerializer.Deserialize(xmlNode, _configScope);
-                statement.CacheModelName = _configScope.ApplyNamespace(statement.CacheModelName);
                 statement.ParameterMapName = _configScope.ApplyNamespace(statement.ParameterMapName);
                 //statement.ResultMapName = ApplyNamespace( statement.ResultMapName );
 
@@ -1171,11 +1081,6 @@ namespace SqlBatis.DataMapper.Configuration
 				// Build MappedStatement
                 MappedStatement mappedStatement = new MappedStatement(_configScope.SqlMapper, statement);
                 IMappedStatement mapStatement = mappedStatement;
-                if (statement.CacheModelName != null && statement.CacheModelName.Length > 0 && _configScope.IsCacheModelsEnabled)
-                {
-                    mapStatement = new CachingStatement(mappedStatement);
-                }
-
                 _configScope.SqlMapper.AddMappedStatement(mapStatement.Id, mapStatement);
 			}
 			#endregion
@@ -1188,7 +1093,6 @@ namespace SqlBatis.DataMapper.Configuration
 				_configScope.NodeContext = xmlNode; // A select node
 
 				select = SelectDeSerializer.Deserialize(xmlNode, _configScope);
-                select.CacheModelName = _configScope.ApplyNamespace(select.CacheModelName);
                 select.ParameterMapName = _configScope.ApplyNamespace(select.ParameterMapName);
                 //select.ResultMapName = ApplyNamespace( select.ResultMapName );
 
@@ -1213,11 +1117,6 @@ namespace SqlBatis.DataMapper.Configuration
 				// Build MappedStatement
                 MappedStatement mappedStatement = new SelectMappedStatement(_configScope.SqlMapper, select);
                 IMappedStatement mapStatement = mappedStatement;
-				if (select.CacheModelName != null && select.CacheModelName.Length> 0 && _configScope.IsCacheModelsEnabled)
-				{
-                    mapStatement = new CachingStatement(mappedStatement);
-				}
-
                 _configScope.SqlMapper.AddMappedStatement(mapStatement.Id, mapStatement);
 			}
 			#endregion
@@ -1232,7 +1131,6 @@ namespace SqlBatis.DataMapper.Configuration
 				MappedStatement mappedStatement;
 
 				insert = InsertDeSerializer.Deserialize(xmlNode, _configScope);
-                insert.CacheModelName = _configScope.ApplyNamespace(insert.CacheModelName);
                 insert.ParameterMapName = _configScope.ApplyNamespace(insert.ParameterMapName);
                 //insert.ResultMapName = ApplyNamespace( insert.ResultMapName );
 
@@ -1295,7 +1193,6 @@ namespace SqlBatis.DataMapper.Configuration
 				MappedStatement mappedStatement;
 
 				update = UpdateDeSerializer.Deserialize(xmlNode, _configScope);
-                update.CacheModelName = _configScope.ApplyNamespace(update.CacheModelName);
                 update.ParameterMapName = _configScope.ApplyNamespace(update.ParameterMapName);
                 //update.ResultMapName = ApplyNamespace( update.ResultMapName );
 
@@ -1333,7 +1230,6 @@ namespace SqlBatis.DataMapper.Configuration
 				MappedStatement mappedStatement;
 
 				delete = DeleteDeSerializer.Deserialize(xmlNode, _configScope);
-                delete.CacheModelName = _configScope.ApplyNamespace(delete.CacheModelName);
                 delete.ParameterMapName = _configScope.ApplyNamespace(delete.ParameterMapName);
                 //delete.ResultMapName = ApplyNamespace( delete.ResultMapName );
 
@@ -1370,7 +1266,6 @@ namespace SqlBatis.DataMapper.Configuration
 				_configScope.NodeContext = xmlNode; // A procedure tag
 
 				procedure = ProcedureDeSerializer.Deserialize(xmlNode, _configScope);
-                procedure.CacheModelName = _configScope.ApplyNamespace(procedure.CacheModelName);
                 procedure.ParameterMapName = _configScope.ApplyNamespace(procedure.ParameterMapName);
                 //procedure.ResultMapName = ApplyNamespace( procedure.ResultMapName );
 
@@ -1387,62 +1282,12 @@ namespace SqlBatis.DataMapper.Configuration
 				// Build MappedStatement
                 MappedStatement mappedStatement = new MappedStatement(_configScope.SqlMapper, procedure);
                 IMappedStatement mapStatement = mappedStatement;		    
-                if (procedure.CacheModelName != null && procedure.CacheModelName.Length > 0 && _configScope.IsCacheModelsEnabled)
-                {
-                    mapStatement = new CachingStatement(mappedStatement);
-                }
-
                 _configScope.SqlMapper.AddMappedStatement(mapStatement.Id, mapStatement);
 			}
 			#endregion
 
 			#endregion
-
-			#region Load CacheModels
-
-			if (_configScope.IsCacheModelsEnabled)
-			{
-				CacheModel cacheModel;
-				foreach (XmlNode xmlNode in _configScope.SqlMapDocument.SelectNodes( ApplyMappingNamespacePrefix(XML_CACHE_MODEL), _configScope.XmlNamespaceManager))
-				{
-					cacheModel = CacheModelDeSerializer.Deserialize(xmlNode, _configScope);
-                    cacheModel.Id = _configScope.ApplyNamespace(cacheModel.Id);
-
-					// Attach ExecuteEventHandler
-					foreach(XmlNode flushOn in xmlNode.SelectNodes( ApplyMappingNamespacePrefix(XML_FLUSH_ON_EXECUTE), _configScope.XmlNamespaceManager  ))
-					{
-						string statementName = flushOn.Attributes["statement"].Value;
-						if (_configScope.UseStatementNamespaces)
-						{
-                            statementName = _configScope.ApplyNamespace(statementName); 
-						}
-
-						// delay registering statements to cache model until all sqlMap files have been processed
-						IList statementNames = (IList)_configScope.CacheModelFlushOnExecuteStatements[cacheModel.Id];
-						if (statementNames == null)
-						{
-							statementNames = new ArrayList();
-						}
-						statementNames.Add(statementName);
-						_configScope.CacheModelFlushOnExecuteStatements[cacheModel.Id] = statementNames;
-					}
-
-					// Get Properties
-					foreach(XmlNode propertie in xmlNode.SelectNodes( ApplyMappingNamespacePrefix(XML_PROPERTY), _configScope.XmlNamespaceManager))
-					{
-						string name = propertie.Attributes["name"].Value;
-						string value = propertie.Attributes["value"].Value;
-					
-						cacheModel.AddProperty(name, value);
-					}
-
-					cacheModel.Initialize();
-
-					_configScope.SqlMapper.AddCache( cacheModel );
-				}
-			}
-
-			#endregion
+			
 
 			_configScope.ErrorContext.Reset();
 		}

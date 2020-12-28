@@ -94,4 +94,8 @@
     </None>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="NUnit\SqlMapTests\CacheController\" />
+  </ItemGroup>
+
 </Project>

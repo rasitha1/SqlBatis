@@ -51,7 +51,6 @@ namespace SqlBatis.DataMapper.Configuration.Serializers
 			Procedure procedure = new Procedure();
 			NameValueCollection prop = NodeUtils.ParseAttributes(node, configScope.Properties);
 			
-			procedure.CacheModelName = NodeUtils.GetStringAttribute(prop, "cacheModel");
 			procedure.Id = NodeUtils.GetStringAttribute(prop, "id");
 			procedure.ListClassName = NodeUtils.GetStringAttribute(prop, "listClass");
 			procedure.ParameterMapName = NodeUtils.GetStringAttribute(prop, "parameterMap");

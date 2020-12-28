@@ -8,16 +8,16 @@ variables:
   buildConfiguration: 'Release'
   version: '5.0.0'
   counter: $[counter(variables['baseVersion'], 0)]
-  sourceVersion: $(Build.SourceVersion)
+  sourceVersion: ''
   assemblyVersion: $(version).$(counter)
   ciVersion: $(version)-CI.$(counter)
   infoVersion: ''
 
 steps:
-- powershell: Write-Host "##vso[task.setvariable variable=sourceVersion;]"$(('$(sourceVersion)').SubString(0,7))"" 
+- powershell: Write-Host "##vso[task.setvariable variable=sourceVersion;]$('$(Build.SourceVersion)'.SubString(0,7))" 
   displayName: 'Calculate short git hash'
 
-- powershell: Write-Host  "##vso[task.setvariable variable=infoVersion;]"$('$(version).$(Build.BuildId)-$(SourceVersion)').Replace(' ', '')""
+- powershell: Write-Host  "##vso[task.setvariable variable=infoVersion;]$('$(assemblyVersion)-$(sourceVersion)')"
   displayName: 'Calculate informational version'
 
 - script: dotnet build --configuration $(buildConfiguration) /p:Version="$(assemblyVersion)" /p:InformationalVersion="$(infoVersion)"

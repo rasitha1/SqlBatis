@@ -43,41 +43,12 @@
     </xs:complexType>
   </xs:element>
 
-  <xs:element name="cacheModel">
-    <xs:complexType>
-      <xs:sequence maxOccurs="unbounded">
-        <xs:element ref="flushInterval" minOccurs="0" />
-        <xs:element ref="flushOnExecute" minOccurs="0" maxOccurs="unbounded" />
-        <xs:element ref="property" minOccurs="0" maxOccurs="unbounded" />
-      </xs:sequence>
-      <xs:attribute name="id" type="xs:string" use="required" />
-      <xs:attribute name="serialize" type="xs:string" default="false" />
-      <xs:attribute name="readOnly" type="xs:string" default="true" />
-      <xs:attribute name="implementation" use="required">
-        <xs:simpleType>
-          <xs:restriction base="xs:NMTOKEN">
-            <xs:enumeration value="LRU" />
-            <xs:enumeration value="MEMORY" />
-            <xs:enumeration value="FIFO" />
-          </xs:restriction>
-        </xs:simpleType>
-      </xs:attribute>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="cacheModels">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element ref="cacheModel" maxOccurs="unbounded" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
   <xs:element name="procedure">
     <xs:complexType mixed="true">
       <xs:attribute name="id" type="xs:string" use="required" />
       <xs:attribute name="parameterMap" type="xs:string" />
       <xs:attribute name="resultMap" type="xs:string" />
       <xs:attribute name="resultClass" type="xs:string" />
-      <xs:attribute name="cacheModel" type="xs:string" />
       <xs:attribute name="listClass" type="xs:string" />
     </xs:complexType>
   </xs:element>
@@ -141,19 +112,6 @@
         <xs:element ref="iterate" />
       </xs:choice>
       <xs:attribute name="prepend" type="xs:string" />
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="flushInterval">
-    <xs:complexType>
-      <xs:attribute name="milliseconds" type="xs:byte" />
-      <xs:attribute name="seconds" type="xs:byte" />
-      <xs:attribute name="minutes" type="xs:byte" />
-      <xs:attribute name="hours" type="xs:byte" />
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="flushOnExecute">
-    <xs:complexType>
-      <xs:attribute name="statement" type="xs:string" use="required" />
     </xs:complexType>
   </xs:element>
   <xs:element name="generate">
@@ -691,7 +649,6 @@
       <xs:attribute name="resultMap" type="xs:string" />
       <xs:attribute name="resultClass" type="xs:string" />
       <xs:attribute name="parameterMap" type="xs:string" />
-      <xs:attribute name="cacheModel" type="xs:string" />
       <xs:attribute name="listClass" type="xs:string" />
       <xs:attribute name="extends" type="xs:string" />
       <xs:attribute name="remapResults">
@@ -726,7 +683,6 @@
     <xs:complexType>
       <xs:all>
         <xs:element ref="alias" minOccurs="0" />
-        <xs:element ref="cacheModels" minOccurs="0" />
         <xs:element ref="resultMaps" minOccurs="0" />
         <xs:element ref="statements" minOccurs="0" />
         <xs:element ref="parameterMaps" minOccurs="0" />
@@ -784,7 +740,6 @@
       <xs:attribute name="resultClass" type="xs:string" />
       <xs:attribute name="parameterMap" type="xs:string" />
       <xs:attribute name="listClass" type="xs:string" />
-      <xs:attribute name="cacheModel" type="xs:string" />
       <xs:attribute name="remapResults">
         <xs:simpleType>
           <xs:restriction base="xs:NMTOKEN">

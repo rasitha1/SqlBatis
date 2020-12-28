@@ -35,7 +35,6 @@ using SqlBatis.DataMapper;
 using SqlBatis.DataMapper.Utilities;
 using SqlBatis.DataMapper.Utilities.Objects;
 using SqlBatis.DataMapper.Utilities.Objects.Members;
-using SqlBatis.DataMapper.Configuration.Cache;
 using SqlBatis.DataMapper.Configuration.ParameterMapping;
 using SqlBatis.DataMapper.Configuration.ResultMapping;
 using SqlBatis.DataMapper.DataExchange;
@@ -63,12 +62,9 @@ namespace SqlBatis.DataMapper
 		private HybridDictionary _parameterMaps = new HybridDictionary();
 		// DataSource
         private IDataSource _dataSource = null;
-		//(CacheModel name, cache))
-		private HybridDictionary _cacheMaps = new HybridDictionary();
 		private TypeHandlerFactory _typeHandlerFactory = null; 
         private DBHelperParameterCache _dbHelperParameterCache = null;
 
-		private bool _cacheModelsEnabled = false;
 		// An identifiant 
 		private string _id = string.Empty;
 
@@ -162,16 +158,6 @@ namespace SqlBatis.DataMapper
         public AccessorFactory AccessorFactory
         {
             get { return _accessorFactory; }
-        }
-
-        /// <summary>
-        /// A flag that determines whether cache models were enabled 
-        /// when this SqlMap was built.
-        /// </summary>
-        public bool IsCacheModelsEnabled
-        {
-			set { _cacheModelsEnabled = value; }
-            get { return _cacheModelsEnabled; }
         }
 
 		#endregion
@@ -1528,93 +1514,7 @@ namespace SqlBatis.DataMapper
 			get { return  _dataSource; }
 			set { _dataSource = value; }
 		}
-
-		/// <summary>
-		/// Flushes all cached objects that belong to this SqlMap
-		/// </summary>
-		public void FlushCaches() 
-		{
-			IDictionaryEnumerator enumerator = _cacheMaps.GetEnumerator();
-			while (enumerator.MoveNext())
-			{
-				((CacheModel)enumerator.Value).Flush();
-			}
-		}
-
-		/// <summary>
-		/// Adds a (named) cache.
-		/// </summary>
-		/// <param name="cache">The cache to add</param>
-		public void AddCache(CacheModel cache) 
-		{
-			if (_cacheMaps.Contains(cache.Id)) 
-			{
-				throw new DataMapperException("This SQL map already contains an Cache named " + cache.Id);
-			}
-			_cacheMaps.Add(cache.Id, cache);
-		}
-
-		/// <summary>
-		/// Gets a cache by name
-		/// </summary>
-		/// <param name="name">The name of the cache to get</param>
-		/// <returns>The cache object</returns>
-        public CacheModel GetCache(string name) 
-		{
-			if (!_cacheMaps.Contains(name)) 
-			{
-				throw new DataMapperException("This SQL map does not contain an Cache named " + name);
-			}
-			return (CacheModel) _cacheMaps[name];
-		}
-
-		/// <summary>
-		/// 
-		/// </summary>
-		/// <returns></returns>
-		public string GetDataCacheStats() 
-		{
-			StringBuilder buffer = new StringBuilder();
-			buffer.Append(Environment.NewLine);
-			buffer.Append("Cache Data Statistics");
-			buffer.Append(Environment.NewLine);
-			buffer.Append("=====================");
-			buffer.Append(Environment.NewLine);
-
-			IDictionaryEnumerator enumerator = _mappedStatements.GetEnumerator();
-			while (enumerator.MoveNext()) 
-			{
-				IMappedStatement mappedStatement = (IMappedStatement)enumerator.Value;
-
-				buffer.Append(mappedStatement.Id);
-				buffer.Append(": ");
-
-				if (mappedStatement is CachingStatement)
-				{
-					double hitRatio = ((CachingStatement)mappedStatement).GetDataCacheHitRatio();
-					if (hitRatio != -1) 
-					{
-						buffer.Append(Math.Round(hitRatio * 100));
-						buffer.Append("%");
-					} 
-					else 
-					{
-						// this statement has a cache but it hasn't been accessed yet
-						// buffer.Append("Cache has not been accessed."); ???
-						buffer.Append("No Cache.");
-					}
-				}
-				else
-				{
-					buffer.Append("No Cache.");
-				}
-
-				buffer.Append(Environment.NewLine);
-			}
-
-			return buffer.ToString();
-		}
-
+		
 		#endregion
 
 

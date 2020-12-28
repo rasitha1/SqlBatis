@@ -1,23 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
 <sqlMap namespace="Account" xmlns="http://ibatis.apache.org/mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://ibatis.apache.org
-http://ibatis.apache.org/xsd/SqlMap.xsd">
-      
-    <cacheModels>
-		<cacheModel id="account-cache" implementation="MEMORY" >
-			<flushInterval hours="24"/>
-			<flushOnExecute  statement="UpdateAccountViaInlineParameters"/>
-			<flushOnExecute  statement="UpdateAccountViaParameterMap"/>
-			<property name="Type" value="Weak"/>
-		</cacheModel>
-		
-		<cacheModel id="rw-account-cache" implementation="FIFO" serialize="true" readOnly="false">
-			<flushInterval hours="24"/>
-			<flushOnExecute statement="UpdateAccountViaInlineParameters"/>
-		</cacheModel>
-		
-    </cacheModels>
-       
+..\..\..\SqlMap.xsd">
+
 	<resultMaps>                                    
 		<resultMap id="account-result"  class="Account" >
 			<result property="Id"           column="Account_ID"/>
@@ -58,8 +43,7 @@ http://ibatis.apache.org/xsd/SqlMap.xsd">
 	<statements>
 	
 		<select id="GetAllAccountsCache" 
-			resultMap="account-result"
-			cacheModel="account-cache">
+			resultMap="account-result">
 			select * from Accounts
 			order by Account_ID
 		</select>
@@ -94,16 +78,14 @@ http://ibatis.apache.org/xsd/SqlMap.xsd">
 		</select>
 			
 		<select id="GetCachedAccountsViaResultMap"
-					resultMap="account-result"
-					cacheModel="account-cache" >
+					resultMap="account-result" >
 			select *
 			from Accounts
 			order by Account_ID
 		</select>
 
 		<select id="GetRWCachedAccountsViaResultMap"
-				resultMap="account-result"
-				cacheModel="rw-account-cache" extends="GetCachedAccountsViaResultMap">
+				resultMap="account-result" extends="GetCachedAccountsViaResultMap">
 		</select>
 				
   		<select id="SelectWithProperty"
@@ -128,7 +110,7 @@ http://ibatis.apache.org/xsd/SqlMap.xsd">
 			order by Account_ID
 		</select>
   
-		<select id="GetNoAccountWithCache" parameterClass="Integer" resultMap="account-hashtable-result" cacheModel="account-cache">
+		<select id="GetNoAccountWithCache" parameterClass="Integer" resultMap="account-hashtable-result">
 			select *
 			from Accounts
 			where Account_ID = #value#

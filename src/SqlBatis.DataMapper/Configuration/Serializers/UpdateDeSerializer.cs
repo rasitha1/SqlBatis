@@ -52,7 +52,6 @@ namespace SqlBatis.DataMapper.Configuration.Serializers
 			Update update = new Update();
 			NameValueCollection prop = NodeUtils.ParseAttributes(node, configScope.Properties);
 						
-			update.CacheModelName = NodeUtils.GetStringAttribute(prop, "cacheModel");
 			update.ExtendStatement = NodeUtils.GetStringAttribute(prop, "extends");
 			update.Id = NodeUtils.GetStringAttribute(prop, "id");
 			update.ParameterClassName = NodeUtils.GetStringAttribute(prop, "parameterClass");
