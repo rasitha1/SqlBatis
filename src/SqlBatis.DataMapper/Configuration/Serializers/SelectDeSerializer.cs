@@ -51,7 +51,6 @@ namespace SqlBatis.DataMapper.Configuration.Serializers
 			Select select = new Select();
 			NameValueCollection prop = NodeUtils.ParseAttributes(node, configScope.Properties);
 						
-			select.CacheModelName = NodeUtils.GetStringAttribute(prop, "cacheModel");
 			select.ExtendStatement = NodeUtils.GetStringAttribute(prop, "extends");
 			select.Id = NodeUtils.GetStringAttribute(prop, "id");
 			select.ListClassName = NodeUtils.GetStringAttribute(prop, "listClass");

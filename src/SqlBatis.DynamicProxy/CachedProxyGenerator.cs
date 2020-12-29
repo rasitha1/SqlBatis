@@ -44,10 +44,9 @@ namespace IBatisNet.DynamicProxy
     /// <summary>
     ///     An ProxyGenerator with cache that uses the Castle.DynamicProxy library.
     /// </summary>
-    [CLSCompliant(false)]
     public class CachedProxyGenerator : ProxyGenerator
     {
-        private static readonly ILog _log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly ILog _log = LogManager.GetLogger(MethodBase.GetCurrentMethod()?.DeclaringType ?? typeof(CachedProxyGenerator));
 
         // key = mapped type
         // value = proxy type

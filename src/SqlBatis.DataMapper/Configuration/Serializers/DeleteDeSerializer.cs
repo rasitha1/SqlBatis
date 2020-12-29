@@ -51,7 +51,6 @@ namespace SqlBatis.DataMapper.Configuration.Serializers
 			Delete delete = new Delete();
 			NameValueCollection prop = NodeUtils.ParseAttributes(node, configScope.Properties);
 			
-			delete.CacheModelName = NodeUtils.GetStringAttribute(prop, "cacheModel");
 			delete.ExtendStatement = NodeUtils.GetStringAttribute(prop, "extends");
 			delete.Id = NodeUtils.GetStringAttribute(prop, "id");
 			delete.ListClassName = NodeUtils.GetStringAttribute(prop, "listClass");

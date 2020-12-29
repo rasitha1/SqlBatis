@@ -180,43 +180,9 @@ namespace SqlBatis.DataMapper.Utilities
 		/// else exception
 		/// </returns>
 		public static bool FileExists(string filePath)
-		{
-			if (File.Exists(filePath) )
-			{
-				// true if the caller has the required permissions and path contains the name of an existing file; 
-				return true;
-			}
-			else
-			{
-				// This method also returns false if the caller does not have sufficient permissions 
-				// to read the specified file, 
-				// no exception is thrown and the method returns false regardless of the existence of path.
-				// So we check permissiion and throw an exception if no permission
-				FileIOPermission filePermission = null;
-				try
-				{
-					// filePath must be the absolute path of the file. 
-					filePermission = new FileIOPermission(FileIOPermissionAccess.Read, filePath);
-				}
-				catch
-				{
-					return false;
-				}
-				try
-				{
-					filePermission.Demand();
-				}
-				catch(Exception e) 
-				{ 
-					throw new ConfigurationException( 
-						string.Format("iBATIS doesn't have the right to read the config file \"{0}\". Cause : {1}", 
-						filePath, 
-						e.Message ) ,e); 
-				} 
-
-				return false;
-			}
-		}
+        {
+            return File.Exists(filePath);
+        }
 
 
 		/// <summary>

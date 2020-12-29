@@ -31,7 +31,6 @@ using System.Collections.Specialized;
 using System.Data;
 using SqlBatis.DataMapper.Utilities.Objects;
 using SqlBatis.DataMapper.Utilities.Objects.Members;
-using SqlBatis.DataMapper.Configuration.Cache;
 using SqlBatis.DataMapper.Configuration.ParameterMapping;
 using SqlBatis.DataMapper.Configuration.ResultMapping;
 using SqlBatis.DataMapper.DataExchange;
@@ -89,12 +88,6 @@ namespace SqlBatis.DataMapper
         /// </summary>
         /// <returns>A new session</returns>
         ISqlMapSession CreateSqlMapSession();
-        
-        /// <summary>
-        /// A flag that determines whether cache models were enabled 
-        /// when this SqlMap was built.
-        /// </summary>
-        bool IsCacheModelsEnabled { get;set; }
         
         /// <summary>
 		/// Factory for DataExchange objects
@@ -156,19 +149,6 @@ namespace SqlBatis.DataMapper
 		/// The MappedStatements collection
 		/// </summary>
         HybridDictionary MappedStatements { get; }
-        
-        /// <summary>
-		/// Gets a cache by name
-		/// </summary>
-		/// <param name="name">The name of the cache to get</param>
-		/// <returns>The cache object</returns>
-        CacheModel GetCache(string name);
-        
-        /// <summary>
-		/// Adds a (named) cache.
-		/// </summary>
-		/// <param name="cache">The cache to add</param>
-        void AddCache(CacheModel cache);
         
         /// <summary>
 		/// Adds a (named) MappedStatement.
@@ -259,17 +239,6 @@ namespace SqlBatis.DataMapper
         /// <param name="parameterObject">The parameter object.</param>
         /// <returns>The number of rows effected.</returns>
         int Delete(string statementName, object parameterObject);
-
-        /// <summary>
-        /// Flushes all cached objects that belong to this SqlMap
-        /// </summary>
-        void FlushCaches();
-
-        /// <summary>
-        /// Gets the data cache stats.
-        /// </summary>
-        /// <returns></returns>
-        string GetDataCacheStats();
 
         /// <summary>
 		/// Gets a MappedStatement by name

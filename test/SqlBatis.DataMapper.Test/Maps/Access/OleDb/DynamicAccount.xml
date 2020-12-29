@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?> 
 <sqlMap namespace="Account" xmlns="http://ibatis.apache.org/mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://ibatis.apache.org
-http://ibatis.apache.org/xsd/SqlMap.xsd">
+..\..\..\SqlMap.xsd">
 		
 	<alias>
 		<typeAlias alias="Search" type="SqlBatis.DataMapper.Test.Domain.Search, SqlBatis.DataMapper.Test"/>
@@ -428,7 +428,6 @@ http://ibatis.apache.org/xsd/SqlMap.xsd">
 		</statement>
   
 		<statement id="ComplexDynamicStatement" 
-			cacheModel="account-cache" 
 			resultClass="Account" 
 			parameterClass="Account">
 			select

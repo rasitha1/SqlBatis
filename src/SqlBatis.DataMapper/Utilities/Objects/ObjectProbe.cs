@@ -316,9 +316,9 @@ namespace SqlBatis.DataMapper.Utilities.Objects
 					throw new ProbeException("The '" + name + "' member of the " + obj.GetType().Name + " class is not a List or Array.");
 				}
 			}
-			catch (ProbeException pe) 
+			catch (ProbeException) 
 			{
-				throw pe;
+				throw;
 			} 
 			catch(Exception e)
 			{		
@@ -365,9 +365,9 @@ namespace SqlBatis.DataMapper.Utilities.Objects
 					throw new ProbeException("The '" + name + "' member of the " + obj.GetType().Name + " class is not a List or Array.");
 				}
 			} 
-			catch (ProbeException pe) 
+			catch (ProbeException) 
 			{
-				throw pe;
+				throw;
 			} 
 			catch (Exception e) 
 			{
@@ -458,9 +458,9 @@ namespace SqlBatis.DataMapper.Utilities.Objects
 				}
 				return value;
 			} 
-			catch (ProbeException pe) 
+			catch (ProbeException) 
 			{
-				throw pe;
+				throw;
 			} 
 			catch(Exception e)
 			{
@@ -562,9 +562,9 @@ namespace SqlBatis.DataMapper.Utilities.Objects
 					}
 				}
 			}
-			catch (ProbeException pe) 
+			catch (ProbeException) 
 			{
-				throw pe;
+				throw;
 			} 
 			catch (Exception e) 
 			{

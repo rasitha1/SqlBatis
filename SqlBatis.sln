@@ -12,6 +12,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionIt
 		README.md = README.md
 		RELEASE.md = RELEASE.md
 		setupdb.cmd = setupdb.cmd
+		teardowndb.cmd = teardowndb.cmd
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{892E3ACE-AA44-42CE-9BF3-D778BCD81677}"
@@ -24,7 +25,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SqlBatis.DataMapper.Test", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SqlBatis.DynamicProxy", "src\SqlBatis.DynamicProxy\SqlBatis.DynamicProxy.csproj", "{7073D8DD-5435-4C38-88AE-E6D796BC181A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SqlBatis.Schemas", "src\SqlBatis.Schemas\SqlBatis.Schemas.csproj", "{BEF4D8DA-4D7D-4F06-BEC8-FAD373689F84}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SqlBatis.Schemas", "src\SqlBatis.Schemas\SqlBatis.Schemas.csproj", "{BEF4D8DA-4D7D-4F06-BEC8-FAD373689F84}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

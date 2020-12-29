@@ -33,7 +33,6 @@ using System.Data;
 
 using SqlBatis.DataMapper.Configuration.ResultMapping;
 using SqlBatis.DataMapper.Configuration.ParameterMapping;
-using SqlBatis.DataMapper.Configuration.Cache;
 using SqlBatis.DataMapper.Configuration.Sql;
 #endregion
 
@@ -104,24 +103,6 @@ namespace SqlBatis.DataMapper.Configuration.Statements
         /// The parameterMap used by the statement.
         /// </summary>
         ParameterMap ParameterMap
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
-        /// The CacheModel used by this statement.
-        /// </summary>
-        CacheModel CacheModel
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
-        /// The CacheModel name to use.
-        /// </summary>
-        string CacheModelName
         {
             get;
             set;

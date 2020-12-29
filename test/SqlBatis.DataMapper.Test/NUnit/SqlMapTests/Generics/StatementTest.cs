@@ -550,32 +550,6 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests.Generics
         }
 
         /// <summary>
-        /// Test ExecuteQueryForDictionary With Cache.
-        /// </summary>
-        [Test]
-        public void TestExecuteQueryQueryForDictionaryWithCache()
-        {
-            IDictionary<string, Account> map = sqlMap.QueryForDictionary<string, Account>("GetAllAccountsCache", null, "FirstName");
-
-            int firstId = HashCodeProvider.GetIdentityHashCode(map);
-
-            Assert.AreEqual(5, map.Count);
-            AssertAccount1(map["Joe"]);
-
-            Assert.AreEqual(1, map["Joe"].Id);
-            Assert.AreEqual(2, map["Averel"].Id);
-            Assert.AreEqual(3, map["William"].Id);
-            Assert.AreEqual(4, map["Jack"].Id);
-            Assert.AreEqual(5, map["Gilles"].Id);
-
-            map = sqlMap.QueryForDictionary<string, Account>("GetAllAccountsCache", null, "FirstName");
-
-            int secondId = HashCodeProvider.GetIdentityHashCode(map);
-
-            Assert.AreEqual(firstId, secondId);
-        }
-
-        /// <summary>
         /// Test ExecuteQueryForMap : Hashtable.
         /// </summary>
         /// <remarks>

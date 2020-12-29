@@ -32,7 +32,6 @@ using System.Collections.Generic;
 using System.Data;
 using System.Xml.Serialization;
 using SqlBatis.DataMapper.Utilities.Objects;
-using SqlBatis.DataMapper.Configuration.Cache;
 using SqlBatis.DataMapper.Configuration.ParameterMapping;
 using SqlBatis.DataMapper.Configuration.ResultMapping;
 using SqlBatis.DataMapper.Configuration.Sql;
@@ -83,11 +82,6 @@ namespace SqlBatis.DataMapper.Configuration.Statements
         private string _listClassName = string.Empty;
         [NonSerialized]
         private Type _listClass = null;
-        // CacheModel
-        [NonSerialized]
-        private string _cacheModelName = string.Empty;
-        [NonSerialized]
-        private CacheModel _cacheModel = null;
         [NonSerialized]
         private ISql _sql = null;
         [NonSerialized]
@@ -117,35 +111,6 @@ namespace SqlBatis.DataMapper.Configuration.Statements
         {
             get { return _extendStatement; }
             set { _extendStatement = value; }
-        }
-
-        /// <summary>
-        /// The CacheModel name to use.
-        /// </summary>
-        [XmlAttribute("cacheModel")]
-        public string CacheModelName
-        {
-            get { return _cacheModelName; }
-            set { _cacheModelName = value; }
-        }
-
-        /// <summary>
-        /// Tell us if a cacheModel is attached to this statement.
-        /// </summary>
-        [XmlIgnore]
-        public bool HasCacheModel
-        {
-            get { return _cacheModelName.Length > 0; }
-        }
-
-        /// <summary>
-        /// The CacheModel used by this statement.
-        /// </summary>
-        [XmlIgnore]
-        public CacheModel CacheModel
-        {
-            get { return _cacheModel; }
-            set { _cacheModel = value; }
         }
 
         /// <summary>

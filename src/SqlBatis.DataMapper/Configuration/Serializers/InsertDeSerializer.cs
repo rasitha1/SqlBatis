@@ -51,7 +51,6 @@ namespace SqlBatis.DataMapper.Configuration.Serializers
 			Insert insert = new Insert();
 			NameValueCollection prop = NodeUtils.ParseAttributes(node, configScope.Properties);
 			
-			insert.CacheModelName = NodeUtils.GetStringAttribute(prop, "cacheModel");
 			insert.ExtendStatement = NodeUtils.GetStringAttribute(prop, "extends");
 			insert.Id = NodeUtils.GetStringAttribute(prop, "id");
 			insert.ParameterClassName = NodeUtils.GetStringAttribute(prop, "parameterClass");
