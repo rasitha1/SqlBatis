@@ -14,7 +14,7 @@ A fork of the Apache IBatisNet distribution which has been refactored and migrat
 services.AddSqlMapper(options => Configuration.GetSection("DB").Bind(options));
 ```
 3. Configure properties in appsettings.json
-```csharp
+```json
 {
   "DB": {
     "Resource": "embedded://MyApp.DataAccess.Configuration.SqlMap.config, MyApp.DataAccess",
