@@ -10,11 +10,11 @@ A fork of the Apache IBatisNet distribution which has been refactored and migrat
 
 1. Install `SqlBatis.DataMapper` nuget package
 2. Register Sql Mapper in DI 
-```
+```csharp
 services.AddSqlMapper(options => Configuration.GetSection("DB").Bind(options));
 ```
 3. Configure properties in appsettings.json
-```
+```json
 {
   "DB": {
     "Resource": "embedded://MyApp.DataAccess.Configuration.SqlMap.config, MyApp.DataAccess",
@@ -25,7 +25,7 @@ services.AddSqlMapper(options => Configuration.GetSection("DB").Bind(options));
 }
 ```
 3. Use `ISqlMapper` in Data Access objects
-```
+```csharp
 public class CustomerDao : ICustomerDao
 {	
 	public CustomerDao(ISqlMapper mapper)
@@ -62,7 +62,7 @@ public class CustomerDao : ICustomerDao
 }
 ```
 4. Setup `Customers.xml` SQL map file (ebmedded or external)
-```
+```xml
 <?xml version="1.0" encoding="UTF-8" ?>
 <sqlMap namespace="Customers" 
 xmlns="http://ibatis.apache.org/mapping" 
@@ -108,7 +108,7 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
 </sqlMap>
 ```
 5. Setup `SqlMap.config` (embedded or external file)
-```
+```xml
 <?xml version="1.0" encoding="utf-8"?>
 <sqlMapConfig xmlns="http://ibatis.apache.org/dataMapper" 
 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >

@@ -1,5 +1,11 @@
 # Releases
 
+## 5.0.0
+* Switched to .NET 5 (no longer supports .net framework)
+* Removed Caching (Breaking Change)
+* Added `dynamic` support
+* Improve build pipelines & code coverage
+
 ## 4.0.1
 * SourceLink support and symbol packages  #6 (Thanks [JTOne123](https://github.com/JTOne123))
 
