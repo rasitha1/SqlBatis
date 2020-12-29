@@ -26,6 +26,7 @@
 
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Reflection;
 
@@ -306,7 +307,11 @@ namespace SqlBatis.DataMapper.Utilities.Objects
 			else if (typeof(IDictionary).IsAssignableFrom(type)) 
 			{
 				return true;
-			} 
+			}
+            else if (typeof(IDictionary<string,object>).IsAssignableFrom(type))
+            {
+                return true;
+            }
 			else if (typeof(IEnumerator).IsAssignableFrom(type)) 
 			{
 				return true;

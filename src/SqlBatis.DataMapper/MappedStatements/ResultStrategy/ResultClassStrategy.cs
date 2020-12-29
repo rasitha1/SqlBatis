@@ -24,6 +24,7 @@
 #endregion
 
 using System.Collections;
+using System.Collections.Generic;
 using System.Data;
 using SqlBatis.DataMapper.Scope;
 
@@ -39,6 +40,7 @@ namespace SqlBatis.DataMapper.MappedStatements.ResultStrategy
 		private static IResultStrategy _dictionaryStrategy = null;
 		private static IResultStrategy _listStrategy = null;
 		private static IResultStrategy _autoMapStrategy = null;
+        private static IResultStrategy _genericDictionaryStrategy;
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="ResultClassStrategy"/> class.
@@ -49,7 +51,8 @@ namespace SqlBatis.DataMapper.MappedStatements.ResultStrategy
 			_dictionaryStrategy = new DictionaryStrategy();
 			_listStrategy = new ListStrategy();
 			_autoMapStrategy = new AutoMapStrategy();
-		}
+            _genericDictionaryStrategy = new GenericDictionaryStrategy();
+        }
 
         #region IResultStrategy Members
 
@@ -71,6 +74,10 @@ namespace SqlBatis.DataMapper.MappedStatements.ResultStrategy
 			{
                 return _dictionaryStrategy.Process(request, ref reader, resultObject);
 			}
+			else if (typeof(IDictionary<string, object>).IsAssignableFrom(request.CurrentResultMap.Class))
+            {
+                return _genericDictionaryStrategy.Process(request, ref reader, resultObject);
+            }
             else if (typeof(IList).IsAssignableFrom(request.CurrentResultMap.Class)) 
 			{
                 return _listStrategy.Process(request, ref reader, resultObject);

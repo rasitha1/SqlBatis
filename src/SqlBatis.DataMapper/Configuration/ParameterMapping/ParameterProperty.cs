@@ -28,6 +28,7 @@
 
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Data;
 using System.Reflection;
 using System.Xml.Serialization;
@@ -280,7 +281,8 @@ namespace SqlBatis.DataMapper.Configuration.ParameterMapping
 				_direction = (ParameterDirection)Enum.Parse( typeof(ParameterDirection), _directionAttribute, true );
 			}
 
-			if (!typeof(IDictionary).IsAssignableFrom(parameterClass) // Hashtable parameter map
+			if (!typeof(IDictionary<string,object>).IsAssignableFrom(parameterClass)
+                && !typeof(IDictionary).IsAssignableFrom(parameterClass) // Hashtable parameter map
 				&& parameterClass !=null // value property
 				&& !scope.DataExchangeFactory.TypeHandlerFactory.IsSimpleType(parameterClass) ) // value property
 			{

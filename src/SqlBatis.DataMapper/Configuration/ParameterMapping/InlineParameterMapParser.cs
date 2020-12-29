@@ -27,6 +27,7 @@
 
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Text;
 using SqlBatis.DataMapper.Exceptions;
 using SqlBatis.DataMapper.Utilities;
@@ -342,7 +343,7 @@ namespace SqlBatis.DataMapper.Configuration.ParameterMapping
 			{
 				handler = typeHandlerFactory.GetUnkownTypeHandler();
 			} 
-			else if (typeof(IDictionary).IsAssignableFrom(parameterClassType))
+			else if (typeof(IDictionary).IsAssignableFrom(parameterClassType) || typeof(IDictionary<string,object>).IsAssignableFrom(parameterClassType))
 			{
 				if (propertyType == null || propertyType.Length==0) 
 				{

@@ -99,6 +99,13 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http:/
       <result property="BannerOption" column="Account_Banner_Option" dbType="Varchar" type="bool"/>
       <result property="CartOption"	  column="Account_Cart_Option" typeHandler="HundredsBool"/>
     </resultMap>
+
+    <resultMap id="AccountDynamicResultsMap"  class="dynamic" >
+      <result property="Id"           column="Account_ID"/>
+      <result property="FirstName"    column="Account_FirstName"/>
+      <result property="LastName"     column="Account_LastName"/>
+      <result property="EmailAddress" column="Account_Email" nullValue="no_email@provided.com"/>
+    </resultMap>
    
     <resultMap id="account-result"  class="Account" >
 			<result property="Id"           column="Account_ID"/>
@@ -157,6 +164,26 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http:/
     ============================================= 
     -->
   <statements>
+
+    <select id="GetDynamicAccountByIdUsingResultsMap" resultMap="AccountDynamicResultsMap">
+      select
+      Account_ID,
+      Account_FirstName,
+      Account_LastName,
+      Account_Email
+      from Accounts
+      where Account_ID = #value#
+    </select>
+
+    <select id="GetDynamicAccountById" resultClass="dynamic">
+      select
+      Account_ID as Id,
+      Account_FirstName as FirstName,
+      Account_LastName as LastName,
+      Account_Email as EmailAddress
+      from Accounts
+      where Account_ID = #value#
+    </select>
 
     <select id="GetInterfaceAccount" resultClass="IAccount">
 					select
@@ -752,9 +779,14 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http:/
 				</isNull>
 			</dynamic>
 			)
-           </insert>
-				
-		<procedure id="InsertAccountViaStoreProcedure" parameterMap="insert-params">
+    </insert>
+
+    <procedure id="InsertAccountViaStoreProcedureUsingDynamic" parameterMap="insert-params-dynamic">
+      ps_InsertAccount
+    </procedure>
+
+
+    <procedure id="InsertAccountViaStoreProcedure" parameterMap="insert-params">
 			ps_InsertAccount
 		</procedure>
 		
@@ -818,6 +850,15 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http:/
 			<parameter property="BannerOption" column="Account_Banner_Option"  dbType="Varchar" type="bool"/>
 			<parameter property="CartOption"	column="Account_Cart_Option" typeHandler="HundredsBool"/>
 		</parameterMap>
+
+    <parameterMap id="insert-params-dynamic" >
+      <parameter property="Id" column="Account_ID" />
+      <parameter property="FirstName" column="Account_FirstName" />
+      <parameter property="LastName" column="Account_LastName" />
+      <parameter property="EmailAddress" column="Account_Email" nullValue="no_email@provided.com"/>
+      <parameter property="BannerOption" column="Account_Banner_Option"  dbType="Varchar" type="bool"/>
+      <parameter property="CartOption"	column="Account_Cart_Option" typeHandler="HundredsBool"/>
+    </parameterMap>
 		
 		<parameterMap id="update-params" class="Account">
 			<parameter property="FirstName" />

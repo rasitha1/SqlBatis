@@ -29,6 +29,7 @@
 using System;
 using System.Collections;
 using System.Collections.Specialized;
+using System.Dynamic;
 
 #endregion
 
@@ -203,9 +204,14 @@ namespace SqlBatis.DataMapper.Utilities.TypesResolver
 		public const string TimeSpanAlias = "timespan";
 
         /// <summary>
-        /// The alias around the 'int?' type.
+        /// The alias around the 'dynamic' type.
         /// </summary>
-        public const string NullableInt32Alias = "int?";
+        public const string DynamicAlias = "dynamic";
+
+		/// <summary>
+		/// The alias around the 'int?' type.
+		/// </summary>
+		public const string NullableInt32Alias = "int?";
 
         /// <summary>
         /// The alias around the 'int?[]' array type.
@@ -385,6 +391,8 @@ namespace SqlBatis.DataMapper.Utilities.TypesResolver
 			_types[StringAlias] = typeof (string);
 
 			_types[TimeSpanAlias] = typeof (string);
+
+            _types[DynamicAlias] = typeof(ExpandoObject);
 
             _types[NullableInt32Alias] = typeof(int?);
             _types[NullableInt32ArrayAlias] = typeof(int?[]);

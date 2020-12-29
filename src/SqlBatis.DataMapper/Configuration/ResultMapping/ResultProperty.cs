@@ -383,7 +383,8 @@ namespace SqlBatis.DataMapper.Configuration.ResultMapping
 		{
 			if ( _propertyName.Length>0 && 
 				 _propertyName != "value" && 
-				!typeof(IDictionary).IsAssignableFrom(resultClass) )
+				!typeof(IDictionary).IsAssignableFrom(resultClass) &&
+                 !typeof(IDictionary<string,object>).IsAssignableFrom(resultClass))
 			{
 				if (!_isComplexMemberName)
 				{

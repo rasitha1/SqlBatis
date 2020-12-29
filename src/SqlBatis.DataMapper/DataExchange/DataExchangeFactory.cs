@@ -46,6 +46,7 @@ namespace SqlBatis.DataMapper.DataExchange
 		private IDataExchange _complexDataExchange = null;
 		private IDataExchange _listDataExchange = null;
 		private IDataExchange _dictionaryDataExchange = null;
+        private IDataExchange _genericDictionaryDataExchange;
 
 		/// <summary>
 		///  Getter for the type handler factory
@@ -90,6 +91,7 @@ namespace SqlBatis.DataMapper.DataExchange
 			_complexDataExchange = new ComplexDataExchange(this);
 			_listDataExchange = new ListDataExchange(this);
 			_dictionaryDataExchange = new DictionaryDataExchange(this);
+            _genericDictionaryDataExchange = new GenericDictionaryDataExchange(this);
 		}
 
 		/// <summary>
@@ -111,7 +113,11 @@ namespace SqlBatis.DataMapper.DataExchange
 			else if (typeof(IDictionary).IsAssignableFrom(clazz)) 
 			{
 				dataExchange = _dictionaryDataExchange;
-			} 
+			}
+            else if (typeof(IDictionary<string,object>).IsAssignableFrom(clazz))
+            {
+                dataExchange = _genericDictionaryDataExchange;
+            }
 			else if (_typeHandlerFactory.GetTypeHandler(clazz) != null) 
 			{
 				dataExchange = _primitiveDataExchange;

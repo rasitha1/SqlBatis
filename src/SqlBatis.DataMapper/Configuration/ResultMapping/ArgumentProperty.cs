@@ -28,6 +28,7 @@
 
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Reflection;
 using System.Xml.Serialization;
 
@@ -176,7 +177,7 @@ namespace SqlBatis.DataMapper.Configuration.ResultMapping
 			{
 				handler = configScope.DataExchangeFactory.TypeHandlerFactory.GetUnkownTypeHandler();
 			}
-			else if (typeof(IDictionary).IsAssignableFrom(argumenType)) 
+			else if (typeof(IDictionary).IsAssignableFrom(argumenType) || typeof(IDictionary<string,object>).IsAssignableFrom(argumenType)) 
 			{
 				// IDictionary
 				if (string.IsNullOrEmpty(clrType)) 

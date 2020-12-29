@@ -26,6 +26,7 @@
 
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Reflection;
 
 using SqlBatis.DataMapper.Exceptions;
@@ -117,7 +118,20 @@ namespace SqlBatis.DataMapper.Utilities.Objects
 				{
 					type = value.GetType();
 				}
-			} 
+			}
+            else if (obj is IDictionary<string,object>)
+            {
+				IDictionary<string, object> map = (IDictionary<string, object>)obj;
+                object value = map[memberName];
+                if (value == null)
+                {
+                    type = typeof(object);
+                }
+                else
+                {
+                    type = value.GetType();
+                }
+            }
 			else 
 			{
 				if (memberName.IndexOf('.') > -1) 
@@ -193,7 +207,20 @@ namespace SqlBatis.DataMapper.Utilities.Objects
 				{
 					type = value.GetType();
 				}
-			} 
+			}
+            else if (obj is IDictionary<string, object>)
+            {
+                IDictionary<string, object> map = (IDictionary<string, object>)obj;
+                object value = map[memberName];
+                if (value == null)
+                {
+                    type = typeof(object);
+                }
+                else
+                {
+                    type = value.GetType();
+                }
+			}
 			else 
 			{
 				if (memberName.IndexOf('.') > -1) 
@@ -436,6 +463,10 @@ namespace SqlBatis.DataMapper.Utilities.Objects
 					{
 						value = ((IDictionary) obj)[memberName];
 					} 
+					else if (obj is IDictionary<string, object>)
+                    {
+                        value = ((IDictionary<string, object>)obj)[memberName];
+					}
 					else 
 					{
 						Type targetType = obj.GetType();
@@ -541,6 +572,10 @@ namespace SqlBatis.DataMapper.Utilities.Objects
 					{
 						((IDictionary) obj)[memberName] = memberValue;
 					} 
+					else if (obj is IDictionary<string, object>)
+                    {
+                        ((IDictionary<string, object>)obj)[memberName] = memberValue;
+					}
 					else 
 					{
 						Type targetType = obj.GetType();
@@ -586,6 +621,10 @@ namespace SqlBatis.DataMapper.Utilities.Objects
 			{
 				hasProperty = ((IDictionary) obj).Contains(propertyName);
 			} 
+			else if (obj is IDictionary<string, object>)
+            {
+                hasProperty = ((IDictionary<string, object>)obj).ContainsKey(propertyName);
+			}
 			else 
 			{
 				if (propertyName.IndexOf('.') > -1) 
@@ -626,6 +665,10 @@ namespace SqlBatis.DataMapper.Utilities.Objects
 			{
 				hasProperty = ((IDictionary) obj).Contains(propertyName);
 			} 
+			else if (obj is IDictionary<string, object>)
+            {
+                hasProperty = ((IDictionary<string, object>)obj).ContainsKey(propertyName);
+			}
 			else 
 			{
 				if (propertyName.IndexOf('.') > -1) 
@@ -668,8 +711,12 @@ namespace SqlBatis.DataMapper.Utilities.Objects
 			else if (typeof(IDictionary).IsAssignableFrom(type)) 
 			{
 				return true;
-			} 
-			else if (typeof(IList).IsAssignableFrom(type)) 
+			}
+            else if (typeof(IDictionary<string,object>).IsAssignableFrom(type))
+            {
+                return true;
+            }
+            else if (typeof(IList).IsAssignableFrom(type)) 
 			{
 				return true;
 			} 
