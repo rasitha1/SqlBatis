@@ -28,6 +28,7 @@
 
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Configuration;
 using System.Xml;
@@ -306,7 +307,7 @@ namespace SqlBatis.DataMapper.Scope
 			{
                 handler = DataExchangeFactory.TypeHandlerFactory.GetUnkownTypeHandler();
 			}
-			else if (typeof(IDictionary).IsAssignableFrom(clazz)) 
+			else if (typeof(IDictionary).IsAssignableFrom(clazz) || typeof(IDictionary<string, object>).IsAssignableFrom(clazz)) 
 			{
 				// IDictionary
 				if (string.IsNullOrEmpty(clrType)) 

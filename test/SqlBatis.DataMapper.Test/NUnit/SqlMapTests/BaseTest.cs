@@ -105,6 +105,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
                 sqlMap = builder.Configure(fileName);
             }
             catch (Exception ex)
+
             {
                 Exception e = ex;
                 while (e != null)

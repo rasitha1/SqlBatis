@@ -260,3 +260,5 @@ paket-files/
 __pycache__/
 *.pyc
 /src/SqlBatis.DataMapper/SqlBatis.DataMapper.xml
+/src/SqlBatis.DataMapper/IBatisNet.DataMapper.xml
+/src/SqlBatis.DynamicProxy/IBatisNet.DynamicProxy.xml
