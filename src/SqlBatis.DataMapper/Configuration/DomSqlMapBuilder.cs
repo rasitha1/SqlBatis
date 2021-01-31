@@ -56,6 +56,7 @@ using SqlBatis.DataMapper.MappedStatements;
 using SqlBatis.DataMapper.MappedStatements.ArgumentStrategy;
 using SqlBatis.DataMapper.MappedStatements.PropertyStrategy;
 using SqlBatis.DataMapper.Scope;
+using SqlBatis.DataMapper.SessionStore;
 using SqlBatis.DataMapper.TypeHandlers;
 
 #endregion
@@ -735,8 +736,12 @@ namespace SqlBatis.DataMapper.Configuration
             }
 		    if (_sqlMapper == null)
 		    {
-                AccessorFactory accessorFactory = new AccessorFactory(_setAccessorFactory, _getAccessorFactory);
-                _configScope.SqlMapper = new SqlMapper(_objectFactory, accessorFactory);
+				var typeHandlerFactory = new TypeHandlerFactory();
+				var dbHelperParameterCache = new DBHelperParameterCache();
+				AccessorFactory accessorFactory = new AccessorFactory(_setAccessorFactory, _getAccessorFactory);
+				var id = HashCodeProvider.GetIdentityHashCode(this).ToString();
+                var sessionStoreFactory = new SessionStoreFactory();
+				_configScope.SqlMapper = new SqlMapper(id, _objectFactory, accessorFactory, typeHandlerFactory, dbHelperParameterCache, sessionStoreFactory);
 		    }
 		    else
 		    {
