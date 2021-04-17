@@ -50,6 +50,62 @@ namespace SqlBatis.DataMapper.DependencyInjection
             services.AddOptions();
             services.AddTransient<IDomSqlMapBuilder, DomSqlMapBuilder>();
             services.AddSingleton<ISqlMapperFactory, DefaultSqlMapperFactory>();
+            services.AddSingleton<INamedMapperDependencyResolver, NamedMapperDependencyResolver>();
+        }
+
+        /// <summary>
+        /// Registers a type as a singleton in the DI pipeline that depends on the named <see cref="ISqlMapper"/>
+        /// instance.
+        /// </summary>
+        /// <typeparam name="TService"></typeparam>
+        /// <typeparam name="TImplementation"></typeparam>
+        /// <param name="services"></param>
+        /// <param name="mapperName"></param>
+        /// <returns></returns>
+        public static IServiceCollection AddSingletonWithNamedMapper<TService, TImplementation>(
+            this IServiceCollection services, string mapperName)
+            where TService : class
+            where TImplementation : class, TService
+        {
+            return services.AddSingleton<TService>(provider => provider
+                .GetRequiredService<INamedMapperDependencyResolver>()
+                .GetInstance<TImplementation>(mapperName));
+        }
+
+        /// <summary>
+        /// Registers a type as a transient in the DI pipeline that depends on the named <see cref="ISqlMapper"/>
+        /// instance.
+        /// </summary>        /// <typeparam name="TService"></typeparam>
+        /// <typeparam name="TImplementation"></typeparam>
+        /// <param name="services"></param>
+        /// <param name="mapperName"></param>
+        /// <returns></returns>
+        public static IServiceCollection AddTransientWithNamedMapper<TService, TImplementation>(
+            this IServiceCollection services, string mapperName)
+            where TService : class
+            where TImplementation : class, TService
+        {
+            return services.AddTransient<TService>(provider => provider
+                .GetRequiredService<INamedMapperDependencyResolver>()
+                .GetInstance<TImplementation>(mapperName));
+        }
+
+        /// <summary>
+        /// Registers a type as a scoped in the DI pipeline that depends on the named <see cref="ISqlMapper"/>
+        /// instance.
+        /// </summary>        /// <typeparam name="TService"></typeparam>
+        /// <typeparam name="TImplementation"></typeparam>
+        /// <param name="services"></param>
+        /// <param name="mapperName"></param>
+        /// <returns></returns>
+        public static IServiceCollection AddScopedWithNamedMapper<TService, TImplementation>(
+            this IServiceCollection services, string mapperName)
+            where TService : class
+            where TImplementation : class, TService
+        {
+            return services.AddScoped<TService>(provider => provider
+                .GetRequiredService<INamedMapperDependencyResolver>()
+                .GetInstance<TImplementation>(mapperName));
         }
     }
 }
