@@ -1,5 +1,26 @@
 # Releases
 
+## 5.1.0
+
+* Provide a few extension methods to easily register a type that depends on a named `ISqlMapper` instance.
+
+```csharp
+
+// default instance
+_services.AddSqlMapper(options => {...});
+
+// named instances
+_services.AddSqlMapper("foo", options => {...});
+_services.AddSqlMapper("bar", options => {...});
+
+// types that depend on a named instance
+_services.AddSingletonWithNamedMapper<ISomeDao, SomeDao>("foo");
+_services.AddSingletonWithNamedMapper<ISomeOtherDao, SomeOtherDao>("bar");
+
+// same extensions exist for Transient and Scoped
+```
+
+
 ## 5.0.0
 * Switched to .NET 5 (no longer supports .net framework)
 * Removed Caching (Breaking Change)
