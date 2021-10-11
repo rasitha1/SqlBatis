@@ -30,6 +30,7 @@ using System;
 using System.Collections;
 using System.Collections.Specialized;
 using System.Data;
+using Microsoft.Extensions.Logging;
 using SqlBatis.DataMapper.Utilities;
 using SqlBatis.DataMapper.Utilities.Objects;
 using SqlBatis.DataMapper.Utilities.Objects.Members;
@@ -57,15 +58,16 @@ namespace SqlBatis.DataMapper
 		private readonly HybridDictionary _parameterMaps = new HybridDictionary();
 		private readonly TypeHandlerFactory _typeHandlerFactory; 
         private readonly DBHelperParameterCache _dbHelperParameterCache;
+        private readonly ILoggerFactory _loggerFactory;
 
 
-		/// <summary>
+        /// <summary>
 		/// Container session unique for each thread. 
 		/// </summary>
         private ISessionStore _sessionStore;
-        private IObjectFactory _objectFactory;
-        private AccessorFactory _accessorFactory;
-        private DataExchangeFactory _dataExchangeFactory;
+        private readonly IObjectFactory _objectFactory;
+        private readonly AccessorFactory _accessorFactory;
+        private readonly DataExchangeFactory _dataExchangeFactory;
 		#endregion
 
 		#region Properties
@@ -140,14 +142,17 @@ namespace SqlBatis.DataMapper
         /// <param name="typeHandlerFactory"></param>
         /// <param name="parameterCache"></param>
         /// <param name="sessionStoreFactory"></param>
+        /// <param name="loggerFactory"></param>
         internal SqlMapper(string id, IObjectFactory objectFactory,
             AccessorFactory accessorFactory, 
             TypeHandlerFactory typeHandlerFactory, 
             DBHelperParameterCache parameterCache,
-            SessionStoreFactory sessionStoreFactory) 
+            SessionStoreFactory sessionStoreFactory,
+            ILoggerFactory loggerFactory) 
 		{
             _typeHandlerFactory = typeHandlerFactory;
             _dbHelperParameterCache = parameterCache;
+            _loggerFactory = loggerFactory;
             _objectFactory = objectFactory;
             _accessorFactory = accessorFactory;
 
@@ -1072,7 +1077,7 @@ namespace SqlBatis.DataMapper
         /// <returns>A new session</returns>
         public ISqlMapSession CreateSqlMapSession()
 		{
-			ISqlMapSession session = new SqlMapSession(this);
+			ISqlMapSession session = new SqlMapSession(this, _loggerFactory.CreateLogger<SqlMapSession>());
 		    session.CreateConnection();
 
             return session;
@@ -1086,7 +1091,7 @@ namespace SqlBatis.DataMapper
         /// <returns>A new session</returns>
         public ISqlMapSession CreateSqlMapSession(string connectionString)
         {
-            ISqlMapSession session = new SqlMapSession(this);
+            ISqlMapSession session = new SqlMapSession(this, _loggerFactory.CreateLogger<SqlMapSession>());
             session.CreateConnection(connectionString);
 
             return session;

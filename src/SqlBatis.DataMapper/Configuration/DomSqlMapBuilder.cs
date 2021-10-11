@@ -35,8 +35,9 @@ using System.Reflection;
 using System.Threading;
 using System.Xml;
 using System.Xml.Schema;
+using Microsoft.Extensions.Logging;
+using SqlBatis.DataMapper.Commands;
 using SqlBatis.DataMapper.Exceptions;
-using SqlBatis.DataMapper.Logging;
 using SqlBatis.DataMapper.Utilities;
 using SqlBatis.DataMapper.Utilities.Objects;
 using SqlBatis.DataMapper.Utilities.Objects.Members;
@@ -54,6 +55,7 @@ using SqlBatis.DataMapper.Configuration.Statements;
 using SqlBatis.DataMapper.MappedStatements;
 using SqlBatis.DataMapper.MappedStatements.ArgumentStrategy;
 using SqlBatis.DataMapper.MappedStatements.PropertyStrategy;
+using SqlBatis.DataMapper.MappedStatements.ResultStrategy;
 using SqlBatis.DataMapper.Scope;
 using SqlBatis.DataMapper.SessionStore;
 using SqlBatis.DataMapper.TypeHandlers;
@@ -67,6 +69,9 @@ namespace SqlBatis.DataMapper.Configuration
 	/// </summary>
 	public class DomSqlMapBuilder : IDomSqlMapBuilder
     {
+        private readonly ILogger<DomSqlMapBuilder> _logger;
+        private readonly ILoggerFactory _loggerFactory;
+
         #region Embedded resource
 
         // Which files must we allow to be used as Embedded Resources ?
@@ -275,10 +280,10 @@ namespace SqlBatis.DataMapper.Configuration
 
         #region Fields
 
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
-
         private readonly ConfigurationScope _configScope;
         private readonly DeSerializerFactory _deSerializerFactory;
+        private readonly PreparedCommandFactory _commandFactory;
+        private readonly ResultStrategyFactory _resultStrategyFactory;
         private readonly InlineParameterMapParser _paramParser;
         private IObjectFactory _objectFactory;
         private ISetAccessorFactory _setAccessorFactory;
@@ -344,11 +349,21 @@ namespace SqlBatis.DataMapper.Configuration
         /// <summary>
         /// Constructs a DomSqlMapBuilder.
         /// </summary>
-        public DomSqlMapBuilder()
+        public DomSqlMapBuilder(
+            ILogger<DomSqlMapBuilder> logger, 
+            ILoggerFactory loggerFactory,
+            ConfigurationScope configScope, 
+            InlineParameterMapParser paramParser, 
+            PreparedCommandFactory commandFactory,
+            ResultStrategyFactory resultStrategyFactory)
         {
-            _configScope = new ConfigurationScope();
-            _paramParser = new InlineParameterMapParser();
-            _deSerializerFactory = new DeSerializerFactory(_configScope);
+            _logger = logger;
+            _loggerFactory = loggerFactory;
+            _configScope = configScope;
+            _paramParser = paramParser;
+            _deSerializerFactory = new DeSerializerFactory(configScope);
+            _commandFactory = commandFactory;
+            _resultStrategyFactory = resultStrategyFactory;
         }
 
         #endregion
@@ -377,7 +392,7 @@ namespace SqlBatis.DataMapper.Configuration
         /// <returns>An ISqlMapper instance.</returns>
         public ISqlMapper Configure(XmlDocument document)
         {
-            return Build(document, false);
+            return Build(document);
         }
 
 
@@ -405,7 +420,7 @@ namespace SqlBatis.DataMapper.Configuration
             {
                 document = Resources.GetResourceAsXmlDocument(resource);
             }
-            return Build(document, false);
+            return Build(document);
         }
 
         /// <summary>
@@ -416,7 +431,7 @@ namespace SqlBatis.DataMapper.Configuration
         public ISqlMapper Configure(Stream resource)
         {
             XmlDocument document = Resources.GetStreamAsXmlDocument(resource);
-            return Build(document, false);
+            return Build(document);
         }
 
         /// <summary>
@@ -427,7 +442,7 @@ namespace SqlBatis.DataMapper.Configuration
         public ISqlMapper Configure(FileInfo resource)
         {
             XmlDocument document = Resources.GetFileInfoAsXmlDocument(resource);
-            return Build(document, false);
+            return Build(document);
         }
 
         /// <summary>
@@ -438,99 +453,9 @@ namespace SqlBatis.DataMapper.Configuration
         public ISqlMapper Configure(Uri resource)
         {
             XmlDocument document = Resources.GetUriAsXmlDocument(resource);
-            return Build(document, false);
+            return Build(document);
         }
 
-        /// <summary>
-        /// Configure and monitor the default configuration file (SqlMap.config) for modifications 
-        /// and automatically reconfigure SqlMap. 
-        /// </summary>
-        /// <returns>An ISqlMapper instance.</returns>
-        public ISqlMapper ConfigureAndWatch(ConfigureHandler configureDelegate)
-        {
-            return ConfigureAndWatch(DEFAULT_FILE_CONFIG_NAME, configureDelegate);
-        }
-
-        /// <summary>
-        /// Configure and monitor the configuration file for modifications 
-        /// and automatically reconfigure the ISqlMapper instance.
-        /// </summary>
-        /// <param name="resource">
-        /// A relative ressource path from your Application root 
-        /// or an absolue file path file:\\c:\dir\a.config
-        /// </param>
-        ///<param name="configureDelegate">
-        /// Delegate called when the file has changed.
-        /// </param>
-        /// <returns>An ISqlMapper instance.</returns>
-        public ISqlMapper ConfigureAndWatch(string resource, ConfigureHandler configureDelegate)
-        {
-            XmlDocument document = null;
-            if (resource.StartsWith("file://"))
-            {
-                document = Resources.GetUrlAsXmlDocument(resource.Remove(0, 7));
-            }
-            else
-            {
-                document = Resources.GetResourceAsXmlDocument(resource);
-            }
-
-            ConfigWatcherHandler.ClearFilesMonitored();
-            ConfigWatcherHandler.AddFileToWatch(Resources.GetFileInfo(resource));
-
-            TimerCallback callBakDelegate = OnConfigFileChange;
-
-            StateConfig state = new StateConfig();
-            state.FileName = resource;
-            state.ConfigureHandler = configureDelegate;
-
-            ISqlMapper sqlMapper = Build(document, true);
-
-            new ConfigWatcherHandler(callBakDelegate, state);
-
-            return sqlMapper;
-        }
-
-        /// <summary>
-        /// Configure and monitor the configuration file for modifications 
-        /// and automatically reconfigure the ISqlMapper instance.
-        /// </summary>
-        /// <param name="resource">
-        /// A FileInfo to a SqlMap.config file.
-        /// </param>
-        ///<param name="configureDelegate">
-        /// Delegate called when the file has changed.
-        /// </param>
-        /// <returns>An ISqlMapper instance.</returns>
-        public ISqlMapper ConfigureAndWatch(FileInfo resource, ConfigureHandler configureDelegate)
-        {
-            XmlDocument document = Resources.GetFileInfoAsXmlDocument(resource);
-
-            ConfigWatcherHandler.ClearFilesMonitored();
-            ConfigWatcherHandler.AddFileToWatch(resource);
-
-            TimerCallback callBakDelegate = new TimerCallback(OnConfigFileChange);
-
-            StateConfig state = new StateConfig();
-            state.FileName = resource.FullName;
-            state.ConfigureHandler = configureDelegate;
-
-            ISqlMapper sqlMapper = Build(document, true);
-
-            new ConfigWatcherHandler(callBakDelegate, state);
-
-            return sqlMapper;
-        }
-
-        /// <summary>
-        /// Callback called when the SqlMap.config file has changed.
-        /// </summary>
-        /// <param name="obj">The <see cref="StateConfig"/> object.</param>
-        public static void OnConfigFileChange(object obj)
-        {
-            StateConfig state = (StateConfig)obj;
-            state.ConfigureHandler(null);
-        }
 
         #endregion
 
@@ -540,18 +465,11 @@ namespace SqlBatis.DataMapper.Configuration
         /// Build an ISqlMapper instance.
         /// </summary>
         /// <param name="document">An xml configuration document.</param>
-        /// <param name="dataSource">A data source.</param>
         /// <param name="useConfigFileWatcher"></param>
-        /// <param name="isCallFromDao"></param>
         /// <returns>Returns an ISqlMapper instance.</returns>
-        private ISqlMapper Build(XmlDocument document, DataSource dataSource,
-            bool useConfigFileWatcher, bool isCallFromDao)
+        private ISqlMapper Build(XmlDocument document)
         {
             _configScope.SqlMapConfigDocument = document;
-            _configScope.DataSource = dataSource;
-            _configScope.IsCallFromDao = isCallFromDao;
-            _configScope.UseConfigFileWatcher = useConfigFileWatcher;
-
             _configScope.XmlNamespaceManager = new XmlNamespaceManager(_configScope.SqlMapConfigDocument.NameTable);
             _configScope.XmlNamespaceManager.AddNamespace(DATAMAPPER_NAMESPACE_PREFIX, DATAMAPPER_XML_NAMESPACE);
             _configScope.XmlNamespaceManager.AddNamespace(PROVIDERS_NAMESPACE_PREFIX, PROVIDER_XML_NAMESPACE);
@@ -591,7 +509,7 @@ namespace SqlBatis.DataMapper.Configuration
                 if (xsdFile == null)
                 {
                     // TODO: avoid using hard-coded value "SqlBatis.DataMapper"
-                    throw new ConfigurationException("Unable to locate embedded resource [SqlBatis.DataMapper." + schemaFileName + "]. If you are building from source, verfiy the file is marked as an embedded resource.");
+                    throw new ConfigurationException("Unable to locate embedded resource [SqlBatis.DataMapper." + schemaFileName + "]. If you are building from source, verify the file is marked as an embedded resource.");
                 }
 
                 XmlSchema schema = XmlSchema.Read(xsdFile, ValidationCallBack);
@@ -620,8 +538,8 @@ namespace SqlBatis.DataMapper.Configuration
             }
             finally
             {
-                if (validatingReader != null) validatingReader.Close();
-                if (xsdFile != null) xsdFile.Close();
+                validatingReader?.Close();
+                xsdFile?.Close();
             }
         }
 
@@ -631,56 +549,14 @@ namespace SqlBatis.DataMapper.Configuration
             _configScope.ErrorContext.Resource += args.Message + Environment.NewLine;
         }
 
-        /// <summary>
-        /// Load statements (select, insert, update, delete), parameters, and resultMaps.
-        /// </summary>
-        /// <param name="document"></param>
-        /// <param name="dataSource"></param>
-        /// <param name="useConfigFileWatcher"></param>
-        /// <param name="properties"></param>
-        /// <returns></returns>
-        /// <remarks>Used by Dao</remarks>
-        public ISqlMapper Build(XmlDocument document, DataSource dataSource, bool useConfigFileWatcher, NameValueCollection properties)
-        {
-            _configScope.Properties.Add(properties);
-            return Build(document, dataSource, useConfigFileWatcher, true);
-        }
 
         /// <summary>
-        /// Load SqlMap configuration from
-        /// from the XmlDocument passed in parameter.
-        /// </summary>
-        /// <param name="document">The xml sql map configuration.</param>
-        /// <param name="useConfigFileWatcher"></param>
-        public ISqlMapper Build(XmlDocument document, bool useConfigFileWatcher)
-        {
-            return Build(document, null, useConfigFileWatcher, false);
-        }
-
-        /// <summary>
-        /// Reset PreparedStatements cache
-        /// </summary>
-        private void Reset()
-        {
-        }
-
-        /// <summary>
-        /// Intialize the internal ISqlMapper instance.
+        /// Initialize the internal ISqlMapper instance.
         /// </summary>
         private void Initialize()
         {
-            Reset();
-
-            #region Load Global Properties
-            if (_configScope.IsCallFromDao == false)
-            {
-                _configScope.NodeContext = _configScope.SqlMapConfigDocument.SelectSingleNode(ApplyDataMapperNamespacePrefix(XML_DATAMAPPER_CONFIG_ROOT), _configScope.XmlNamespaceManager);
-
-                ParseGlobalProperties();
-            }
-            #endregion
-
-            #region Load settings
+            _configScope.NodeContext = _configScope.SqlMapConfigDocument.SelectSingleNode(ApplyDataMapperNamespacePrefix(XML_DATAMAPPER_CONFIG_ROOT), _configScope.XmlNamespaceManager);
+            ParseGlobalProperties();
 
             _configScope.ErrorContext.Activity = "loading global settings";
 
@@ -694,11 +570,6 @@ namespace SqlBatis.DataMapper.Configuration
                     {
                         string value = NodeUtils.ParsePropertyTokens(setting.Attributes[ATR_USE_STATEMENT_NAMESPACES].Value, _configScope.Properties);
                         _configScope.UseStatementNamespaces = Convert.ToBoolean(value);
-                    }
-                    if (setting.Attributes[ATR_USE_REFLECTION_OPTIMIZER] != null)
-                    {
-                        string value = NodeUtils.ParsePropertyTokens(setting.Attributes[ATR_USE_REFLECTION_OPTIMIZER].Value, _configScope.Properties);
-                        _configScope.UseReflectionOptimizer = Convert.ToBoolean(value);
                     }
                     if (setting.Attributes[ATR_VALIDATE_SQLMAP] != null)
                     {
@@ -714,28 +585,26 @@ namespace SqlBatis.DataMapper.Configuration
                 }
             }
 
-            #endregion
-
             if (_objectFactory == null)
             {
-                _objectFactory = new ObjectFactory(_configScope.UseReflectionOptimizer);
+                _objectFactory = new ObjectFactory(_loggerFactory, _loggerFactory.CreateLogger<ObjectFactory>());
             }
             if (_setAccessorFactory == null)
             {
-                _setAccessorFactory = new SetAccessorFactory(_configScope.UseReflectionOptimizer);
+                _setAccessorFactory = new SetAccessorFactory();
             }
             if (_getAccessorFactory == null)
             {
-                _getAccessorFactory = new GetAccessorFactory(_configScope.UseReflectionOptimizer);
+                _getAccessorFactory = new GetAccessorFactory();
             }
             if (_sqlMapper == null)
             {
-                var typeHandlerFactory = new TypeHandlerFactory();
+                var typeHandlerFactory = new TypeHandlerFactory(_loggerFactory.CreateLogger<TypeHandlerFactory>());
                 var dbHelperParameterCache = new DBHelperParameterCache();
                 AccessorFactory accessorFactory = new AccessorFactory(_setAccessorFactory, _getAccessorFactory);
                 var id = HashCodeProvider.GetIdentityHashCode(this).ToString();
                 var sessionStoreFactory = new SessionStoreFactory();
-                _configScope.SqlMapper = new SqlMapper(id, _objectFactory, accessorFactory, typeHandlerFactory, dbHelperParameterCache, sessionStoreFactory);
+                _configScope.SqlMapper = new SqlMapper(id, _objectFactory, accessorFactory, typeHandlerFactory, dbHelperParameterCache, sessionStoreFactory, _loggerFactory);
             }
             else
             {
@@ -750,62 +619,29 @@ namespace SqlBatis.DataMapper.Configuration
             stringTypeHandler.Name = "AnsiStringTypeHandler";
             _configScope.SqlMapper.TypeHandlerFactory.AddTypeAlias(stringTypeHandler.Name, stringTypeHandler);
 
-            #region Load providers
-            if (_configScope.IsCallFromDao == false)
-            {
-                GetProviders();
-            }
-            #endregion
+            GetProviders();
 
-            #region Load DataBase
-            #region Choose the  provider
-            IDbProvider provider = null;
-            if (_configScope.IsCallFromDao == false)
-            {
-                provider = ParseProvider();
-                _configScope.ErrorContext.Reset();
-            }
-            #endregion
-
-            #region Load the DataSources
+            var provider = ParseProvider();
+            _configScope.ErrorContext.Reset();
 
             _configScope.ErrorContext.Activity = "loading Database DataSource";
             XmlNode nodeDataSource = _configScope.SqlMapConfigDocument.SelectSingleNode(ApplyDataMapperNamespacePrefix(XML_DATABASE_DATASOURCE), _configScope.XmlNamespaceManager);
 
             if (nodeDataSource == null)
             {
-                if (_configScope.IsCallFromDao == false)
-                {
-                    throw new ConfigurationException("There's no dataSource tag in SqlMap.config.");
-                }
-                else  // patch from Luke Yang
-                {
-                    _configScope.SqlMapper.DataSource = _configScope.DataSource;
-                }
+                throw new ConfigurationException("There's no dataSource tag in SqlMap.config.");
             }
-            else
-            {
-                if (_configScope.IsCallFromDao == false)
-                {
-                    _configScope.ErrorContext.Resource = nodeDataSource.OuterXml;
-                    _configScope.ErrorContext.MoreInfo = "parse DataSource";
 
-                    DataSource dataSource = DataSourceDeSerializer.Deserialize(nodeDataSource);
+            _configScope.ErrorContext.Resource = nodeDataSource.OuterXml;
+            _configScope.ErrorContext.MoreInfo = "parse DataSource";
 
-                    dataSource.DbProvider = provider;
-                    dataSource.ConnectionString = NodeUtils.ParsePropertyTokens(dataSource.ConnectionString, _configScope.Properties);
+            DataSource dataSource = DataSourceDeSerializer.Deserialize(nodeDataSource);
 
-                    _configScope.DataSource = dataSource;
-                    _configScope.SqlMapper.DataSource = _configScope.DataSource;
-                }
-                else
-                {
-                    _configScope.SqlMapper.DataSource = _configScope.DataSource;
-                }
-                _configScope.ErrorContext.Reset();
-            }
-            #endregion
-            #endregion
+            dataSource.DbProvider = provider;
+            dataSource.ConnectionString = NodeUtils.ParsePropertyTokens(dataSource.ConnectionString, _configScope.Properties);
+
+            _configScope.SqlMapper.DataSource = dataSource;
+            _configScope.ErrorContext.Reset();
 
             #region Load Global TypeAlias
             foreach (XmlNode xmlNode in _configScope.SqlMapConfigDocument.SelectNodes(ApplyDataMapperNamespacePrefix(XML_GLOBAL_TYPEALIAS), _configScope.XmlNamespaceManager))
@@ -991,14 +827,6 @@ namespace SqlBatis.DataMapper.Configuration
             _configScope.ErrorContext.Activity = "loading SqlMap";
             _configScope.ErrorContext.Resource = sqlMapNode.OuterXml.ToString();
 
-            if (_configScope.UseConfigFileWatcher)
-            {
-                if (sqlMapNode.Attributes["resource"] != null || sqlMapNode.Attributes["url"] != null)
-                {
-                    ConfigWatcherHandler.AddFileToWatch(Resources.GetFileInfo(Resources.GetValueOfNodeResourceUrl(sqlMapNode, _configScope.Properties)));
-                }
-            }
-
             // Load the file 
             _configScope.SqlMapDocument = Resources.GetAsXmlDocument(sqlMapNode, _configScope.Properties);
 
@@ -1078,7 +906,7 @@ namespace SqlBatis.DataMapper.Configuration
                 ProcessSqlStatement(statement);
 
                 // Build MappedStatement
-                MappedStatement mappedStatement = new MappedStatement(_configScope.SqlMapper, statement);
+                MappedStatement mappedStatement = new MappedStatement(_configScope.SqlMapper, statement, _commandFactory, _resultStrategyFactory);
                 IMappedStatement mapStatement = mappedStatement;
                 _configScope.SqlMapper.AddMappedStatement(mapStatement.Id, mapStatement);
             }
@@ -1114,7 +942,7 @@ namespace SqlBatis.DataMapper.Configuration
                 }
 
                 // Build MappedStatement
-                MappedStatement mappedStatement = new SelectMappedStatement(_configScope.SqlMapper, select);
+                MappedStatement mappedStatement = new SelectMappedStatement(_configScope.SqlMapper, select, _commandFactory, _resultStrategyFactory);
                 IMappedStatement mapStatement = mappedStatement;
                 _configScope.SqlMapper.AddMappedStatement(mapStatement.Id, mapStatement);
             }
@@ -1151,7 +979,7 @@ namespace SqlBatis.DataMapper.Configuration
                 }
 
                 // Build MappedStatement
-                mappedStatement = new InsertMappedStatement(_configScope.SqlMapper, insert);
+                mappedStatement = new InsertMappedStatement(_configScope.SqlMapper, insert, _commandFactory, _resultStrategyFactory);
 
                 _configScope.SqlMapper.AddMappedStatement(mappedStatement.Id, mappedStatement);
 
@@ -1174,7 +1002,7 @@ namespace SqlBatis.DataMapper.Configuration
                     ProcessSqlStatement(insert.SelectKey);
 
                     // Build MappedStatement
-                    mappedStatement = new MappedStatement(_configScope.SqlMapper, insert.SelectKey);
+                    mappedStatement = new MappedStatement(_configScope.SqlMapper, insert.SelectKey, _commandFactory, _resultStrategyFactory);
 
                     _configScope.SqlMapper.AddMappedStatement(mappedStatement.Id, mappedStatement);
                 }
@@ -1214,7 +1042,7 @@ namespace SqlBatis.DataMapper.Configuration
                 }
 
                 // Build MappedStatement
-                mappedStatement = new UpdateMappedStatement(_configScope.SqlMapper, update);
+                mappedStatement = new UpdateMappedStatement(_configScope.SqlMapper, update, _commandFactory, _resultStrategyFactory);
 
                 _configScope.SqlMapper.AddMappedStatement(mappedStatement.Id, mappedStatement);
             }
@@ -1251,7 +1079,7 @@ namespace SqlBatis.DataMapper.Configuration
                 }
 
                 // Build MappedStatement
-                mappedStatement = new DeleteMappedStatement(_configScope.SqlMapper, delete);
+                mappedStatement = new DeleteMappedStatement(_configScope.SqlMapper, delete, _commandFactory, _resultStrategyFactory);
 
                 _configScope.SqlMapper.AddMappedStatement(mappedStatement.Id, mappedStatement);
             }
@@ -1279,7 +1107,7 @@ namespace SqlBatis.DataMapper.Configuration
                 ProcessSqlStatement(procedure);
 
                 // Build MappedStatement
-                MappedStatement mappedStatement = new MappedStatement(_configScope.SqlMapper, procedure);
+                MappedStatement mappedStatement = new MappedStatement(_configScope.SqlMapper, procedure, _commandFactory, _resultStrategyFactory);
                 IMappedStatement mapStatement = mappedStatement;
                 _configScope.SqlMapper.AddMappedStatement(mapStatement.Id, mapStatement);
             }
@@ -1300,7 +1128,7 @@ namespace SqlBatis.DataMapper.Configuration
         {
             bool isDynamic = false;
             XmlNode commandTextNode = _configScope.NodeContext;
-            DynamicSql dynamic = new DynamicSql(_configScope, statement);
+            DynamicSql dynamic = new DynamicSql(_configScope, statement, _loggerFactory);
             StringBuilder sqlBuffer = new StringBuilder();
 
             if (statement.Id == "DynamicJIRA")
@@ -1336,7 +1164,7 @@ namespace SqlBatis.DataMapper.Configuration
             else
             {
                 string sqlText = sqlBuffer.ToString();
-                ApplyInlineParemeterMap(statement, sqlText);
+                ApplyInlineParameterMap(statement, sqlText);
             }
         }
 
@@ -1429,7 +1257,7 @@ namespace SqlBatis.DataMapper.Configuration
         /// </summary>
         /// <param name="statement"></param>
         /// <param name="sqlStatement"></param>
-        private void ApplyInlineParemeterMap(IStatement statement, string sqlStatement)
+        private void ApplyInlineParameterMap(IStatement statement, string sqlStatement)
         {
             string newSql = sqlStatement;
 
@@ -1451,7 +1279,7 @@ namespace SqlBatis.DataMapper.Configuration
                     {
                         map.Class = statement.ParameterClass;
                     }
-                    map.Initialize(_configScope.DataSource.DbProvider.UsePositionalParameters, _configScope);
+                    map.Initialize(_configScope.SqlMapper.DataSource.DbProvider.UsePositionalParameters, _configScope);
                     if (statement.ParameterClass == null &&
                         sqlText.Parameters.Length == 1 && sqlText.Parameters[0].PropertyName == "value")//#value# parameter with no parameterClass attribut
                     {
@@ -1474,21 +1302,21 @@ namespace SqlBatis.DataMapper.Configuration
 
             if (SimpleDynamicSql.IsSimpleDynamicSql(newSql))
             {
-                sql = new SimpleDynamicSql(_configScope, newSql, statement);
+                sql = new SimpleDynamicSql(_configScope, newSql, statement, _loggerFactory);
             }
             else
             {
                 if (statement is Procedure)
                 {
-                    sql = new ProcedureSql(_configScope, newSql, statement);
+                    sql = new ProcedureSql(_configScope, newSql, statement, _loggerFactory);
                     // Could not call BuildPreparedStatement for procedure because when NUnit Test
                     // the database is not here (but in theory procedure must be prepared like statement)
                     // It's even better as we can then switch DataSource.
                 }
                 else if (statement is Statement)
                 {
-                    sql = new StaticSql(_configScope, statement);
-                    ISqlMapSession session = new SqlMapSession(_configScope.SqlMapper);
+                    sql = new StaticSql(_configScope, statement, _loggerFactory);
+                    ISqlMapSession session = new SqlMapSession(_configScope.SqlMapper, _loggerFactory.CreateLogger<SqlMapSession>());
 
                     ((StaticSql)sql).BuildPreparedStatement(session, newSql);
                 }
@@ -1521,9 +1349,9 @@ namespace SqlBatis.DataMapper.Configuration
                         {
                             _configScope.Properties.Add(keyAttrib.Value, valueAttrib.Value);
 
-                            if (Logger.IsDebugEnabled)
+                            if (_logger.IsEnabled(LogLevel.Debug))
                             {
-                                Logger.Debug(string.Format("Add property \"{0}\" value \"{1}\"", keyAttrib.Value, valueAttrib.Value));
+                                _logger.LogDebug("Add property \"{Key}\" value \"{Value}\"", keyAttrib.Value, valueAttrib.Value);
                             }
                         }
                         else
@@ -1535,9 +1363,9 @@ namespace SqlBatis.DataMapper.Configuration
                             {
                                 _configScope.Properties[node.Attributes[PROPERTY_ELEMENT_KEY_ATTRIB].Value] = node.Attributes[PROPERTY_ELEMENT_VALUE_ATTRIB].Value;
 
-                                if (Logger.IsDebugEnabled)
+                                if (_logger.IsEnabled(LogLevel.Debug))
                                 {
-                                    Logger.Debug(string.Format("Add property \"{0}\" value \"{1}\"", node.Attributes[PROPERTY_ELEMENT_KEY_ATTRIB].Value, node.Attributes[PROPERTY_ELEMENT_VALUE_ATTRIB].Value));
+                                    _logger.LogDebug("Add property \"{Key}\" value \"{Value}\"", node.Attributes[PROPERTY_ELEMENT_KEY_ATTRIB].Value, node.Attributes[PROPERTY_ELEMENT_VALUE_ATTRIB].Value);
                                 }
                             }
                         }
@@ -1549,7 +1377,7 @@ namespace SqlBatis.DataMapper.Configuration
                     // <properties> element's InnerXml is currently an empty string anyway
                     // since <settings> are in properties file
 
-                    _configScope.ErrorContext.Resource = nodeProperties.OuterXml.ToString();
+                    _configScope.ErrorContext.Resource = nodeProperties.OuterXml;
 
                     // Load the file defined by the attribute
                     XmlDocument propertiesConfig = Resources.GetAsXmlDocument(nodeProperties, _configScope.Properties);
@@ -1558,9 +1386,9 @@ namespace SqlBatis.DataMapper.Configuration
                     {
                         _configScope.Properties[node.Attributes[PROPERTY_ELEMENT_KEY_ATTRIB].Value] = node.Attributes[PROPERTY_ELEMENT_VALUE_ATTRIB].Value;
 
-                        if (Logger.IsDebugEnabled)
+                        if (_logger.IsEnabled(LogLevel.Debug))
                         {
-                            Logger.Debug(string.Format("Add property \"{0}\" value \"{1}\"", node.Attributes[PROPERTY_ELEMENT_KEY_ATTRIB].Value, node.Attributes[PROPERTY_ELEMENT_VALUE_ATTRIB].Value));
+                            _logger.LogDebug("Add property \"{Key}\" value \"{Value}\"", node.Attributes[PROPERTY_ELEMENT_KEY_ATTRIB].Value, node.Attributes[PROPERTY_ELEMENT_VALUE_ATTRIB].Value);
                         }
                     }
                 }
@@ -1582,8 +1410,8 @@ namespace SqlBatis.DataMapper.Configuration
             //------ Build SQL CommandText
             generatedSQL = SqlGenerator.BuildQuery(statement);
 
-            ISql sql = new StaticSql(configScope, statement);
-            ISqlMapSession session = new SqlMapSession(configScope.SqlMapper);
+            ISql sql = new StaticSql(configScope, statement, _loggerFactory);
+            ISqlMapSession session = new SqlMapSession(configScope.SqlMapper, _loggerFactory.CreateLogger<SqlMapSession>());
 
             ((StaticSql)sql).BuildPreparedStatement(session, generatedSQL);
             statement.Sql = sql;

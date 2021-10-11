@@ -159,25 +159,7 @@ namespace SqlBatis.DataMapper.Scope
 		}
 
 		/// <summary>
-		/// Tell us if we are in a DataAccess context.
-		/// </summary>
-		public bool IsCallFromDao
-		{
-			set { _isCallFromDao = value; }
-			get { return _isCallFromDao; }
-		}
-
-		/// <summary>
-		/// External data source
-		/// </summary>
-		public DataSource DataSource
-		{
-			set { _dataSource = value; }
-			get { return _dataSource; }
-		}
-
-		/// <summary>
-		/// The current context node we are analizing
+		/// The current context node we are analyzing
 		/// </summary>
 		public XmlNode NodeContext
 		{
@@ -201,15 +183,6 @@ namespace SqlBatis.DataMapper.Scope
 		{
 			set { _sqlMapDocument = value; }
 			get { return _sqlMapDocument; }
-		}
-
-		/// <summary>
-		/// Tell us if we use Configuration File Watcher
-		/// </summary>
-		public bool UseConfigFileWatcher
-		{
-			set { _useConfigFileWatcher = value; }
-			get { return _useConfigFileWatcher; }
 		}
 
 		/// <summary>
@@ -245,14 +218,6 @@ namespace SqlBatis.DataMapper.Scope
 			get { return _properties; }
 		}
 
-		/// <summary>
-		/// Indicates if we can use reflection optimizer.
-		/// </summary>
-		public bool UseReflectionOptimizer
-		{
-			get { return _useReflectionOptimizer; }
-			set { _useReflectionOptimizer = value; }
-		}
 
         /// <summary>
 	    ///     Provides the <see cref="ILazyFactory" /> implementation
