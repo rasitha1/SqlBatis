@@ -33,7 +33,7 @@ steps:
   displayName: 'MSSQL Tests'
 
 - script: .\teardowndb.cmd
-  displayName: 'Teardown LocalDB'  
+  displayName: 'Teardown LocalDB'
 
 - task: DotNetCoreCLI@2
   displayName: Create CI Package
@@ -79,5 +79,5 @@ steps:
   displayName: 'Publish code coverage'
   inputs:
     codeCoverageTool: Cobertura
-    summaryFileLocation: '$(Build.SourcesDirectory)\test\**\TestResults\Coverage'
+    summaryFileLocation: '$(Build.SourcesDirectory)\test\**\TestResults\Coverage\coverage.cobertura.net10.0.xml'
 
