@@ -2,6 +2,7 @@ using System;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
+using System.Runtime.Versioning;
 
 namespace SqlBatis.DataMapper.Test.Domain
 {
@@ -82,11 +83,16 @@ namespace SqlBatis.DataMapper.Test.Domain
 			get{ return _pictureData; }
 			set{ _pictureData = value; }
 		}
-		public Image Picture 
-		{
+        [SupportedOSPlatform("windows")]
+        public Image Picture 
+		{			
+			get
+			{ 
+				return LineItem.ConvertToImage( _pictureData ); 
+			}
 			set
 			{
-                if (value!=null)
+                if (value != null)
                 {
 				    _pictureData = LineItem.ConvertToByteArray( value ); 
                 }
@@ -95,19 +101,18 @@ namespace SqlBatis.DataMapper.Test.Domain
                     _pictureData = null;
                 }
 			}
-			get
-			{ 
-				return LineItem.ConvertToImage( _pictureData ); 
-			}
 		}
 
 		#region Image converters
+		[SupportedOSPlatform("windows")]
 		static protected byte[] ConvertToByteArray( Image picture ) 
 		{
 			MemoryStream memoryStream = new MemoryStream();
 			picture.Save( memoryStream, ImageFormat.Jpeg );
 			return memoryStream.ToArray ();
 		}
+
+		[SupportedOSPlatform("windows")]
 		static protected Image ConvertToImage( byte[] pictureData ) 
 		{
 			if (pictureData != null)

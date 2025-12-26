@@ -119,6 +119,7 @@ namespace SqlBatis.DataMapper.MappedStatements
         /// <param name="sqlMap">An SqlMap</param>
         /// <param name="statement">An SQL statement</param>
         /// <param name="commandFactory"></param>
+        /// <param name="resultFactory"></param>
         internal MappedStatement(ISqlMapper sqlMap, IStatement statement, PreparedCommandFactory commandFactory, ResultStrategyFactory resultFactory)
         {
             _sqlMap = sqlMap;

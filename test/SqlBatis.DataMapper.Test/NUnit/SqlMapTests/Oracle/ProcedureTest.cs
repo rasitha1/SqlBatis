@@ -55,13 +55,13 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests.Oracle
 			category.Name = "Mapping object relational";
 
 			sqlMap.Insert("InsertCategoryViaStoreProcedure", category);
-			Assert.AreEqual(1, category.Id );
+			Assert.That(category.Id, Is.EqualTo(1));
 
 			category = new Category();
 			category.Name = "Nausicaa";
 
 			sqlMap.Insert("InsertCategoryViaStoreProcedure", category);
-			Assert.AreEqual(2, category.Id );
+			Assert.That(category.Id, Is.EqualTo(2));
 		}
 
 		/// <summary>
@@ -79,8 +79,8 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests.Oracle
 
 			sqlMap.QueryForObject("SwapEmailAddresses", map);
 
-			Assert.AreEqual(first, map["email2"].ToString());
-			Assert.AreEqual(second, map["email1"].ToString());
+			Assert.That(map["email2"].ToString(), Is.EqualTo(first));
+			Assert.That(map["email1"].ToString(), Is.EqualTo(second));
 		}
 
 		/// <summary>
@@ -96,7 +96,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests.Oracle
 			map.Add("GuidString", Guid.NewGuid().ToString());
 
 			sqlMap.Insert("InsertCategoryViaStoreProcedure", map);
-			Assert.AreEqual(1, map["Id"] );
+			Assert.That(map["Id"], Is.EqualTo(1));
 
 		}
 
@@ -116,8 +116,8 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests.Oracle
 
 			Account testAccount = sqlMap.QueryForObject("GetAccountViaColumnName", 99) as Account;
 
-			Assert.IsNotNull(testAccount);
-			Assert.AreEqual(99, testAccount.Id);
+			Assert.That(testAccount, Is.Not.Null);
+			Assert.That(testAccount.Id, Is.EqualTo(99));
 		}
 
 		/// <summary>
@@ -131,16 +131,16 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests.Oracle
 
 			IList list = sqlMap.QueryForList("GetAllAccountsViaStoredProcRefCursor", param);
 
-			Assert.AreEqual(5, list.Count);
+			Assert.That(list.Count, Is.EqualTo(5));
 			AssertAccount1((Account) list[0]);
-			Assert.AreEqual(2, ((Account) list[1]).Id);
-			Assert.AreEqual("Averel", ((Account) list[1]).FirstName);
-			Assert.AreEqual(3, ((Account) list[2]).Id);
-			Assert.AreEqual("William", ((Account) list[2]).FirstName);
-			Assert.AreEqual(4, ((Account) list[3]).Id);
-			Assert.AreEqual("Jack", ((Account) list[3]).FirstName);
-			Assert.AreEqual(5, ((Account) list[4]).Id);
-			Assert.AreEqual("Gilles", ((Account) list[4]).FirstName);
+			Assert.That(((Account) list[1]).Id, Is.EqualTo(2));
+			Assert.That(((Account) list[1]).FirstName, Is.EqualTo("Averel"));
+			Assert.That(((Account) list[2]).Id, Is.EqualTo(3));
+			Assert.That(((Account) list[2]).FirstName, Is.EqualTo("William"));
+			Assert.That(((Account) list[3]).Id, Is.EqualTo(4));
+			Assert.That(((Account) list[3]).FirstName, Is.EqualTo("Jack"));
+			Assert.That(((Account) list[4]).Id, Is.EqualTo(5));
+			Assert.That(((Account) list[4]).FirstName, Is.EqualTo("Gilles"));
 		}
 
 		/// <summary>
@@ -155,7 +155,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests.Oracle
 
 			IList list = sqlMap.QueryForList("GetAccountViaStoredProcRefCursor", param);
 
-			Assert.AreEqual(1, list.Count);
+			Assert.That(list.Count, Is.EqualTo(1));
 			AssertAccount1((Account) list[0]);
 		}		
 		#endregion

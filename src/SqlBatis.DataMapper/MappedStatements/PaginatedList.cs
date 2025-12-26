@@ -53,13 +53,14 @@ namespace SqlBatis.DataMapper.MappedStatements
 
 		#endregion
 
-		/// <summary>
-		/// Constructor
-		/// </summary>
-		/// <param name="mappedStatement"></param>
-		/// <param name="parameterObject"></param>
-		/// <param name="pageSize"></param>
-		public PaginatedList(IMappedStatement mappedStatement, object parameterObject, int pageSize, ILoggerFactory loggerFactory)
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="mappedStatement"></param>
+        /// <param name="parameterObject"></param>
+        /// <param name="pageSize"></param>
+        /// <param name="loggerFactory"></param>
+        public PaginatedList(IMappedStatement mappedStatement, object parameterObject, int pageSize, ILoggerFactory loggerFactory)
 		{
 			_mappedStatement = mappedStatement;
 			_parameterObject = parameterObject;

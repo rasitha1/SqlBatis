@@ -37,6 +37,10 @@ namespace SqlBatis.DataMapper.MappedStatements.ResultStrategy
     {
         private readonly ILogger _logger;
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="logger"></param>
         public AutoMapStrategy(ILogger logger)
         {
             _logger = logger;

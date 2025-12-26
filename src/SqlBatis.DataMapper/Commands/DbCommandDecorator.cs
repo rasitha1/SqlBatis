@@ -53,7 +53,7 @@ namespace SqlBatis.DataMapper.Commands
         #region IDbCommand Members
 
         /// <summary>
-        /// Attempts to cancels the execution of an <see cref="System.Data.IDbCommand"></see>.
+        /// Attempts to cancel the execution of an <see cref="System.Data.IDbCommand"></see>.
         /// </summary>
         void IDbCommand.Cancel()
         {
@@ -67,8 +67,8 @@ namespace SqlBatis.DataMapper.Commands
         /// <returns>The text command to execute. The default value is an empty string ("").</returns>
         string IDbCommand.CommandText
         {
-            get { return _innerDbCommand.CommandText; }
-            set {  _innerDbCommand.CommandText = value; }
+            get => _innerDbCommand.CommandText;
+            set => _innerDbCommand.CommandText = value;
         }
 
         /// <summary>
@@ -79,8 +79,8 @@ namespace SqlBatis.DataMapper.Commands
         /// <exception cref="System.ArgumentException">The property value assigned is less than 0. </exception>
         int IDbCommand.CommandTimeout
         {
-            get { return _innerDbCommand.CommandTimeout; }
-            set { _innerDbCommand.CommandTimeout = value; }
+            get => _innerDbCommand.CommandTimeout;
+            set => _innerDbCommand.CommandTimeout = value;
         }
 
         /// <summary>
@@ -90,8 +90,8 @@ namespace SqlBatis.DataMapper.Commands
         /// <returns>One of the <see cref="System.Data.CommandType"></see> values. The default is Text.</returns>
         CommandType IDbCommand.CommandType
         {
-            get { return _innerDbCommand.CommandType; }
-            set { _innerDbCommand.CommandType = value; }
+            get => _innerDbCommand.CommandType;
+            set => _innerDbCommand.CommandType = value;
         }
 
         /// <summary>
@@ -101,8 +101,8 @@ namespace SqlBatis.DataMapper.Commands
         /// <returns>The connection to the data source.</returns>
         IDbConnection IDbCommand.Connection
         {
-            get { return _innerDbCommand.Connection; }
-            set { _innerDbCommand.Connection = value; }
+            get => _innerDbCommand.Connection;
+            set => _innerDbCommand.Connection = value;
         }
 
         /// <summary>
@@ -169,15 +169,11 @@ namespace SqlBatis.DataMapper.Commands
         /// </summary>
         /// <value></value>
         /// <returns>The parameters of the SQL statement or stored procedure.</returns>
-        IDataParameterCollection IDbCommand.Parameters
-        {
-            get { return _innerDbCommand.Parameters; }
-        }
+        IDataParameterCollection IDbCommand.Parameters => _innerDbCommand.Parameters;
 
         /// <summary>
         /// Creates a prepared (or compiled) version of the command on the data source.
         /// </summary>
-        /// <exception cref="System.InvalidOperationException">The <see cref="P:System.Data.OleDb.OleDbCommand.Connection"></see> is not set.-or- The <see cref="P:System.Data.OleDb.OleDbCommand.Connection"></see> is not <see cref="P:System.Data.OleDb.OleDbConnection.Open"></see>. </exception>
         void IDbCommand.Prepare()
         {
             _innerDbCommand.Prepare();
@@ -190,8 +186,8 @@ namespace SqlBatis.DataMapper.Commands
         /// <returns>the Command object of a .NET Framework data provider executes. The default value is null.</returns>
         IDbTransaction IDbCommand.Transaction
         {
-            get { return _innerDbCommand.Transaction; }
-            set { _innerDbCommand.Transaction = value; }
+            get => _innerDbCommand.Transaction;
+            set => _innerDbCommand.Transaction = value;
         }
 
         /// <summary>
@@ -202,8 +198,8 @@ namespace SqlBatis.DataMapper.Commands
         /// <exception cref="System.ArgumentException">The value entered was not one of the <see cref="System.Data.UpdateRowSource"></see> values. </exception>
         UpdateRowSource IDbCommand.UpdatedRowSource
         {
-            get { return _innerDbCommand.UpdatedRowSource; }
-            set { _innerDbCommand.UpdatedRowSource = value; }
+            get => _innerDbCommand.UpdatedRowSource;
+            set => _innerDbCommand.UpdatedRowSource = value;
         }
 
         #endregion

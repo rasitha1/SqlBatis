@@ -42,6 +42,7 @@ namespace SqlBatis.DataMapper.MappedStatements
         /// </summary>
         /// <param name="sqlMap">An SqlMap</param>
         /// <param name="statement">An SQL statement</param>
+        /// <param name="commandFactory"></param>
         /// <param name="resultFactory"></param>
         internal DeleteMappedStatement(ISqlMapper sqlMap, IStatement statement, PreparedCommandFactory commandFactory, ResultStrategyFactory resultFactory)
             : base(sqlMap, statement, commandFactory, resultFactory)

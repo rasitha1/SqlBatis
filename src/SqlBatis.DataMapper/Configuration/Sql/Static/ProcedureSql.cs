@@ -52,13 +52,15 @@ namespace SqlBatis.DataMapper.Configuration.Sql.Static
 		#endregion
 
 		#region Constructor (s) / Destructor
-		/// <summary>
-		/// Constructor
-		/// </summary>
-		/// <param name="statement">The statement.</param>
-		/// <param name="sqlStatement"></param>
-		/// <param name="scope"></param>
-		public ProcedureSql(IScope scope, string sqlStatement, IStatement statement, ILoggerFactory loggerFactory)
+
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="statement">The statement.</param>
+        /// <param name="sqlStatement"></param>
+        /// <param name="scope"></param>
+        /// <param name="loggerFactory"></param>
+        public ProcedureSql(IScope scope, string sqlStatement, IStatement statement, ILoggerFactory loggerFactory)
 		{
 			_sqlStatement = sqlStatement;
 			_statement = statement;

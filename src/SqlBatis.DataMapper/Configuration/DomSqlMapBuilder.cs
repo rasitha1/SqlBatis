@@ -465,7 +465,6 @@ namespace SqlBatis.DataMapper.Configuration
         /// Build an ISqlMapper instance.
         /// </summary>
         /// <param name="document">An xml configuration document.</param>
-        /// <param name="useConfigFileWatcher"></param>
         /// <returns>Returns an ISqlMapper instance.</returns>
         private ISqlMapper Build(XmlDocument document)
         {
@@ -587,7 +586,7 @@ namespace SqlBatis.DataMapper.Configuration
 
             if (_objectFactory == null)
             {
-                _objectFactory = new ObjectFactory(_loggerFactory, _loggerFactory.CreateLogger<ObjectFactory>());
+                _objectFactory = new ObjectFactory(_loggerFactory);
             }
             if (_setAccessorFactory == null)
             {

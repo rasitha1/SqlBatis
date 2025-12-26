@@ -84,21 +84,5 @@ namespace SqlBatis.DataMapper.Exceptions
 		/// <param name="message">The message that describes the error.</param>
 		/// <param name="inner">The exception that caused the error</param>
 		public ForeignKeyException( string message, Exception inner ) : base ( message, inner ) { }
-
-		/// <summary>
-		/// Initializes a new instance of the Exception class with serialized data.
-		/// </summary>
-		/// <remarks>
-		/// This constructor is called during deserialization to reconstitute the exception 
-		/// object transmitted over a stream.
-		/// </remarks>
-		/// <param name="info">
-		/// The <see cref="System.Runtime.Serialization.SerializationInfo"/> that holds the serialized object data about the exception being thrown.
-		/// </param>
-		/// <param name="context">
-		/// The <see cref="System.Runtime.Serialization.StreamingContext"/> that contains contextual information about the source or destination. 
-		/// </param>
-		protected ForeignKeyException(SerializationInfo info, StreamingContext context) : base (info, context) {}
-
 	}
 }

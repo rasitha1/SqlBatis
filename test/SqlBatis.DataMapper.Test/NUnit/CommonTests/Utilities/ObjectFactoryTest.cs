@@ -12,17 +12,17 @@ namespace SqlBatis.DataMapper.Test.NUnit.CommonTests.Utilities
     [TestFixture] 
 	public class ObjectFactoryTest
     {
-        private IObjectFactory objectFactory;
+        private IObjectFactory _objectFactory;
 		[SetUp]
         public void Setup()
         {
-            objectFactory = new ObjectFactory(NullLoggerFactory.Instance, NullLogger<ObjectFactory>.Instance);
+            _objectFactory = new ObjectFactory(NullLoggerFactory.Instance);
 		}
 		[Test]
         //[ExpectedException(typeof(ProbeException))]
 		public void AbstractConstructor()
 		{
-			IFactory factory = objectFactory.CreateFactory(typeof (AbstractDocument), Type.EmptyTypes );
+			IFactory factory = _objectFactory.CreateFactory(typeof (AbstractDocument), Type.EmptyTypes );
 
 		    Assert.That(() => factory.CreateInstance(null), Throws.TypeOf<ProbeException>());
         }
@@ -30,30 +30,30 @@ namespace SqlBatis.DataMapper.Test.NUnit.CommonTests.Utilities
 		[Test]
 		public void DevivedClassConstructor()
 		{
-			IFactory factory = objectFactory.CreateFactory(typeof (Book), Type.EmptyTypes );
+			IFactory factory = _objectFactory.CreateFactory(typeof (Book), Type.EmptyTypes );
 
-			Assert.IsNotNull(factory);
+			Assert.That(factory, Is.Not.Null);
 		}
     	
 		[Test]
 		//[ExpectedException(typeof(ProbeException))]
 		public void PrivateConstructor()
 		{
-			Assert.That(() => objectFactory.CreateFactory(typeof(PrivateOrder), Type.EmptyTypes), Throws.TypeOf<ProbeException>());
+			Assert.That(() => _objectFactory.CreateFactory(typeof(PrivateOrder), Type.EmptyTypes), Throws.TypeOf<ProbeException>());
 		}
 
         [Test]
         //[ExpectedException(typeof(ProbeException))]
         public void NoMatchConstructor()
         {
-            Assert.That(() => objectFactory.CreateFactory(typeof(ItemBis), Type.EmptyTypes), Throws.TypeOf<ProbeException>());
+            Assert.That(() => _objectFactory.CreateFactory(typeof(ItemBis), Type.EmptyTypes), Throws.TypeOf<ProbeException>());
         }
 
 		[Test]
 		//[ExpectedException(typeof(ProbeException))]
 		public void ProtectedConstructor()
 		{
-		    Assert.That(() => objectFactory.CreateFactory(typeof(ProtectedItem), Type.EmptyTypes), Throws.TypeOf<ProbeException>());
+		    Assert.That(() => _objectFactory.CreateFactory(typeof(ProtectedItem), Type.EmptyTypes), Throws.TypeOf<ProbeException>());
 
 		}
 
@@ -61,86 +61,86 @@ namespace SqlBatis.DataMapper.Test.NUnit.CommonTests.Utilities
 		public void ClassWithMultipleConstructor()
 		{
 			Type[] types = {typeof(string)};
-			IFactory factory0 = objectFactory.CreateFactory(typeof (Account), types );
+			IFactory factory0 = _objectFactory.CreateFactory(typeof (Account), types );
 
 			object[] parameters = {"gilles"};
 			object obj0 = factory0.CreateInstance(parameters);
 
-			Assert.IsTrue(obj0 is Account);
+			Assert.That(obj0, Is.InstanceOf<Account>());
 			Account account = (Account)obj0;
-			Assert.AreEqual("gilles", account.Test);
+			Assert.That(account.Test, Is.EqualTo("gilles"));
 
-			IFactory factory1 = objectFactory.CreateFactory(typeof (Account), Type.EmptyTypes );
+			IFactory factory1 = _objectFactory.CreateFactory(typeof (Account), Type.EmptyTypes );
 
 			object obj1 = factory1.CreateInstance(parameters);
 
-			Assert.IsTrue(obj1 is Account);
+			Assert.That(obj1, Is.InstanceOf<Account>());
 		}
 
 		[Test]
 		public void StringConstructor()
 		{
 			Type[] types = {typeof(string)};
-			IFactory factory = objectFactory.CreateFactory(typeof (Account), types );
+			IFactory factory = _objectFactory.CreateFactory(typeof (Account), types );
 
 			object[] parameters = {"gilles"};
 			object obj = factory.CreateInstance(parameters);
 
-			Assert.IsTrue(obj is Account);
+			Assert.That(obj, Is.InstanceOf<Account>());
 			Account account = (Account)obj;
-			Assert.AreEqual("gilles", account.Test);
+			Assert.That(account.Test, Is.EqualTo("gilles"));
 		}
 
 		[Test]
 		public void MultipleParamConstructor1()
 		{
 			Type[] types = {typeof(string)};
-			IFactory factory = objectFactory.CreateFactory(typeof (Account), types );
+			IFactory factory = _objectFactory.CreateFactory(typeof (Account), types );
 
 			object[] parameters = new object[1];
 			parameters[0] = null;
 			object obj = factory.CreateInstance(parameters);
 
-			Assert.IsTrue(obj is Account);
+			Assert.That(obj, Is.InstanceOf<Account>());
 			Account account = (Account)obj;
-			Assert.AreEqual(null, account.Test);
+			Assert.That(account.Test, Is.Null);
 		}
 
 		[Test]
 		public void IntConstructor()
 		{
 			Type[] types = {typeof(int)};
-			IFactory factory = objectFactory.CreateFactory(typeof (Account), types );
+			IFactory factory = _objectFactory.CreateFactory(typeof (Account), types );
 
 			object[] parameters = new object[1];
 			parameters[0] = -55;
 			object obj = factory.CreateInstance(parameters);
 
-			Assert.IsTrue(obj is Account);
+			Assert.That(obj, Is.InstanceOf<Account>());
 			Account account = (Account)obj;
-			Assert.AreEqual( -55, account.Id);
+			Assert.That(account.Id, Is.EqualTo(-55));
 		}
 
 		[Test]
 		public void EnumConstructorEnum()
 		{
 			Type[] types = {typeof(Days)};
-			IFactory factory = objectFactory.CreateFactory(typeof (Account), types );
+			IFactory factory = _objectFactory.CreateFactory(typeof (Account), types );
 
 			object[] parameters = new object[1];
 			parameters[0] = Days.Sun;
 			object obj = factory.CreateInstance(parameters);
 
-			Assert.IsTrue(obj is Account);
+			Assert.That(obj, Is.InstanceOf<Account>());
 			Account account = (Account)obj;
-			Assert.AreEqual( Days.Sun, account.Days);
+			Assert.That(account.Days, Is.EqualTo(Days.Sun));
 		}
 
 		[Test]
 		public void ClassConstructor()
 		{
 			Type[] types = {typeof(Property)};
-			IFactory factory = objectFactory.CreateFactory(typeof (Account), types );
+			IFactory factory = _objectFactory.CreateFactory(typeof (Account), types );
 
 			object[] parameters = new object[1];
 			Property prop = new Property();
@@ -148,33 +148,33 @@ namespace SqlBatis.DataMapper.Test.NUnit.CommonTests.Utilities
 			parameters[0] = prop;
 			object obj = factory.CreateInstance(parameters);
 
-			Assert.IsTrue(obj is Account);
+			Assert.That(obj, Is.InstanceOf<Account>());
 			Account account = (Account)obj;
-			Assert.IsNotNull(account.Property);
-			Assert.AreEqual( "Gilles", account.Property.String);
+			Assert.That(account.Property, Is.Not.Null);
+			Assert.That(account.Property.String, Is.EqualTo("Gilles"));
 		}
 
 		[Test]
 		public void DateTimeConstructor()
 		{
 			Type[] types = {typeof(DateTime)};
-			IFactory factory = objectFactory.CreateFactory(typeof (Account), types );
+			IFactory factory = _objectFactory.CreateFactory(typeof (Account), types );
 
 			object[] parameters = new object[1];
 			DateTime date = DateTime.Now;
 			parameters[0] = date;
 			object obj = factory.CreateInstance(parameters);
 
-			Assert.IsTrue(obj is Account);
+			Assert.That(obj, Is.InstanceOf<Account>());
 			Account account = (Account)obj;
-			Assert.AreEqual( date, account.Date);
+			Assert.That(account.Date, Is.EqualTo(date));
 		}
 
         [Test]
         public void ArrayParamConstructor()
         {
             Type[] types = { typeof(int[]) };
-            IFactory factory = objectFactory.CreateFactory(typeof(Account), types);
+            IFactory factory = _objectFactory.CreateFactory(typeof(Account), types);
 
             object[] parameters = new object[1];
 
@@ -185,19 +185,19 @@ namespace SqlBatis.DataMapper.Test.NUnit.CommonTests.Utilities
             parameters[0] = ids;
             object obj = factory.CreateInstance(parameters);
 
-            Assert.IsTrue(obj is Account);
+            Assert.That(obj, Is.InstanceOf<Account>());
             Account account = (Account)obj;
 
-            Assert.AreEqual(2, account.Ids.Length);
-            Assert.AreEqual(1, account.Ids[0]);
-            Assert.AreEqual(2, account.Ids[1]);
+            Assert.That(account.Ids.Length, Is.EqualTo(2));
+            Assert.That(account.Ids[0], Is.EqualTo(1));
+            Assert.That(account.Ids[1], Is.EqualTo(2));
         }
 
 		[Test]
 		public void MultipleParamConstructor0()
 		{
 			Type[] types = {typeof(string), typeof(Property)};
-			IFactory factory = objectFactory.CreateFactory(typeof (Account), types );
+			IFactory factory = _objectFactory.CreateFactory(typeof (Account), types );
 
 			object[] parameters = new object[2];
 			Property prop = new Property();
@@ -206,11 +206,11 @@ namespace SqlBatis.DataMapper.Test.NUnit.CommonTests.Utilities
 			parameters[1] = prop;
 			object obj = factory.CreateInstance(parameters);
 
-			Assert.IsTrue(obj is Account);
+			Assert.That(obj, Is.InstanceOf<Account>());
 			Account account = (Account)obj;
-			Assert.AreEqual("Héloïse", account.FirstName);
-			Assert.IsNotNull(account.Property);
-			Assert.AreEqual( "Gilles", account.Property.String);
+			Assert.That(account.FirstName, Is.EqualTo("Héloïse"));
+			Assert.That(account.Property, Is.Not.Null);
+			Assert.That(account.Property.String, Is.EqualTo("Gilles"));
 		}
 
 
@@ -218,17 +218,17 @@ namespace SqlBatis.DataMapper.Test.NUnit.CommonTests.Utilities
 		[Test]
 		public void DynamicFactoryCreatesTypes()
 		{
-			IFactory factory = objectFactory.CreateFactory(typeof (Account), Type.EmptyTypes);
+			IFactory factory = _objectFactory.CreateFactory(typeof (Account), Type.EmptyTypes);
 			object obj = factory.CreateInstance(null);
-			Assert.IsTrue(obj is Account);
+			Assert.That(obj, Is.InstanceOf<Account>());
 
-			factory = objectFactory.CreateFactory(typeof (Account), Type.EmptyTypes);
+			factory = _objectFactory.CreateFactory(typeof (Account), Type.EmptyTypes);
 			obj = factory.CreateInstance(Type.EmptyTypes);
-			Assert.IsTrue(obj is Account);
+			Assert.That(obj, Is.InstanceOf<Account>());
 
-			factory = objectFactory.CreateFactory(typeof (Simple), Type.EmptyTypes);
+			factory = _objectFactory.CreateFactory(typeof (Simple), Type.EmptyTypes);
 			obj = factory.CreateInstance(Type.EmptyTypes);
-			Assert.IsTrue(obj is Simple);
+			Assert.That(obj, Is.InstanceOf<Simple>());
 		}
 
 		[Test]
@@ -254,33 +254,9 @@ namespace SqlBatis.DataMapper.Test.NUnit.CommonTests.Utilities
 				factory.CreateInstance(Type.EmptyTypes);
 			}
 			timer.Stop();
-			double newFactoryResult = 1000000 * (timer.Duration / (double)TEST_ITERATIONS);
-			#endregion
 
-            #region Emit
-			factory = new EmitObjectFactory(NullLoggerFactory.Instance).CreateFactory(typeof(Account), Type.EmptyTypes);
+            #endregion
 
-			// create an instance so that Activators can
-			// cache the type/constructor/whatever
-			factory.CreateInstance(Type.EmptyTypes);
-
-			GC.Collect();
-			GC.WaitForPendingFinalizers();
-
-			timer.Start();
-			for (int i = 0; i < TEST_ITERATIONS; i++)
-			{
-				factory.CreateInstance(Type.EmptyTypes);
-			}
-			timer.Stop();
-			double emitFactoryResult = 1000000 * (timer.Duration / (double)TEST_ITERATIONS);
-			#endregion
-
-			// Print results
-			Console.WriteLine(
-				"Create " + TEST_ITERATIONS.ToString() + " objects via factory :"
-				+ "\nNew : \t\t\t" + newFactoryResult.ToString("F3")
-				+ "\nEmit IL : \t\t\t" + emitFactoryResult.ToString("F3") + " Ratio : " + ((emitFactoryResult / newFactoryResult)).ToString("F3"));
 		}
 
 		internal class NewAccountFactory : IFactory

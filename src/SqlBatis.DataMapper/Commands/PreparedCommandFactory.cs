@@ -40,6 +40,10 @@ namespace SqlBatis.DataMapper.Commands
     {
         private readonly ILoggerFactory _loggerFactory;
 
+        /// <summary>
+        /// Initializes a new instance of the PreparedCommandFactory class using the specified logger factory.
+        /// </summary>
+        /// <param name="loggerFactory">The logger factory used to create loggers for command preparation and execution. Cannot be null.</param>
         public PreparedCommandFactory(ILoggerFactory loggerFactory)
         {
             _loggerFactory = loggerFactory;

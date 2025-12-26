@@ -51,7 +51,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.CommonTests.Utilities
             {
                 test = -1;
                 test = prop.Int;
-                Assert.AreEqual(int.MinValue, test);
+                Assert.That(test, Is.EqualTo(int.MinValue));
             }
             timer.Stop();
             double directAccessDuration = 1000000 * (timer.Duration / (double)TEST_ITERATIONS);
@@ -68,7 +68,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.CommonTests.Utilities
             {
                 test = -1;
                 test = (int)propertyAccessor.Get(prop);
-                Assert.AreEqual(int.MinValue, test);
+                Assert.That(test, Is.EqualTo(int.MinValue));
             }
             timer.Stop();
             double propertyAccessorDuration = 1000000 * (timer.Duration / (double)TEST_ITERATIONS);
@@ -86,7 +86,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.CommonTests.Utilities
                 test = -1;
             	PropertyInfo propertyInfo = (PropertyInfo)reflectionInfo.GetGetter("Int");
                 test = (int)propertyInfo.GetValue(prop, null);
-                Assert.AreEqual(int.MinValue, test);
+                Assert.That(test, Is.EqualTo(int.MinValue));
             }
             timer.Stop();
             double reflectionInfoDuration = 1000000 * (timer.Duration / (double)TEST_ITERATIONS);
@@ -104,7 +104,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.CommonTests.Utilities
                 test = -1;
                 PropertyInfo propertyInfo = type.GetProperty("Int", BindingFlags.Public | BindingFlags.SetProperty | BindingFlags.Instance);
                 test = (int)propertyInfo.GetValue(prop, null);
-                Assert.AreEqual(int.MinValue, test);
+                Assert.That(test, Is.EqualTo(int.MinValue));
             }
             timer.Stop();
             double reflectionDuration = 1000000 * (timer.Duration / (double)TEST_ITERATIONS);
@@ -122,7 +122,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.CommonTests.Utilities
                 test = (int)type.InvokeMember("Int",
                     BindingFlags.Public | BindingFlags.GetProperty | BindingFlags.Instance,
                     null, prop, null);
-                Assert.AreEqual(int.MinValue, test);
+                Assert.That(test, Is.EqualTo(int.MinValue));
             }
             timer.Stop();
             double reflectionInvokeMemberDuration = 1000000 * (timer.Duration / (double)TEST_ITERATIONS);

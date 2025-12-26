@@ -1,11 +1,12 @@
+using NUnit.Framework;
+using SqlBatis.DataMapper.Test.Domain;
+using SqlBatis.DataMapper.Utilities;
 using System;
 using System.Collections;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
-using SqlBatis.DataMapper.Utilities;
-using SqlBatis.DataMapper.Test.Domain;
-using NUnit.Framework;
+using System.Runtime.Versioning;
 
 namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
 {
@@ -82,7 +83,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
 			Account account = NewAccount6();
 			account.EmailAddress = null;
 
-			sqlMap.Insert("InsertAccountNullableEmail", account);
+		 sqlMap.Insert("InsertAccountNullableEmail", account);
 
 			account = sqlMap.QueryForObject("GetAccountNullableEmail", 6) as Account;
 
@@ -132,7 +133,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
 
 			Order orderTest = (Order) sqlMap.QueryForObject("GetOrderLiteByColumnName", 99);
 
-			Assert.AreEqual(order.City, orderTest.City);
+			Assert.That(orderTest.City, Is.EqualTo(order.City));
 		}
 
 		/// <summary>
@@ -162,7 +163,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
 
 			Hashtable orderTest = (Hashtable) sqlMap.QueryForObject("GetOrderByHashTable", 99);
 
-			Assert.AreEqual(orderTest["Date"], DateTime.MinValue);
+			Assert.That(orderTest["Date"], Is.EqualTo(DateTime.MinValue));
 		}
 
 		/// <summary>
@@ -181,8 +182,8 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
 			Category categoryRead = null;
             categoryRead = (Category)sqlMap.QueryForObject("GetCategoryWithNullValueReplacementGuid", key);
 
-			Assert.AreEqual(category.Name, categoryRead.Name);
-			Assert.AreEqual(category.Guid.ToString(), categoryRead.Guid.ToString());
+			Assert.That(categoryRead.Name, Is.EqualTo(category.Name));
+			Assert.That(categoryRead.Guid.ToString(), Is.EqualTo(category.Guid.ToString()));
 		}
 
 		/// <summary>
@@ -220,7 +221,8 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
 		/// Test ByteArrayTypeHandler via Picture Property
 		/// </summary>
 		[Test]
-		public void TestByteArrayTypeHandler()
+        [SupportedOSPlatform("windows")]
+        public void TestByteArrayTypeHandler()
 		{
 			Account account = NewAccount6();
 
@@ -260,15 +262,16 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
 
 			item = sqlMap.QueryForObject("GetSpecificLineItemWithPicture", param) as LineItem;
 
-			Assert.IsNotNull( item );
-			Assert.IsNotNull( item.Picture );
-			Assert.AreEqual( GetSize(item.Picture), this.GetSize( this.GetPicture() ));
+			Assert.That(item, Is.Not.Null);
+			Assert.That(item.Picture, Is.Not.Null);
+			Assert.That(GetSize(item.Picture), Is.EqualTo(this.GetSize( this.GetPicture() )));
 		}
 
 
         [Test]
         [Category("JIRA")]
         [Category("JIRA-253")]
+        [SupportedOSPlatform("windows")]
         public void Null_byte_array_should_return_null()
         {
             Account account = NewAccount6();
@@ -308,8 +311,8 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
             param.Add("Order_ID", 99);
 
             item = sqlMap.QueryForObject("GetSpecificLineItemWithPicture", param) as LineItem;
-            Assert.IsNotNull(item);
-            Assert.IsNull(item.Picture);
+            Assert.That(item, Is.Not.Null);
+            Assert.That(item.Picture, Is.Null);
 
         }
 
@@ -341,25 +344,27 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
 
 			Order orderTest = (Order) sqlMap.QueryForObject("GetOrderLiteByColumnName", 99);
 
-			Assert.AreEqual(order.City, orderTest.City);
+			Assert.That(orderTest.City, Is.EqualTo(order.City));
 		}
 
-		#endregion
+        #endregion
 
-		#region Picture methods
+        #region Picture methods
 
-		private Image GetPicture() 
+        [SupportedOSPlatform("windows")]
+        private Image GetPicture() 
 		{
 			Image _picture = null;
 
 			// first try without path
 			_picture = Image.FromFile( Path.Combine(Resources.ApplicationBase, "cool.jpg") );
 
-			Assert.IsNotNull( _picture );
+			Assert.That(_picture, Is.Not.Null);
 			return _picture;
 		}
 
-		private int GetSize( Image picture ) 
+        [SupportedOSPlatform("windows")]
+        private int GetSize( Image picture ) 
 		{
 			MemoryStream memoryStream = new MemoryStream();
 			picture.Save (memoryStream, ImageFormat.Jpeg);

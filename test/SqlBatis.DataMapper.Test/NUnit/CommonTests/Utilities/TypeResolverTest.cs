@@ -17,7 +17,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.CommonTests.Utilities
         public void Generic_list_of_nullable_guid_should_be_resolved()
         {
             Type genericType = TypeUtils.ResolveType(typeof(List<Guid?>).FullName);
-            Assert.IsNotNull(genericType);
+            Assert.That(genericType, Is.Not.Null);
         }
 
         /// <summary>
@@ -28,7 +28,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.CommonTests.Utilities
         {
             Type genericType = TypeUtils.ResolveType("System.Collections.Generic.Dictionary`2[[System.String],[System.Int32]]");
 
-            Assert.IsNotNull(genericType);
+            Assert.That(genericType, Is.Not.Null);
         }
 
 
@@ -43,7 +43,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.CommonTests.Utilities
 
             Type nullableBooleanType = TypeUtils.ResolveType(nullableType.FullName);
 
-            Assert.IsNotNull(nullableBooleanType);
+            Assert.That(nullableBooleanType, Is.Not.Null);
         }
 
         /// <summary>
@@ -56,7 +56,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.CommonTests.Utilities
 
             Type nullableBooleanType = TypeUtils.ResolveType(nullableType.AssemblyQualifiedName);
 
-            Assert.IsNotNull(nullableBooleanType);
+            Assert.That(nullableBooleanType, Is.Not.Null);
         }
 
         /// <summary>
@@ -69,7 +69,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.CommonTests.Utilities
             string assemblyQualifiedName = list.GetType().AssemblyQualifiedName;
             Type listType = TypeUtils.ResolveType(assemblyQualifiedName);
 
-            Assert.IsNotNull(listType);
+            Assert.That(listType, Is.Not.Null);
         }
 
         /// <summary>
@@ -86,7 +86,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.CommonTests.Utilities
             string assemblyQualifiedName = dico.GetType().AssemblyQualifiedName;
             Type listType = TypeUtils.ResolveType(assemblyQualifiedName);
 
-            Assert.IsNotNull(listType);
+            Assert.That(listType, Is.Not.Null);
         }
 
         /// <summary>
@@ -103,7 +103,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.CommonTests.Utilities
             string assemblyQualifiedName = dico.GetType().AssemblyQualifiedName;
             Type type = TypeUtils.ResolveType(assemblyQualifiedName);
 
-            Assert.IsNotNull(type);
+            Assert.That(type, Is.Not.Null);
 
             MyGeneric<Dictionary<List<int>, List<string>>, string, List<int>, decimal> gen = new MyGeneric<Dictionary<List<int>, List<string>>, string, List<int>, decimal>();
 
@@ -112,7 +112,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.CommonTests.Utilities
             assemblyQualifiedName = gen.GetType().AssemblyQualifiedName;
             type = TypeUtils.ResolveType(assemblyQualifiedName);
 
-            Assert.IsNotNull(type);
+            Assert.That(type, Is.Not.Null);
 
             Assert.That(gen, Is.InstanceOf(type));
         }

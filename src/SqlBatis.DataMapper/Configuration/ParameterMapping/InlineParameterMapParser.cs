@@ -73,8 +73,7 @@ namespace SqlBatis.DataMapper.Configuration.ParameterMapping
 		/// <param name="scope"></param>
 		public SqlText ParseInlineParameterMap(IScope scope, IStatement statement, string sqlStatement)
 		{
-			string newSql = sqlStatement;
-			ArrayList mappingList = new ArrayList();
+            ArrayList mappingList = new ArrayList();
 			Type parameterClassType = null;
 
 			if (statement != null)
@@ -85,14 +84,13 @@ namespace SqlBatis.DataMapper.Configuration.ParameterMapping
 			StringTokenizer parser = new StringTokenizer(sqlStatement, PARAMETER_TOKEN, true);
 			StringBuilder newSqlBuffer = new StringBuilder();
 
-			string token = null;
-			string lastToken = null;
+            string lastToken = null;
 
 			IEnumerator enumerator = parser.GetEnumerator();
 
 			while (enumerator.MoveNext()) 
 			{
-				token = (string)enumerator.Current;
+				var token = (string)enumerator.Current;
 
 				if (PARAMETER_TOKEN.Equals(lastToken)) 
 				{
@@ -136,15 +134,17 @@ namespace SqlBatis.DataMapper.Configuration.ParameterMapping
 				lastToken = token;
 			}
 
-			newSql = newSqlBuffer.ToString();
+			var newSql = newSqlBuffer.ToString();
 
-			ParameterProperty[] mappingArray = (ParameterProperty[]) mappingList.ToArray(typeof(ParameterProperty));
+			var mappingArray = (ParameterProperty[]) mappingList.ToArray(typeof(ParameterProperty));
 
-			SqlText sqlText = new SqlText();
-			sqlText.Text = newSql;
-			sqlText.Parameters = mappingArray;
+			var sqlText = new SqlText
+            {
+                Text = newSql,
+                Parameters = mappingArray
+            };
 
-			return sqlText;
+            return sqlText;
 		}
 
 

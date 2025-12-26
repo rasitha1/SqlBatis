@@ -66,16 +66,12 @@ namespace SqlBatis.DataMapper.Scope
 		private XmlDocument _sqlMapDocument;
 		private XmlNode _nodeContext;
 
-		private bool _useConfigFileWatcher;
-		private bool _useStatementNamespaces;
-		private bool _useReflectionOptimizer = true;
-		private bool _validateSqlMap;
-		private bool _isCallFromDao;
+        private bool _useStatementNamespaces;
+        private bool _validateSqlMap;
 
         private ISqlMapper _sqlMapper;
 		private string _sqlMapNamespace;
-		private DataSource _dataSource;
-		private bool _isXmlValid = true;
+        private bool _isXmlValid = true;
 		private XmlNamespaceManager _nsmgr;
 
         #endregion

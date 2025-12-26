@@ -53,7 +53,8 @@ namespace SqlBatis.DataMapper.MappedStatements
         /// <param name="dataExchangeFactory">The data exchange factory.</param>
         /// <param name="reader">The reader.</param>
         /// <param name="resultObject">The result object.</param>
-		public static ResultPropertyCollection Build(DataExchangeFactory dataExchangeFactory,
+        /// <param name="logger"></param>
+        public static ResultPropertyCollection Build(DataExchangeFactory dataExchangeFactory,
 		                        IDataReader reader,
 			                    ref object resultObject, ILogger logger) 
 		{

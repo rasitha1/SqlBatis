@@ -77,7 +77,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
 
             ISqlMapper mapper = builder.Configure(_fileName);
 
-			Assert.IsNotNull(mapper);
+			Assert.That(mapper, Is.Not.Null);
 		}
 
 		/// <summary>
@@ -95,7 +95,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
 
             ISqlMapper mapper = builder.Configure(_fileName);
 
-			Assert.IsNotNull(mapper);
+			Assert.That(mapper, Is.Not.Null);
 		}
 
 		/// <summary>
@@ -112,7 +112,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
 
             ISqlMapper mapper = builder.Configure(_fileName);
 
-			Assert.IsNotNull(mapper);
+			Assert.That(mapper, Is.Not.Null);
 		}
 
 		/// <summary>
@@ -129,7 +129,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
 
             ISqlMapper mapper = builder.Configure(_fileName);
 
-			Assert.IsNotNull(mapper);
+			Assert.That(mapper, Is.Not.Null);
 		}
 		#endregion 
 
@@ -151,7 +151,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
 
             ISqlMapper mapper = builder.Configure(_fileName);
 
-			Assert.IsNotNull(mapper);
+			Assert.That(mapper, Is.Not.Null);
 		}
 
 		/// <summary>
@@ -170,7 +170,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
 
             ISqlMapper mapper = builder.Configure(_fileName);
 
-			Assert.IsNotNull(mapper);
+			Assert.That(mapper, Is.Not.Null);
 		}
 
 		/// <summary>
@@ -189,7 +189,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
 
             ISqlMapper mapper = builder.Configure(_fileName);
 
-			Assert.IsNotNull(mapper);
+			Assert.That(mapper, Is.Not.Null);
 		}
 
 		/// <summary>
@@ -208,7 +208,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
 
             ISqlMapper mapper = builder.Configure(_fileName);
 
-			Assert.IsNotNull(mapper);
+			Assert.That(mapper, Is.Not.Null);
 		}
 
 		/// <summary>
@@ -228,7 +228,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
 
             ISqlMapper mapper = builder.Configure(fileInfo);
 
-			Assert.IsNotNull(mapper);
+			Assert.That(mapper, Is.Not.Null);
 		}
 
 		/// <summary>
@@ -248,7 +248,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
 
             ISqlMapper mapper = builder.Configure(uri);
 
-			Assert.IsNotNull(mapper);
+			Assert.That(mapper, Is.Not.Null);
 		}
 
 		/// <summary>
@@ -266,7 +266,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
 
             ISqlMapper mapper = builder.Configure(_fileName);
 
-			Assert.IsNotNull(mapper);
+			Assert.That(mapper, Is.Not.Null);
 		}
 
 		/// <summary>
@@ -285,7 +285,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
 
             ISqlMapper mapper = builder.Configure(_fileName);
 
-			Assert.IsNotNull(mapper);
+			Assert.That(mapper, Is.Not.Null);
 		}
 
 		/// <summary>
@@ -303,7 +303,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
 
             ISqlMapper mapper = builder.Configure(_fileName);
 
-			Assert.IsNotNull(mapper);
+			Assert.That(mapper, Is.Not.Null);
 		}
 
 		/// <summary>
@@ -322,7 +322,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
 
             ISqlMapper mapper = builder.Configure(_fileName);
 
-			Assert.IsNotNull(mapper);
+			Assert.That(mapper, Is.Not.Null);
 		}
 
 		/// <summary>
@@ -342,7 +342,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
 
             ISqlMapper mapper = builder.Configure(fileInfo);
 
-			Assert.IsNotNull(mapper);
+			Assert.That(mapper, Is.Not.Null);
 		}
 		#endregion 
 
@@ -367,7 +367,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
 
             ISqlMapper mapper = builder.Configure(stream);
 
-			Assert.IsNotNull(mapper);
+			Assert.That(mapper, Is.Not.Null);
 		}
 		#endregion 
 

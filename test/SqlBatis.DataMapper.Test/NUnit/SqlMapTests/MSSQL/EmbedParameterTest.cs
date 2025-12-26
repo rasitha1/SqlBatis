@@ -1,6 +1,5 @@
 using System;
 using System.Data;
-using System.Data.SqlClient;
 
 using System.Collections;
 using System.Collections.Specialized;
@@ -8,6 +7,7 @@ using NUnit.Framework;
 
 using SqlBatis.DataMapper.Test.NUnit;
 using SqlBatis.DataMapper.Test.Domain;
+using Microsoft.Data.SqlClient;
 
 namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests.MSSQL
 {
@@ -65,7 +65,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests.MSSQL
 		{
 			IList list = sqlMap.QueryForList("GetManyRecordsBySequence", 91);
 
-			Assert.AreEqual(91, ((Sample) list[0]).SequenceId);
+			Assert.That(((Sample) list[0]).SequenceId, Is.EqualTo(91));
 		}
 
 		/// <summary>
@@ -76,7 +76,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests.MSSQL
 		{
 			IList list = sqlMap.QueryForList("GetManyRecordsBySequenceWithIndex", 91);
 
-			Assert.AreEqual(91, ((Sample) list[0]).SequenceId);
+			Assert.That(((Sample) list[0]).SequenceId, Is.EqualTo(91));
 		}
 
 		/// <summary>
@@ -87,7 +87,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests.MSSQL
 		{
 			IList list = sqlMap.QueryForList("GetManyRecordsByDistributed", 91);
 
-			Assert.AreEqual(91, ((Sample) list[0]).DistributedId);
+			Assert.That(((Sample) list[0]).DistributedId, Is.EqualTo(91));
 		}
 
 		/// <summary>
@@ -98,7 +98,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests.MSSQL
 		{
 			IList list = sqlMap.QueryForList("GetManyRecordsByDistributedWithIndex", 91);
 
-			Assert.AreEqual(91, ((Sample) list[0]).DistributedId);
+			Assert.That(((Sample) list[0]).DistributedId, Is.EqualTo(91));
 		}
 
 		/// <summary>
@@ -109,7 +109,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests.MSSQL
 		{
 			IList list = sqlMap.QueryForList("GetManyRecordsByFifth", 30000);
 
-			Assert.AreEqual(30000, ((Sample) list[0]).FifthId);
+			Assert.That(((Sample) list[0]).FifthId, Is.EqualTo(30000));
 		}
 
 		/// <summary>
@@ -124,9 +124,9 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests.MSSQL
 
 			IList list = sqlMap.QueryForList("GetManyRecordsByFifthOrSequence", queryParams);
 
-			Assert.IsNotNull(list);
-			//Assert.AreEqual(30000, ((Sample) list[0]).FifthId);
-			//Assert.AreEqual(91, ((Sample) list[0]).SequenceId);
+			Assert.That(list, Is.Not.Null);
+			//Assert.That(((Sample) list[0]).FifthId, Is.EqualTo(30000));
+			//Assert.That(((Sample) list[0]).SequenceId, Is.EqualTo(91));
 		}
 
         /// <summary>
@@ -144,7 +144,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests.MSSQL
 
 			IList list = sqlMap.QueryForList("GetManyRecordsByDates", queryParams);
 
-			Assert.IsNotNull(list);
+			Assert.That(list, Is.Not.Null);
 		}
 
 		/// <summary>
@@ -155,7 +155,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests.MSSQL
 		{
 			IList list = sqlMap.QueryForList("GetManyRecordsByLikeChar", "AAA");
 
-			Assert.IsNotNull(list);
+			Assert.That(list, Is.Not.Null);
 		}
 
 		/// <summary>
@@ -166,7 +166,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests.MSSQL
 		{
 			IList list = sqlMap.QueryForList("GetManyRecordsByChar", "'; shutdown--");
 
-			Assert.IsNotNull(list);
+			Assert.That(list, Is.Not.Null);
 		}
 
         #endregion

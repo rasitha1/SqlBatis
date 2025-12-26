@@ -36,11 +36,13 @@ namespace SqlBatis.DataMapper.MappedStatements
 	/// </summary>
     public sealed class SelectMappedStatement : MappedStatement
 	{
-		/// <summary>
-		/// Constructor
-		/// </summary>
-		/// <param name="sqlMap">An SqlMap</param>
-		/// <param name="statement">An SQL statement</param>
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="sqlMap">An SqlMap</param>
+        /// <param name="statement">An SQL statement</param>
+        /// <param name="commandFactory"></param>
+        /// <param name="resultFactory"></param>
         internal SelectMappedStatement(ISqlMapper sqlMap, IStatement statement, PreparedCommandFactory commandFactory, ResultStrategyFactory resultFactory)
             : base(sqlMap, statement, commandFactory, resultFactory)
 		{ }

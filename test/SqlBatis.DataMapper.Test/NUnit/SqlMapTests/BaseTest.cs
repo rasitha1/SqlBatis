@@ -1,4 +1,3 @@
-
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -225,10 +224,10 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
         /// <param name="account">An account object</param>
         protected void AssertGilles(Account account)
         {
-            Assert.AreEqual(5, account.Id, "account.Id");
-            Assert.AreEqual("Gilles", account.FirstName, "account.FirstName");
-            Assert.AreEqual("Bayon", account.LastName, "account.LastName");
-            Assert.AreEqual("gilles.bayon@nospam.org", account.EmailAddress, "account.EmailAddress");
+            Assert.That(account.Id, Is.EqualTo(5), "account.Id");
+            Assert.That(account.FirstName, Is.EqualTo("Gilles"), "account.FirstName");
+            Assert.That(account.LastName, Is.EqualTo("Bayon"), "account.LastName");
+            Assert.That(account.EmailAddress, Is.EqualTo("gilles.bayon@nospam.org"), "account.EmailAddress");
         }
 
         /// <summary>
@@ -237,10 +236,10 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
         /// <param name="account">An account object</param>
         protected void AssertAccount1(Account account)
         {
-            Assert.AreEqual(1, account.Id, "account.Id");
-            Assert.AreEqual("Joe", account.FirstName, "account.FirstName");
-            Assert.AreEqual("Dalton", account.LastName, "account.LastName");
-            Assert.AreEqual("Joe.Dalton@somewhere.com", account.EmailAddress, "account.EmailAddress");
+            Assert.That(account.Id, Is.EqualTo(1), "account.Id");
+            Assert.That(account.FirstName, Is.EqualTo("Joe"), "account.FirstName");
+            Assert.That(account.LastName, Is.EqualTo("Dalton"), "account.LastName");
+            Assert.That(account.EmailAddress, Is.EqualTo("Joe.Dalton@somewhere.com"), "account.EmailAddress");
         }
 
         /// <summary>
@@ -249,10 +248,10 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
         /// <param name="account">An account as hashtable</param>
         protected void AssertAccount1AsHashtable(Hashtable account)
         {
-            Assert.AreEqual(1, (int)account["Id"], "account.Id");
-            Assert.AreEqual("Joe", (string)account["FirstName"], "account.FirstName");
-            Assert.AreEqual("Dalton", (string)account["LastName"], "account.LastName");
-            Assert.AreEqual("Joe.Dalton@somewhere.com", (string)account["EmailAddress"], "account.EmailAddress");
+            Assert.That((int)account["Id"], Is.EqualTo(1), "account.Id");
+            Assert.That((string)account["FirstName"], Is.EqualTo("Joe"), "account.FirstName");
+            Assert.That((string)account["LastName"], Is.EqualTo("Dalton"), "account.LastName");
+            Assert.That((string)account["EmailAddress"], Is.EqualTo("Joe.Dalton@somewhere.com"), "account.EmailAddress");
         }
 
         /// <summary>
@@ -261,10 +260,10 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
         /// <param name="account">An account as hashtable</param>
         protected void AssertAccount1AsHashtableForResultClass(Hashtable account)
         {
-            Assert.AreEqual(1, (int)account[BaseTest.ConvertKey("Id")], "account.Id");
-            Assert.AreEqual("Joe", (string)account[BaseTest.ConvertKey("FirstName")], "account.FirstName");
-            Assert.AreEqual("Dalton", (string)account[BaseTest.ConvertKey("LastName")], "account.LastName");
-            Assert.AreEqual("Joe.Dalton@somewhere.com", (string)account[BaseTest.ConvertKey("EmailAddress")], "account.EmailAddress");
+            Assert.That((int)account[BaseTest.ConvertKey("Id")], Is.EqualTo(1), "account.Id");
+            Assert.That((string)account[BaseTest.ConvertKey("FirstName")], Is.EqualTo("Joe"), "account.FirstName");
+            Assert.That((string)account[BaseTest.ConvertKey("LastName")], Is.EqualTo("Dalton"), "account.LastName");
+            Assert.That((string)account[BaseTest.ConvertKey("EmailAddress")], Is.EqualTo("Joe.Dalton@somewhere.com"), "account.EmailAddress");
         }
 
         /// <summary>
@@ -273,10 +272,10 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
         /// <param name="account">An account object</param>
         protected void AssertAccount6(Account account)
         {
-            Assert.AreEqual(6, account.Id, "account.Id");
-            Assert.AreEqual("Calamity", account.FirstName, "account.FirstName");
-            Assert.AreEqual("Jane", account.LastName, "account.LastName");
-            Assert.IsNull(account.EmailAddress, "account.EmailAddress");
+            Assert.That(account.Id, Is.EqualTo(6), "account.Id");
+            Assert.That(account.FirstName, Is.EqualTo("Calamity"), "account.FirstName");
+            Assert.That(account.LastName, Is.EqualTo("Jane"), "account.LastName");
+            Assert.That(account.EmailAddress, Is.Null, "account.EmailAddress");
         }
 
         /// <summary>
@@ -287,15 +286,15 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
         {
             DateTime date = new DateTime(2003, 2, 15, 8, 15, 00);
 
-            Assert.AreEqual(1, order.Id, "order.Id");
-            Assert.AreEqual(date.ToString(), order.Date.ToString(), "order.Date");
-            Assert.AreEqual("VISA", order.CardType, "order.CardType");
-            Assert.AreEqual("999999999999", order.CardNumber, "order.CardNumber");
-            Assert.AreEqual("05/03", order.CardExpiry, "order.CardExpiry");
-            Assert.AreEqual("11 This Street", order.Street, "order.Street");
-            Assert.AreEqual("Victoria", order.City, "order.City");
-            Assert.AreEqual("BC", order.Province, "order.Id");
-            Assert.AreEqual("C4B 4F4", order.PostalCode, "order.PostalCode");
+            Assert.That(order.Id, Is.EqualTo(1), "order.Id");
+            Assert.That(order.Date.ToString(), Is.EqualTo(date.ToString()), "order.Date");
+            Assert.That(order.CardType, Is.EqualTo("VISA"), "order.CardType");
+            Assert.That(order.CardNumber, Is.EqualTo("999999999999"), "order.CardNumber");
+            Assert.That(order.CardExpiry, Is.EqualTo("05/03"), "order.CardExpiry");
+            Assert.That(order.Street, Is.EqualTo("11 This Street"), "order.Street");
+            Assert.That(order.City, Is.EqualTo("Victoria"), "order.City");
+            Assert.That(order.Province, Is.EqualTo("BC"), "order.Id");
+            Assert.That(order.PostalCode, Is.EqualTo("C4B 4F4"), "order.PostalCode");
         }
 
         /// <summary>
@@ -306,15 +305,15 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
         {
             DateTime date = new DateTime(2003, 2, 15, 8, 15, 00);
 
-            Assert.AreEqual(1, (int)order["Id"], "order.Id");
-            Assert.AreEqual(date.ToString(), ((DateTime)order["Date"]).ToString(), "order.Date");
-            Assert.AreEqual("VISA", (string)order["CardType"], "order.CardType");
-            Assert.AreEqual("999999999999", (string)order["CardNumber"], "order.CardNumber");
-            Assert.AreEqual("05/03", (string)order["CardExpiry"], "order.CardExpiry");
-            Assert.AreEqual("11 This Street", (string)order["Street"], "order.Street");
-            Assert.AreEqual("Victoria", (string)order["City"], "order.City");
-            Assert.AreEqual("BC", (string)order["Province"], "order.Id");
-            Assert.AreEqual("C4B 4F4", (string)order["PostalCode"], "order.PostalCode");
+            Assert.That((int)order["Id"], Is.EqualTo(1), "order.Id");
+            Assert.That(((DateTime)order["Date"]).ToString(), Is.EqualTo(date.ToString()), "order.Date");
+            Assert.That((string)order["CardType"], Is.EqualTo("VISA"), "order.CardType");
+            Assert.That((string)order["CardNumber"], Is.EqualTo("999999999999"), "order.CardNumber");
+            Assert.That((string)order["CardExpiry"], Is.EqualTo("05/03"), "order.CardExpiry");
+            Assert.That((string)order["Street"], Is.EqualTo("11 This Street"), "order.Street");
+            Assert.That((string)order["City"], Is.EqualTo("Victoria"), "order.City");
+            Assert.That((string)order["Province"], Is.EqualTo("BC"), "order.Id");
+            Assert.That((string)order["PostalCode"], Is.EqualTo("C4B 4F4"), "order.PostalCode");
         }
     }
 }

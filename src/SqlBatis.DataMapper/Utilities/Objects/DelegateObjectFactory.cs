@@ -42,6 +42,10 @@ namespace SqlBatis.DataMapper.Utilities.Objects
         private IDictionary _cachedfactories = new HybridDictionary();
 		private object _padlock = new object();
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DelegateObjectFactory"/> class.
+        /// </summary>
+        /// <param name="logger"></param>
         public DelegateObjectFactory(ILogger logger)
         {
             _logger = logger;

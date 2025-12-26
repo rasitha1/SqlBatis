@@ -128,7 +128,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
 			// This will use autocommit...
 			account = (Account) sqlMap.QueryForObject("GetAccountNullableEmail", 6);
 			AssertAccount6(account);
-			Assert.IsTrue(exceptionThrownAsExpected);
+			Assert.That(exceptionThrownAsExpected, Is.True);
 		}
 
 		/// <summary>
@@ -153,7 +153,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
 			}
 
 			// This will use autocommit...
-			Assert.IsTrue(exceptionThrownAsExpected);
+			Assert.That(exceptionThrownAsExpected, Is.True);
 			account = (Account) sqlMap.QueryForObject("GetAccountNullableEmail", 6);
 			AssertAccount6(account);
 		}
@@ -178,7 +178,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
 
 			// This will use autocommit...
 			account = (Account) sqlMap.QueryForObject("GetAccountNullableEmail", 6);
-			Assert.IsNull(account);
+			Assert.That(account, Is.Null);
 		}
 
 		#endregion

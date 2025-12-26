@@ -49,7 +49,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests.MySql
 			category.Guid = Guid.NewGuid();
 
 			int key = (int)sqlMap.Insert("InsertCategory", category);
-			Assert.AreEqual(1, key);
+			Assert.That(key, Is.EqualTo(1));
 		}
 
 		/// <summary>
@@ -63,7 +63,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests.MySql
 			category.Guid = Guid.NewGuid();
 
 			int key = (int)sqlMap.Insert("InsertCategoryViaInsertStatement", category);
-			Assert.AreEqual(1, key);
+			Assert.That(key, Is.EqualTo(1));
 		}
 
 		/// <summary>
@@ -79,9 +79,9 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests.MySql
 			int key = (int)sqlMap.Insert("InsertCategoryViaInsertStatement", category);
 
 			Category categoryTest = (Category)sqlMap.QueryForObject("GetCategory", key);
-			Assert.AreEqual(key, categoryTest.Id);
-			Assert.AreEqual(category.Name, categoryTest.Name);
-			Assert.AreEqual(category.Guid, categoryTest.Guid);
+			Assert.That(categoryTest.Id, Is.EqualTo(key));
+			Assert.That(categoryTest.Name, Is.EqualTo(category.Name));
+			Assert.That(categoryTest.Guid, Is.EqualTo(category.Guid));
 		}
 
 		/// <summary>
@@ -95,7 +95,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests.MySql
 			category.Guid = Guid.NewGuid();
 
 			int key = (int)sqlMap.Insert("InsertCategoryViaParameterMap", category);
-			Assert.AreEqual(1, key);
+			Assert.That(key, Is.EqualTo(1));
 		}
 
 		/// <summary>
@@ -119,9 +119,9 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests.MySql
 			Category categoryRead = null;
 			categoryRead = (Category) sqlMap.QueryForObject("GetCategory", key);
 
-			Assert.AreEqual(category.Id, categoryRead.Id);
-			Assert.AreEqual(category.Name, categoryRead.Name);
-			Assert.AreEqual(category.Guid.ToString(), categoryRead.Guid.ToString());
+			Assert.That(categoryRead.Id, Is.EqualTo(category.Id));
+			Assert.That(categoryRead.Name, Is.EqualTo(category.Name));
+			Assert.That(categoryRead.Guid.ToString(), Is.EqualTo(category.Guid.ToString()));
 		}
 		#endregion
 

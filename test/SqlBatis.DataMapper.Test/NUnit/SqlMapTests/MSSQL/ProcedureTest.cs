@@ -65,11 +65,11 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests.MSSQL
             Category category3 = sqlMap.QueryForObject<Category> ( "GetCategory", categoryID2 ) ;
             Category category4 = sqlMap.QueryForObject<Category> ( "GetCategory", categoryID );
             
-            Assert.AreEqual ( categoryID2, category3.Id );
-            Assert.AreEqual ( category2.Name, category3.Name );
+            Assert.That(category3.Id, Is.EqualTo(categoryID2));
+            Assert.That(category3.Name, Is.EqualTo(category2.Name));
 
-            Assert.AreEqual ( categoryID, category4.Id );
-            Assert.AreEqual ( category.Name, category4.Name );
+            Assert.That(category4.Id, Is.EqualTo(categoryID));
+            Assert.That(category4.Name, Is.EqualTo(category.Name));
         }
 
         /// <summary>
@@ -84,7 +84,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests.MSSQL
             string accountIds = "<Accounts><id>3</id><id>4</id></Accounts>";
 
             IList accounts = sqlMap.QueryForList("SelectAccountViaXML", accountIds);
-            Assert.IsTrue(accounts.Count == 2);
+            Assert.That(accounts.Count, Is.EqualTo(2));
         }
 
         /// <summary>
@@ -94,7 +94,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests.MSSQL
         public void GetAllAccountViaProcedure()
         {
             IList accounts = sqlMap.QueryForList("SelectAllAccountViaSP", null);
-            Assert.IsTrue( accounts.Count==5);
+            Assert.That(accounts.Count, Is.EqualTo(5));
         }
 	    
 		/// <summary>
@@ -104,7 +104,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests.MSSQL
 		public void GetAccountViaProcedure0()
 		{
 			Account account = sqlMap.QueryForObject("GetAccountViaSP0", 1) as Account;
-			Assert.AreEqual(1, account.Id );
+			Assert.That(account.Id, Is.EqualTo(1));
 		}
 		
 		/// <summary>
@@ -114,7 +114,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests.MSSQL
 		public void GetAccountViaProcedure1()
 		{
 			Account account = sqlMap.QueryForObject("GetAccountViaSP1", 1) as Account;
-			Assert.AreEqual(1, account.Id );
+			Assert.That(account.Id, Is.EqualTo(1));
 		}
 		
 		/// <summary>
@@ -126,7 +126,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests.MSSQL
 			Hashtable hash = new Hashtable();
 			hash.Add("Account_ID",1);
 			Account account = sqlMap.QueryForObject("GetAccountViaSP2", hash) as Account;
-			Assert.AreEqual(1, account.Id );
+			Assert.That(account.Id, Is.EqualTo(1));
 		}
 		
 		/// <summary>
@@ -139,13 +139,13 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests.MSSQL
 			category.Name = "Mapping object relational";
 
 			sqlMap.Insert("InsertCategoryViaStoreProcedure", category);
-			Assert.AreEqual(1, category.Id );
+			Assert.That(category.Id, Is.EqualTo(1));
 
 			category = new Category();
 			category.Name = "Nausicaa";
 
 			sqlMap.QueryForObject("InsertCategoryViaStoreProcedure", category);
-			Assert.AreEqual(2, category.Id );
+			Assert.That(category.Id, Is.EqualTo(2));
 		}
 
 		/// <summary>
@@ -163,8 +163,8 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests.MSSQL
 
 			sqlMap.QueryForObject("SwapEmailAddresses", map);
 
-			Assert.AreEqual(first, map["email2"]);
-			Assert.AreEqual(second, map["email1"]);
+			Assert.That(map["email2"], Is.EqualTo(first));
+			Assert.That(map["email1"], Is.EqualTo(second));
 		}
 
 		/// <summary>
@@ -180,7 +180,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests.MSSQL
 			map.Add("Guid", Guid.NewGuid());
 
 			sqlMap.Insert("InsertCategoryViaStoreProcedureWithMap", map);
-			Assert.AreEqual(1, map["Id"] );
+			Assert.That(map["Id"], Is.EqualTo(1));
 
 		}
 
@@ -200,8 +200,8 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests.MSSQL
 
 			Account testAccount = sqlMap.QueryForObject("GetAccountViaColumnName", 99) as Account;
 
-			Assert.IsNotNull(testAccount);
-			Assert.AreEqual(99, testAccount.Id);
+			Assert.That(testAccount, Is.Not.Null);
+			Assert.That(testAccount.Id, Is.EqualTo(99));
 		}
 
         /// <summary>
@@ -226,7 +226,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests.MSSQL
             map.Add("Guid", Guid.NewGuid());
 
             sqlMap.Insert("InsertCategoryViaStoreProcedureWithMap", map);
-            Assert.AreEqual(1, map["Id"]);
+            Assert.That(map["Id"], Is.EqualTo(1));
 
             sqlMap.CommitTransaction();
 

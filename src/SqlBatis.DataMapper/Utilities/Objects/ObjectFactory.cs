@@ -24,7 +24,6 @@
 #endregion
 
 using System;
-using System.Reflection;
 using Microsoft.Extensions.Logging;
 
 namespace SqlBatis.DataMapper.Utilities.Objects
@@ -34,28 +33,17 @@ namespace SqlBatis.DataMapper.Utilities.Objects
 	/// </summary>
 	public class ObjectFactory : IObjectFactory
 	{
-        private readonly ILoggerFactory _loggerFactory;
         private readonly ILogger<ObjectFactory> _logger;
-        private IObjectFactory _objectFactory = null;
+        private readonly IObjectFactory _objectFactory;
 
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="allowCodeGeneration"></param>
         /// <param name="loggerFactory"></param>
-        public ObjectFactory(ILoggerFactory loggerFactory, ILogger<ObjectFactory> logger)
+        public ObjectFactory(ILoggerFactory loggerFactory)
         {
-            _loggerFactory = loggerFactory;
-            _logger = logger;
-            // Detect runtime environment and create the appropriate factory
-            if (Environment.Version.Major >= 2)
-            {
-                _objectFactory = new DelegateObjectFactory(_loggerFactory.CreateLogger<DelegateObjectFactory>());
-            }
-            else
-            {
-                _objectFactory = new EmitObjectFactory(_loggerFactory);
-            }
+            _logger = loggerFactory.CreateLogger<ObjectFactory>();
+            _objectFactory = new DelegateObjectFactory(loggerFactory.CreateLogger<DelegateObjectFactory>());
         }
 
         #region IObjectFactory members

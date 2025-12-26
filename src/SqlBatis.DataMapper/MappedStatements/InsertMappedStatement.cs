@@ -37,12 +37,14 @@ namespace SqlBatis.DataMapper.MappedStatements
 	/// </summary>
     public sealed class InsertMappedStatement : MappedStatement
 	{
-		/// <summary>
-		/// Constructor
-		/// </summary>
-		/// <param name="sqlMap">An SqlMap</param>
-		/// <param name="statement">An SQL statement</param>
-		internal InsertMappedStatement( ISqlMapper sqlMap, IStatement statement, PreparedCommandFactory commandFactory, ResultStrategyFactory resultFactory) 
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="sqlMap">An SqlMap</param>
+        /// <param name="statement">An SQL statement</param>
+        /// <param name="commandFactory"></param>
+        /// <param name="resultFactory"></param>
+        internal InsertMappedStatement( ISqlMapper sqlMap, IStatement statement, PreparedCommandFactory commandFactory, ResultStrategyFactory resultFactory) 
             : base(sqlMap, statement, commandFactory, resultFactory)
 		{
 		}

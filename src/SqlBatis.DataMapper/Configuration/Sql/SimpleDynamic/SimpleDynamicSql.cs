@@ -67,7 +67,8 @@ namespace SqlBatis.DataMapper.Configuration.Sql.SimpleDynamic
         /// <param name="scope">The scope.</param>
         /// <param name="sqlStatement">The SQL statement.</param>
         /// <param name="statement">The statement.</param>
-		internal SimpleDynamicSql(IScope scope,
+        /// <param name="loggerFactory"></param>
+        internal SimpleDynamicSql(IScope scope,
 			string sqlStatement, 
 			IStatement statement,
             ILoggerFactory loggerFactory)
