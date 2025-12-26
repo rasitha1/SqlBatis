@@ -38,7 +38,7 @@ steps:
 - script: dotnet tool install dotnet-reportgenerator-globaltool --tool-path tools
   displayName: 'Install Report Generator Tool'
 
-- script: tools\reportgenerator.exe "-reports:$(Build.SourcesDirectory)\test\**\TestResults\Coverage\coverage.cobertura.net5.0.xml"  "-targetdir:$(Build.SourcesDirectory)\Coverage" -reporttypes:"HtmlInline_AzurePipelines;Cobertura"
+- script: tools\reportgenerator.exe "-reports:$(Build.SourcesDirectory)\test\**\TestResults\Coverage\coverage.cobertura.net10.0.xml"  "-targetdir:$(Build.SourcesDirectory)\Coverage" -reporttypes:"HtmlInline_AzurePipelines;Cobertura"
   displayName: 'Coverage Report'
 
 - task: DotNetCoreCLI@2
