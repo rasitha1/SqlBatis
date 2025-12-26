@@ -79,7 +79,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.CommonTests.ConfigWatcher
 				// the event notification.
 				System.Threading.Thread.Sleep(600); 
 
-				Assert.IsTrue(_hasChanged);
+				Assert.That(_hasChanged, Is.True);
 			}
 
 			protected void Configure(object obj)

@@ -74,7 +74,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
             IList list = sqlMap.QueryForList("DynamicIterateWithPrepend1", parameters);
 
             AssertAccount1((Account)list[0]);
-            Assert.AreEqual(3, list.Count);
+            Assert.That(list.Count, Is.EqualTo(3));
         }
 
         /// <summary>
@@ -91,7 +91,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
             IList list = sqlMap.QueryForList("DynamicIterateWithPrepend2", parameters);
 
             AssertAccount1((Account)list[0]);
-            Assert.AreEqual(3, list.Count);
+            Assert.That(list.Count, Is.EqualTo(3));
         }
 
         /// <summary>
@@ -108,7 +108,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
             IList list = sqlMap.QueryForList("DynamicIterateWithPrepend3", parameters);
 
             AssertAccount1((Account)list[0]);
-            Assert.AreEqual(3, list.Count);
+            Assert.That(list.Count, Is.EqualTo(3));
         }
 
         /// <summary>
@@ -164,7 +164,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
             IList list = sqlMap.QueryForList("DynamicWithPrepend", null);
 
             AssertAccount1((Account)list[0]);
-            Assert.AreEqual(5, list.Count);
+            Assert.That(list.Count, Is.EqualTo(5));
         }
 
         /// <summary>
@@ -178,7 +178,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
             account.FirstName = "Joe";
 
             account = sqlMap.QueryForObject("DynamicWithPrepend", account) as Account;
-            Assert.IsNotNull(account);
+            Assert.That(account, Is.Not.Null);
             AssertAccount1(account);
 
             IList list = sqlMap.QueryForList("DynamicWithTwoDynamicElements", account);
@@ -199,7 +199,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
             IList list = sqlMap.QueryForList("ComplexDynamicStatement", account);
 
             AssertAccount1((Account)list[0]);
-            Assert.AreEqual(1, list.Count);
+            Assert.That(list.Count, Is.EqualTo(1));
         }
 
         /// <summary>
@@ -221,7 +221,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
             IList list = sqlMap.QueryForList("GetAccountsDynamic", map);
 
             AssertAccount1((Account)list[0]);
-            Assert.AreEqual(1, list.Count);
+            Assert.That(list.Count, Is.EqualTo(1));
         }
 
         /// <summary>
@@ -239,14 +239,14 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
 
             IList list = sqlMap.QueryForList("DynamicSelectByIntLong", search);
 
-            Assert.AreEqual(2, list.Count);
-            Assert.AreEqual(1, (list[0] as Other).Int);
-            Assert.AreEqual(8888888, (list[0] as Other).Long);
-            Assert.AreEqual(false, (list[0] as Other).Bool);
+            Assert.That(list.Count, Is.EqualTo(2));
+            Assert.That((list[0] as Other).Int, Is.EqualTo(1));
+            Assert.That((list[0] as Other).Long, Is.EqualTo(8888888));
+            Assert.That((list[0] as Other).Bool, Is.EqualTo(false));
 
-            Assert.AreEqual(2, (list[1] as Other).Int);
-            Assert.AreEqual(9999999999, (list[1] as Other).Long);
-            Assert.AreEqual(true, (list[1] as Other).Bool);
+            Assert.That((list[1] as Other).Int, Is.EqualTo(2));
+            Assert.That((list[1] as Other).Long, Is.EqualTo(9999999999));
+            Assert.That((list[1] as Other).Bool, Is.EqualTo(true));
 
             //----------------------
             search.Clear();
@@ -256,7 +256,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
             list = null;
             list = sqlMap.QueryForList("DynamicSelectByIntLong", search);
 
-            Assert.AreEqual(1, list.Count);
+            Assert.That(list.Count, Is.EqualTo(1));
             //----------------------
             search.Clear();
             search.Add("year", 0);
@@ -265,8 +265,8 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
             list = null;
             list = sqlMap.QueryForList("DynamicSelectByIntLong", search);
 
-            Assert.AreEqual(1, list.Count);
-            Assert.AreEqual(2, (list[0] as Other).Int);
+            Assert.That(list.Count, Is.EqualTo(1));
+            Assert.That((list[0] as Other).Int, Is.EqualTo(2));
             //----------------------
             search.Clear();
             search.Add("year", 2);
@@ -275,10 +275,10 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
             list = null;
             list = sqlMap.QueryForList("DynamicSelectByIntLong", search);
 
-            Assert.AreEqual(1, list.Count);
-            Assert.AreEqual(2, (list[0] as Other).Int);
-            Assert.AreEqual(9999999999, (list[0] as Other).Long);
-            Assert.AreEqual(true, (list[0] as Other).Bool);
+            Assert.That(list.Count, Is.EqualTo(1));
+            Assert.That((list[0] as Other).Int, Is.EqualTo(2));
+            Assert.That((list[0] as Other).Long, Is.EqualTo(9999999999));
+            Assert.That((list[0] as Other).Bool, Is.EqualTo(true));
         }
 
         /// <summary>
@@ -298,14 +298,14 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
             category.Guid = Guid.NewGuid();
 
             Category categoryTest = (Category)sqlMap.QueryForObject("DynamicGuid", category);
-            Assert.IsNull(categoryTest);
+            Assert.That(categoryTest, Is.Null);
 
             category = new Category();
             category.Name = "titi";
             category.Guid = Guid.Empty;
 
             categoryTest = (Category)sqlMap.QueryForObject("DynamicGuid", category);
-            Assert.IsNotNull(categoryTest);
+            Assert.That(categoryTest, Is.Not.Null);
         }
 
         /// <summary>
@@ -331,7 +331,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
 
             Thread.CurrentThread.CurrentCulture = currentCulture;
 
-            Assert.AreEqual(0, list.Count);
+            Assert.That(list.Count, Is.EqualTo(0));
         }
 
         /// <summary>
@@ -352,18 +352,18 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
 
             Other anOther = sqlMap.QueryForObject("DynamicSelectByBool", other) as Other;
 
-            Assert.IsNotNull(anOther);
-            Assert.AreEqual(2, anOther.Int);
-            Assert.AreEqual(9999999999, anOther.Long);
-            Assert.AreEqual(true, anOther.Bool);
+            Assert.That(anOther, Is.Not.Null);
+            Assert.That(anOther.Int, Is.EqualTo(2));
+            Assert.That(anOther.Long, Is.EqualTo(9999999999));
+            Assert.That(anOther.Bool, Is.EqualTo(true));
 
             other.Bool = false;
             anOther = sqlMap.QueryForObject("DynamicSelectByBool", other) as Other;
 
-            Assert.IsNotNull(anOther);
-            Assert.AreEqual(1, anOther.Int);
-            Assert.AreEqual(8888888, anOther.Long);
-            Assert.AreEqual(false, anOther.Bool);
+            Assert.That(anOther, Is.Not.Null);
+            Assert.That(anOther.Int, Is.EqualTo(1));
+            Assert.That(anOther.Long, Is.EqualTo(8888888));
+            Assert.That(anOther.Bool, Is.EqualTo(false));
 
         }
 
@@ -379,9 +379,9 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
 
             Order order = sqlMap.QueryForObject("SelectOrderByDate", param) as Order;
 
-            Assert.IsNotNull(order);
+            Assert.That(order, Is.Not.Null);
 
-            Assert.AreEqual(11, order.Id);
+            Assert.That(order.Id, Is.EqualTo(11));
 
             CultureInfo currentCulture = Thread.CurrentThread.CurrentCulture;
             Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
@@ -390,9 +390,9 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
 
             Thread.CurrentThread.CurrentCulture = currentCulture;
 
-            Assert.IsNotNull(order);
+            Assert.That(order, Is.Not.Null);
 
-            Assert.AreEqual(11, order.Id);
+            Assert.That(order.Id, Is.EqualTo(11));
         }
 
         /// <summary>
@@ -417,9 +417,9 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
 
             Account testAccount = sqlMap.QueryForObject("SelectAccountJIRA29", param) as Account;
 
-            Assert.IsNotNull(testAccount);
-            Assert.AreEqual(1234, testAccount.Id);
-            Assert.AreEqual("#The Pound Signs#", testAccount.FirstName);
+            Assert.That(testAccount, Is.Not.Null);
+            Assert.That(testAccount.Id, Is.EqualTo(1234));
+            Assert.That(testAccount.FirstName, Is.EqualTo("#The Pound Signs#"));
         }
 
         /// <summary>
@@ -444,9 +444,9 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
 
             Account testAccount = sqlMap.QueryForObject("SelectAccountJIRA29-2", param) as Account;
 
-            Assert.IsNotNull(testAccount);
-            Assert.AreEqual(1234, testAccount.Id);
-            Assert.AreEqual("#The Pound Signs#", testAccount.FirstName);
+            Assert.That(testAccount, Is.Not.Null);
+            Assert.That(testAccount.Id, Is.EqualTo(1234));
+            Assert.That(testAccount.FirstName, Is.EqualTo("#The Pound Signs#"));
         }
 
         [Test]
@@ -462,11 +462,11 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
             param["AccountsTableName"] = "Accounts";
             object selectKeyValue = sqlMap.Insert("SelectKeyWithDynamicSql", param);
 
-            Assert.IsNotNull(selectKeyValue);
-            Assert.AreEqual(99998, Convert.ToInt32(selectKeyValue));
+            Assert.That(selectKeyValue, Is.Not.Null);
+            Assert.That(Convert.ToInt32(selectKeyValue), Is.EqualTo(99998));
 
-            Assert.IsTrue(param.ContainsKey("AccountId"));
-            Assert.AreEqual(99998, (int)param["AccountId"]);
+            Assert.That(param.ContainsKey("AccountId"), Is.True);
+            Assert.That((int)param["AccountId"], Is.EqualTo(99998));
         }
         #endregion
 

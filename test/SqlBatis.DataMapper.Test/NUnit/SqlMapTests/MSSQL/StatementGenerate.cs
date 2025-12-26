@@ -48,14 +48,14 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests.MSSQL
 			category.Guid = Guid.NewGuid();
 
 			category.Id = (int)sqlMap.Insert("InsertCategoryGenerate", category);
-			Assert.AreEqual(1, category.Id);
+			Assert.That(category.Id, Is.EqualTo(1));
 
 			Category categoryRead = null;
 			categoryRead = (Category) sqlMap.QueryForObject("SelectByPKCategoryGenerate", category);
 
-			Assert.AreEqual(category.Id, categoryRead.Id);
-			Assert.AreEqual(category.Name, categoryRead.Name);
-			Assert.AreEqual(category.Guid.ToString(), categoryRead.Guid.ToString());
+			Assert.That(categoryRead.Id, Is.EqualTo(category.Id));
+			Assert.That(categoryRead.Name, Is.EqualTo(category.Name));
+			Assert.That(categoryRead.Guid.ToString(), Is.EqualTo(category.Guid.ToString()));
 		}
 
 		/// <summary>
@@ -69,17 +69,17 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests.MSSQL
 			category.Guid = Guid.NewGuid();
 
 			int key = (int)sqlMap.Insert("InsertCategoryGenerate", category);
-			Assert.AreEqual(1, key);
+			Assert.That(key, Is.EqualTo(1));
 
 			category.Name = "toto";
 			category.Guid = Guid.NewGuid();
 
 			key = (int)sqlMap.Insert("InsertCategoryGenerate", category);
-			Assert.AreEqual(2, key);
+			Assert.That(key, Is.EqualTo(2));
 
 			IList categorieList = sqlMap.QueryForList("SelectAllCategoryGenerate",null) as IList;
-			Assert.AreEqual(2, categorieList.Count);
-            Assert.AreEqual("toto", ((Category)categorieList[0]).Name); 
+			Assert.That(categorieList.Count, Is.EqualTo(2));
+            Assert.That(((Category)categorieList[0]).Name, Is.EqualTo("toto"));
 		}
 
 		/// <summary>
@@ -93,7 +93,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests.MSSQL
 			category.Guid = Guid.NewGuid();
 
 			int key = (int)sqlMap.Insert("InsertCategoryGenerate", category);
-			Assert.AreEqual(1, key);
+			Assert.That(key, Is.EqualTo(1));
 		}
 
 		/// <summary>
@@ -117,9 +117,9 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests.MSSQL
 			Category categoryRead = null;
 			categoryRead = (Category) sqlMap.QueryForObject("GetCategory", key);
 
-			Assert.AreEqual(category.Id, categoryRead.Id);
-			Assert.AreEqual(category.Name, categoryRead.Name);
-			Assert.AreEqual(category.Guid.ToString(), categoryRead.Guid.ToString());
+			Assert.That(categoryRead.Id, Is.EqualTo(category.Id));
+			Assert.That(categoryRead.Name, Is.EqualTo(category.Name));
+			Assert.That(categoryRead.Guid.ToString(), Is.EqualTo(category.Guid.ToString()));
 		}
 		
 		/// <summary>
@@ -134,14 +134,14 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests.MSSQL
 
 			int key = (int)sqlMap.Insert("InsertCategoryGenerate", category);
 			category.Id = key;
-			Assert.AreEqual(1, category.Id);
+			Assert.That(category.Id, Is.EqualTo(1));
 			
 			sqlMap.Delete("DeleteCategoryGenerate", category);
 
 			Category categoryRead = null;
 			categoryRead = sqlMap.QueryForObject("GetCategory", key) as Category;
 
-			Assert.IsNull(categoryRead);
+			Assert.That(categoryRead, Is.Null);
 		}
 		#endregion
 	}

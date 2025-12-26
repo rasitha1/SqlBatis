@@ -1,4 +1,3 @@
-
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -46,7 +45,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
         {
             IList accounts = new ArrayList();
             sqlMap.QueryForList("GetMultipleResultMapAccount", null, accounts);
-            Assert.AreEqual(2, accounts.Count);
+            Assert.That(accounts.Count, Is.EqualTo(2));
         }
 
         /// <summary>
@@ -55,7 +54,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
         [Test]
         public void TestMultipleAccountResultMap()
         {
-            Assert.AreEqual(2, sqlMap.QueryForList("GetMultipleResultMapAccount", null).Count);
+            Assert.That(sqlMap.QueryForList("GetMultipleResultMapAccount", null).Count, Is.EqualTo(2));
         }
 
         /// <summary>
@@ -66,7 +65,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
         {
             IList accounts = new ArrayList();
             sqlMap.QueryForList("GetMultipleResultClassAccount", null, accounts);
-            Assert.AreEqual(2, accounts.Count);
+            Assert.That(accounts.Count, Is.EqualTo(2));
         }
 
         /// <summary>
@@ -75,7 +74,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
         [Test]
         public void TestMultipleAccountResultClass()
         {
-            Assert.AreEqual(2, sqlMap.QueryForList("GetMultipleResultClassAccount", null).Count);
+            Assert.That(sqlMap.QueryForList("GetMultipleResultClassAccount", null).Count, Is.EqualTo(2));
         }
 
         /// <summary>
@@ -91,14 +90,14 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
             int key = (int)sqlMap.Insert("InsertCategory", category);
             IList list = sqlMap.QueryForList("GetMultipleResultMap", null);
             
-            Assert.AreEqual(2, list.Count);
+            Assert.That(list.Count, Is.EqualTo(2));
             
             Account account = list[0] as Account;
             Category saveCategory = list[01] as Category;
             AssertAccount1(account);
-            Assert.AreEqual(key, saveCategory.Id);
-            Assert.AreEqual(category.Name, saveCategory.Name);
-            Assert.AreEqual(category.Guid, saveCategory.Guid);
+            Assert.That(saveCategory.Id, Is.EqualTo(key));
+            Assert.That(saveCategory.Name, Is.EqualTo(category.Name));
+            Assert.That(saveCategory.Guid, Is.EqualTo(category.Guid));
         }
 
         /// <summary>
@@ -114,7 +113,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
             int key = (int)sqlMap.Insert("InsertCategory", category);
 
             IList list = sqlMap.QueryForList("GetMultipleResultClass", null);
-            Assert.AreEqual(2, list.Count);
+            Assert.That(list.Count, Is.EqualTo(2));
         }
 
         
@@ -126,7 +125,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
         {
             IList<Document> list = sqlMap.QueryForList<Document>("GetMultipleDocument", null);
 
-            Assert.AreEqual(3, list.Count);
+            Assert.That(list.Count, Is.EqualTo(3));
         }
     }
 }

@@ -41,7 +41,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests.Generics
 		{
 			bool bit = sqlMap.QueryForObject<bool>("GetBoolean", 1);
 
-			Assert.AreEqual(true, bit);
+			Assert.That(bit, Is.EqualTo(true));
 		}
 
 		/// <summary>
@@ -52,7 +52,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests.Generics
 		{
 			byte letter = sqlMap.QueryForObject<byte>("GetByte", 1);
 
-			Assert.AreEqual(155, letter);
+			Assert.That(letter, Is.EqualTo(155));
 		}
 
 		/// <summary>
@@ -63,7 +63,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests.Generics
 		{
 			char letter = sqlMap.QueryForObject<char>("GetChar", 1);
 
-			Assert.AreEqual('a', letter);
+			Assert.That(letter, Is.EqualTo('a'));
 		}
         		
 		/// <summary>
@@ -76,7 +76,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests.Generics
 
 			System.DateTime date = new DateTime(2003, 2, 15, 8, 15, 00);
 
-			Assert.AreEqual(date.ToString(), orderDate.ToString());
+			Assert.That(orderDate.ToString(), Is.EqualTo(date.ToString()));
 		}
 
 		/// <summary>
@@ -87,7 +87,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests.Generics
 		{
 			decimal price = sqlMap.QueryForObject<decimal>("GetDecimal", 1);
 
-			Assert.AreEqual((decimal)1.56, price);
+			Assert.That(price, Is.EqualTo((decimal)1.56));
 		}
 
 		/// <summary>
@@ -98,7 +98,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests.Generics
 		{
 			double price = sqlMap.QueryForObject<double>("GetDouble", 1);
 
-			Assert.AreEqual(99.5f, price);
+			Assert.That(price, Is.EqualTo(99.5f));
 		}
 
 		/// <summary>
@@ -111,7 +111,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests.Generics
 
 			Guid guid = sqlMap.QueryForObject<Guid>("GetGuid", 1);
 
-			Assert.AreEqual(newGuid, guid);
+			Assert.That(guid, Is.EqualTo(newGuid));
 		}
 
 		/// <summary>
@@ -122,7 +122,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests.Generics
 		{
 			short integer = sqlMap.QueryForObject<short>("GetInt16", 1);
 
-			Assert.AreEqual(32111, integer);
+			Assert.That(integer, Is.EqualTo(32111));
 		}
 
 		/// <summary>
@@ -134,7 +134,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests.Generics
 		{
 			int integer = sqlMap.QueryForObject<int>("GetInt32", 1);
 
-			Assert.AreEqual(999999, integer);
+			Assert.That(integer, Is.EqualTo(999999));
 		}
 
 		/// <summary>
@@ -145,7 +145,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests.Generics
 		{
 			long bigInt = sqlMap.QueryForObject<long>("GetInt64", 1);
 
-			Assert.AreEqual(9223372036854775800, bigInt);
+			Assert.That(bigInt, Is.EqualTo(9223372036854775800));
 		}
 
 		/// <summary>
@@ -156,7 +156,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests.Generics
 		{
 			float price = sqlMap.QueryForObject<float>("GetSingle", 1);
 
-			Assert.AreEqual(92233.5, price);
+			Assert.That(price, Is.EqualTo(92233.5));
 		}
 
 		/// <summary>
@@ -167,7 +167,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests.Generics
 		{
 			string cardType = sqlMap.QueryForObject<string>("GetString", 1);
 
-			Assert.AreEqual("VISA", cardType);
+			Assert.That(cardType, Is.EqualTo("VISA"));
 		}
 
 		

@@ -83,17 +83,17 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
 
 			while (!_stopEvent.WaitOne(1, false))
 			{
-				Assert.IsFalse(sqlMap.IsSessionStarted);
+				Assert.That(sqlMap.IsSessionStarted, Is.False);
 
 				Console.WriteLine("Begin Thread : " + Thread.CurrentThread.GetHashCode());
 
 				Account account = (Account) sqlMap.QueryForObject("GetAccountViaColumnIndex", 1);
 				
-				Assert.IsFalse(sqlMap.IsSessionStarted);
+				Assert.That(sqlMap.IsSessionStarted, Is.False);
 				
-				Assert.AreEqual(1, account.Id, "account.Id");
-				Assert.AreEqual("Joe", account.FirstName, "account.FirstName");
-				Assert.AreEqual("Dalton", account.LastName, "account.LastName");
+				Assert.That(account.Id, Is.EqualTo(1), "account.Id");
+				Assert.That(account.FirstName, Is.EqualTo("Joe"), "account.FirstName");
+				Assert.That(account.LastName, Is.EqualTo("Dalton"), "account.LastName");
 
 				Console.WriteLine("End Thread : " + Thread.CurrentThread.GetHashCode());
 			}
@@ -163,15 +163,15 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
 			/// </summary>
 			public void GetAccount()
 			{
-				Assert.IsFalse(sqlMap.IsSessionStarted);
+				Assert.That(sqlMap.IsSessionStarted, Is.False);
 				
 				Account account = (Account) sqlMap.QueryForObject("GetAccountViaColumnIndex", 1);
 				
-				Assert.IsFalse(sqlMap.IsSessionStarted);
+				Assert.That(sqlMap.IsSessionStarted, Is.False);
 				
-				Assert.AreEqual(1, account.Id, "account.Id");
-				Assert.AreEqual("Joe", account.FirstName, "account.FirstName");
-				Assert.AreEqual("Dalton", account.LastName, "account.LastName");
+				Assert.That(account.Id, Is.EqualTo(1), "account.Id");
+				Assert.That(account.FirstName, Is.EqualTo("Joe"), "account.FirstName");
+				Assert.That(account.LastName, Is.EqualTo("Dalton"), "account.LastName");
 
 			}
 		}	

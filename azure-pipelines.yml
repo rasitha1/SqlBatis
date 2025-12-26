@@ -6,7 +6,7 @@ pool:
 
 variables:
   buildConfiguration: 'Release'
-  version: '5.1.0'
+  version: '6.0.0'
   counter: $[counter(variables['version'], 0)]
   sourceVersion: ''
   assemblyVersion: $(version).$(counter)
@@ -33,13 +33,7 @@ steps:
   displayName: 'MSSQL Tests'
 
 - script: .\teardowndb.cmd
-  displayName: 'Teardown LocalDB'  
-
-- script: dotnet tool install dotnet-reportgenerator-globaltool --tool-path tools
-  displayName: 'Install Report Generator Tool'
-
-- script: tools\reportgenerator.exe "-reports:$(Build.SourcesDirectory)\test\**\TestResults\Coverage\coverage.cobertura.net5.0.xml"  "-targetdir:$(Build.SourcesDirectory)\Coverage" -reporttypes:"HtmlInline_AzurePipelines;Cobertura"
-  displayName: 'Coverage Report'
+  displayName: 'Teardown LocalDB'
 
 - task: DotNetCoreCLI@2
   displayName: Create CI Package
@@ -81,9 +75,9 @@ steps:
     failTaskOnFailedTests: true
     testRunTitle: 'Unit Tests'
 
-- task: PublishCodeCoverageResults@1
+- task: PublishCodeCoverageResults@2
   displayName: 'Publish code coverage'
   inputs:
     codeCoverageTool: Cobertura
-    summaryFileLocation: '$(Build.SourcesDirectory)\Coverage\Cobertura.xml'
-    reportDirectory: '$(Build.SourcesDirectory)\Coverage'
+    summaryFileLocation: '$(Build.SourcesDirectory)\test\**\TestResults\Coverage\coverage.cobertura.net10.0.xml'
+

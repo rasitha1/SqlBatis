@@ -1,4 +1,3 @@
-
 using System;
 using SqlBatis.DataMapper.Test.Domain;
 using SqlBatis.DataMapper.Utilities;
@@ -184,7 +183,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.CommonTests.Utilities
 
             // Property accessor
             intSetAccessor.Set(prop, null);
-            Assert.AreEqual(0, prop.publicInt);
+            Assert.That(prop.publicInt, Is.EqualTo(0));
         }
 
         /// <summary>
@@ -199,7 +198,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.CommonTests.Utilities
             // Property accessor
             int test = 57;
             intSetAccessor.Set(prop, test);
-            Assert.AreEqual(test, prop.publicInt);
+            Assert.That(prop.publicInt, Is.EqualTo(test));
         }
 
         /// <summary>
@@ -213,7 +212,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.CommonTests.Utilities
             prop.publicInt = test;
 
             // Property accessor
-            Assert.AreEqual(test, intGetAccessor.Get(prop));
+            Assert.That(intGetAccessor.Get(prop), Is.EqualTo(test));
         }
 
         /// <summary>
@@ -227,7 +226,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.CommonTests.Utilities
 
             // Property accessor
             longSetAccessor.Set(prop, null);
-            Assert.AreEqual((long)0, prop.publicLong);
+            Assert.That(prop.publicLong, Is.EqualTo((long)0));
         }
 
         /// <summary>
@@ -242,7 +241,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.CommonTests.Utilities
             // Property accessor
             long test = 123456789987456;
             longSetAccessor.Set(prop, test);
-            Assert.AreEqual(test, prop.publicLong);
+            Assert.That(prop.publicLong, Is.EqualTo(test));
         }
 
         /// <summary>
@@ -256,7 +255,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.CommonTests.Utilities
             prop.publicLong = test;
 
             // Property accessor
-            Assert.AreEqual(test, longGetAccessor.Get(prop));
+            Assert.That(longGetAccessor.Get(prop), Is.EqualTo(test));
         }
 
         /// <summary>
@@ -270,7 +269,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.CommonTests.Utilities
 
             // Property accessor
             sbyteSetAccessor.Set(prop, null);
-            Assert.AreEqual((sbyte)0, prop.publicSbyte);
+            Assert.That(prop.publicSbyte, Is.EqualTo((sbyte)0));
         }
 
         /// <summary>
@@ -285,7 +284,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.CommonTests.Utilities
             // Property accessor
             sbyte test = 19;
             sbyteSetAccessor.Set(prop, test);
-            Assert.AreEqual(test, prop.publicSbyte);
+            Assert.That(prop.publicSbyte, Is.EqualTo(test));
         }
 
         /// <summary>
@@ -299,7 +298,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.CommonTests.Utilities
             prop.publicSbyte = test;
 
             // Property accessor
-            Assert.AreEqual(test, sbyteGetAccessor.Get(prop));
+            Assert.That(sbyteGetAccessor.Get(prop), Is.EqualTo(test));
         }
 
         /// <summary>
@@ -313,7 +312,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.CommonTests.Utilities
 
             // Property accessor
             stringSetAccessor.Set(prop, null);
-            Assert.IsNull(prop.publicString);
+            Assert.That(prop.publicString, Is.Null);
         }
 
         /// <summary>
@@ -328,7 +327,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.CommonTests.Utilities
             // Property accessor
             string test = "wxc";
             stringSetAccessor.Set(prop, test);
-            Assert.AreEqual(test, prop.publicString);
+            Assert.That(prop.publicString, Is.EqualTo(test));
         }
 
         /// <summary>
@@ -342,7 +341,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.CommonTests.Utilities
             prop.publicString = test;
 
             // Property accessor
-            Assert.AreEqual(test, stringGetAccessor.Get(prop));
+            Assert.That(stringGetAccessor.Get(prop), Is.EqualTo(test));
         }
 
         /// <summary>
@@ -356,7 +355,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.CommonTests.Utilities
 
             // Property accessor
             datetimeSetAccessor.Set(prop, null);
-            Assert.AreEqual(DateTime.MinValue, prop.publicDateTime);
+            Assert.That(prop.publicDateTime, Is.EqualTo(DateTime.MinValue));
         }
 
         /// <summary>
@@ -371,7 +370,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.CommonTests.Utilities
             // Property accessor
             DateTime test = new DateTime(1987, 11, 25);
             datetimeSetAccessor.Set(prop, test);
-            Assert.AreEqual(test, prop.publicDateTime);
+            Assert.That(prop.publicDateTime, Is.EqualTo(test));
         }
 
         /// <summary>
@@ -385,7 +384,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.CommonTests.Utilities
             prop.publicDateTime = test;
 
             // Property accessor
-            Assert.AreEqual(test, datetimeGetAccessor.Get(prop));
+            Assert.That(datetimeGetAccessor.Get(prop), Is.EqualTo(test));
         }
 
         /// <summary>
@@ -399,7 +398,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.CommonTests.Utilities
 
             // Property accessor
             decimalSetAccessor.Set(prop, null);
-            Assert.AreEqual(0.0M, prop.publicDecimal);
+            Assert.That(prop.publicDecimal, Is.EqualTo(0.0M));
         }
 
         /// <summary>
@@ -414,7 +413,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.CommonTests.Utilities
             // Property accessor
             Decimal test = 789456.141516M;
             decimalSetAccessor.Set(prop, test);
-            Assert.AreEqual(test, prop.publicDecimal);
+            Assert.That(prop.publicDecimal, Is.EqualTo(test));
         }
 
         /// <summary>
@@ -428,7 +427,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.CommonTests.Utilities
             prop.publicDecimal = test;
 
             // Property accessor
-            Assert.AreEqual(test, decimalGetAccessor.Get(prop));
+            Assert.That(decimalGetAccessor.Get(prop), Is.EqualTo(test));
         }
 
         /// <summary>
@@ -442,7 +441,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.CommonTests.Utilities
 
             // Property accessor
             byteSetAccessor.Set(prop, null);
-            Assert.AreEqual((byte)0, prop.publicByte);
+            Assert.That(prop.publicByte, Is.EqualTo((byte)0));
         }
 
         /// <summary>
@@ -457,7 +456,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.CommonTests.Utilities
             // Property accessor
             byte test = 94;
             byteSetAccessor.Set(prop, test);
-            Assert.AreEqual(test, prop.publicByte);
+            Assert.That(prop.publicByte, Is.EqualTo(test));
         }
 
         /// <summary>
@@ -471,7 +470,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.CommonTests.Utilities
             prop.publicByte = test;
 
             // Property accessor
-            Assert.AreEqual(test, byteGetAccessor.Get(prop));
+            Assert.That(byteGetAccessor.Get(prop), Is.EqualTo(test));
         }
 
         /// <summary>
@@ -485,7 +484,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.CommonTests.Utilities
 
             // Property accessor
             charSetAccessor.Set(prop, null);
-            Assert.AreEqual('\0', prop.publicChar);
+            Assert.That(prop.publicChar, Is.EqualTo('\0'));
         }
 
         /// <summary>
@@ -500,7 +499,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.CommonTests.Utilities
             // Property accessor
             char test = 'j';
             charSetAccessor.Set(prop, test);
-            Assert.AreEqual(test, prop.publicChar);
+            Assert.That(prop.publicChar, Is.EqualTo(test));
         }
 
         /// <summary>
@@ -514,7 +513,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.CommonTests.Utilities
             prop.publicChar = test;
 
             // Property accessor
-            Assert.AreEqual(test, charGetAccessor.Get(prop));
+            Assert.That(charGetAccessor.Get(prop), Is.EqualTo(test));
         }
 
         /// <summary>
@@ -528,7 +527,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.CommonTests.Utilities
 
             // Property accessor
             shortSetAccessor.Set(prop, null);
-            Assert.AreEqual((short)0, prop.publicShort);
+            Assert.That(prop.publicShort, Is.EqualTo((short)0));
         }
 
         /// <summary>
@@ -543,7 +542,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.CommonTests.Utilities
             // Property accessor
             short test = 45;
             shortSetAccessor.Set(prop, test);
-            Assert.AreEqual(test, prop.publicShort);
+            Assert.That(prop.publicShort, Is.EqualTo(test));
         }
 
         /// <summary>
@@ -557,7 +556,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.CommonTests.Utilities
             prop.publicShort = test;
 
             // Property accessor
-            Assert.AreEqual(test, shortGetAccessor.Get(prop));
+            Assert.That(shortGetAccessor.Get(prop), Is.EqualTo(test));
         }
 
         /// <summary>
@@ -571,7 +570,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.CommonTests.Utilities
 
             // Property accessor
             ushortSetAccessor.Set(prop, null);
-            Assert.AreEqual((ushort)0, prop.publicUshort);
+            Assert.That(prop.publicUshort, Is.EqualTo((ushort)0));
         }
 
         /// <summary>
@@ -586,7 +585,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.CommonTests.Utilities
             // Property accessor
             ushort test = 45;
             ushortSetAccessor.Set(prop, test);
-            Assert.AreEqual(test, prop.publicUshort);
+            Assert.That(prop.publicUshort, Is.EqualTo(test));
         }
 
         /// <summary>
@@ -600,7 +599,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.CommonTests.Utilities
             prop.publicUshort = test;
 
             // Property accessor
-            Assert.AreEqual(test, ushortGetAccessor.Get(prop));
+            Assert.That(ushortGetAccessor.Get(prop), Is.EqualTo(test));
         }
 
         /// <summary>
@@ -614,7 +613,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.CommonTests.Utilities
 
             // Property accessor
             uintSetAccessor.Set(prop, null);
-            Assert.AreEqual((uint)0, prop.publicUint);
+            Assert.That(prop.publicUint, Is.EqualTo((uint)0));
         }
 
         /// <summary>
@@ -629,7 +628,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.CommonTests.Utilities
             // Property accessor
             uint test = 45;
             uintSetAccessor.Set(prop, test);
-            Assert.AreEqual(test, prop.publicUint);
+            Assert.That(prop.publicUint, Is.EqualTo(test));
         }
 
         /// <summary>
@@ -643,7 +642,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.CommonTests.Utilities
             prop.publicUint = test;
 
             // Property accessor
-            Assert.AreEqual(test, uintGetAccessor.Get(prop));
+            Assert.That(uintGetAccessor.Get(prop), Is.EqualTo(test));
         }
 
         /// <summary>
@@ -657,7 +656,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.CommonTests.Utilities
 
             // Property accessor
             ulongSetAccessor.Set(prop, null);
-            Assert.AreEqual((ulong)0, prop.publicUlong);
+            Assert.That(prop.publicUlong, Is.EqualTo((ulong)0));
         }
 
         /// <summary>
@@ -672,7 +671,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.CommonTests.Utilities
             // Property accessor
             ulong test = 45;
             ulongSetAccessor.Set(prop, test);
-            Assert.AreEqual(test, prop.publicUlong);
+            Assert.That(prop.publicUlong, Is.EqualTo(test));
         }
 
         /// <summary>
@@ -686,7 +685,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.CommonTests.Utilities
             prop.publicUlong = test;
 
             // Property accessor
-            Assert.AreEqual(test, ulongGetAccessor.Get(prop));
+            Assert.That(ulongGetAccessor.Get(prop), Is.EqualTo(test));
         }
 
         /// <summary>
@@ -700,7 +699,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.CommonTests.Utilities
 
             // Property accessor
             boolSetAccessor.Set(prop, null);
-            Assert.AreEqual(false, prop.publicBool);
+            Assert.That(prop.publicBool, Is.EqualTo(false));
         }
 
         /// <summary>
@@ -715,7 +714,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.CommonTests.Utilities
             // Property accessor
             bool test = true;
             boolSetAccessor.Set(prop, test);
-            Assert.AreEqual(test, prop.publicBool);
+            Assert.That(prop.publicBool, Is.EqualTo(test));
         }
 
         /// <summary>
@@ -729,7 +728,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.CommonTests.Utilities
             prop.publicBool = test;
 
             // Property accessor
-            Assert.AreEqual(test, boolGetAccessor.Get(prop));
+            Assert.That(boolGetAccessor.Get(prop), Is.EqualTo(test));
         }
 
         /// <summary>
@@ -743,7 +742,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.CommonTests.Utilities
 
             // Property accessor
             doubleSetAccessor.Set(prop, null);
-            Assert.AreEqual(0.0D, prop.publicDouble);
+            Assert.That(prop.publicDouble, Is.EqualTo(0.0D));
         }
 
         /// <summary>
@@ -758,7 +757,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.CommonTests.Utilities
             // Property accessor
             double test = 788956.56D;
             doubleSetAccessor.Set(prop, test);
-            Assert.AreEqual(test, prop.publicDouble);
+            Assert.That(prop.publicDouble, Is.EqualTo(test));
         }
 
         /// <summary>
@@ -772,7 +771,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.CommonTests.Utilities
             prop.publicDouble = test;
 
             // Property accessor
-            Assert.AreEqual(test, doubleGetAccessor.Get(prop));
+            Assert.That(doubleGetAccessor.Get(prop), Is.EqualTo(test));
         }
 
         /// <summary>
@@ -786,7 +785,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.CommonTests.Utilities
 
             // Property accessor
             floatSetAccessor.Set(prop, null);
-            Assert.AreEqual(0.0D, prop.publicFloat);
+            Assert.That(prop.publicFloat, Is.EqualTo(0.0D));
         }
 
         /// <summary>
@@ -801,7 +800,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.CommonTests.Utilities
             // Property accessor
             float test = 4567.45F;
             floatSetAccessor.Set(prop, test);
-            Assert.AreEqual(test, prop.publicFloat);
+            Assert.That(prop.publicFloat, Is.EqualTo(test));
         }
 
         /// <summary>
@@ -815,7 +814,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.CommonTests.Utilities
             prop.publicFloat = test;
 
             // Property accessor
-            Assert.AreEqual(test, floatGetAccessor.Get(prop));
+            Assert.That(floatGetAccessor.Get(prop), Is.EqualTo(test));
         }
 
 
@@ -830,7 +829,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.CommonTests.Utilities
 
             // Property accessor
             guidSetAccessor.Set(prop, null);
-            Assert.AreEqual(Guid.Empty, prop.publicGuid);
+            Assert.That(prop.publicGuid, Is.EqualTo(Guid.Empty));
         }
 
         /// <summary>
@@ -845,7 +844,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.CommonTests.Utilities
             // Property accessor
             Guid test = Guid.NewGuid();
             guidSetAccessor.Set(prop, test);
-            Assert.AreEqual(test, prop.publicGuid);
+            Assert.That(prop.publicGuid, Is.EqualTo(test));
         }
 
         /// <summary>
@@ -859,7 +858,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.CommonTests.Utilities
             prop.publicGuid = test;
 
             // Property accessor
-            Assert.AreEqual(test, guidGetAccessor.Get(prop));
+            Assert.That(guidGetAccessor.Get(prop), Is.EqualTo(test));
         }
 
 
@@ -874,7 +873,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.CommonTests.Utilities
 
             // Property accessor
             timespanSetAccessor.Set(prop, null);
-            Assert.AreEqual(new TimeSpan(0, 0, 0), prop.publicTimeSpan);
+            Assert.That(prop.publicTimeSpan, Is.EqualTo(new TimeSpan(0, 0, 0)));
         }
 
         /// <summary>
@@ -889,7 +888,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.CommonTests.Utilities
             // Property accessor
             TimeSpan test = new TimeSpan(15, 5, 21, 45, 35);
             timespanSetAccessor.Set(prop, test);
-            Assert.AreEqual(test, prop.publicTimeSpan);
+            Assert.That(prop.publicTimeSpan, Is.EqualTo(test));
         }
 
         /// <summary>
@@ -903,7 +902,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.CommonTests.Utilities
             prop.publicTimeSpan = test;
 
             // Property accessor
-            Assert.AreEqual(test, timespanGetAccessor.Get(prop));
+            Assert.That(timespanGetAccessor.Get(prop), Is.EqualTo(test));
         }
 
         /// <summary>
@@ -918,7 +917,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.CommonTests.Utilities
 
             // Property accessor
             accountSetAccessor.Set(prop, null);
-            Assert.AreEqual(null, prop.publicAccount);
+            Assert.That(prop.publicAccount, Is.Null);
         }
 
         /// <summary>
@@ -934,8 +933,8 @@ namespace SqlBatis.DataMapper.Test.NUnit.CommonTests.Utilities
             prop.publicAccount = test;
 
             // Property accessor
-            Assert.AreEqual(HashCodeProvider.GetIdentityHashCode(test), HashCodeProvider.GetIdentityHashCode(prop.publicAccount));
-            Assert.AreEqual(test.FirstName, ((Account)accountGetAccessor.Get(prop)).FirstName);
+            Assert.That(HashCodeProvider.GetIdentityHashCode(prop.publicAccount), Is.EqualTo(HashCodeProvider.GetIdentityHashCode(test)));
+            Assert.That(((Account)accountGetAccessor.Get(prop)).FirstName, Is.EqualTo(test.FirstName));
         }
 
         /// <summary>
@@ -954,7 +953,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.CommonTests.Utilities
             test.FirstName = firstName;
             accountSetAccessor.Set(prop, test);
 
-            Assert.AreEqual(firstName, prop.publicAccount.FirstName);
+            Assert.That(prop.publicAccount.FirstName, Is.EqualTo(firstName));
         }
 
         /// <summary>
@@ -967,7 +966,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.CommonTests.Utilities
 
             // Property accessor
             enumSetAccessor.Set(prop, null);
-            Assert.AreEqual(0, (int)prop.publicDay);
+            Assert.That((int)prop.publicDay, Is.EqualTo(0));
         }
 
         /// <summary>
@@ -982,7 +981,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.CommonTests.Utilities
             // Property accessor
             Days test = Days.Wed;
             enumSetAccessor.Set(prop, test);
-            Assert.AreEqual(test, prop.publicDay);
+            Assert.That(prop.publicDay, Is.EqualTo(test));
         }
 
         /// <summary>
@@ -996,7 +995,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.CommonTests.Utilities
             prop.publicDay = test;
 
             // Property accessor
-            Assert.AreEqual(test, enumGetAccessor.Get(prop));
+            Assert.That(enumGetAccessor.Get(prop), Is.EqualTo(test));
         }
 
         /// <summary>
@@ -1010,7 +1009,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.CommonTests.Utilities
 
             // Property accessor
             nullableSetAccessor.Set(prop, null);
-            Assert.AreEqual(null, prop.IntNullable);
+            Assert.That(prop.IntNullable, Is.Null);
         }
 
         /// <summary>
@@ -1024,7 +1023,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.CommonTests.Utilities
             prop.publicintNullable = test;
 
             // Property accessor
-            Assert.AreEqual(test, nullableGetAccessor.Get(prop));
+            Assert.That(nullableGetAccessor.Get(prop), Is.EqualTo(test));
         }
 
         /// <summary>
@@ -1039,7 +1038,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.CommonTests.Utilities
             // Property accessor
             Int32? test = 55;
             nullableSetAccessor.Set(prop, test);
-            Assert.AreEqual(test, prop.publicintNullable);
+            Assert.That(prop.publicintNullable, Is.EqualTo(test));
 
         }
     	

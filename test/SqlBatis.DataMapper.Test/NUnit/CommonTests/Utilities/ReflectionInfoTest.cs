@@ -34,7 +34,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.CommonTests.Utilities
             ReflectionInfo info = ReflectionInfo.GetInstance(typeof(IAddress));
 
             Type type = info.GetGetterType("Id");
-            Assert.IsNotNull(type);
+            Assert.That(type, Is.Not.Null);
         }
 
         /// <summary>
@@ -46,7 +46,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.CommonTests.Utilities
             ReflectionInfo info = ReflectionInfo.GetInstance(typeof(IAddress));
 
             Type type = info.GetSetterType("Id");
-            Assert.IsNotNull(type);
+            Assert.That(type, Is.Not.Null);
         }
 	}
 }

@@ -105,13 +105,13 @@ namespace SqlBatis.DataMapper.Test.NUnit.CommonTests.Utilities
             user.Address.Id = newGuid;
 
             IAddress address = (IAddress)addressGet.Get(user);
-            Assert.IsNotNull(address);
-            Assert.AreEqual(newGuid, address.Id);
+            Assert.That(address, Is.Not.Null);
+            Assert.That(address.Id, Is.EqualTo(newGuid));
 
             IGetAccessor domainGet = factoryGet.CreateGetAccessor(typeof(IAddress), "Id");
 
             Guid guid = (Guid)domainGet.Get(address);
-            Assert.AreEqual(newGuid, guid);
+            Assert.That(guid, Is.EqualTo(newGuid));
         }
 
         /// <summary>
@@ -127,9 +127,9 @@ namespace SqlBatis.DataMapper.Test.NUnit.CommonTests.Utilities
             ISetAccessor domainSet = factorySet.CreateSetAccessor(typeof(IAddress), "Id");
 
             domainSet.Set(adr, newGuid);
-            Assert.AreEqual(newGuid, adr.Id );
+            Assert.That(adr.Id, Is.EqualTo(newGuid));
         }
-        
+
         /// <summary>
         /// Test multiple call to factory
         /// </summary>
@@ -139,13 +139,13 @@ namespace SqlBatis.DataMapper.Test.NUnit.CommonTests.Utilities
             IGetAccessor accessor11 = factoryGet.CreateGetAccessor(typeof(Property), "Int");
             IGetAccessor accessor12 = factoryGet.CreateGetAccessor(typeof(Property), "Int");
 
-            Assert.AreEqual(HashCodeProvider.GetIdentityHashCode(accessor11), HashCodeProvider.GetIdentityHashCode(accessor12));
+            Assert.That(HashCodeProvider.GetIdentityHashCode(accessor12), Is.EqualTo(HashCodeProvider.GetIdentityHashCode(accessor11)));
 
             ISetAccessor accessor21 = factorySet.CreateSetAccessor(typeof(Property), "Int");
             ISetAccessor accessor22 = factorySet.CreateSetAccessor(typeof(Property), "Int");
 
-            Assert.AreEqual(HashCodeProvider.GetIdentityHashCode(accessor21), HashCodeProvider.GetIdentityHashCode(accessor22));
-        
+            Assert.That(HashCodeProvider.GetIdentityHashCode(accessor22), Is.EqualTo(HashCodeProvider.GetIdentityHashCode(accessor21)));
+
         }
 
         /// <summary>
@@ -160,8 +160,8 @@ namespace SqlBatis.DataMapper.Test.NUnit.CommonTests.Utilities
             IGetAccessorFactory factory2 = new GetAccessorFactory(true);
             IGetAccessor accessor2 = factory2.CreateGetAccessor(typeof(Property), "Int");
 
-            Assert.AreEqual(int.MinValue, accessor1.Get(prop));
-            Assert.AreEqual(int.MinValue, accessor2.Get(prop));
+            Assert.That(accessor1.Get(prop), Is.EqualTo(int.MinValue));
+            Assert.That(accessor2.Get(prop), Is.EqualTo(int.MinValue));
         }
 
 
@@ -178,7 +178,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.CommonTests.Utilities
             PropertySon son = new PropertySon();
             Account account = (Account)accessorGet.Get(son);
 
-            Assert.IsTrue(account.Days == Days.Wed);
+            Assert.That(account.Days, Is.EqualTo(Days.Wed));
             ;
 
             Assert.That(() => accessorSet.Set(son, new Account()), Throws.TypeOf<InvalidOperationException>().With.Message.EqualTo("Test virtual"));
@@ -197,8 +197,8 @@ namespace SqlBatis.DataMapper.Test.NUnit.CommonTests.Utilities
             PropertySon son = new PropertySon();
             Int32 i = (Int32)accessorGet.Get(son);
 
-            Assert.IsTrue(i == -88);
-            
+            Assert.That(i, Is.EqualTo(-88));
+
             Assert.That(() => accessorSet.Set(son, 9), Throws.TypeOf<InvalidOperationException>().With.Message.EqualTo("Test virtual"));
         }
 
@@ -215,7 +215,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.CommonTests.Utilities
             PropertySon son = new PropertySon();
             DateTime date = (DateTime)accessorGet.Get(son);
 
-            Assert.AreEqual(new DateTime(2000,1,1), date);
+            Assert.That(date, Is.EqualTo(new DateTime(2000, 1, 1)));
 
             Assert.That(() => accessorSet.Set(son, DateTime.Now), Throws.TypeOf<InvalidOperationException>().With.Message.EqualTo("Test virtual"));
         }
@@ -231,7 +231,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.CommonTests.Utilities
             PropertySon son = new PropertySon();
             accessorSet.Set(son, -99);
 
-            Assert.AreEqual(-99, son.Index);
+            Assert.That(son.Index, Is.EqualTo(-99));
         }
 
         /// <summary>
@@ -245,7 +245,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.CommonTests.Utilities
             PropertySon son = new PropertySon();
             accessorSet.Set(son, -99);
 
-            Assert.AreEqual(-99, son.Index);
+            Assert.That(son.Index, Is.EqualTo(-99));
         }
 
         /// <summary>
@@ -259,7 +259,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.CommonTests.Utilities
             PropertySon son = new PropertySon();
             accessorSet.Set(son, -99);
 
-            Assert.AreEqual(-99*2, son.Float);
+            Assert.That(son.Float, Is.EqualTo(-99 * 2));
         }
 
         /// <summary>
@@ -273,7 +273,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.CommonTests.Utilities
             PropertySon son = new PropertySon();
             son.Float = -99;
 
-            Assert.AreEqual(-99 * 2, accessorGet.Get(son));
+            Assert.That(accessorGet.Get(son), Is.EqualTo(-99 * 2));
         }
 
 
@@ -290,10 +290,10 @@ namespace SqlBatis.DataMapper.Test.NUnit.CommonTests.Utilities
             referenceAccount.Value = account;
 
             Account acc = accessorGet.Get(referenceAccount) as Account;
-            Assert.AreEqual(referenceAccount.Value, acc);
-            Assert.AreEqual(referenceAccount.Value.Id, acc.Id);
+            Assert.That(acc, Is.EqualTo(referenceAccount.Value));
+            Assert.That(acc.Id, Is.EqualTo(referenceAccount.Value.Id));
         }
-        
+
         /// <summary>
         /// Test getter access to Public Generic Property
         /// </summary>
@@ -308,8 +308,8 @@ namespace SqlBatis.DataMapper.Test.NUnit.CommonTests.Utilities
             son.ReferenceAccount.Value = account;
 
             SpecialReference<Account> acc = accessorGet.Get(son) as SpecialReference<Account>;
-            Assert.AreEqual(account, acc.Value);
-            Assert.AreEqual(account.Id, acc.Value.Id);
+            Assert.That(acc.Value, Is.EqualTo(account));
+            Assert.That(acc.Value.Id, Is.EqualTo(account.Id));
         }
 
         /// <summary>
@@ -326,8 +326,8 @@ namespace SqlBatis.DataMapper.Test.NUnit.CommonTests.Utilities
             referenceAccount.Value = account;
             accessorSet.Set(son, referenceAccount);
 
-            Assert.AreEqual(son.ReferenceAccount, referenceAccount);
-            Assert.AreEqual(son.ReferenceAccount.Value.Id, referenceAccount.Value.Id);
+            Assert.That(son.ReferenceAccount, Is.EqualTo(referenceAccount));
+            Assert.That(son.ReferenceAccount.Value.Id, Is.EqualTo(referenceAccount.Value.Id));
         }
 
         /// <summary>
@@ -342,8 +342,8 @@ namespace SqlBatis.DataMapper.Test.NUnit.CommonTests.Utilities
             Account account = new Account(5);
             accessorSet.Set(referenceAccount, account);
 
-            Assert.AreEqual(account, referenceAccount.Value);
-            Assert.AreEqual(account.Id, referenceAccount.Value.Id);
+            Assert.That(referenceAccount.Value, Is.EqualTo(account));
+            Assert.That(referenceAccount.Value.Id, Is.EqualTo(account.Id));
         }
 
         /// <summary>
@@ -360,8 +360,8 @@ namespace SqlBatis.DataMapper.Test.NUnit.CommonTests.Utilities
             son.ReferenceAccount.Value = account;
 
             SpecialReference<Account> acc = accessorGet.Get(son) as SpecialReference<Account>;
-            Assert.AreEqual(account, acc.Value);
-            Assert.AreEqual(account.Id, acc.Value.Id);
+            Assert.That(acc.Value, Is.EqualTo(account));
+            Assert.That(acc.Value.Id, Is.EqualTo(account.Id));
         }
 
         /// <summary>
@@ -377,10 +377,10 @@ namespace SqlBatis.DataMapper.Test.NUnit.CommonTests.Utilities
             referenceAccount.Value = account;
 
             Account acc = accessorGet.Get(referenceAccount) as Account;
-            Assert.AreEqual(referenceAccount.Value, acc);
-            Assert.AreEqual(referenceAccount.Value.Id, acc.Id);
+            Assert.That(acc, Is.EqualTo(referenceAccount.Value));
+            Assert.That(acc.Id, Is.EqualTo(referenceAccount.Value.Id));
         }
-        
+
         /// <summary>
         /// Test setter access to Public Generic Property
         /// </summary>
@@ -395,8 +395,8 @@ namespace SqlBatis.DataMapper.Test.NUnit.CommonTests.Utilities
             referenceAccount.Value = account;
             accessorSet.Set(son, referenceAccount);
 
-            Assert.AreEqual(son.ReferenceAccount, referenceAccount);
-            Assert.AreEqual(son.ReferenceAccount.Value.Id, referenceAccount.Value.Id);
+            Assert.That(son.ReferenceAccount, Is.EqualTo(referenceAccount));
+            Assert.That(son.ReferenceAccount.Value.Id, Is.EqualTo(referenceAccount.Value.Id));
         }
 
         /// <summary>
@@ -411,9 +411,8 @@ namespace SqlBatis.DataMapper.Test.NUnit.CommonTests.Utilities
             Account account = new Account(5);
             accessorSet.Set(referenceAccount, account);
 
-            Assert.AreEqual(account, referenceAccount.Value);
-            Assert.AreEqual(account.Id, referenceAccount.Value.Id);
+            Assert.That(referenceAccount.Value, Is.EqualTo(account));
+            Assert.That(referenceAccount.Value.Id, Is.EqualTo(account.Id));
         }
     }
-
 }

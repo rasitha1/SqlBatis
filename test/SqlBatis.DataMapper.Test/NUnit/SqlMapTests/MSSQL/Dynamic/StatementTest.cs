@@ -66,8 +66,8 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests.MSSQL.Dynamic
 
             Account testAccount = sqlMap.QueryForObject<Account>("GetAccountViaColumnName", 99);
 
-			Assert.IsNotNull(testAccount);
-			Assert.AreEqual(99, testAccount.Id);
+			Assert.That(testAccount, Is.Not.Null);
+			Assert.That(testAccount.Id, Is.EqualTo(99));
 		}
 
 
@@ -75,7 +75,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests.MSSQL.Dynamic
         public void DynamicTestGetAccountWithResultsClass()
         {
             var existing = sqlMap.QueryForList<Account>("GetLruCachedAccountsViaResultMap", null).FirstOrDefault();
-            Assert.IsNotNull(existing);
+            Assert.That(existing, Is.Not.Null);
 
             var results = sqlMap.QueryForObject<dynamic>("GetDynamicAccountById", existing.Id);
 
@@ -89,7 +89,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests.MSSQL.Dynamic
         public void DynamicTestGetAccountWithResultsMap()
         {
             var existing = sqlMap.QueryForList<Account>("GetLruCachedAccountsViaResultMap", null).FirstOrDefault();
-            Assert.IsNotNull(existing);
+            Assert.That(existing, Is.Not.Null);
 
             var results = sqlMap.QueryForObject<dynamic>("GetDynamicAccountByIdUsingResultsMap", existing.Id);
 

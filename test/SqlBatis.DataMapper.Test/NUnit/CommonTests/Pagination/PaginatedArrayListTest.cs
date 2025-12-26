@@ -89,46 +89,46 @@ namespace SqlBatis.DataMapper.Test.NUnit.CommonTests.Pagination
 		[Test] 
 		public void TestOddPaginatedIterator() 
 		{
-			Assert.AreEqual(true, _oddPageList.IsFirstPage);
-			Assert.AreEqual(false, _oddPageList.IsPreviousPageAvailable);
+			Assert.That(_oddPageList.IsFirstPage, Is.True);
+			Assert.That(_oddPageList.IsPreviousPageAvailable, Is.False);
 
-			Assert.AreEqual(5, _oddPageList.Count);
-
-			_oddPageList.NextPage();
-
-			Assert.AreEqual(5, _oddPageList.Count);
+			Assert.That(_oddPageList.Count, Is.EqualTo(5));
 
 			_oddPageList.NextPage();
 
-			Assert.AreEqual(true, _oddPageList.IsMiddlePage);
-			Assert.AreEqual(5, _oddPageList.Count);
+			Assert.That(_oddPageList.Count, Is.EqualTo(5));
 
 			_oddPageList.NextPage();
 
-			Assert.AreEqual(3, _oddPageList.Count);
-
-			Assert.AreEqual(true, _oddPageList.IsLastPage);
-			Assert.AreEqual(false, _oddPageList.IsNextPageAvailable);
+			Assert.That(_oddPageList.IsMiddlePage, Is.True);
+			Assert.That(_oddPageList.Count, Is.EqualTo(5));
 
 			_oddPageList.NextPage();
 
-			Assert.AreEqual(true, _oddPageList.IsLastPage);
-			Assert.AreEqual(false, _oddPageList.IsNextPageAvailable);
+			Assert.That(_oddPageList.Count, Is.EqualTo(3));
+
+			Assert.That(_oddPageList.IsLastPage, Is.True);
+			Assert.That(_oddPageList.IsNextPageAvailable, Is.False);
+
+			_oddPageList.NextPage();
+
+			Assert.That(_oddPageList.IsLastPage, Is.True);
+			Assert.That(_oddPageList.IsNextPageAvailable, Is.False);
 
 			_oddPageList.PreviousPage();
 
-			Assert.AreEqual(10, _oddPageList[0]);
-			Assert.AreEqual(12, _oddPageList[2]);
+			Assert.That(_oddPageList[0], Is.EqualTo(10));
+			Assert.That(_oddPageList[2], Is.EqualTo(12));
 
 			_oddPageList.GotoPage(500);
 
-			Assert.AreEqual(0, _oddPageList[0]);
-			Assert.AreEqual(4, _oddPageList[4]);
+			Assert.That(_oddPageList[0], Is.EqualTo(0));
+			Assert.That(_oddPageList[4], Is.EqualTo(4));
 
 			_oddPageList.GotoPage(-500);
 
-			Assert.AreEqual(15, _oddPageList[0]);
-			Assert.AreEqual(17, _oddPageList[2]);
+			Assert.That(_oddPageList[0], Is.EqualTo(15));
+			Assert.That(_oddPageList[2], Is.EqualTo(17));
 		}
 
 		/// <summary>
@@ -137,42 +137,42 @@ namespace SqlBatis.DataMapper.Test.NUnit.CommonTests.Pagination
 		[Test] 
 		public void TestEvenPaginatedEnumerator() 
 		{
-			Assert.AreEqual(true, _evenPageList.IsFirstPage);
-			Assert.AreEqual(false, _evenPageList.IsPreviousPageAvailable);
+			Assert.That(_evenPageList.IsFirstPage, Is.EqualTo(true));
+			Assert.That(_evenPageList.IsPreviousPageAvailable, Is.EqualTo(false));
 
-			Assert.AreEqual(5, _evenPageList.Count);
-
-			_evenPageList.NextPage();
-
-			Assert.AreEqual(true, _evenPageList.IsMiddlePage);
-			Assert.AreEqual(5, _evenPageList.Count);
+			Assert.That(_evenPageList.Count, Is.EqualTo(5));
 
 			_evenPageList.NextPage();
 
-			Assert.AreEqual(5, _evenPageList.Count);
-
-			Assert.AreEqual(true, _evenPageList.IsLastPage);
-			Assert.AreEqual(false, _evenPageList.IsNextPageAvailable);
+			Assert.That(_evenPageList.IsMiddlePage, Is.EqualTo(true));
+			Assert.That(_evenPageList.Count, Is.EqualTo(5));
 
 			_evenPageList.NextPage();
 
-			Assert.AreEqual(10, _evenPageList[0]);
-			Assert.AreEqual(14, _evenPageList[4]);
+			Assert.That(_evenPageList.Count, Is.EqualTo(5));
+
+			Assert.That(_evenPageList.IsLastPage, Is.EqualTo(true));
+			Assert.That(_evenPageList.IsNextPageAvailable, Is.EqualTo(false));
+
+			_evenPageList.NextPage();
+
+			Assert.That(_evenPageList[0], Is.EqualTo(10));
+			Assert.That(_evenPageList[4], Is.EqualTo(14));
 
 			_evenPageList.PreviousPage();
 
-			Assert.AreEqual(5, _evenPageList[0]);
-			Assert.AreEqual(9, _evenPageList[4]);
+			Assert.That(_evenPageList[0], Is.EqualTo(5));
+			Assert.That(_evenPageList[4], Is.EqualTo(9));
 
 			_evenPageList.GotoPage(500);
 
-			Assert.AreEqual(0, _evenPageList[0]);
-			Assert.AreEqual(4, _evenPageList[4]);
+			Assert.That(_evenPageList[0], Is.EqualTo(0));
+			Assert.That(_evenPageList[4], Is.EqualTo(4));
 
 			_evenPageList.GotoPage(-500);
 
-			Assert.AreEqual(10, _evenPageList[0]);
-			Assert.AreEqual(14, _evenPageList[4]);		
+			Assert.That(_evenPageList[0], Is.EqualTo(10));
+			Assert.That(_evenPageList[4], Is.EqualTo(14));		
 		}
 
 
@@ -182,52 +182,52 @@ namespace SqlBatis.DataMapper.Test.NUnit.CommonTests.Pagination
 		[Test]
 		public void TestSmallPaginatedEnumerator() 
 		{
-			Assert.AreEqual(true, _smallPageList.IsFirstPage);
-			Assert.AreEqual(true, _smallPageList.IsLastPage);
-			Assert.AreEqual(false, _smallPageList.IsMiddlePage);
-			Assert.AreEqual(false, _smallPageList.IsPreviousPageAvailable);
-			Assert.AreEqual(false, _smallPageList.IsNextPageAvailable);
+			Assert.That(_smallPageList.IsFirstPage, Is.EqualTo(true));
+			Assert.That(_smallPageList.IsLastPage, Is.EqualTo(true));
+			Assert.That(_smallPageList.IsMiddlePage, Is.EqualTo(false));
+			Assert.That(_smallPageList.IsPreviousPageAvailable, Is.EqualTo(false));
+			Assert.That(_smallPageList.IsNextPageAvailable, Is.EqualTo(false));
 
-			Assert.AreEqual(3, _smallPageList.Count);
-
-			_smallPageList.NextPage();
-
-			Assert.AreEqual(3, _smallPageList.Count);
-			Assert.AreEqual(true, _smallPageList.IsFirstPage);
-			Assert.AreEqual(true, _smallPageList.IsLastPage);
-			Assert.AreEqual(false, _smallPageList.IsMiddlePage);
-			Assert.AreEqual(false, _smallPageList.IsPreviousPageAvailable);
-			Assert.AreEqual(false, _smallPageList.IsNextPageAvailable);
+			Assert.That(_smallPageList.Count, Is.EqualTo(3));
 
 			_smallPageList.NextPage();
 
-			Assert.AreEqual(3, _smallPageList.Count);
+			Assert.That(_smallPageList.Count, Is.EqualTo(3));
+			Assert.That(_smallPageList.IsFirstPage, Is.EqualTo(true));
+			Assert.That(_smallPageList.IsLastPage, Is.EqualTo(true));
+			Assert.That(_smallPageList.IsMiddlePage, Is.EqualTo(false));
+			Assert.That(_smallPageList.IsPreviousPageAvailable, Is.EqualTo(false));
+			Assert.That(_smallPageList.IsNextPageAvailable, Is.EqualTo(false));
 
 			_smallPageList.NextPage();
 
-			Assert.AreEqual(0, _smallPageList[0]);
-			Assert.AreEqual(2, _smallPageList[2]);
+			Assert.That(_smallPageList.Count, Is.EqualTo(3));
+
+			_smallPageList.NextPage();
+
+			Assert.That(_smallPageList[0], Is.EqualTo(0));
+			Assert.That(_smallPageList[2], Is.EqualTo(2));
 
 			_smallPageList.PreviousPage();
 
-			Assert.AreEqual(0, _smallPageList[0]);
-			Assert.AreEqual(2, _smallPageList[2]);
+			Assert.That(_smallPageList[0], Is.EqualTo(0));
+			Assert.That(_smallPageList[2], Is.EqualTo(2));
 
 			_smallPageList.GotoPage(500);
 
-			Assert.AreEqual(0, _smallPageList[0]);
-			Assert.AreEqual(2, _smallPageList[2]);
+			Assert.That(_smallPageList[0], Is.EqualTo(0));
+			Assert.That(_smallPageList[2], Is.EqualTo(2));
 
 			_smallPageList.GotoPage(-500);
 
-			Assert.AreEqual(0, _smallPageList[0]);
-			Assert.AreEqual(2, _smallPageList[2]);
+			Assert.That(_smallPageList[0], Is.EqualTo(0));
+			Assert.That(_smallPageList[2], Is.EqualTo(2));
 
-			Assert.AreEqual(true, _smallPageList.IsFirstPage);
-			Assert.AreEqual(true, _smallPageList.IsLastPage);
-			Assert.AreEqual(false, _smallPageList.IsMiddlePage);
-			Assert.AreEqual(false, _smallPageList.IsPreviousPageAvailable);
-			Assert.AreEqual(false, _smallPageList.IsNextPageAvailable);
+			Assert.That(_smallPageList.IsFirstPage, Is.EqualTo(true));
+			Assert.That(_smallPageList.IsLastPage, Is.EqualTo(true));
+			Assert.That(_smallPageList.IsMiddlePage, Is.EqualTo(false));
+			Assert.That(_smallPageList.IsPreviousPageAvailable, Is.EqualTo(false));
+			Assert.That(_smallPageList.IsNextPageAvailable, Is.EqualTo(false));
 		}
 
 

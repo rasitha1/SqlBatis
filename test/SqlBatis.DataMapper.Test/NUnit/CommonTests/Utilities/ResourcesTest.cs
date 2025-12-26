@@ -44,10 +44,10 @@ namespace SqlBatis.DataMapper.Test.NUnit.CommonTests.Utilities
 
 			doc = Resources.GetEmbeddedResourceAsXmlDocument("SqlBatis.DataMapper.Test.properties.xml, SqlBatis.DataMapper.Test");
 
-			Assert.IsNotNull(doc);
-			Assert.IsTrue(doc.HasChildNodes);
-			Assert.AreEqual(doc.ChildNodes.Count,2);
-			Assert.AreEqual(doc.SelectNodes("/settings/add").Count, 4);
+			Assert.That(doc, Is.Not.Null);
+			Assert.That(doc.HasChildNodes, Is.True);
+			Assert.That(doc.ChildNodes.Count, Is.EqualTo(2));
+			Assert.That(doc.SelectNodes("/settings/add").Count, Is.EqualTo(4));
 		}
 
 		/// <summary>
@@ -60,9 +60,9 @@ namespace SqlBatis.DataMapper.Test.NUnit.CommonTests.Utilities
 
 			doc = Resources.GetEmbeddedResourceAsXmlDocument("CompanyName.ProductName.Maps.ISCard.xml, OctopusService");
 
-			Assert.IsNotNull(doc);
-			Assert.IsTrue(doc.HasChildNodes);
-			Assert.AreEqual(doc.ChildNodes.Count,2);
+			Assert.That(doc, Is.Not.Null);
+			Assert.That(doc.HasChildNodes, Is.True);
+			Assert.That(doc.ChildNodes.Count, Is.EqualTo(2));
 		}
 		#endregion
 
@@ -72,7 +72,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.CommonTests.Utilities
 		public void GetFileInfoWithRelative() 
 		{ 
 			FileInfo fileInfo = Resources.GetFileInfo("SqlBatis.DataMapper.Test.dll");
-			Assert.IsNotNull(fileInfo);
+			Assert.That(fileInfo, Is.Not.Null);
 		}
 
 
@@ -81,7 +81,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.CommonTests.Utilities
 		{ 
 			string resourcePath = Resources.ApplicationBase+Path.DirectorySeparatorChar+"SqlBatis.DataMapper.Test.dll";
 			FileInfo fileInfo = Resources.GetFileInfo(resourcePath);
-			Assert.IsNotNull(fileInfo);
+			Assert.That(fileInfo, Is.Not.Null);
 		}
 
 		[Test] 
@@ -89,15 +89,15 @@ namespace SqlBatis.DataMapper.Test.NUnit.CommonTests.Utilities
 		{ 
 			string resourcePath = "file://"+Resources.ApplicationBase+Path.DirectorySeparatorChar+"SqlBatis.DataMapper.Test.dll";
 			FileInfo fileInfo = Resources.GetFileInfo(resourcePath);
-			Assert.IsNotNull(fileInfo);
+			Assert.That(fileInfo, Is.Not.Null);
 		}
 
 		[Test] 
 		public void GetFileInfoWithAbsoluteProtocolPlusSlash() 
 		{ 
-			string resourcePath = "file:///"+Resources.ApplicationBase+Path.DirectorySeparatorChar+"SqlBatis.DataMapper.Test.dll";
+			string resourcePath = "file:///"+Resources.ApplicationBase+Path.DirectorySeparatorChar+"SqlBatis.Data.Mapper.Test.dll";
 			FileInfo fileInfo = Resources.GetFileInfo(resourcePath);
-			Assert.IsNotNull(fileInfo);
+			Assert.That(fileInfo, Is.Not.Null);
 		}
 		#endregion 
 
@@ -108,7 +108,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.CommonTests.Utilities
 		{ 
 			string resourcePath = Resources.ApplicationBase+Path.DirectorySeparatorChar+"SqlMap_MSSQL_SqlClient.config";
 			XmlDocument doc = Resources.GetConfigAsXmlDocument(resourcePath);
-			Assert.IsNotNull(doc);
+			Assert.That(doc, Is.Not.Null);
 		}
 
 		[Test] 
@@ -116,7 +116,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.CommonTests.Utilities
 		{ 
 			string resourcePath = "file://"+Resources.ApplicationBase+Path.DirectorySeparatorChar+"SqlMap_MSSQL_SqlClient.config";
 			XmlDocument doc = Resources.GetConfigAsXmlDocument(resourcePath);
-			Assert.IsNotNull(doc);
+			Assert.That(doc, Is.Not.Null);
 		}
 
 
@@ -124,16 +124,16 @@ namespace SqlBatis.DataMapper.Test.NUnit.CommonTests.Utilities
 		public void GetConfigAsXmlDocumentWithAbsoluteProtocolPlusSlash() 
 		{ 
 			XmlDocument doc = Resources.GetConfigAsXmlDocument("file:///"+Resources.ApplicationBase+Path.DirectorySeparatorChar+"SqlMap_MSSQL_SqlClient.config");
-			Assert.IsNotNull(doc);
+			Assert.That(doc, Is.Not.Null);
 		}
 
 		[Test] 
 		public void GetConfigAsXmlDocumentWithRelative() 
 		{ 
 			XmlDocument doc = Resources.GetConfigAsXmlDocument("SqlMap_MSSQL_SqlClient.config");
-			Assert.IsNotNull(doc);
+			Assert.That(doc, Is.Not.Null);
 		}
 
-		#endregion 
+		#endregion
 	}
 }

@@ -127,7 +127,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests.Generics
         public void TestExecuteQueryForObjectWithSimpleResultClass()
         {
             string email = sqlMap.QueryForObject<string>("GetEmailAddressViaResultClass", 1);
-            Assert.AreEqual("Joe.Dalton@somewhere.com", email);
+            Assert.That(email, Is.EqualTo("Joe.Dalton@somewhere.com"));
         }
 
         /// <summary>
@@ -137,7 +137,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests.Generics
         public void TestExecuteQueryForObjectWithSimpleResultMap()
         {
             string email = sqlMap.QueryForObject<string>("GetEmailAddressViaResultMap", 1);
-            Assert.AreEqual("Joe.Dalton@somewhere.com", email);
+            Assert.That(email, Is.EqualTo("Joe.Dalton@somewhere.com"));
         }
 
         /// <summary>
@@ -147,7 +147,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests.Generics
         public void TestPrimitiveReturnValue()
         {
             DateTime CardExpiry = sqlMap.QueryForObject<DateTime>("GetOrderCardExpiryViaResultClass", 1);
-            Assert.AreEqual(new DateTime(2003, 02, 15, 8, 15, 00), CardExpiry);
+            Assert.That(CardExpiry, Is.EqualTo(new DateTime(2003, 02, 15, 8, 15, 00)));
         }
 
         /// <summary>
@@ -159,7 +159,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests.Generics
             Account account = new Account();
             Account testAccount = sqlMap.QueryForObject<Account>("GetAccountViaColumnName", 1, account);
             AssertAccount1(account);
-            Assert.IsTrue(account == testAccount);
+            Assert.That(account == testAccount, Is.True);
         }
 
         /// <summary>
@@ -194,8 +194,8 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests.Generics
 
             LineItem testItem = sqlMap.QueryForObject<LineItem>("GetSpecificLineItem", param);
 
-            Assert.IsNotNull(testItem);
-            Assert.AreEqual("TSM-12", testItem.Code);
+            Assert.That(testItem, Is.Not.Null);
+            Assert.That(testItem.Code, Is.EqualTo("TSM-12"));
         }
 
         /// <summary>
@@ -207,12 +207,12 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests.Generics
             //IList list = sqlMap.QueryForList("GetDynamicOrderedEmailAddressesViaResultMap", "Account_ID");
             IList<string> list = sqlMap.QueryForList<string>("GetDynamicOrderedEmailAddressesViaResultMap", "Account_ID");
 
-            Assert.AreEqual("Joe.Dalton@somewhere.com", list[0]);
+            Assert.That(list[0], Is.EqualTo("Joe.Dalton@somewhere.com"));
 
             //list = sqlMap.QueryForList("GetDynamicOrderedEmailAddressesViaResultMap", "Account_FirstName");
             list = sqlMap.QueryForList<string>("GetDynamicOrderedEmailAddressesViaResultMap", "Account_FirstName");
 
-            Assert.AreEqual("Averel.Dalton@somewhere.com", list[0]);
+            Assert.That(list[0], Is.EqualTo("Averel.Dalton@somewhere.com"));
 
         }
 
@@ -225,14 +225,14 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests.Generics
             IList<Account> list = sqlMap.QueryForList<Account>("GetAllAccountsViaResultMapWithDynamicElement", "LIKE");
 
             AssertAccount1(list[0]);
-            Assert.AreEqual(4, list.Count);
-            Assert.AreEqual(1, list[0].Id);
-            Assert.AreEqual(2, list[1].Id);
-            Assert.AreEqual(4, list[2].Id);
+            Assert.That(list.Count, Is.EqualTo(4));
+            Assert.That(list[0].Id, Is.EqualTo(1));
+            Assert.That(list[1].Id, Is.EqualTo(2));
+            Assert.That(list[2].Id, Is.EqualTo(4));
 
             list = sqlMap.QueryForList<Account>("GetAllAccountsViaResultMapWithDynamicElement", "=");
 
-            Assert.AreEqual(0, list.Count);
+            Assert.That(list.Count, Is.EqualTo(0));
         }
 
         /// <summary>
@@ -251,7 +251,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests.Generics
 
             IList list = sqlMap.QueryForList("SimpleDynamicSubstitution", param);
             AssertAccount1((Account)list[0]);
-            Assert.AreEqual(1, list.Count);
+            Assert.That(list.Count, Is.EqualTo(1));
         }
 
         /// <summary>
@@ -276,15 +276,15 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests.Generics
         {
             Enumeration enumClass = sqlMap.QueryForObject<Enumeration>("GetEnumeration", 1);
 
-            Assert.AreEqual(enumClass.Day, Days.Sat);
-            Assert.AreEqual(enumClass.Color, Colors.Red);
-            Assert.AreEqual(enumClass.Month, Months.August);
+            Assert.That(enumClass.Day, Is.EqualTo(Days.Sat));
+            Assert.That(enumClass.Color, Is.EqualTo(Colors.Red));
+            Assert.That(enumClass.Month, Is.EqualTo(Months.August));
 
             enumClass = sqlMap.QueryForObject("GetEnumeration", 3) as Enumeration;
 
-            Assert.AreEqual(enumClass.Day, Days.Mon);
-            Assert.AreEqual(enumClass.Color, Colors.Blue);
-            Assert.AreEqual(enumClass.Month, Months.September);
+            Assert.That(enumClass.Day, Is.EqualTo(Days.Mon));
+            Assert.That(enumClass.Color, Is.EqualTo(Colors.Blue));
+            Assert.That(enumClass.Month, Is.EqualTo(Months.September));
         }
 
         #endregion
@@ -302,12 +302,12 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests.Generics
             sqlMap.QueryForList("GetAllAccountsViaResultMap", null, (System.Collections.IList)accounts);
 
             AssertAccount1(accounts[0]);
-            Assert.AreEqual(5, accounts.Count);
-            Assert.AreEqual(1, accounts[0].Id);
-            Assert.AreEqual(2, accounts[1].Id);
-            Assert.AreEqual(3, accounts[2].Id);
-            Assert.AreEqual(4, accounts[3].Id);
-            Assert.AreEqual(5, accounts[4].Id);
+            Assert.That(accounts.Count, Is.EqualTo(5));
+            Assert.That(accounts[0].Id, Is.EqualTo(1));
+            Assert.That(accounts[1].Id, Is.EqualTo(2));
+            Assert.That(accounts[2].Id, Is.EqualTo(3));
+            Assert.That(accounts[3].Id, Is.EqualTo(4));
+            Assert.That(accounts[4].Id, Is.EqualTo(5));
         }
 
         /// <summary>
@@ -319,13 +319,13 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests.Generics
             IList<Hashtable> list = sqlMap.QueryForList<Hashtable>("GetAllAccountsAsHashMapViaResultMap", null);
 
             AssertAccount1AsHashtable(list[0]);
-            Assert.AreEqual(5, list.Count);
+            Assert.That(list.Count, Is.EqualTo(5));
 
-            Assert.AreEqual(1, list[0]["Id"]);
-            Assert.AreEqual(2, list[1]["Id"]);
-            Assert.AreEqual(3, list[2]["Id"]);
-            Assert.AreEqual(4, list[3]["Id"]);
-            Assert.AreEqual(5, list[4]["Id"]);
+            Assert.That(list[0]["Id"], Is.EqualTo(1));
+            Assert.That(list[1]["Id"], Is.EqualTo(2));
+            Assert.That(list[2]["Id"], Is.EqualTo(3));
+            Assert.That(list[3]["Id"], Is.EqualTo(4));
+            Assert.That(list[4]["Id"], Is.EqualTo(5));
         }
 
         /// <summary>
@@ -337,13 +337,13 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests.Generics
             IList<Hashtable> list = sqlMap.QueryForList<Hashtable>("GetAllAccountsAsHashtableViaResultClass", null);
 
             AssertAccount1AsHashtableForResultClass(list[0]);
-            Assert.AreEqual(5, list.Count);
+            Assert.That(list.Count, Is.EqualTo(5));
 
-            Assert.AreEqual(1, list[0][BaseTest.ConvertKey("Id")]);
-            Assert.AreEqual(2, list[1][BaseTest.ConvertKey("Id")]);
-            Assert.AreEqual(3, list[2][BaseTest.ConvertKey("Id")]);
-            Assert.AreEqual(4, list[3][BaseTest.ConvertKey("Id")]);
-            Assert.AreEqual(5, list[4][BaseTest.ConvertKey("Id")]);
+            Assert.That(list[0][BaseTest.ConvertKey("Id")], Is.EqualTo(1));
+            Assert.That(list[1][BaseTest.ConvertKey("Id")], Is.EqualTo(2));
+            Assert.That(list[2][BaseTest.ConvertKey("Id")], Is.EqualTo(3));
+            Assert.That(list[3][BaseTest.ConvertKey("Id")], Is.EqualTo(4));
+            Assert.That(list[4][BaseTest.ConvertKey("Id")], Is.EqualTo(5));
         }
 
         /// <summary>
@@ -355,23 +355,23 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests.Generics
             IList<IList> list = sqlMap.QueryForList<IList>("GetAllAccountsAsArrayListViaResultClass", null);
 
             IList listAccount = list[0];
-            Assert.AreEqual(1, listAccount[0]);
-            Assert.AreEqual("Joe", listAccount[1]);
-            Assert.AreEqual("Dalton", listAccount[2]);
-            Assert.AreEqual("Joe.Dalton@somewhere.com", listAccount[3]);
+            Assert.That(listAccount[0], Is.EqualTo(1));
+            Assert.That(listAccount[1], Is.EqualTo("Joe"));
+            Assert.That(listAccount[2], Is.EqualTo("Dalton"));
+            Assert.That(listAccount[3], Is.EqualTo("Joe.Dalton@somewhere.com"));
 
-            Assert.AreEqual(5, list.Count);
+            Assert.That(list.Count, Is.EqualTo(5));
 
             listAccount = (IList)list[0];
-            Assert.AreEqual(1, listAccount[0]);
+            Assert.That(listAccount[0], Is.EqualTo(1));
             listAccount = (IList)list[1];
-            Assert.AreEqual(2, listAccount[0]);
+            Assert.That(listAccount[0], Is.EqualTo(2));
             listAccount = (IList)list[2];
-            Assert.AreEqual(3, listAccount[0]);
+            Assert.That(listAccount[0], Is.EqualTo(3));
             listAccount = (IList)list[3];
-            Assert.AreEqual(4, listAccount[0]);
+            Assert.That(listAccount[0], Is.EqualTo(4));
             listAccount = (IList)list[4];
-            Assert.AreEqual(5, listAccount[0]);
+            Assert.That(listAccount[0], Is.EqualTo(5));
         }
 
         /// <summary>
@@ -383,12 +383,12 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests.Generics
             IList<Account> list = sqlMap.QueryForList<Account>("GetAllAccountsViaResultMap", null);
 
             AssertAccount1(list[0]);
-            Assert.AreEqual(5, list.Count);
-            Assert.AreEqual(1, list[0].Id);
-            Assert.AreEqual(2, list[1].Id);
-            Assert.AreEqual(3, list[2].Id);
-            Assert.AreEqual(4, list[3].Id);
-            Assert.AreEqual(5, list[4].Id);
+            Assert.That(list.Count, Is.EqualTo(5));
+            Assert.That(list[0].Id, Is.EqualTo(1));
+            Assert.That(list[1].Id, Is.EqualTo(2));
+            Assert.That(list[2].Id, Is.EqualTo(3));
+            Assert.That(list[3].Id, Is.EqualTo(4));
+            Assert.That(list[4].Id, Is.EqualTo(5));
         }
 
         /// <summary>
@@ -403,12 +403,12 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests.Generics
             sqlMap.QueryForList("GetAllAccountsViaResultMap", null, accounts);
 
             AssertAccount1(accounts[0]);
-            Assert.AreEqual(5, accounts.Count);
-            Assert.AreEqual(1, accounts[0].Id);
-            Assert.AreEqual(2, accounts[1].Id);
-            Assert.AreEqual(3, accounts[2].Id);
-            Assert.AreEqual(4, accounts[3].Id);
-            Assert.AreEqual(5, accounts[4].Id);
+            Assert.That(accounts.Count, Is.EqualTo(5));
+            Assert.That(accounts[0].Id, Is.EqualTo(1));
+            Assert.That(accounts[1].Id, Is.EqualTo(2));
+            Assert.That(accounts[2].Id, Is.EqualTo(3));
+            Assert.That(accounts[3].Id, Is.EqualTo(4));
+            Assert.That(accounts[4].Id, Is.EqualTo(5));
         }
 
 
@@ -420,7 +420,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests.Generics
         {
             IList<Account> list = sqlMap.QueryForList<Account>("GetNoAccountsViaResultMap", null);
 
-            Assert.AreEqual(0, list.Count);
+            Assert.That(list.Count, Is.EqualTo(0));
         }
 
         /// <summary>
@@ -432,12 +432,12 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests.Generics
             IList<Account> list = sqlMap.QueryForList<Account>("GetAllAccountsViaResultClass", null);
 
             AssertAccount1(list[0]);
-            Assert.AreEqual(5, list.Count);
-            Assert.AreEqual(1, list[0].Id);
-            Assert.AreEqual(2, list[1].Id);
-            Assert.AreEqual(3, list[2].Id);
-            Assert.AreEqual(4, list[3].Id);
-            Assert.AreEqual(5, list[4].Id);
+            Assert.That(list.Count, Is.EqualTo(5));
+            Assert.That(list[0].Id, Is.EqualTo(1));
+            Assert.That(list[1].Id, Is.EqualTo(2));
+            Assert.That(list[2].Id, Is.EqualTo(3));
+            Assert.That(list[3].Id, Is.EqualTo(4));
+            Assert.That(list[4].Id, Is.EqualTo(5));
         }
 
         /// <summary>
@@ -448,11 +448,11 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests.Generics
         {
             IList<string> list = sqlMap.QueryForList<string>("GetAllEmailAddressesViaResultClass", null);
 
-            Assert.AreEqual("Joe.Dalton@somewhere.com", list[0]);
-            Assert.AreEqual("Averel.Dalton@somewhere.com", list[1]);
-            Assert.IsNull(list[2]);
-            Assert.AreEqual("Jack.Dalton@somewhere.com", list[3]);
-            Assert.AreEqual("gilles.bayon@nospam.org", list[4]);
+            Assert.That(list[0], Is.EqualTo("Joe.Dalton@somewhere.com"));
+            Assert.That(list[1], Is.EqualTo("Averel.Dalton@somewhere.com"));
+            Assert.That(list[2], Is.Null);
+            Assert.That(list[3], Is.EqualTo("Jack.Dalton@somewhere.com"));
+            Assert.That(list[4], Is.EqualTo("gilles.bayon@nospam.org"));
         }
 
         /// <summary>
@@ -463,11 +463,11 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests.Generics
         {
             IList<string> list = sqlMap.QueryForList<string>("GetAllEmailAddressesViaResultMap", null);
 
-            Assert.AreEqual("Joe.Dalton@somewhere.com", list[0]);
-            Assert.AreEqual("Averel.Dalton@somewhere.com", list[1]);
-            Assert.IsNull(list[2]);
-            Assert.AreEqual("Jack.Dalton@somewhere.com", list[3]);
-            Assert.AreEqual("gilles.bayon@nospam.org", list[4]);
+            Assert.That(list[0], Is.EqualTo("Joe.Dalton@somewhere.com"));
+            Assert.That(list[1], Is.EqualTo("Averel.Dalton@somewhere.com"));
+            Assert.That(list[2], Is.Null);
+            Assert.That(list[3], Is.EqualTo("Jack.Dalton@somewhere.com"));
+            Assert.That(list[4], Is.EqualTo("gilles.bayon@nospam.org"));
         }
 
         /// <summary>
@@ -478,9 +478,9 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests.Generics
         {
             IList<Account> list = sqlMap.QueryForList<Account>("GetAllAccountsViaResultMap", null, 2, 2);
 
-            Assert.AreEqual(2, list.Count);
-            Assert.AreEqual(3, list[0].Id);
-            Assert.AreEqual(4, list[1].Id);
+            Assert.That(list.Count, Is.EqualTo(2));
+            Assert.That(list[0].Id, Is.EqualTo(3));
+            Assert.That(list[1].Id, Is.EqualTo(4));
         }
 
 
@@ -492,14 +492,14 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests.Generics
 
             IList<Account> list = sqlMap.QueryWithRowDelegate<Account>("GetAllAccountsViaResultMap", null, handler);
 
-            Assert.AreEqual(5, _index);
-            Assert.AreEqual(5, list.Count);
+            Assert.That(_index, Is.EqualTo(5));
+            Assert.That(list.Count, Is.EqualTo(5));
             AssertAccount1(list[0]);
-            Assert.AreEqual(1, list[0].Id);
-            Assert.AreEqual(2, list[1].Id);
-            Assert.AreEqual(3, list[2].Id);
-            Assert.AreEqual(4, list[3].Id);
-            Assert.AreEqual(5, list[4].Id);
+            Assert.That(list[0].Id, Is.EqualTo(1));
+            Assert.That(list[1].Id, Is.EqualTo(2));
+            Assert.That(list[2].Id, Is.EqualTo(3));
+            Assert.That(list[3].Id, Is.EqualTo(4));
+            Assert.That(list[4].Id, Is.EqualTo(5));
 
         }
 
@@ -511,7 +511,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests.Generics
         {
             IList<Order> list = sqlMap.QueryForList<Order>("GetManyOrderWithConstructor", null);
 
-            Assert.IsTrue(list.Count > 0);
+            Assert.That(list.Count > 0, Is.True);
         }
 
         #endregion
@@ -524,7 +524,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests.Generics
         {
             _index++;
 
-            Assert.AreEqual(_index, ((Account)obj).Id);
+            Assert.That(((Account)obj).Id, Is.EqualTo(_index));
             list.Add(((Account)obj));
         }
 
@@ -539,14 +539,14 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests.Generics
         {
             IDictionary<string, Account> map = sqlMap.QueryForDictionary<string, Account>("GetAllAccountsViaResultClass", null, "FirstName");
 
-            Assert.AreEqual(5, map.Count);
+            Assert.That(map.Count, Is.EqualTo(5));
             AssertAccount1(map["Joe"]);
 
-            Assert.AreEqual(1, map["Joe"].Id);
-            Assert.AreEqual(2, map["Averel"].Id);
-            Assert.AreEqual(3, map["William"].Id);
-            Assert.AreEqual(4, map["Jack"].Id);
-            Assert.AreEqual(5, map["Gilles"].Id);
+            Assert.That(map["Joe"].Id, Is.EqualTo(1));
+            Assert.That(map["Averel"].Id, Is.EqualTo(2));
+            Assert.That(map["William"].Id, Is.EqualTo(3));
+            Assert.That(map["Jack"].Id, Is.EqualTo(4));
+            Assert.That(map["Gilles"].Id, Is.EqualTo(5));
         }
 
         /// <summary>
@@ -561,10 +561,10 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests.Generics
         {
             IDictionary<string, Order> map = sqlMap.QueryForDictionary<string, Order>("GetAllOrderWithLineItems", null, "PostalCode");
 
-            Assert.AreEqual(11, map.Count);
+            Assert.That(map.Count, Is.EqualTo(11));
             Order order = map["T4H 9G4"];
 
-            Assert.AreEqual(2, order.LineItemsIList.Count);
+            Assert.That(order.LineItemsIList.Count, Is.EqualTo(2));
         }
 
         /// <summary>
@@ -576,13 +576,13 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests.Generics
         {
             IDictionary<string, string> map = sqlMap.QueryForDictionary<string, string>("GetAllAccountsViaResultClass", null, "FirstName", "EmailAddress");
 
-            Assert.AreEqual(5, map.Count);
+            Assert.That(map.Count, Is.EqualTo(5));
 
-            Assert.AreEqual("Joe.Dalton@somewhere.com", map["Joe"]);
-            Assert.AreEqual("Averel.Dalton@somewhere.com", map["Averel"]);
-            Assert.IsNull(map["William"]);
-            Assert.AreEqual("Jack.Dalton@somewhere.com", map["Jack"]);
-            Assert.AreEqual("gilles.bayon@nospam.org", map["Gilles"]);
+            Assert.That(map["Joe"], Is.EqualTo("Joe.Dalton@somewhere.com"));
+            Assert.That(map["Averel"], Is.EqualTo("Averel.Dalton@somewhere.com"));
+            Assert.That(map["William"], Is.Null);
+            Assert.That(map["Jack"], Is.EqualTo("Jack.Dalton@somewhere.com"));
+            Assert.That(map["Gilles"], Is.EqualTo("gilles.bayon@nospam.org"));
         }
 
         #endregion
