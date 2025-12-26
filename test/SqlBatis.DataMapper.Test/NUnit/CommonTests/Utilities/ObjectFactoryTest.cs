@@ -29,7 +29,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.CommonTests.Utilities
 
 			IFactory factory = objectFactory.CreateFactory(typeof (Book), Type.EmptyTypes );
 
-			Assert.IsNotNull(factory);
+			Assert.That(factory, Is.Not.Null);
 		}
     	
 		[Test]
@@ -71,15 +71,15 @@ namespace SqlBatis.DataMapper.Test.NUnit.CommonTests.Utilities
 			object[] parameters = {"gilles"};
 			object obj0 = factory0.CreateInstance(parameters);
 
-			Assert.IsTrue(obj0 is Account);
+			Assert.That(obj0, Is.InstanceOf<Account>());
 			Account account = (Account)obj0;
-			Assert.AreEqual("gilles", account.Test);
+			Assert.That(account.Test, Is.EqualTo("gilles"));
 
 			IFactory factory1 = objectFactory.CreateFactory(typeof (Account), Type.EmptyTypes );
 
 			object obj1 = factory1.CreateInstance(parameters);
 
-			Assert.IsTrue(obj1 is Account);
+			Assert.That(obj1, Is.InstanceOf<Account>());
 		}
 
 		[Test]
@@ -93,9 +93,9 @@ namespace SqlBatis.DataMapper.Test.NUnit.CommonTests.Utilities
 			object[] parameters = {"gilles"};
 			object obj = factory.CreateInstance(parameters);
 
-			Assert.IsTrue(obj is Account);
+			Assert.That(obj, Is.InstanceOf<Account>());
 			Account account = (Account)obj;
-			Assert.AreEqual("gilles", account.Test);
+			Assert.That(account.Test, Is.EqualTo("gilles"));
 		}
 
 		[Test]
@@ -110,9 +110,9 @@ namespace SqlBatis.DataMapper.Test.NUnit.CommonTests.Utilities
 			parameters[0] = null;
 			object obj = factory.CreateInstance(parameters);
 
-			Assert.IsTrue(obj is Account);
+			Assert.That(obj, Is.InstanceOf<Account>());
 			Account account = (Account)obj;
-			Assert.AreEqual(null, account.Test);
+			Assert.That(account.Test, Is.Null);
 		}
 
 		[Test]
@@ -127,9 +127,9 @@ namespace SqlBatis.DataMapper.Test.NUnit.CommonTests.Utilities
 			parameters[0] = -55;
 			object obj = factory.CreateInstance(parameters);
 
-			Assert.IsTrue(obj is Account);
+			Assert.That(obj, Is.InstanceOf<Account>());
 			Account account = (Account)obj;
-			Assert.AreEqual( -55, account.Id);
+			Assert.That(account.Id, Is.EqualTo(-55));
 		}
 
 		[Test]
@@ -144,9 +144,9 @@ namespace SqlBatis.DataMapper.Test.NUnit.CommonTests.Utilities
 			parameters[0] = Days.Sun;
 			object obj = factory.CreateInstance(parameters);
 
-			Assert.IsTrue(obj is Account);
+			Assert.That(obj, Is.InstanceOf<Account>());
 			Account account = (Account)obj;
-			Assert.AreEqual( Days.Sun, account.Days);
+			Assert.That(account.Days, Is.EqualTo(Days.Sun));
 		}
 
 		[Test]
@@ -163,10 +163,10 @@ namespace SqlBatis.DataMapper.Test.NUnit.CommonTests.Utilities
 			parameters[0] = prop;
 			object obj = factory.CreateInstance(parameters);
 
-			Assert.IsTrue(obj is Account);
+			Assert.That(obj, Is.InstanceOf<Account>());
 			Account account = (Account)obj;
-			Assert.IsNotNull(account.Property);
-			Assert.AreEqual( "Gilles", account.Property.String);
+			Assert.That(account.Property, Is.Not.Null);
+			Assert.That(account.Property.String, Is.EqualTo("Gilles"));
 		}
 
 		[Test]
@@ -182,9 +182,9 @@ namespace SqlBatis.DataMapper.Test.NUnit.CommonTests.Utilities
 			parameters[0] = date;
 			object obj = factory.CreateInstance(parameters);
 
-			Assert.IsTrue(obj is Account);
+			Assert.That(obj, Is.InstanceOf<Account>());
 			Account account = (Account)obj;
-			Assert.AreEqual( date, account.Date);
+			Assert.That(account.Date, Is.EqualTo(date));
 		}
 
         [Test]
@@ -204,12 +204,12 @@ namespace SqlBatis.DataMapper.Test.NUnit.CommonTests.Utilities
             parameters[0] = ids;
             object obj = factory.CreateInstance(parameters);
 
-            Assert.IsTrue(obj is Account);
+            Assert.That(obj, Is.InstanceOf<Account>());
             Account account = (Account)obj;
 
-            Assert.AreEqual(2, account.Ids.Length);
-            Assert.AreEqual(1, account.Ids[0]);
-            Assert.AreEqual(2, account.Ids[1]);
+            Assert.That(account.Ids.Length, Is.EqualTo(2));
+            Assert.That(account.Ids[0], Is.EqualTo(1));
+            Assert.That(account.Ids[1], Is.EqualTo(2));
         }
 
 		[Test]
@@ -227,11 +227,11 @@ namespace SqlBatis.DataMapper.Test.NUnit.CommonTests.Utilities
 			parameters[1] = prop;
 			object obj = factory.CreateInstance(parameters);
 
-			Assert.IsTrue(obj is Account);
+			Assert.That(obj, Is.InstanceOf<Account>());
 			Account account = (Account)obj;
-			Assert.AreEqual("Héloïse", account.FirstName);
-			Assert.IsNotNull(account.Property);
-			Assert.AreEqual( "Gilles", account.Property.String);
+			Assert.That(account.FirstName, Is.EqualTo("Héloïse"));
+			Assert.That(account.Property, Is.Not.Null);
+			Assert.That(account.Property.String, Is.EqualTo("Gilles"));
 		}
 
 
@@ -243,15 +243,15 @@ namespace SqlBatis.DataMapper.Test.NUnit.CommonTests.Utilities
 
 			IFactory factory = objectFactory.CreateFactory(typeof (Account), Type.EmptyTypes);
 			object obj = factory.CreateInstance(null);
-			Assert.IsTrue(obj is Account);
+			Assert.That(obj, Is.InstanceOf<Account>());
 
 			factory = objectFactory.CreateFactory(typeof (Account), Type.EmptyTypes);
 			obj = factory.CreateInstance(Type.EmptyTypes);
-			Assert.IsTrue(obj is Account);
+			Assert.That(obj, Is.InstanceOf<Account>());
 
 			factory = objectFactory.CreateFactory(typeof (Simple), Type.EmptyTypes);
 			obj = factory.CreateInstance(Type.EmptyTypes);
-			Assert.IsTrue(obj is Simple);
+			Assert.That(obj, Is.InstanceOf<Simple>());
 		}
 
 		[Test]

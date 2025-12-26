@@ -63,8 +63,8 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests.MSSQL.Generics
 
             Account testAccount = sqlMap.QueryForObject<Account>("GetAccountViaColumnName", 99);
 
-			Assert.IsNotNull(testAccount);
-			Assert.AreEqual(99, testAccount.Id);
+			Assert.That(testAccount, Is.Not.Null);
+			Assert.That(testAccount.Id, Is.EqualTo(99));
 		}
 
 		/// <summary>
@@ -80,9 +80,9 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests.MSSQL.Generics
 			int key = (int)sqlMap.Insert("InsertCategoryWithProperties", category);
 
             Category categoryTest = sqlMap.QueryForObject<Category>("GetCategory", key);
-			Assert.AreEqual(key, categoryTest.Id);
-			Assert.AreEqual("Film", categoryTest.Name);
-			Assert.AreEqual(category.Guid, categoryTest.Guid);
+			Assert.That(categoryTest.Id, Is.EqualTo(key));
+			Assert.That(categoryTest.Name, Is.EqualTo("Film"));
+			Assert.That(categoryTest.Guid, Is.EqualTo(category.Guid));
 		}
 
 		/// <summary>
@@ -98,9 +98,9 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests.MSSQL.Generics
 			int key = (int)sqlMap.Insert("InsertCategory", category);
 
 			Category categoryTest = sqlMap.QueryForObject<Category>("GetCategory", key);
-			Assert.AreEqual(key, categoryTest.Id);
-			Assert.AreEqual(category.Name, categoryTest.Name);
-			Assert.AreEqual(category.Guid, categoryTest.Guid);
+			Assert.That(categoryTest.Id, Is.EqualTo(key));
+			Assert.That(categoryTest.Name, Is.EqualTo(category.Name));
+			Assert.That(categoryTest.Guid, Is.EqualTo(category.Guid));
 		}
 
 		/// <summary>
@@ -113,9 +113,9 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests.MSSQL.Generics
 			int key = (int)sqlMap.Insert("InsertCategoryGuidParameterClass", newGuid);
 
 			Category categoryTest = sqlMap.QueryForObject<Category>("GetCategory", key);
-			Assert.AreEqual(key, categoryTest.Id);
-			Assert.AreEqual("toto", categoryTest.Name);
-			Assert.AreEqual(newGuid, categoryTest.Guid);
+			Assert.That(categoryTest.Id, Is.EqualTo(key));
+			Assert.That(categoryTest.Name, Is.EqualTo("toto"));
+			Assert.That(categoryTest.Guid, Is.EqualTo(newGuid));
 		}
 
 		/// <summary>
@@ -128,9 +128,9 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests.MSSQL.Generics
 			int key = (int)sqlMap.Insert("InsertCategoryGuidParameterClassJIRA20", newGuid);
 
 			Category categoryTest = sqlMap.QueryForObject<Category>("GetCategory", key);
-			Assert.AreEqual(key, categoryTest.Id);
-			Assert.AreEqual("toto", categoryTest.Name);
-			Assert.AreEqual(newGuid, categoryTest.Guid);
+			Assert.That(categoryTest.Id, Is.EqualTo(key));
+			Assert.That(categoryTest.Name, Is.EqualTo("toto"));
+			Assert.That(categoryTest.Guid, Is.EqualTo(newGuid));
 		}
 
 		/// <summary>
@@ -154,9 +154,9 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests.MSSQL.Generics
 			Category categoryRead = null;
 			categoryRead = sqlMap.QueryForObject<Category>("GetCategory", key);
 
-			Assert.AreEqual(category.Id, categoryRead.Id);
-			Assert.AreEqual(category.Name, categoryRead.Name);
-			Assert.AreEqual(category.Guid.ToString(), categoryRead.Guid.ToString());
+			Assert.That(categoryRead.Id, Is.EqualTo(category.Id));
+			Assert.That(categoryRead.Name, Is.EqualTo(category.Name));
+			Assert.That(categoryRead.Guid.ToString(), Is.EqualTo(category.Guid.ToString()));
 		}
 
 		/// <summary>
@@ -181,8 +181,8 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests.MSSQL.Generics
             AssertOrder1(order);
 
             // Check generic collection
-            Assert.IsNotNull(order.LineItemsCollection);
-            Assert.AreEqual(3, order.LineItemsCollection.Count);
+            Assert.That(order.LineItemsCollection, Is.Not.Null);
+            Assert.That(order.LineItemsCollection.Count, Is.EqualTo(3));
         }
 		#endregion
 

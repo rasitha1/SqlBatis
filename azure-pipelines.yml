@@ -6,7 +6,7 @@ pool:
 
 variables:
   buildConfiguration: 'Release'
-  version: '5.1.0'
+  version: '6.0.0'
   counter: $[counter(variables['version'], 0)]
   sourceVersion: ''
   assemblyVersion: $(version).$(counter)

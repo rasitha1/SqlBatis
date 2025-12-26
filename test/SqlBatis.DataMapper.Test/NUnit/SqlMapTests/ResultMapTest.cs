@@ -70,8 +70,8 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
             Order order = (Order)sqlMap.QueryForObject("GetOrderWithLineItems", 1);
 
             AssertOrder1(order);
-            Assert.IsNotNull(order.LineItemsIList);
-            Assert.AreEqual(3, order.LineItemsIList.Count);
+            Assert.That(order.LineItemsIList, Is.Not.Null);
+            Assert.That(order.LineItemsIList.Count, Is.EqualTo(3));
         }
 
         /// <summary>
@@ -84,13 +84,13 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
 
             AssertOrder1(order);
 
-            Assert.IsNotNull(order.LineItemsIList);
-            Assert.IsTrue(typeof(IList).IsAssignableFrom(order.LineItemsIList.GetType()));
+            Assert.That(order.LineItemsIList, Is.Not.Null);
+            Assert.That(typeof(IList).IsAssignableFrom(order.LineItemsIList.GetType()), Is.True);
 
-            Assert.AreEqual(3, order.LineItemsIList.Count);
+            Assert.That(order.LineItemsIList.Count, Is.EqualTo(3));
             // After a call to a method from a proxy object,
             // the proxy object is replaced by his real object.
-            Assert.IsTrue(order.LineItemsIList is ArrayList);
+            Assert.That(order.LineItemsIList, Is.InstanceOf<ArrayList>());
         }
 
         /// <summary>
@@ -105,13 +105,13 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
 
             AssertOrder1(order);
 
-            Assert.IsNotNull(order.LineItemsIList);
-            Assert.IsTrue(typeof(IList).IsAssignableFrom(order.LineItemsIList.GetType()));
+            Assert.That(order.LineItemsIList, Is.Not.Null);
+            Assert.That(typeof(IList).IsAssignableFrom(order.LineItemsIList.GetType()), Is.True);
 
-            Assert.AreEqual(3, order.LineItemsIList.Count);
+            Assert.That(order.LineItemsIList.Count, Is.EqualTo(3));
             // After a call to a method from a proxy object,
             // the proxy object is replaced by his real object.
-            Assert.IsTrue(order.LineItemsIList is ArrayList);
+            Assert.That(order.LineItemsIList, Is.InstanceOf<ArrayList>());
 
             sqlMap.CloseConnection();
         }
@@ -127,14 +127,14 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
 
             AssertOrder1(order);
 
-            Assert.IsNotNull(order.LineItemsCollection);
-            Assert.AreEqual(3, order.LineItemsCollection.Count);
+            Assert.That(order.LineItemsCollection, Is.Not.Null);
+            Assert.That(order.LineItemsCollection.Count, Is.EqualTo(3));
 
             IEnumerator e = ((IEnumerable)order.LineItemsCollection).GetEnumerator();
             while (e.MoveNext())
             {
                 LineItem item = (LineItem)e.Current;
-                Assert.IsNotNull(item);
+                Assert.That(item, Is.Not.Null);
             }
         }
 
@@ -145,7 +145,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
         public void TestNullValueReplacementOnString()
         {
             Account account = (Account)sqlMap.QueryForObject("GetAccountViaColumnName", 3);
-            Assert.AreEqual("no_email@provided.com", account.EmailAddress);
+            Assert.That(account.EmailAddress, Is.EqualTo("no_email@provided.com"));
         }
 
         /// <summary>
@@ -165,9 +165,9 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
             enumClass = null;
             enumClass = sqlMap.QueryForObject("GetEnumerationNullValue", 99) as Enumeration;
 
-            Assert.AreEqual(enumClass.Day, Days.Thu);
-            Assert.AreEqual(enumClass.Color, Colors.Blue);
-            Assert.AreEqual(enumClass.Month, Months.All);
+            Assert.That(enumClass.Day, Is.EqualTo(Days.Thu));
+            Assert.That(enumClass.Color, Is.EqualTo(Colors.Blue));
+            Assert.That(enumClass.Month, Is.EqualTo(Months.All));
         }
 
         /// <summary>
@@ -206,8 +206,8 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
             AssertOrder1(order);
 
             // Check strongly typed collection
-            Assert.IsNotNull(order.LineItemsCollection);
-            Assert.AreEqual(3, order.LineItemsCollection.Count);
+            Assert.That(order.LineItemsCollection, Is.Not.Null);
+            Assert.That(order.LineItemsCollection.Count, Is.EqualTo(3));
         }
 
         /// <summary>
@@ -222,8 +222,8 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
             AssertOrder1(order);
 
             // Check IList collection
-            Assert.IsNotNull(order.LineItemsIList);
-            Assert.AreEqual(3, order.LineItemsIList.Count);
+            Assert.That(order.LineItemsIList, Is.Not.Null);
+            Assert.That(order.LineItemsIList.Count, Is.EqualTo(3));
         }
 
         /// <summary>
@@ -235,8 +235,8 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
             Order order = (Order)sqlMap.QueryForObject("GetOrderWithLineItemArray", 1);
 
             AssertOrder1(order);
-            Assert.IsNotNull(order.LineItemsArray);
-            Assert.AreEqual(3, order.LineItemsArray.Length);
+            Assert.That(order.LineItemsArray, Is.Not.Null);
+            Assert.That(order.LineItemsArray.Length, Is.EqualTo(3));
         }
 
         /// <summary>
@@ -250,14 +250,14 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
 
             AssertOrder1(order);
 
-            Assert.IsNotNull(order.LineItemsCollection);
-            Assert.AreEqual(3, order.LineItemsCollection.Count);
+            Assert.That(order.LineItemsCollection, Is.Not.Null);
+            Assert.That(order.LineItemsCollection.Count, Is.EqualTo(3));
 
             IEnumerator e = ((IEnumerable)order.LineItemsCollection).GetEnumerator();
             while (e.MoveNext())
             {
                 LineItem item = (LineItem)e.Current;
-                Assert.IsNotNull(item);
+                Assert.That(item, Is.Not.Null);
             }
         }
 
@@ -283,9 +283,9 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
 
             AssertOrder1(order);
 
-            Assert.IsNotNull(order.FavouriteLineItem);
-            Assert.AreEqual(1, order.FavouriteLineItem.Id, "order.FavouriteLineItem.Id");
-            Assert.AreEqual("ESM-34", order.FavouriteLineItem.Code);
+            Assert.That(order.FavouriteLineItem, Is.Not.Null);
+            Assert.That(order.FavouriteLineItem.Id, Is.EqualTo(1), "order.FavouriteLineItem.Id");
+            Assert.That(order.FavouriteLineItem.Code, Is.EqualTo("ESM-34"));
 
         }
 
@@ -300,9 +300,9 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
 
             AssertOrder1(order);
 
-            Assert.IsNotNull(order.FavouriteLineItem);
-            Assert.AreEqual(1, order.FavouriteLineItem.Id, "order.FavouriteLineItem.Id");
-            Assert.AreEqual("ESM-34", order.FavouriteLineItem.Code);
+            Assert.That(order.FavouriteLineItem, Is.Not.Null);
+            Assert.That(order.FavouriteLineItem.Id, Is.EqualTo(1), "order.FavouriteLineItem.Id");
+            Assert.That(order.FavouriteLineItem.Code, Is.EqualTo("ESM-34"));
         }
 
         /// <summary>
@@ -315,9 +315,9 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
 
             AssertOrder1(order);
 
-            Assert.IsNotNull(order.FavouriteLineItem);
-            Assert.AreEqual(1, order.FavouriteLineItem.Id, "order.FavouriteLineItem.Id");
-            Assert.AreEqual("ESM-34", order.FavouriteLineItem.Code);
+            Assert.That(order.FavouriteLineItem, Is.Not.Null);
+            Assert.That(order.FavouriteLineItem.Id, Is.EqualTo(1), "order.FavouriteLineItem.Id");
+            Assert.That(order.FavouriteLineItem.Code, Is.EqualTo("ESM-34"));
 
         }
 
@@ -331,13 +331,13 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
             Order order1 = (Order)sqlMap.QueryForObject("GetOrderWithFavouriteLineItem", 1);
             Order order2 = (Order)sqlMap.QueryForObject("GetOrderWithFavouriteLineItem", 2);
 
-            Assert.IsNotNull(order1);
-            Assert.IsNotNull(order1.FavouriteLineItem);
-            Assert.AreEqual(1, order1.FavouriteLineItem.Id);
+            Assert.That(order1, Is.Not.Null);
+            Assert.That(order1.FavouriteLineItem, Is.Not.Null);
+            Assert.That(order1.FavouriteLineItem.Id, Is.EqualTo(1));
 
-            Assert.IsNotNull(order2);
-            Assert.IsNotNull(order2.FavouriteLineItem);
-            Assert.AreEqual(17, order2.FavouriteLineItem.Id);
+            Assert.That(order2, Is.Not.Null);
+            Assert.That(order2.FavouriteLineItem, Is.Not.Null);
+            Assert.That(order2.FavouriteLineItem.Id, Is.EqualTo(17));
         }
 
         /// <summary>
@@ -350,13 +350,13 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
             Order order1 = (Order)sqlMap.QueryForObject("GetOrderWithFavouriteLineItem-JIRA-251", 1);
             Order order2 = (Order)sqlMap.QueryForObject("GetOrderWithFavouriteLineItem-JIRA-251", 2);
 
-            Assert.IsNotNull(order1);
-            Assert.IsNotNull(order1.FavouriteLineItem);
-            Assert.AreEqual(1, order1.FavouriteLineItem.Id);
+            Assert.That(order1, Is.Not.Null);
+            Assert.That(order1.FavouriteLineItem, Is.Not.Null);
+            Assert.That(order1.FavouriteLineItem.Id, Is.EqualTo(1));
 
-            Assert.IsNotNull(order2);
-            Assert.IsNotNull(order2.FavouriteLineItem);
-            Assert.AreEqual(17, order2.FavouriteLineItem.Id);
+            Assert.That(order2, Is.Not.Null);
+            Assert.That(order2.FavouriteLineItem, Is.Not.Null);
+            Assert.That(order2.FavouriteLineItem.Id, Is.EqualTo(17));
 
         }
 
@@ -369,9 +369,9 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
 
             Order order1 = (Order)sqlMap.QueryForObject("GetOrderWithDynFavouriteLineItem", 1);
 
-            Assert.IsNotNull(order1);
-            Assert.IsNotNull(order1.FavouriteLineItem);
-            Assert.AreEqual(1, order1.FavouriteLineItem.Id);
+            Assert.That(order1, Is.Not.Null);
+            Assert.That(order1.FavouriteLineItem, Is.Not.Null);
+            Assert.That(order1.FavouriteLineItem.Id, Is.EqualTo(1));
         }
 
         /// <summary>
@@ -382,8 +382,8 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
         {
             IList list = sqlMap.QueryForList("GetAllCreditCardNumbersFromOrders", null);
 
-            Assert.AreEqual(5, list.Count);
-            Assert.AreEqual("555555555555", list[0]);
+            Assert.That(list.Count, Is.EqualTo(5));
+            Assert.That(list[0], Is.EqualTo("555555555555"));
         }
 
         /// <summary>
@@ -396,7 +396,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
             param.Add("LineItem_ID", 1);
             param.Add("Order_ID", 1);
             decimal price = (decimal)sqlMap.QueryForObject("GetLineItemPrice", param);
-            Assert.AreEqual(45.43m, price);
+            Assert.That(price, Is.EqualTo(45.43m));
         }
 
         /// <summary>
@@ -444,9 +444,9 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
 
             loadItem = sqlMap.QueryForObject("GetSpecificLineItemWithPicture", param) as LineItem;
 
-            Assert.IsNotNull(loadItem.Id);
-            Assert.IsNotNull(loadItem.PictureData);
-            Assert.AreEqual(item.PictureData, loadItem.PictureData);
+            Assert.That(loadItem.Id, Is.Not.Null);
+            Assert.That(loadItem.PictureData, Is.Not.Null);
+            Assert.That(loadItem.PictureData, Is.EqualTo(item.PictureData));
         }
 
         /// <summary>
@@ -486,9 +486,9 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
 
             LineItem testItem = (LineItem)sqlMap.QueryForObject("GetSpecificLineItemWithNullReplacement", 99);
 
-            Assert.IsNotNull(testItem);
-            Assert.AreEqual(-77.77m, testItem.Price);
-            Assert.AreEqual("test", testItem.Code);
+            Assert.That(testItem, Is.Not.Null);
+            Assert.That(testItem.Price, Is.EqualTo(-77.77m));
+            Assert.That(testItem.Code, Is.EqualTo("test"));
         }
 
         /// <summary>
@@ -517,7 +517,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
 
             Order orderTest = (Order)sqlMap.QueryForObject("GetOrderLiteByColumnName", 99);
 
-            Assert.AreEqual(System.DateTime.MinValue, orderTest.Date);
+            Assert.That(orderTest.Date, Is.EqualTo(System.DateTime.MinValue));
         }
 
         #endregion

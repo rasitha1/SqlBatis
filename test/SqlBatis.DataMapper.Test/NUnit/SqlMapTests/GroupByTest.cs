@@ -1,4 +1,3 @@
-
 using System.Collections;
 using System.Collections.Generic;
 using SqlBatis.DataMapper.Test.Domain;
@@ -50,20 +49,20 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
             InitScript(sqlMap.DataSource, ScriptDirectory + "groupby-init.sql");
 
             IList<Application> list = sqlMap.QueryForList<Application>("GroupByBobHanson", null);
-            Assert.AreEqual(1, list.Count);
+            Assert.That(list.Count, Is.EqualTo(1));
             Application application = list[0];
 
-            Assert.AreEqual("Admin", application.DefaultRole.Name);
-            Assert.AreEqual(2, application.Users.Count);
-            Assert.AreEqual("user1", application.Users[0].UserName);
-            Assert.IsNull(application.Users[0].Address);
+            Assert.That(application.DefaultRole.Name, Is.EqualTo("Admin"));
+            Assert.That(application.Users.Count, Is.EqualTo(2));
+            Assert.That(application.Users[0].UserName, Is.EqualTo("user1"));
+            Assert.That(application.Users[0].Address, Is.Null);
             
-            Assert.AreEqual(1, application.Users[0].Roles.Count);
-            Assert.AreEqual("User", application.Users[0].Roles[0].Name);
+            Assert.That(application.Users[0].Roles.Count, Is.EqualTo(1));
+            Assert.That(application.Users[0].Roles[0].Name, Is.EqualTo("User"));
 
-            Assert.AreEqual(2, application.Users[1].Roles.Count);
-            Assert.AreEqual("User", application.Users[1].Roles[1].Name);
-            Assert.AreEqual("Admin", application.Users[1].Roles[0].Name);
+            Assert.That(application.Users[1].Roles.Count, Is.EqualTo(2));
+            Assert.That(application.Users[1].Roles[1].Name, Is.EqualTo("User"));
+            Assert.That(application.Users[1].Roles[0].Name, Is.EqualTo("Admin"));
 
         }
 
@@ -81,52 +80,52 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
         public void TestGroupByWithNullSon() 
         {
             IList list = sqlMap.QueryForList("GetCategories", null);
-            Assert.AreEqual(6, list.Count);
+            Assert.That(list.Count, Is.EqualTo(6));
         }
 
         [Test]
         public void TestGroupBy()
         {
             IList list = sqlMap.QueryForList("GetAllCategories", null);
-            Assert.AreEqual(5, list.Count);
+            Assert.That(list.Count, Is.EqualTo(5));
         }
         
         [Test]
         public void TestGroupByExtended()  
         {
             IList list = sqlMap.QueryForList("GetAllCategoriesExtended", null);
-            Assert.AreEqual(5, list.Count);
+            Assert.That(list.Count, Is.EqualTo(5));
         }
 
         [Test]
         public void TestNestedProperties()
         {
             IList list = sqlMap.QueryForList("GetFish", null);
-            Assert.AreEqual(1, list.Count);
+            Assert.That(list.Count, Is.EqualTo(1));
 
             Domain.Petshop.Category cat = (Domain.Petshop.Category)list[0];
-            Assert.AreEqual("FISH", cat.Id);
-            Assert.AreEqual("Fish", cat.Name);
-            Assert.IsNotNull(cat.Products, "Expected product list.");
-            Assert.AreEqual(4, cat.Products.Count);
+            Assert.That(cat.Id, Is.EqualTo("FISH"));
+            Assert.That(cat.Name, Is.EqualTo("Fish"));
+            Assert.That(cat.Products, Is.Not.Null.And.With.Property("Count").EqualTo(4), "Expected product list.");
+            Assert.That(cat.Products.Count, Is.EqualTo(4));
 
             Domain.Petshop.Product product = (Domain.Petshop.Product)cat.Products[0];
-            Assert.AreEqual(2, product.Items.Count);
+            Assert.That(product.Items.Count, Is.EqualTo(2));
         }
 
         [Test]
         public void TestForQueryForObject()
         {
             Domain.Petshop.Category cat = (Domain.Petshop.Category)sqlMap.QueryForObject("GetFish", null);
-            Assert.IsNotNull(cat);
+            Assert.That(cat, Is.Not.Null);
 
-            Assert.AreEqual("FISH", cat.Id);
-            Assert.AreEqual("Fish", cat.Name);
-            Assert.IsNotNull(cat.Products, "Expected product list.");
-            Assert.AreEqual(4, cat.Products.Count);
+            Assert.That(cat.Id, Is.EqualTo("FISH"));
+            Assert.That(cat.Name, Is.EqualTo("Fish"));
+            Assert.That(cat.Products, Is.Not.Null.And.With.Property("Count").EqualTo(4), "Expected product list.");
+            Assert.That(cat.Products.Count, Is.EqualTo(4));
 
             Domain.Petshop.Product product = (Domain.Petshop.Product)cat.Products[0];
-            Assert.AreEqual(2, product.Items.Count);
+            Assert.That(product.Items.Count, Is.EqualTo(2));
         }
 
 
@@ -134,31 +133,31 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
         public void TestGenericFish()
         {
             IList list = sqlMap.QueryForList("GetFishGeneric", null);
-            Assert.AreEqual(1, list.Count);
+            Assert.That(list.Count, Is.EqualTo(1));
 
             Domain.Petshop.Category cat = (Domain.Petshop.Category)list[0];
-            Assert.AreEqual("FISH", cat.Id);
-            Assert.AreEqual("Fish", cat.Name);
-            Assert.IsNotNull(cat.GenericProducts, "Expected product list.");
-            Assert.AreEqual(4, cat.GenericProducts.Count);
+            Assert.That(cat.Id, Is.EqualTo("FISH"));
+            Assert.That(cat.Name, Is.EqualTo("Fish"));
+            Assert.That(cat.GenericProducts, Is.Not.Null.And.With.Property("Count").EqualTo(4), "Expected product list.");
+            Assert.That(cat.GenericProducts.Count, Is.EqualTo(4));
 
             Domain.Petshop.Product product = cat.GenericProducts[0];
-            Assert.AreEqual(2, product.GenericItems.Count);
+            Assert.That(product.GenericItems.Count, Is.EqualTo(2));
         }
 
         [Test]
         public void TestForQueryForObjectGeneric()
         {
             Domain.Petshop.Category cat = sqlMap.QueryForObject<Domain.Petshop.Category>("GetFishGeneric", null);
-            Assert.IsNotNull(cat);
+            Assert.That(cat, Is.Not.Null);
 
-            Assert.AreEqual("FISH", cat.Id);
-            Assert.AreEqual("Fish", cat.Name);
-            Assert.IsNotNull(cat.GenericProducts, "Expected product list.");
-            Assert.AreEqual(4, cat.GenericProducts.Count);
+            Assert.That(cat.Id, Is.EqualTo("FISH"));
+            Assert.That(cat.Name, Is.EqualTo("Fish"));
+            Assert.That(cat.GenericProducts, Is.Not.Null.And.With.Property("Count").EqualTo(4), "Expected product list.");
+            Assert.That(cat.GenericProducts.Count, Is.EqualTo(4));
 
             Domain.Petshop.Product product = cat.GenericProducts[0];
-            Assert.AreEqual(2, product.GenericItems.Count);
+            Assert.That(product.GenericItems.Count, Is.EqualTo(2));
         }
 
         [Test]
@@ -167,31 +166,31 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
             Category myCategory = new Category();
 
             sqlMap.QueryForObject<Category>("GetFishGeneric", null, myCategory);
-            Assert.IsNotNull(myCategory);
+            Assert.That(myCategory, Is.Not.Null);
 
-            Assert.AreEqual("FISH", myCategory.Id);
-            Assert.AreEqual("Fish", myCategory.Name);
-            Assert.IsNotNull(myCategory.GenericProducts, "Expected product list.");
-            Assert.AreEqual(4, myCategory.GenericProducts.Count);
+            Assert.That(myCategory.Id, Is.EqualTo("FISH"));
+            Assert.That(myCategory.Name, Is.EqualTo("Fish"));
+            Assert.That(myCategory.GenericProducts, Is.Not.Null.And.With.Property("Count").EqualTo(4), "Expected product list.");
+            Assert.That(myCategory.GenericProducts.Count, Is.EqualTo(4));
 
             Domain.Petshop.Product product = myCategory.GenericProducts[0];
-            Assert.AreEqual(2, product.GenericItems.Count);
+            Assert.That(product.GenericItems.Count, Is.EqualTo(2));
         }
 
         [Test]
         public void TestGenericList()
         {
             IList<Domain.Petshop.Category> list = sqlMap.QueryForList<Domain.Petshop.Category>("GetFishGeneric", null);
-            Assert.AreEqual(1, list.Count);
+            Assert.That(list.Count, Is.EqualTo(1));
 
             Domain.Petshop.Category cat = list[0];
-            Assert.AreEqual("FISH", cat.Id);
-            Assert.AreEqual("Fish", cat.Name);
-            Assert.IsNotNull(cat.GenericProducts, "Expected product list.");
-            Assert.AreEqual(4, cat.GenericProducts.Count);
+            Assert.That(cat.Id, Is.EqualTo("FISH"));
+            Assert.That(cat.Name, Is.EqualTo("Fish"));
+            Assert.That(cat.GenericProducts, Is.Not.Null.And.With.Property("Count").EqualTo(4), "Expected product list.");
+            Assert.That(cat.GenericProducts.Count, Is.EqualTo(4));
 
             Domain.Petshop.Product product = cat.GenericProducts[0];
-            Assert.AreEqual(2, product.GenericItems.Count);
+            Assert.That(product.GenericItems.Count, Is.EqualTo(2));
         }
         
         [Test]
@@ -199,7 +198,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
         {
             IList list = sqlMap.QueryForList("GetAllProductCategoriesJIRA250", null);
             Domain.Petshop.Category cat = (Domain.Petshop.Category)list[0];
-            Assert.AreEqual(0, cat.Products.Count);
+            Assert.That(cat.Products.Count, Is.EqualTo(0));
         }
         
         /// <summary>
@@ -227,16 +226,16 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
             
             IList list = sqlMap.QueryForList("GetOrderLineItem", null);
 
-            Assert.AreEqual(11, list.Count);
+            Assert.That(list.Count, Is.EqualTo(11));
             
             order = (Order)list[0];
-            Assert.AreEqual(3, order.LineItemsIList.Count);
-            Assert.IsNotNull(order.Account);
+            Assert.That(order.LineItemsIList.Count, Is.EqualTo(3));
+            Assert.That(order.Account, Is.Not.Null);
             AssertAccount1(order.Account);
 
             order = (Order)list[10];
-            Assert.AreEqual(1, order.LineItemsIList.Count);
-            Assert.IsNull(order.Account);
+            Assert.That(order.LineItemsIList.Count, Is.EqualTo(1));
+            Assert.That(order.Account, Is.Null);
         }
 
         /// <summary>
@@ -251,12 +250,12 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
 
             IList<Account> list = sqlMap.QueryForList<Account>("JIRA206", null);
             
-            Assert.AreEqual(5, list.Count);
-            Assert.AreEqual(0, list[0].Documents.Count);
-            Assert.AreEqual(2, list[1].Documents.Count);
-            Assert.AreEqual(1, list[2].Documents.Count);
-            Assert.AreEqual(0, list[3].Documents.Count);
-            Assert.AreEqual(2, list[4].Documents.Count);
+            Assert.That(list.Count, Is.EqualTo(5));
+            Assert.That(list[0].Documents.Count, Is.EqualTo(0));
+            Assert.That(list[1].Documents.Count, Is.EqualTo(2));
+            Assert.That(list[2].Documents.Count, Is.EqualTo(1));
+            Assert.That(list[3].Documents.Count, Is.EqualTo(0));
+            Assert.That(list[4].Documents.Count, Is.EqualTo(2));
 
             InitScript(sqlMap.DataSource, ScriptDirectory + "petstore-drop.sql");
             InitScript(sqlMap.DataSource, ScriptDirectory + "petstore-schema.sql");

@@ -45,19 +45,19 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests.Generics
             clazz = null;
             clazz = sqlMap.QueryForObject<NullableClass>("GetClassNullable", 1);
 
-            Assert.IsNotNull(clazz);
-            Assert.AreEqual(1, clazz.Id);
-            Assert.IsNull(clazz.TestBool);
-            Assert.IsNull(clazz.TestByte);
-            Assert.IsNull(clazz.TestChar);
-            Assert.IsNull(clazz.TestDateTime);
-            Assert.IsNull(clazz.TestDecimal);
-            Assert.IsNull(clazz.TestDouble);
-            Assert.IsNull(clazz.TestGuid);
-            Assert.IsNull(clazz.TestInt16);
-            Assert.IsNull(clazz.TestInt32);
-            Assert.IsNull(clazz.TestInt64);
-            Assert.IsNull(clazz.TestSingle);
+            Assert.That(clazz, Is.Not.Null);
+            Assert.That(clazz.Id, Is.EqualTo(1));
+            Assert.That(clazz.TestBool, Is.Null);
+            Assert.That(clazz.TestByte, Is.Null);
+            Assert.That(clazz.TestChar, Is.Null);
+            Assert.That(clazz.TestDateTime, Is.Null);
+            Assert.That(clazz.TestDecimal, Is.Null);
+            Assert.That(clazz.TestDouble, Is.Null);
+            Assert.That(clazz.TestGuid, Is.Null);
+            Assert.That(clazz.TestInt16, Is.Null);
+            Assert.That(clazz.TestInt32, Is.Null);
+            Assert.That(clazz.TestInt64, Is.Null);
+            Assert.That(clazz.TestSingle, Is.Null);
         }
 
         /// <summary>
@@ -85,19 +85,19 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests.Generics
             clazz = null;
             clazz = sqlMap.QueryForObject<NullableClass>("GetClassNullable", 1);
 
-            Assert.IsNotNull(clazz);
-            Assert.AreEqual(1, clazz.Id);
-            Assert.IsTrue(clazz.TestBool.Value);
-            Assert.AreEqual(155, clazz.TestByte);
-            Assert.AreEqual('a', clazz.TestChar);
-            Assert.AreEqual(date.Value.ToString(), clazz.TestDateTime.Value.ToString());
-            Assert.AreEqual(99.53M, clazz.TestDecimal);
-            Assert.AreEqual(99.5125, clazz.TestDouble);
-            Assert.AreEqual(guid, clazz.TestGuid);
-            Assert.AreEqual(45, clazz.TestInt16);
-            Assert.AreEqual(99, clazz.TestInt32);
-            Assert.AreEqual(1234567890123456789, clazz.TestInt64);
-            Assert.AreEqual(4578.46445454112f, clazz.TestSingle);
+            Assert.That(clazz, Is.Not.Null);
+            Assert.That(clazz.Id, Is.EqualTo(1));
+            Assert.That(clazz.TestBool.Value, Is.True);
+            Assert.That(clazz.TestByte, Is.EqualTo(155));
+            Assert.That(clazz.TestChar, Is.EqualTo('a'));
+            Assert.That(clazz.TestDateTime.Value.ToString(), Is.EqualTo(date.Value.ToString()));
+            Assert.That(clazz.TestDecimal, Is.EqualTo(99.53M));
+            Assert.That(clazz.TestDouble, Is.EqualTo(99.5125));
+            Assert.That(clazz.TestGuid, Is.EqualTo(guid));
+            Assert.That(clazz.TestInt16, Is.EqualTo(45));
+            Assert.That(clazz.TestInt32, Is.EqualTo(99));
+            Assert.That(clazz.TestInt64, Is.EqualTo(1234567890123456789));
+            Assert.That(clazz.TestSingle, Is.EqualTo(4578.46445454112f));
         } 
         #endregion
 
@@ -115,9 +115,9 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests.Generics
             clazz = null;
             clazz = sqlMap.QueryForObject<NullableClass>("GetNullable", 1);
 
-            Assert.IsNotNull(clazz);
-            Assert.AreEqual(1, clazz.Id);
-            Assert.IsNull(clazz.TestBool);
+            Assert.That(clazz, Is.Not.Null);
+            Assert.That(clazz.Id, Is.EqualTo(1));
+            Assert.That(clazz.TestBool, Is.Null);
         }
 
         /// <summary>
@@ -133,9 +133,9 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests.Generics
             clazz = null;
             clazz = sqlMap.QueryForObject<NullableClass>("GetNullable", 1);
 
-            Assert.IsNotNull(clazz);
-            Assert.AreEqual(1, clazz.Id);
-            Assert.AreEqual(false, clazz.TestBool);
+            Assert.That(clazz, Is.Not.Null);
+            Assert.That(clazz.Id, Is.EqualTo(1));
+            Assert.That(clazz.TestBool, Is.EqualTo(false));
         } 
         #endregion
 
@@ -152,9 +152,9 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests.Generics
             clazz = null;
             clazz = sqlMap.QueryForObject<NullableClass>("GetNullable", 1);
 
-            Assert.IsNotNull(clazz);
-            Assert.AreEqual(1, clazz.Id);
-            Assert.IsNull(clazz.TestByte);
+            Assert.That(clazz, Is.Not.Null);
+            Assert.That(clazz.Id, Is.EqualTo(1));
+            Assert.That(clazz.TestByte, Is.Null);
         }
 
         /// <summary>
@@ -170,9 +170,9 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests.Generics
             clazz = null;
             clazz = sqlMap.QueryForObject<NullableClass>("GetNullable", 1);
 
-            Assert.IsNotNull(clazz);
-            Assert.AreEqual(1, clazz.Id);
-            Assert.AreEqual(155, clazz.TestByte);
+            Assert.That(clazz, Is.Not.Null);
+            Assert.That(clazz.Id, Is.EqualTo(1));
+            Assert.That(clazz.TestByte, Is.EqualTo(155));
         } 
         #endregion
 
@@ -189,9 +189,9 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests.Generics
             clazz = null;
             clazz = sqlMap.QueryForObject<NullableClass>("GetNullable", 1);
 
-            Assert.IsNotNull(clazz);
-            Assert.AreEqual(1, clazz.Id);
-            Assert.IsNull(clazz.TestChar);
+            Assert.That(clazz, Is.Not.Null);
+            Assert.That(clazz.Id, Is.EqualTo(1));
+            Assert.That(clazz.TestChar, Is.Null);
         }
 
         /// <summary>
@@ -207,9 +207,9 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests.Generics
             clazz = null;
             clazz = sqlMap.QueryForObject<NullableClass>("GetNullable", 1);
 
-            Assert.IsNotNull(clazz);
-            Assert.AreEqual(1, clazz.Id);
-            Assert.AreEqual('a', clazz.TestChar);
+            Assert.That(clazz, Is.Not.Null);
+            Assert.That(clazz.Id, Is.EqualTo(1));
+            Assert.That(clazz.TestChar, Is.EqualTo('a'));
         } 
         #endregion
 
@@ -226,9 +226,9 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests.Generics
             clazz = null;
             clazz = sqlMap.QueryForObject<NullableClass>("GetNullable", 1);
 
-            Assert.IsNotNull(clazz);
-            Assert.AreEqual(1, clazz.Id);
-            Assert.IsNull(clazz.TestDateTime);
+            Assert.That(clazz, Is.Not.Null);
+            Assert.That(clazz.Id, Is.EqualTo(1));
+            Assert.That(clazz.TestDateTime, Is.Null);
         }
 
         /// <summary>
@@ -245,9 +245,9 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests.Generics
             clazz = null;
             clazz = sqlMap.QueryForObject<NullableClass>("GetNullable", 1);
 
-            Assert.IsNotNull(clazz);
-            Assert.AreEqual(1, clazz.Id);
-            Assert.AreEqual(date.Value.ToString(), clazz.TestDateTime.Value.ToString());
+            Assert.That(clazz, Is.Not.Null);
+            Assert.That(clazz.Id, Is.EqualTo(1));
+            Assert.That(clazz.TestDateTime.Value.ToString(), Is.EqualTo(date.Value.ToString()));
         }
         #endregion
 
@@ -264,9 +264,9 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests.Generics
             clazz = null;
             clazz = sqlMap.QueryForObject<NullableClass>("GetNullable", 1);
 
-            Assert.IsNotNull(clazz);
-            Assert.AreEqual(clazz.Id, 1);
-            Assert.IsNull(clazz.TestDecimal);
+            Assert.That(clazz, Is.Not.Null);
+            Assert.That(clazz.Id, Is.EqualTo(1));
+            Assert.That(clazz.TestDecimal, Is.Null);
         }
 
         /// <summary>
@@ -282,9 +282,9 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests.Generics
             clazz = null;
             clazz = sqlMap.QueryForObject<NullableClass>("GetNullable", 1);
 
-            Assert.IsNotNull(clazz);
-            Assert.AreEqual(1, clazz.Id);
-            Assert.AreEqual(99.53M, clazz.TestDecimal);
+            Assert.That(clazz, Is.Not.Null);
+            Assert.That(clazz.Id, Is.EqualTo(1));
+            Assert.That(clazz.TestDecimal, Is.EqualTo(99.53M));
         }
         #endregion
 
@@ -301,9 +301,9 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests.Generics
             clazz = null;
             clazz = sqlMap.QueryForObject<NullableClass>("GetNullable", 1);
 
-            Assert.IsNotNull(clazz);
-            Assert.AreEqual(clazz.Id, 1);
-            Assert.IsNull(clazz.TestDouble);
+            Assert.That(clazz, Is.Not.Null);
+            Assert.That(clazz.Id, Is.EqualTo(1));
+            Assert.That(clazz.TestDouble, Is.Null);
         }
 
         /// <summary>
@@ -319,9 +319,9 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests.Generics
             clazz = null;
             clazz = sqlMap.QueryForObject<NullableClass>("GetNullable", 1);
 
-            Assert.IsNotNull(clazz);
-            Assert.AreEqual(1, clazz.Id);
-            Assert.AreEqual(99.5125, clazz.TestDouble);
+            Assert.That(clazz, Is.Not.Null);
+            Assert.That(clazz.Id, Is.EqualTo(1));
+            Assert.That(clazz.TestDouble, Is.EqualTo(99.5125));
         }
         #endregion
 
@@ -338,9 +338,9 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests.Generics
             clazz = null;
             clazz = sqlMap.QueryForObject<NullableClass>("GetNullable", 1);
 
-            Assert.IsNotNull(clazz);
-            Assert.AreEqual(clazz.Id, 1);
-            Assert.IsNull(clazz.TestGuid);
+            Assert.That(clazz, Is.Not.Null);
+            Assert.That(clazz.Id, Is.EqualTo(1));
+            Assert.That(clazz.TestGuid, Is.Null);
         }
 
         /// <summary>
@@ -357,9 +357,9 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests.Generics
             clazz = null;
             clazz = sqlMap.QueryForObject<NullableClass>("GetNullable", 1);
 
-            Assert.IsNotNull(clazz);
-            Assert.AreEqual(1, clazz.Id);
-            Assert.AreEqual(guid, clazz.TestGuid);
+            Assert.That(clazz, Is.Not.Null);
+            Assert.That(clazz.Id, Is.EqualTo(1));
+            Assert.That(clazz.TestGuid, Is.EqualTo(guid));
         }
         #endregion
 
@@ -376,9 +376,9 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests.Generics
             clazz = null;
             clazz = sqlMap.QueryForObject<NullableClass>("GetNullable", 1);
 
-            Assert.IsNotNull(clazz);
-            Assert.AreEqual(clazz.Id, 1);
-            Assert.IsNull(clazz.TestInt16);
+            Assert.That(clazz, Is.Not.Null);
+            Assert.That(clazz.Id, Is.EqualTo(1));
+            Assert.That(clazz.TestInt16, Is.Null);
         }
 
         /// <summary>
@@ -394,9 +394,9 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests.Generics
             clazz = null;
             clazz = sqlMap.QueryForObject<NullableClass>("GetNullable", 1);
 
-            Assert.IsNotNull(clazz);
-            Assert.AreEqual(1, clazz.Id);
-            Assert.AreEqual(45, clazz.TestInt16);
+            Assert.That(clazz, Is.Not.Null);
+            Assert.That(clazz.Id, Is.EqualTo(1));
+            Assert.That(clazz.TestInt16, Is.EqualTo(45));
         }
         #endregion
 
@@ -413,9 +413,9 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests.Generics
             clazz = null;
             clazz = sqlMap.QueryForObject<NullableClass>("GetNullable", 1);
 
-            Assert.IsNotNull(clazz);
-            Assert.AreEqual(clazz.Id, 1);
-            Assert.IsNull(clazz.TestInt32);
+            Assert.That(clazz, Is.Not.Null);
+            Assert.That(clazz.Id, Is.EqualTo(1));
+            Assert.That(clazz.TestInt32, Is.Null);
         }
 
         /// <summary>
@@ -431,9 +431,9 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests.Generics
             clazz = null;
             clazz = sqlMap.QueryForObject<NullableClass>("GetNullable", 1);
 
-            Assert.IsNotNull(clazz);
-            Assert.AreEqual(1, clazz.Id);
-            Assert.AreEqual(99, clazz.TestInt32);
+            Assert.That(clazz, Is.Not.Null);
+            Assert.That(clazz.Id, Is.EqualTo(1));
+            Assert.That(clazz.TestInt32, Is.EqualTo(99));
         } 
         #endregion
 
@@ -450,9 +450,9 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests.Generics
             clazz = null;
             clazz = sqlMap.QueryForObject<NullableClass>("GetNullable", 1);
 
-            Assert.IsNotNull(clazz);
-            Assert.AreEqual(clazz.Id, 1);
-            Assert.IsNull(clazz.TestInt64);
+            Assert.That(clazz, Is.Not.Null);
+            Assert.That(clazz.Id, Is.EqualTo(1));
+            Assert.That(clazz.TestInt64, Is.Null);
         }
 
         /// <summary>
@@ -468,9 +468,9 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests.Generics
             clazz = null;
             clazz = sqlMap.QueryForObject<NullableClass>("GetNullable", 1);
 
-            Assert.IsNotNull(clazz);
-            Assert.AreEqual(1, clazz.Id);
-            Assert.AreEqual(1234567890123456789, clazz.TestInt64);
+            Assert.That(clazz, Is.Not.Null);
+            Assert.That(clazz.Id, Is.EqualTo(1));
+            Assert.That(clazz.TestInt64, Is.EqualTo(1234567890123456789));
         }
         #endregion
 
@@ -487,9 +487,9 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests.Generics
             clazz = null;
             clazz = sqlMap.QueryForObject<NullableClass>("GetNullable", 1);
 
-            Assert.IsNotNull(clazz);
-            Assert.AreEqual(clazz.Id, 1);
-            Assert.IsNull(clazz.TestSingle);
+            Assert.That(clazz, Is.Not.Null);
+            Assert.That(clazz.Id, Is.EqualTo(1));
+            Assert.That(clazz.TestSingle, Is.Null);
         }
 
         /// <summary>
@@ -505,9 +505,9 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests.Generics
             clazz = null;
             clazz = sqlMap.QueryForObject<NullableClass>("GetNullable", 1);
 
-            Assert.IsNotNull(clazz);
-            Assert.AreEqual(1, clazz.Id);
-            Assert.AreEqual(4578.46445454112f, clazz.TestSingle);
+            Assert.That(clazz, Is.Not.Null);
+            Assert.That(clazz.Id, Is.EqualTo(1));
+            Assert.That(clazz.TestSingle, Is.EqualTo(4578.46445454112f));
         }
         #endregion
 
@@ -521,9 +521,9 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests.Generics
             clazz = null;
             clazz = sqlMap.QueryForObject<NullableClass>("GetNullable", 1);
 
-            Assert.IsNotNull(clazz);
-            Assert.AreEqual(1, clazz.Id);
-            Assert.IsNull(clazz.TestTimeSpan);
+            Assert.That(clazz, Is.Not.Null);
+            Assert.That(clazz.Id, Is.EqualTo(1));
+            Assert.That(clazz.TestTimeSpan, Is.Null);
         }
 
         /// <summary>
@@ -540,9 +540,9 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests.Generics
             clazz = null;
             clazz = sqlMap.QueryForObject<NullableClass>("GetNullable", 1);
 
-            Assert.IsNotNull(clazz);
-            Assert.AreEqual(1, clazz.Id);
-            Assert.AreEqual(span.Value.ToString(), clazz.TestTimeSpan.Value.ToString());
+            Assert.That(clazz, Is.Not.Null);
+            Assert.That(clazz.Id, Is.EqualTo(1));
+            Assert.That(clazz.TestTimeSpan.Value.ToString(), Is.EqualTo(span.Value.ToString()));
         }
 
         #endregion

@@ -1,4 +1,3 @@
-
 using System;
 using System.Collections.Specialized;
 using NUnit.Framework;
@@ -68,8 +67,8 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
 			AssertOrder1(order);
 
 			// Check IList collection
-			Assert.IsNotNull(order.LineItemsIList);
-			Assert.AreEqual(3, order.LineItemsIList.Count);
+			Assert.That(order.LineItemsIList, Is.Not.Null);
+			Assert.That(order.LineItemsIList.Count, Is.EqualTo(3));
 
 		}
 
@@ -86,7 +85,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
 			category.Guid = Guid.NewGuid();
 
 			int key = (int)sqlMap.Insert("Category.InsertCategoryViaInsertStatement", category);
-			Assert.AreEqual(1, key);
+			Assert.That(key, Is.EqualTo(1));
 		}
 
 		#endregion

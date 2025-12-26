@@ -1,4 +1,3 @@
-
 using System;
 using System.Collections.Generic;
 using SqlBatis.DataMapper.Test.Domain;
@@ -22,7 +21,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.CommonTests.Utilities
             Type memberType = typeof(IList<Document>);
 
             bool isGenericIList = TypeUtils.IsImplementGenericIListInterface(memberType);
-            Assert.IsTrue(isGenericIList);
+            Assert.That(isGenericIList, Is.True);
 
             //Console.Write(typeof(IList).IsAssignableFrom(typeof(Array)));
         }
@@ -38,7 +37,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.CommonTests.Utilities
 
             bool isGenericIList = TypeUtils.IsImplementGenericIListInterface(memberType);
 
-            Assert.IsTrue(isGenericIList);
+            Assert.That(isGenericIList, Is.True);
         }
 
         /// <summary>
@@ -51,7 +50,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.CommonTests.Utilities
 
             bool isGenericIList = TypeUtils.IsImplementGenericIListInterface(memberType);
 
-            Assert.IsTrue(isGenericIList);
+            Assert.That(isGenericIList, Is.True);
         }
 
         /// <summary>
@@ -64,7 +63,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.CommonTests.Utilities
 
             bool isGenericIList = TypeUtils.IsImplementGenericIListInterface(memberType);
 
-            Assert.IsTrue(isGenericIList);
+            Assert.That(isGenericIList, Is.True);
         }
 
         /// <summary>
@@ -77,7 +76,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.CommonTests.Utilities
 
             bool isGenericIList = TypeUtils.IsImplementGenericIListInterface(memberType);
 
-            Assert.IsFalse(isGenericIList);
+            Assert.That(isGenericIList, Is.False);
         }
     }
 }

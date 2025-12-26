@@ -50,7 +50,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests.DependencyInjection
 
             var mapper = sp.GetRequiredService<ISqlMapper>();
 
-            Assert.IsNotNull(mapper);
+            Assert.That(mapper, Is.Not.Null);
         }
 
         [Test]
@@ -63,7 +63,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests.DependencyInjection
             });
 
             var sp = services.BuildServiceProvider();
-            Assert.Throws<OptionsValidationException>(() => sp.GetRequiredService<ISqlMapper>());
+            Assert.That(() => sp.GetRequiredService<ISqlMapper>(), Throws.TypeOf<OptionsValidationException>());
         }
 
 
@@ -108,15 +108,15 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests.DependencyInjection
             var mapperA = factory.GetMapper("A");
             var mapperB = factory.GetMapper("B");
 
-            Assert.IsNotNull(mapperA);
-            Assert.IsNotNull(mapperB);
-            Assert.AreNotSame(mapperA, mapperB);
+            Assert.That(mapperA, Is.Not.Null);
+            Assert.That(mapperB, Is.Not.Null);
+            Assert.That(mapperA, Is.Not.SameAs(mapperB));
 
             var newMapperA = factory.GetMapper("A");
             var newMapperB = factory.GetMapper("B");
 
-            Assert.AreEqual(mapperA, newMapperA);
-            Assert.AreEqual(mapperB, newMapperB);
+            Assert.That(mapperA, Is.SameAs(newMapperA));
+            Assert.That(mapperB, Is.SameAs(newMapperB));
         }
 
         [Test]
@@ -140,8 +140,8 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests.DependencyInjection
 
             var sp = services.BuildServiceProvider();
 
-            Assert.NotNull(sp.GetRequiredService<ISqlMapperFactory>().GetMapper("A"));
-            Assert.Throws<OptionsValidationException>(() => sp.GetRequiredService<ISqlMapperFactory>().GetMapper("B"));
+            Assert.That(sp.GetRequiredService<ISqlMapperFactory>().GetMapper("A"), Is.Not.Null);
+            Assert.That(() => sp.GetRequiredService<ISqlMapperFactory>().GetMapper("B"), Throws.TypeOf<OptionsValidationException>());
             
         }
     }

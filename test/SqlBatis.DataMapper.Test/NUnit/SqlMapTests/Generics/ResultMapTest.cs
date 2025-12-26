@@ -103,8 +103,8 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests.Generics
             AssertOrder1(order);
 
             // Check generic IList collection
-            Assert.IsNotNull(order.LineItemsGenericList);
-            Assert.AreEqual(3, order.LineItemsGenericList.Count);
+            Assert.That(order.LineItemsGenericList, Is.Not.Null);
+            Assert.That(order.LineItemsGenericList.Count, Is.EqualTo(3));
         }
 
         /// <summary>
@@ -119,8 +119,8 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests.Generics
             AssertOrder1(order);
 
             // Check generic IList collection
-            Assert.IsNotNull(order.LineItemsGenericList);
-            Assert.AreEqual(3, order.LineItemsGenericList.Count);
+            Assert.That(order.LineItemsGenericList, Is.Not.Null);
+            Assert.That(order.LineItemsGenericList.Count, Is.EqualTo(3));
         }
 
         /// <summary>
@@ -135,8 +135,8 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests.Generics
             AssertOrder1(order);
 
             // Check generic collection
-            Assert.IsNotNull(order.LineItemsGenericList);
-            Assert.AreEqual(3, order.LineItemsGenericList.Count);
+            Assert.That(order.LineItemsGenericList, Is.Not.Null);
+            Assert.That(order.LineItemsGenericList.Count, Is.EqualTo(3));
             LineItemCollection2 lines = (LineItemCollection2)order.LineItemsGenericList;
         }
 
@@ -151,8 +151,8 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests.Generics
 
             AssertOrder1(order);
 
-            Assert.IsNotNull(order.LineItemsGenericList);
-            Assert.AreEqual(3, order.LineItemsGenericList.Count);
+            Assert.That(order.LineItemsGenericList, Is.Not.Null);
+            Assert.That(order.LineItemsGenericList.Count, Is.EqualTo(3));
             LineItemCollection2 lines = (LineItemCollection2)order.LineItemsGenericList;
         }
 
@@ -167,14 +167,14 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests.Generics
 
             AssertOrder1(order);
 
-            Assert.IsNotNull(order.LineItemsCollection2);
-            Assert.AreEqual(3, order.LineItemsCollection2.Count);
+            Assert.That(order.LineItemsCollection2, Is.Not.Null);
+            Assert.That(order.LineItemsCollection2.Count, Is.EqualTo(3));
 
             IEnumerator<LineItem> e = ((IEnumerable<LineItem>)order.LineItemsCollection2).GetEnumerator();
             while (e.MoveNext())
             {
                 LineItem item = e.Current;
-                Assert.IsNotNull(item);
+                Assert.That(item, Is.Not.Null);
             }
         }
 
@@ -189,14 +189,14 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests.Generics
 
             AssertOrder1(order);
 
-            Assert.IsNotNull(order.LineItemsCollection2);
-            Assert.AreEqual(3, order.LineItemsCollection2.Count);
+            Assert.That(order.LineItemsCollection2, Is.Not.Null);
+            Assert.That(order.LineItemsCollection2.Count, Is.EqualTo(3));
 
             IEnumerator<LineItem> e = ((IEnumerable<LineItem>)order.LineItemsCollection2).GetEnumerator();
             while (e.MoveNext())
             {
                 LineItem item = e.Current;
-                Assert.IsNotNull(item);
+                Assert.That(item, Is.Not.Null);
             }
         }
 

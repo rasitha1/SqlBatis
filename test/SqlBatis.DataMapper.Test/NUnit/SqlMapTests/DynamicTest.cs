@@ -55,14 +55,14 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
             list = sqlMap.QueryForList("DynamicSqlOnColumnSelection", paramAccount);
             resultAccount = (Account)list[0];
             AssertAccount1(resultAccount);
-            Assert.AreEqual(5, list.Count);
+            Assert.That(list.Count, Is.EqualTo(5));
 
             paramAccount.LastName = "Bayon";
             list = sqlMap.QueryForList("DynamicSqlOnColumnSelection", paramAccount);
             resultAccount = (Account)list[0];
-            Assert.IsNull(resultAccount.FirstName);
-            Assert.IsNull(resultAccount.LastName);
-            Assert.AreEqual(5, list.Count);
+            Assert.That(resultAccount.FirstName, Is.Null);
+            Assert.That(resultAccount.LastName, Is.Null);
+            Assert.That(list.Count, Is.EqualTo(5));
         }
 
         /// <summary>
@@ -73,7 +73,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
         {
             IList list = sqlMap.QueryForList("DynamicIsNotEmpty", "Joe");
             AssertAccount1((Account)list[0]);
-            Assert.AreEqual(1, list.Count);
+            Assert.That(list.Count, Is.EqualTo(1));
         }
 
         /// <summary>
@@ -83,7 +83,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
         public void TestIsNotEmptyFalse()
         {
             IList list = sqlMap.QueryForList("DynamicIsNotEmpty", "");
-            Assert.AreEqual(5, list.Count);
+            Assert.That(list.Count, Is.EqualTo(5));
         }
 
         /// <summary>
@@ -94,7 +94,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
         {
             IList list = sqlMap.QueryForList("DynamicIsEqual", "Joe");
             AssertAccount1((Account)list[0]);
-            Assert.AreEqual(1, list.Count);
+            Assert.That(list.Count, Is.EqualTo(1));
         }
 
         /// <summary>
@@ -104,7 +104,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
         public void TestIsEqualFalse()
         {
             IList list = sqlMap.QueryForList("DynamicIsEqual", "BLAH!");
-            Assert.AreEqual(5, list.Count);
+            Assert.That(list.Count, Is.EqualTo(5));
         }
 
         /// <summary>
@@ -115,7 +115,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
         {
             IList list = sqlMap.QueryForList("DynamicIsGreater", 5);
             AssertAccount1((Account)list[0]);
-            Assert.AreEqual(1, list.Count);
+            Assert.That(list.Count, Is.EqualTo(1));
         }
 
         /// <summary>
@@ -125,7 +125,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
         public void TestIsGreaterFalse()
         {
             IList list = sqlMap.QueryForList("DynamicIsGreater", 1);
-            Assert.AreEqual(5, list.Count);
+            Assert.That(list.Count, Is.EqualTo(5));
         }
 
         /// <summary>
@@ -136,7 +136,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
         {
             IList list = sqlMap.QueryForList("DynamicIsGreaterEqual", 3);
             AssertAccount1((Account)list[0]);
-            Assert.AreEqual(1, list.Count);
+            Assert.That(list.Count, Is.EqualTo(1));
         }
 
         /// <summary>
@@ -146,7 +146,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
         public void TestIsGreaterEqualFalse()
         {
             IList list = sqlMap.QueryForList("DynamicIsGreaterEqual", 1);
-            Assert.AreEqual(5, list.Count);
+            Assert.That(list.Count, Is.EqualTo(5));
         }
 
         /// <summary>
@@ -157,7 +157,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
         {
             IList list = sqlMap.QueryForList("DynamicIsLess", 1);
             AssertAccount1((Account)list[0]);
-            Assert.AreEqual(1, list.Count);
+            Assert.That(list.Count, Is.EqualTo(1));
         }
 
         /// <summary>
@@ -167,7 +167,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
         public void TestIsLessFalse()
         {
             IList list = sqlMap.QueryForList("DynamicIsLess", 5);
-            Assert.AreEqual(5, list.Count);
+            Assert.That(list.Count, Is.EqualTo(5));
         }
 
         /// <summary>
@@ -178,7 +178,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
         {
             IList list = sqlMap.QueryForList("DynamicIsLessEqual", 3);
             AssertAccount1((Account)list[0]);
-            Assert.AreEqual(1, list.Count);
+            Assert.That(list.Count, Is.EqualTo(1));
         }
 
         /// <summary>
@@ -188,7 +188,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
         public void TestIsLessEqualFalse()
         {
             IList list = sqlMap.QueryForList("DynamicIsLessEqual", 5);
-            Assert.AreEqual(5, list.Count);
+            Assert.That(list.Count, Is.EqualTo(5));
         }
 
         /// <summary>
@@ -199,7 +199,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
         {
             IList list = sqlMap.QueryForList("DynamicIsNotNull", "");
             AssertAccount1((Account)list[0]);
-            Assert.AreEqual(1, list.Count);
+            Assert.That(list.Count, Is.EqualTo(1));
         }
 
         /// <summary>
@@ -209,7 +209,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
         public void TestIsNotNullFalse()
         {
             IList list = sqlMap.QueryForList("DynamicIsNotNull", null);
-            Assert.AreEqual(5, list.Count);
+            Assert.That(list.Count, Is.EqualTo(5));
         }
 
         /// <summary>
@@ -223,7 +223,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
 
             IList list = sqlMap.QueryForList("DynamicIsPropertyAvailable", account);
             AssertAccount1((Account)list[0]);
-            Assert.AreEqual(1, list.Count);
+            Assert.That(list.Count, Is.EqualTo(1));
         }
 
         /// <summary>
@@ -235,7 +235,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
             string parameter = "1";
 
             IList list = sqlMap.QueryForList("DynamicIsPropertyAvailable", parameter);
-            Assert.AreEqual(5, list.Count);
+            Assert.That(list.Count, Is.EqualTo(5));
         }
 
         /// <summary>
@@ -246,7 +246,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
         {
             IList list = sqlMap.QueryForList("DynamicIsParameterPresent", 1);
             AssertAccount1((Account)list[0]);
-            Assert.AreEqual(1, list.Count);
+            Assert.That(list.Count, Is.EqualTo(1));
         }
 
         /// <summary>
@@ -256,7 +256,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
         public void TestIsParameterPresentFalse()
         {
             IList list = sqlMap.QueryForList("DynamicIsParameterPresent", null);
-            Assert.AreEqual(5, list.Count);
+            Assert.That(list.Count, Is.EqualTo(5));
         }
 
         /// <summary>
@@ -272,7 +272,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
 
             IList list = sqlMap.QueryForList("DynamicIterate", parameters);
             AssertAccount1((Account)list[0]);
-            Assert.AreEqual(3, list.Count);
+            Assert.That(list.Count, Is.EqualTo(3));
         }
 
         /// <summary>
@@ -286,7 +286,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
 
             IList list = sqlMap.QueryForList("DynamicIterate2", account);
             AssertAccount1((Account)list[0]);
-            Assert.AreEqual(3, list.Count);
+            Assert.That(list.Count, Is.EqualTo(3));
         }
 
         /// <summary>
@@ -301,7 +301,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
             IList list = sqlMap.QueryForList("DynamicQueryByExample", account);
 
             AssertAccount1((Account)list[0]);
-            Assert.AreEqual(5, list.Count);
+            Assert.That(list.Count, Is.EqualTo(5));
         }
 
         /// <summary>
@@ -316,7 +316,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
             IList list = sqlMap.QueryForList("DynamicWithExtend", account);
 
             AssertAccount1((Account)list[0]);
-            Assert.AreEqual(5, list.Count);
+            Assert.That(list.Count, Is.EqualTo(5));
         }
 
         /// <summary>
@@ -333,7 +333,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
             IList list = sqlMap.QueryForList("MultiDynamicIterate", parameters);
 
             AssertAccount1((Account)list[0]);
-            Assert.AreEqual(3, list.Count);
+            Assert.That(list.Count, Is.EqualTo(3));
         }
 
         /// <summary>
@@ -348,7 +348,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
             IList list = sqlMap.QueryForList("DynamicQueryByExample", account);
 
             AssertAccount1((Account)list[0]);
-            Assert.AreEqual(3, list.Count);
+            Assert.That(list.Count, Is.EqualTo(3));
         }
 
         /// <summary>
@@ -373,7 +373,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
 
             IList list = sqlMap.QueryForList("DynamicSubst", parameters);
             AssertAccount1((Account)list[0]);
-            Assert.AreEqual(1, list.Count);
+            Assert.That(list.Count, Is.EqualTo(1));
         }
 
         /// <summary>

@@ -1,4 +1,3 @@
-
 using System;
 using System.Collections;
 using System.Configuration;
@@ -48,10 +47,10 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
 			obj.Map = new Hashtable();
 			obj.Map.Add("Id", 1);
 			map.Add("obj", obj);
-		    
+		   
 			int id = (int)sqlMap.QueryForObject("ComplexMap", map);
 
-			Assert.AreEqual(id, obj.Map["Id"]);
+			Assert.That(id, Is.EqualTo(obj.Map["Id"]));
 		}
 
 		/// <summary>

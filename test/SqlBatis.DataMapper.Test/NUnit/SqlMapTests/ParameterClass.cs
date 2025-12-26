@@ -22,7 +22,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
 			map["DBNullValue"] = DBNull.Value;
 			int rowsAffected = sqlMap.Update("UpdateNullEmailToDBNull", map);
 
-			Assert.AreEqual(accountsWithNullEmail, rowsAffected);
+			Assert.That(rowsAffected, Is.EqualTo(accountsWithNullEmail));
 		}
 	}
 }

@@ -48,7 +48,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.CommonTests.Logging
 			_log.Debug("LogDebug");
 
 			actualLogOutput = outWriter.GetStringBuilder().ToString();
-			Assert.IsTrue(actualLogOutput.IndexOf(expectedLogOutput)>0);
+			Assert.That(actualLogOutput.IndexOf(expectedLogOutput), Is.GreaterThan(-1));
 		}
 
 		[Test]
@@ -60,7 +60,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.CommonTests.Logging
 			_log.Info("LogInfo");
 
 			actualLogOutput = outWriter.GetStringBuilder().ToString();
-			Assert.IsTrue(actualLogOutput.IndexOf(expectedLogOutput)>0);
+			Assert.That(actualLogOutput.IndexOf(expectedLogOutput), Is.GreaterThan(-1));
 		}
 
 		[Test]
@@ -72,7 +72,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.CommonTests.Logging
 			_log.Error("LogError");
 
 			actualLogOutput = outWriter.GetStringBuilder().ToString();
-			Assert.IsTrue(actualLogOutput.IndexOf(expectedLogOutput)>0);
+			Assert.That(actualLogOutput.IndexOf(expectedLogOutput), Is.GreaterThan(0));
 		}
 
 		[Test]
@@ -84,7 +84,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.CommonTests.Logging
 			_log.Fatal("LogFatal");
 
 			actualLogOutput = outWriter.GetStringBuilder().ToString();
-			Assert.IsTrue(actualLogOutput.IndexOf(expectedLogOutput)>0);
+			Assert.That(actualLogOutput.IndexOf(expectedLogOutput), Is.GreaterThan(0));
 		}
 
 
@@ -96,9 +96,9 @@ namespace SqlBatis.DataMapper.Test.NUnit.CommonTests.Logging
 
 			_log.Warn("LogWarn");
 
-			actualLogOutput = outWriter.GetStringBuilder().ToString();
+			actualLogOutput = outWriter.GetStringBuilder().ToString();	
 			int i = actualLogOutput.IndexOf(expectedLogOutput);
-			Assert.IsTrue(actualLogOutput.IndexOf(expectedLogOutput)>0);
+			Assert.That(actualLogOutput.IndexOf(expectedLogOutput), Is.GreaterThan(0));
 		}
 
 	}

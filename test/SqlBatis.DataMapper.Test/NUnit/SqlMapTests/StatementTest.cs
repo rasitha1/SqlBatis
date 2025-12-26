@@ -1,4 +1,3 @@
-
 using System;
 using System.Collections;
 using SqlBatis.DataMapper;
@@ -55,10 +54,10 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
 
             sqlMap.QueryForObject<IAccount>("GetInterfaceAccount", 1, account);
 
-            Assert.AreEqual(1, account.Id, "account.Id");
-            Assert.AreEqual("Joe", account.FirstName, "account.FirstName");
-            Assert.AreEqual("Dalton", account.LastName, "account.LastName");
-            Assert.AreEqual("Joe.Dalton@somewhere.com", account.EmailAddress, "account.EmailAddress");
+            Assert.That(account.Id, Is.EqualTo(1), "account.Id");
+            Assert.That(account.FirstName, Is.EqualTo("Joe"), "account.FirstName");
+            Assert.That(account.LastName, Is.EqualTo("Dalton"), "account.LastName");
+            Assert.That(account.EmailAddress, Is.EqualTo("Joe.Dalton@somewhere.com"), "account.EmailAddress");
         }
 
         /// <summary>
@@ -122,7 +121,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
         public void TestExecuteQueryForObjectWithSimpleResultClass()
         {
             string email = sqlMap.QueryForObject("GetEmailAddressViaResultClass", 1) as string;
-            Assert.AreEqual("Joe.Dalton@somewhere.com", email);
+            Assert.That(email, Is.EqualTo("Joe.Dalton@somewhere.com"));
         }
 
         /// <summary>
@@ -132,7 +131,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
         public void TestExecuteQueryForObjectWithSimpleResultMap()
         {
             string email = sqlMap.QueryForObject("GetEmailAddressViaResultMap", 1) as string;
-            Assert.AreEqual("Joe.Dalton@somewhere.com", email);
+            Assert.That(email, Is.EqualTo("Joe.Dalton@somewhere.com"));
         }
 
         /// <summary>
@@ -142,7 +141,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
         public void TestPrimitiveReturnValue()
         {
             DateTime CardExpiry = (DateTime)sqlMap.QueryForObject("GetOrderCardExpiryViaResultClass", 1);
-            Assert.AreEqual(new DateTime(2003, 02, 15, 8, 15, 00), CardExpiry);
+            Assert.That(CardExpiry, Is.EqualTo(new DateTime(2003, 02, 15, 8, 15, 00)));
         }
 
         /// <summary>
@@ -154,7 +153,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
             Account account = new Account();
             Account testAccount = sqlMap.QueryForObject("GetAccountViaColumnName", 1, account) as Account;
             AssertAccount1(account);
-            Assert.IsTrue(account == testAccount);
+            Assert.That(account == testAccount, Is.True);
         }
 
         /// <summary>
@@ -189,8 +188,8 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
 
             LineItem testItem = sqlMap.QueryForObject("GetSpecificLineItem", param) as LineItem;
 
-            Assert.IsNotNull(testItem);
-            Assert.AreEqual("TSM-12", testItem.Code);
+            Assert.That(testItem, Is.Not.Null);
+            Assert.That(testItem.Code, Is.EqualTo("TSM-12"));
         }
 
         /// <summary>
@@ -201,11 +200,11 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
         {
             IList list = sqlMap.QueryForList("GetDynamicOrderedEmailAddressesViaResultMap", "Account_ID");
 
-            Assert.AreEqual("Joe.Dalton@somewhere.com", (string)list[0]);
+            Assert.That((string)list[0], Is.EqualTo("Joe.Dalton@somewhere.com"));
 
             list = sqlMap.QueryForList("GetDynamicOrderedEmailAddressesViaResultMap", "Account_FirstName");
 
-            Assert.AreEqual("Averel.Dalton@somewhere.com", (string)list[0]);
+            Assert.That((string)list[0], Is.EqualTo("Averel.Dalton@somewhere.com"));
 
         }
 
@@ -218,14 +217,14 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
             IList list = sqlMap.QueryForList("GetAllAccountsViaResultMapWithDynamicElement", "LIKE");
 
             AssertAccount1((Account)list[0]);
-            Assert.AreEqual(4, list.Count);
-            Assert.AreEqual(1, ((Account)list[0]).Id);
-            Assert.AreEqual(2, ((Account)list[1]).Id);
-            Assert.AreEqual(4, ((Account)list[2]).Id);
+            Assert.That(list.Count, Is.EqualTo(4));
+            Assert.That(((Account)list[0]).Id, Is.EqualTo(1));
+            Assert.That(((Account)list[1]).Id, Is.EqualTo(2));
+            Assert.That(((Account)list[2]).Id, Is.EqualTo(4));
 
             list = sqlMap.QueryForList("GetAllAccountsViaResultMapWithDynamicElement", "=");
 
-            Assert.AreEqual(0, list.Count);
+            Assert.That(list.Count, Is.EqualTo(0));
         }
 
         /// <summary>
@@ -244,7 +243,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
 
             IList list = sqlMap.QueryForList("SimpleDynamicSubstitution", param);
             AssertAccount1((Account)list[0]);
-            Assert.AreEqual(1, list.Count);
+            Assert.That(list.Count, Is.EqualTo(1));
         }
 
         /// <summary>
@@ -269,15 +268,15 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
         {
             Enumeration enumClass = sqlMap.QueryForObject("GetEnumeration", 1) as Enumeration;
 
-            Assert.AreEqual(enumClass.Day, Days.Sat);
-            Assert.AreEqual(enumClass.Color, Colors.Red);
-            Assert.AreEqual(enumClass.Month, Months.August);
+            Assert.That(enumClass.Day, Is.EqualTo(Days.Sat));
+            Assert.That(enumClass.Color, Is.EqualTo(Colors.Red));
+            Assert.That(enumClass.Month, Is.EqualTo(Months.August));
 
             enumClass = sqlMap.QueryForObject("GetEnumeration", 3) as Enumeration;
 
-            Assert.AreEqual(enumClass.Day, Days.Mon);
-            Assert.AreEqual(enumClass.Color, Colors.Blue);
-            Assert.AreEqual(enumClass.Month, Months.September);
+            Assert.That(enumClass.Day, Is.EqualTo(Days.Mon));
+            Assert.That(enumClass.Color, Is.EqualTo(Colors.Blue));
+            Assert.That(enumClass.Month, Is.EqualTo(Months.September));
         }
 
         #endregion
@@ -293,13 +292,13 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
             IList list = sqlMap.QueryForList("GetAllAccountsAsHashMapViaResultMap", null);
 
             AssertAccount1AsHashtable((Hashtable)list[0]);
-            Assert.AreEqual(5, list.Count);
+            Assert.That(list.Count, Is.EqualTo(5));
 
-            Assert.AreEqual(1, ((Hashtable)list[0])["Id"]);
-            Assert.AreEqual(2, ((Hashtable)list[1])["Id"]);
-            Assert.AreEqual(3, ((Hashtable)list[2])["Id"]);
-            Assert.AreEqual(4, ((Hashtable)list[3])["Id"]);
-            Assert.AreEqual(5, ((Hashtable)list[4])["Id"]);
+            Assert.That(((Hashtable)list[0])["Id"], Is.EqualTo(1));
+            Assert.That(((Hashtable)list[1])["Id"], Is.EqualTo(2));
+            Assert.That(((Hashtable)list[2])["Id"], Is.EqualTo(3));
+            Assert.That(((Hashtable)list[3])["Id"], Is.EqualTo(4));
+            Assert.That(((Hashtable)list[4])["Id"], Is.EqualTo(5));
         }
 
         /// <summary>
@@ -311,13 +310,13 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
             IList list = sqlMap.QueryForList("GetAllAccountsAsHashtableViaResultClass", null);
 
             AssertAccount1AsHashtableForResultClass((Hashtable)list[0]);
-            Assert.AreEqual(5, list.Count);
+            Assert.That(list.Count, Is.EqualTo(5));
 
-            Assert.AreEqual(1, ((Hashtable)list[0])[BaseTest.ConvertKey("Id")]);
-            Assert.AreEqual(2, ((Hashtable)list[1])[BaseTest.ConvertKey("Id")]);
-            Assert.AreEqual(3, ((Hashtable)list[2])[BaseTest.ConvertKey("Id")]);
-            Assert.AreEqual(4, ((Hashtable)list[3])[BaseTest.ConvertKey("Id")]);
-            Assert.AreEqual(5, ((Hashtable)list[4])[BaseTest.ConvertKey("Id")]);
+            Assert.That(((Hashtable)list[0])[BaseTest.ConvertKey("Id")], Is.EqualTo(1));
+            Assert.That(((Hashtable)list[1])[BaseTest.ConvertKey("Id")], Is.EqualTo(2));
+            Assert.That(((Hashtable)list[2])[BaseTest.ConvertKey("Id")], Is.EqualTo(3));
+            Assert.That(((Hashtable)list[3])[BaseTest.ConvertKey("Id")], Is.EqualTo(4));
+            Assert.That(((Hashtable)list[4])[BaseTest.ConvertKey("Id")], Is.EqualTo(5));
         }
 
         /// <summary>
@@ -329,23 +328,23 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
             IList list = sqlMap.QueryForList("GetAllAccountsAsArrayListViaResultClass", null);
 
             IList listAccount = (IList)list[0];
-            Assert.AreEqual(1, listAccount[0]);
-            Assert.AreEqual("Joe", listAccount[1]);
-            Assert.AreEqual("Dalton", listAccount[2]);
-            Assert.AreEqual("Joe.Dalton@somewhere.com", listAccount[3]);
+            Assert.That(listAccount[0], Is.EqualTo(1));
+            Assert.That(listAccount[1], Is.EqualTo("Joe"));
+            Assert.That(listAccount[2], Is.EqualTo("Dalton"));
+            Assert.That(listAccount[3], Is.EqualTo("Joe.Dalton@somewhere.com"));
 
-            Assert.AreEqual(5, list.Count);
+            Assert.That(list.Count, Is.EqualTo(5));
 
             listAccount = (IList)list[0];
-            Assert.AreEqual(1, listAccount[0]);
+            Assert.That(listAccount[0], Is.EqualTo(1));
             listAccount = (IList)list[1];
-            Assert.AreEqual(2, listAccount[0]);
+            Assert.That(listAccount[0], Is.EqualTo(2));
             listAccount = (IList)list[2];
-            Assert.AreEqual(3, listAccount[0]);
+            Assert.That(listAccount[0], Is.EqualTo(3));
             listAccount = (IList)list[3];
-            Assert.AreEqual(4, listAccount[0]);
+            Assert.That(listAccount[0], Is.EqualTo(4));
             listAccount = (IList)list[4];
-            Assert.AreEqual(5, listAccount[0]);
+            Assert.That(listAccount[0], Is.EqualTo(5));
         }
 
         /// <summary>
@@ -357,12 +356,12 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
             IList list = sqlMap.QueryForList("GetAllAccountsViaResultMap", null);
 
             AssertAccount1((Account)list[0]);
-            Assert.AreEqual(5, list.Count);
-            Assert.AreEqual(1, ((Account)list[0]).Id);
-            Assert.AreEqual(2, ((Account)list[1]).Id);
-            Assert.AreEqual(3, ((Account)list[2]).Id);
-            Assert.AreEqual(4, ((Account)list[3]).Id);
-            Assert.AreEqual(5, ((Account)list[4]).Id);
+            Assert.That(list.Count, Is.EqualTo(5));
+            Assert.That(((Account)list[0]).Id, Is.EqualTo(1));
+            Assert.That(((Account)list[1]).Id, Is.EqualTo(2));
+            Assert.That(((Account)list[2]).Id, Is.EqualTo(3));
+            Assert.That(((Account)list[3]).Id, Is.EqualTo(4));
+            Assert.That(((Account)list[4]).Id, Is.EqualTo(5));
         }
 
         /// <summary>
@@ -377,12 +376,12 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
             sqlMap.QueryForList("GetAllAccountsViaResultMap", null, accounts);
 
             AssertAccount1(accounts[0]);
-            Assert.AreEqual(5, accounts.Count);
-            Assert.AreEqual(1, accounts[0].Id);
-            Assert.AreEqual(2, accounts[1].Id);
-            Assert.AreEqual(3, accounts[2].Id);
-            Assert.AreEqual(4, accounts[3].Id);
-            Assert.AreEqual(5, accounts[4].Id);
+            Assert.That(accounts.Count, Is.EqualTo(5));
+            Assert.That(accounts[0].Id, Is.EqualTo(1));
+            Assert.That(accounts[1].Id, Is.EqualTo(2));
+            Assert.That(accounts[2].Id, Is.EqualTo(3));
+            Assert.That(accounts[3].Id, Is.EqualTo(4));
+            Assert.That(accounts[4].Id, Is.EqualTo(5));
         }
 
         /// <summary>
@@ -393,10 +392,10 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
         {
             LineItemCollection linesItem = sqlMap.QueryForList("GetLineItemsForOrderWithListClass", 6) as LineItemCollection;
 
-            Assert.IsNotNull(linesItem);
-            Assert.AreEqual(2, linesItem.Count);
-            Assert.AreEqual("ASM-45", linesItem[0].Code);
-            Assert.AreEqual("QSM-39", linesItem[1].Code);
+            Assert.That(linesItem, Is.Not.Null);
+            Assert.That(linesItem.Count, Is.EqualTo(2));
+            Assert.That(linesItem[0].Code, Is.EqualTo("ASM-45"));
+            Assert.That(linesItem[1].Code, Is.EqualTo("QSM-39"));
         }
 
         /// <summary>
@@ -407,7 +406,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
         {
             IList list = sqlMap.QueryForList("GetNoAccountsViaResultMap", null);
 
-            Assert.AreEqual(0, list.Count);
+            Assert.That(list.Count, Is.EqualTo(0));
         }
 
         /// <summary>
@@ -419,12 +418,12 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
             IList list = sqlMap.QueryForList("GetAllAccountsViaResultClass", null);
 
             AssertAccount1((Account)list[0]);
-            Assert.AreEqual(5, list.Count);
-            Assert.AreEqual(1, ((Account)list[0]).Id);
-            Assert.AreEqual(2, ((Account)list[1]).Id);
-            Assert.AreEqual(3, ((Account)list[2]).Id);
-            Assert.AreEqual(4, ((Account)list[3]).Id);
-            Assert.AreEqual(5, ((Account)list[4]).Id);
+            Assert.That(list.Count, Is.EqualTo(5));
+            Assert.That(((Account)list[0]).Id, Is.EqualTo(1));
+            Assert.That(((Account)list[1]).Id, Is.EqualTo(2));
+            Assert.That(((Account)list[2]).Id, Is.EqualTo(3));
+            Assert.That(((Account)list[3]).Id, Is.EqualTo(4));
+            Assert.That(((Account)list[4]).Id, Is.EqualTo(5));
         }
 
         /// <summary>
@@ -435,11 +434,11 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
         {
             IList list = sqlMap.QueryForList("GetAllEmailAddressesViaResultClass", null);
 
-            Assert.AreEqual("Joe.Dalton@somewhere.com", (string)list[0]);
-            Assert.AreEqual("Averel.Dalton@somewhere.com", (string)list[1]);
-            Assert.IsNull(list[2]);
-            Assert.AreEqual("Jack.Dalton@somewhere.com", (string)list[3]);
-            Assert.AreEqual("gilles.bayon@nospam.org", (string)list[4]);
+            Assert.That((string)list[0], Is.EqualTo("Joe.Dalton@somewhere.com"));
+            Assert.That((string)list[1], Is.EqualTo("Averel.Dalton@somewhere.com"));
+            Assert.That(list[2], Is.Null);
+            Assert.That((string)list[3], Is.EqualTo("Jack.Dalton@somewhere.com"));
+            Assert.That((string)list[4], Is.EqualTo("gilles.bayon@nospam.org"));
         }
 
         /// <summary>
@@ -450,11 +449,11 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
         {
             IList list = sqlMap.QueryForList("GetAllEmailAddressesViaResultMap", null);
 
-            Assert.AreEqual("Joe.Dalton@somewhere.com", (string)list[0]);
-            Assert.AreEqual("Averel.Dalton@somewhere.com", (string)list[1]);
-            Assert.IsNull(list[2]);
-            Assert.AreEqual("Jack.Dalton@somewhere.com", (string)list[3]);
-            Assert.AreEqual("gilles.bayon@nospam.org", (string)list[4]);
+            Assert.That((string)list[0], Is.EqualTo("Joe.Dalton@somewhere.com"));
+            Assert.That((string)list[1], Is.EqualTo("Averel.Dalton@somewhere.com"));
+            Assert.That(list[2], Is.Null);
+            Assert.That((string)list[3], Is.EqualTo("Jack.Dalton@somewhere.com"));
+            Assert.That((string)list[4], Is.EqualTo("gilles.bayon@nospam.org"));
         }
 
         /// <summary>
@@ -465,9 +464,9 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
         {
             IList list = sqlMap.QueryForList("GetAllAccountsViaResultMap", null, 2, 2);
 
-            Assert.AreEqual(2, list.Count);
-            Assert.AreEqual(3, ((Account)list[0]).Id);
-            Assert.AreEqual(4, ((Account)list[1]).Id);
+            Assert.That(list.Count, Is.EqualTo(2));
+            Assert.That(((Account)list[0]).Id, Is.EqualTo(3));
+            Assert.That(((Account)list[1]).Id, Is.EqualTo(4));
         }
 
 
@@ -478,14 +477,14 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
 
             IList list = sqlMap.QueryWithRowDelegate("GetAllAccountsViaResultMap", null, handler);
 
-            Assert.AreEqual(5, _index);
-            Assert.AreEqual(5, list.Count);
+            Assert.That(_index, Is.EqualTo(5));
+            Assert.That(list.Count, Is.EqualTo(5));
             AssertAccount1((Account)list[0]);
-            Assert.AreEqual(1, ((Account)list[0]).Id);
-            Assert.AreEqual(2, ((Account)list[1]).Id);
-            Assert.AreEqual(3, ((Account)list[2]).Id);
-            Assert.AreEqual(4, ((Account)list[3]).Id);
-            Assert.AreEqual(5, ((Account)list[4]).Id);
+            Assert.That(((Account)list[0]).Id, Is.EqualTo(1));
+            Assert.That(((Account)list[1]).Id, Is.EqualTo(2));
+            Assert.That(((Account)list[2]).Id, Is.EqualTo(3));
+            Assert.That(((Account)list[3]).Id, Is.EqualTo(4));
+            Assert.That(((Account)list[4]).Id, Is.EqualTo(5));
 
         }
 
@@ -501,14 +500,14 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
         {
             IDictionary map = sqlMap.QueryForMap("GetAllAccountsViaResultClass", null, "FirstName");
 
-            Assert.AreEqual(5, map.Count);
+            Assert.That(map.Count, Is.EqualTo(5));
             AssertAccount1(((Account)map["Joe"]));
 
-            Assert.AreEqual(1, ((Account)map["Joe"]).Id);
-            Assert.AreEqual(2, ((Account)map["Averel"]).Id);
-            Assert.AreEqual(3, ((Account)map["William"]).Id);
-            Assert.AreEqual(4, ((Account)map["Jack"]).Id);
-            Assert.AreEqual(5, ((Account)map["Gilles"]).Id);
+            Assert.That(((Account)map["Joe"]).Id, Is.EqualTo(1));
+            Assert.That(((Account)map["Averel"]).Id, Is.EqualTo(2));
+            Assert.That(((Account)map["William"]).Id, Is.EqualTo(3));
+            Assert.That(((Account)map["Jack"]).Id, Is.EqualTo(4));
+            Assert.That(((Account)map["Gilles"]).Id, Is.EqualTo(5));
         }
 
         /// <summary>
@@ -523,10 +522,10 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
         {
             IDictionary map = sqlMap.QueryForMap("GetAllOrderWithLineItems", null, "PostalCode");
 
-            Assert.AreEqual(11, map.Count);
+            Assert.That(map.Count, Is.EqualTo(11));
             Order order = ((Order)map["T4H 9G4"]);
 
-            Assert.AreEqual(2, order.LineItemsIList.Count);
+            Assert.That(order.LineItemsIList.Count, Is.EqualTo(2));
         }
 
         /// <summary>
@@ -538,13 +537,13 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
         {
             IDictionary map = sqlMap.QueryForMap("GetAllAccountsViaResultClass", null, "FirstName", "EmailAddress");
 
-            Assert.AreEqual(5, map.Count);
+            Assert.That(map.Count, Is.EqualTo(5));
 
-            Assert.AreEqual("Joe.Dalton@somewhere.com", map["Joe"]);
-            Assert.AreEqual("Averel.Dalton@somewhere.com", map["Averel"]);
-            Assert.IsNull(map["William"]);
-            Assert.AreEqual("Jack.Dalton@somewhere.com", map["Jack"]);
-            Assert.AreEqual("gilles.bayon@nospam.org", map["Gilles"]);
+            Assert.That(map["Joe"], Is.EqualTo("Joe.Dalton@somewhere.com"));
+            Assert.That(map["Averel"], Is.EqualTo("Averel.Dalton@somewhere.com"));
+            Assert.That(map["William"], Is.Null);
+            Assert.That(map["Jack"], Is.EqualTo("Jack.Dalton@somewhere.com"));
+            Assert.That(map["Gilles"], Is.EqualTo("gilles.bayon@nospam.org"));
         }
 
         /// <summary>
@@ -555,11 +554,11 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
         {
             Order order = sqlMap.QueryForObject("GetOrderJoinWithAccount", 10) as Order;
 
-            Assert.IsNotNull(order.Account);
+            Assert.That(order.Account, Is.Not.Null);
 
             order = sqlMap.QueryForObject("GetOrderJoinWithAccount", 11) as Order;
 
-            Assert.IsNull(order.Account);
+            Assert.That(order.Account, Is.Null);
         }
 
         /// <summary>
@@ -571,11 +570,11 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
         {
             IDictionary order = (IDictionary)sqlMap.QueryForObject("JIRA-254", 10);
 
-            Assert.IsNotNull(order["Account"]);
+            Assert.That(order["Account"], Is.Not.Null);
 
             order = (IDictionary)sqlMap.QueryForObject("JIRA-254", 11);
 
-            Assert.IsNull(order["Account"]);
+            Assert.That(order["Account"], Is.Null);
         }
 
         /// <summary>
@@ -591,12 +590,12 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
         {
             A a = sqlMap.QueryForObject("SelectComplexJoined", null) as A;
 
-            Assert.IsNotNull(a);
-            Assert.IsNotNull(a.B);
-            Assert.IsNotNull(a.B.C);
-            Assert.IsNull(a.B.D);
-            Assert.IsNotNull(a.E);
-            Assert.IsNull(a.F);
+            Assert.That(a, Is.Not.Null);
+            Assert.That(a.B, Is.Not.Null);
+            Assert.That(a.B.C, Is.Not.Null);
+            Assert.That(a.B.D, Is.Null);
+            Assert.That(a.E, Is.Not.Null);
+            Assert.That(a.F, Is.Null);
         }
         #endregion
 
@@ -611,12 +610,12 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
             IList list = sqlMap.QueryForList("GetAllAccounts", null);
 
             AssertAccount1((Account)list[0]);
-            Assert.AreEqual(5, list.Count);
-            Assert.AreEqual(1, ((Account)list[0]).Id);
-            Assert.AreEqual(2, ((Account)list[1]).Id);
-            Assert.AreEqual(3, ((Account)list[2]).Id);
-            Assert.AreEqual(4, ((Account)list[3]).Id);
-            Assert.AreEqual(5, ((Account)list[4]).Id);
+            Assert.That(list.Count, Is.EqualTo(5));
+            Assert.That(((Account)list[0]).Id, Is.EqualTo(1));
+            Assert.That(((Account)list[1]).Id, Is.EqualTo(2));
+            Assert.That(((Account)list[2]).Id, Is.EqualTo(3));
+            Assert.That(((Account)list[3]).Id, Is.EqualTo(4));
+            Assert.That(((Account)list[4]).Id, Is.EqualTo(5));
         }
 
         /// <summary>
@@ -628,13 +627,13 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
             IList list = sqlMap.QueryForList("GetAllAccountsOrderByName", null);
 
             AssertAccount1((Account)list[3]);
-            Assert.AreEqual(5, list.Count);
+            Assert.That(list.Count, Is.EqualTo(5));
 
-            Assert.AreEqual(2, ((Account)list[0]).Id);
-            Assert.AreEqual(5, ((Account)list[1]).Id);
-            Assert.AreEqual(4, ((Account)list[2]).Id);
-            Assert.AreEqual(1, ((Account)list[3]).Id);
-            Assert.AreEqual(3, ((Account)list[4]).Id);
+            Assert.That(((Account)list[0]).Id, Is.EqualTo(2));
+            Assert.That(((Account)list[1]).Id, Is.EqualTo(5));
+            Assert.That(((Account)list[2]).Id, Is.EqualTo(4));
+            Assert.That(((Account)list[3]).Id, Is.EqualTo(1));
+            Assert.That(((Account)list[4]).Id, Is.EqualTo(3));
         }
 
         /// <summary>
@@ -659,11 +658,11 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
 
             IList list = sqlMap.QueryForList("GetSomeAccount", param);
 
-            Assert.AreEqual(3, list.Count);
+            Assert.That(list.Count, Is.EqualTo(3));
 
-            Assert.AreEqual(2, ((Account)list[0]).Id);
-            Assert.AreEqual(3, ((Account)list[1]).Id);
-            Assert.AreEqual(4, ((Account)list[2]).Id);
+            Assert.That(((Account)list[0]).Id, Is.EqualTo(2));
+            Assert.That(((Account)list[1]).Id, Is.EqualTo(3));
+            Assert.That(((Account)list[2]).Id, Is.EqualTo(4));
         }
 
         [Test]
@@ -675,11 +674,11 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
 
             IList list = sqlMap.QueryForList("GetDummy", param);
 
-            Assert.AreEqual(3, list.Count);
+            Assert.That(list.Count, Is.EqualTo(3));
 
-            Assert.AreEqual(2, ((Account)list[0]).Id);
-            Assert.AreEqual(3, ((Account)list[1]).Id);
-            Assert.AreEqual(4, ((Account)list[2]).Id);
+            Assert.That(((Account)list[0]).Id, Is.EqualTo(2));
+            Assert.That(((Account)list[1]).Id, Is.EqualTo(3));
+            Assert.That(((Account)list[2]).Id, Is.EqualTo(4));
         }
 
         #endregion
@@ -703,15 +702,15 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
 
             object key = sqlMap.Insert("InsertLineItemPostKey", item);
 
-            Assert.AreEqual(99, key);
-            Assert.AreEqual(99, item.Id);
+            Assert.That(key, Is.EqualTo(99));
+            Assert.That(item.Id, Is.EqualTo(99));
 
             Hashtable param = new Hashtable();
             param.Add("Order_ID", 9);
             param.Add("LineItem_ID", 350);
             LineItem testItem = (LineItem)sqlMap.QueryForObject("GetSpecificLineItem", param);
-            Assert.IsNotNull(testItem);
-            Assert.AreEqual(350, testItem.Id);
+            Assert.That(testItem, Is.Not.Null);
+            Assert.That(testItem.Id, Is.EqualTo(350));
         }
 
         /// <summary>
@@ -731,8 +730,8 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
 
             object key = sqlMap.Insert("InsertLineItemPreKey", item);
 
-            Assert.AreEqual(99, key);
-            Assert.AreEqual(99, item.Id);
+            Assert.That(key, Is.EqualTo(99));
+            Assert.That(item.Id, Is.EqualTo(99));
 
             Hashtable param = new Hashtable();
             param.Add("Order_ID", 9);
@@ -740,8 +739,8 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
 
             LineItem testItem = (LineItem)sqlMap.QueryForObject("GetSpecificLineItem", param);
 
-            Assert.IsNotNull(testItem);
-            Assert.AreEqual(99, testItem.Id);
+            Assert.That(testItem, Is.Not.Null);
+            Assert.That(testItem.Id, Is.EqualTo(99));
         }
 
         /// <summary>
@@ -761,8 +760,8 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
 
             object key = sqlMap.Insert("InsertLineItemNoKey", item);
 
-            Assert.IsNull(key);
-            Assert.AreEqual(100, item.Id);
+            Assert.That(key, Is.Null);
+            Assert.That(item.Id, Is.EqualTo(100));
 
             Hashtable param = new Hashtable();
             param.Add("Order_ID", 9);
@@ -770,84 +769,8 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
 
             LineItem testItem = (LineItem)sqlMap.QueryForObject("GetSpecificLineItem", param);
 
-            Assert.IsNotNull(testItem);
-            Assert.AreEqual(100, testItem.Id);
-        }
-
-        /// <summary>
-        /// Test Insert account via public fields
-        /// </summary>
-        [Ignore("No more supported")]
-        public void TestInsertAccountViaPublicFields()
-        {
-            AccountBis account = new AccountBis();
-
-            account.Id = 10;
-            account.FirstName = "Luky";
-            account.LastName = "Luke";
-            account.EmailAddress = "luly.luke@somewhere.com";
-
-            sqlMap.Insert("InsertAccountViaPublicFields", account);
-
-            Account testAccount = sqlMap.QueryForObject("GetAccountViaColumnName", 10) as Account;
-
-            Assert.IsNotNull(testAccount);
-            Assert.AreEqual(10, testAccount.Id);
-        }
-
-        public void TestInsertOrderViaProperties()
-        {
-            Account account = NewAccount6();
-
-            sqlMap.Insert("InsertAccountViaParameterMap", account);
-
-            Order order = new Order();
-            order.Id = 99;
-            order.CardExpiry = "09/11";
-            order.Account = account;
-            order.CardNumber = "154564656";
-            order.CardType = "Visa";
-            order.City = "Lyon";
-            order.Date = DateTime.Now;
-            order.PostalCode = "69004";
-            order.Province = "Rhone";
-            order.Street = "rue Durand";
-
-            sqlMap.Insert("InsertOrderViaPublicFields", order);
-        }
-
-        /// <summary>
-        /// Test Insert account via public fields
-        /// </summary>
-        public void TestInsertDynamic()
-        {
-            Account account = new Account();
-
-            account.Id = 10;
-            account.FirstName = "Luky";
-            account.LastName = "luke";
-            account.EmailAddress = null;
-
-            sqlMap.Insert("InsertAccountDynamic", account);
-
-            Account testAccount = sqlMap.QueryForObject("GetAccountViaColumnIndex", 10) as Account;
-
-            Assert.IsNotNull(testAccount);
-            Assert.AreEqual(10, testAccount.Id);
-            Assert.AreEqual("no_email@provided.com", testAccount.EmailAddress);
-
-            account.Id = 11;
-            account.FirstName = "Luky";
-            account.LastName = "luke";
-            account.EmailAddress = "luly.luke@somewhere.com";
-
-            sqlMap.Insert("InsertAccountDynamic", account);
-
-            testAccount = sqlMap.QueryForObject("GetAccountViaColumnIndex", 11) as Account;
-
-            Assert.IsNotNull(testAccount);
-            Assert.AreEqual(11, testAccount.Id);
-            Assert.AreEqual("luly.luke@somewhere.com", testAccount.EmailAddress);
+            Assert.That(testItem, Is.Not.Null);
+            Assert.That(testItem.Id, Is.EqualTo(100));
         }
 
         /// <summary>
@@ -867,8 +790,8 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
 
             Account testAccount = sqlMap.QueryForObject("GetAccountViaColumnIndex", 10) as Account;
 
-            Assert.IsNotNull(testAccount);
-            Assert.AreEqual(10, testAccount.Id);
+            Assert.That(testAccount, Is.Not.Null);
+            Assert.That(testAccount.Id, Is.EqualTo(10));
         }
 
         /// <summary>
@@ -903,9 +826,9 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
             enumClass = null;
             enumClass = sqlMap.QueryForObject("GetEnumeration", 99) as Enumeration;
 
-            Assert.AreEqual(enumClass.Day, Days.Thu);
-            Assert.AreEqual(enumClass.Color, Colors.Blue);
-            Assert.AreEqual(enumClass.Month, Months.May);
+            Assert.That(enumClass.Day, Is.EqualTo(Days.Thu));
+            Assert.That(enumClass.Color, Is.EqualTo(Colors.Blue));
+            Assert.That(enumClass.Month, Is.EqualTo(Months.May));
         }
 
         /// <summary>
@@ -921,7 +844,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
 
             account = sqlMap.QueryForObject("GetAccountViaColumnName", 1) as Account;
 
-            Assert.AreEqual("new@somewhere.com", account.EmailAddress);
+            Assert.That(account.EmailAddress, Is.EqualTo("new@somewhere.com"));
         }
 
         /// <summary>
@@ -937,7 +860,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
 
             account = sqlMap.QueryForObject("GetAccountViaColumnName", 1) as Account;
 
-            Assert.AreEqual("new@somewhere.com", account.EmailAddress);
+            Assert.That(account.EmailAddress, Is.EqualTo("new@somewhere.com"));
         }
 
         /// <summary>
@@ -953,7 +876,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
 
             account = (Account)sqlMap.QueryForObject("GetAccountViaColumnName", 1);
 
-            Assert.AreEqual("new@somewhere.com", account.EmailAddress);
+            Assert.That(account.EmailAddress, Is.EqualTo("new@somewhere.com"));
         }
 
         /// <summary>
@@ -982,8 +905,8 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
 
             account = sqlMap.QueryForObject("GetAccountViaColumnName", 6) as Account;
 
-            Assert.IsNull(account);
-            Assert.IsTrue(checkForInvalidTypeFailedAppropriately);
+            Assert.That(account, Is.Null);
+            Assert.That(checkForInvalidTypeFailedAppropriately, Is.True);
         }
 
         /// <summary>
@@ -999,14 +922,14 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
             account = null;
             account = sqlMap.QueryForObject("GetAccountViaColumnName", 6) as Account;
 
-            Assert.IsTrue(account.Id == 6);
+            Assert.That(account.Id, Is.EqualTo(6));
 
             int rowNumber = sqlMap.Delete("DeleteAccount", account);
-            Assert.IsTrue(rowNumber == 1);
+            Assert.That(rowNumber, Is.EqualTo(1));
 
             account = sqlMap.QueryForObject("GetAccountViaColumnName", 6) as Account;
 
-            Assert.IsNull(account);
+            Assert.That(account, Is.Null);
         }
 
         /// <summary>
@@ -1017,7 +940,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
         {
             int rowNumber = sqlMap.Delete("DeleteWithComments", null);
 
-            Assert.IsTrue(rowNumber == 3);
+            Assert.That(rowNumber, Is.EqualTo(3));
         }
 
         /// <summary>
@@ -1032,7 +955,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
 
             int rowNumber = sqlMap.Delete("DeleteAccountViaInlineParameters", 6);
 
-            Assert.IsTrue(rowNumber == 1);
+            Assert.That(rowNumber, Is.EqualTo(1));
         }
 
         #endregion
@@ -1044,7 +967,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
         public void RowHandler(object obj, object paramterObject, IList list)
         {
             _index++;
-            Assert.AreEqual(_index, ((Account)obj).Id);
+            Assert.That(((Account)obj).Id, Is.EqualTo(_index));
             list.Add(obj);
         }
 
@@ -1080,7 +1003,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
 
                 account = sqlMap.QueryForObject("GetAccountViaColumnName", 1) as Account;
 
-                Assert.AreEqual("new@somewhere.com", account.EmailAddress);
+                Assert.That(account.EmailAddress, Is.EqualTo("new@somewhere.com"));
 
                 session.Complete(); // Commit
             } // compiler will call Dispose on SqlMapSession
@@ -1101,7 +1024,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
 
             account = sqlMap.QueryForObject("GetAccountViaColumnName", 1) as Account;
 
-            Assert.AreEqual("new@somewhere.com", account.EmailAddress);
+            Assert.That(account.EmailAddress, Is.EqualTo("new@somewhere.com"));
 
             sqlMap.CommitTransaction(false);
             sqlMap.CloseConnection();
@@ -1119,9 +1042,9 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
         {
             Order order = sqlMap.QueryForObject("JIRA182", 5) as Order;
 
-            Assert.IsTrue(order.Id == 5);
-            Assert.IsNotNull(order.Account);
-            Assert.AreEqual(5, order.Account.Id);
+            Assert.That(order.Id, Is.EqualTo(5));
+            Assert.That(order.Account, Is.Not.Null);
+            Assert.That(order.Account.Id, Is.EqualTo(5));
         }
 
         /// <summary>
@@ -1132,10 +1055,10 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
         {
             IDictionary map = sqlMap.QueryForMap("JIAR220", null, "PostalCode");
 
-            Assert.AreEqual(11, map.Count);
+            Assert.That(map.Count, Is.EqualTo(11));
             Order order = ((Order)map["T4H 9G4"]);
 
-            Assert.AreEqual(2, order.LineItemsIList.Count);
+            Assert.That(order.LineItemsIList.Count, Is.EqualTo(2));
         }
 
         /// <summary>
@@ -1199,7 +1122,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
             IList list = sqlMap.QueryForList("GetAccounts", null);
 
             AssertAccount1((Account)list[0]);
-            Assert.AreEqual(5, list.Count);
+            Assert.That(list.Count, Is.EqualTo(5));
         }
 
         #endregion
@@ -1215,24 +1138,24 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
             IList list = sqlMap.QueryForList("GetAllAccountsViaCustomTypeHandler", null);
 
             AssertAccount1((Account)list[0]);
-            Assert.AreEqual(5, list.Count);
-            Assert.AreEqual(1, ((Account)list[0]).Id);
-            Assert.AreEqual(2, ((Account)list[1]).Id);
-            Assert.AreEqual(3, ((Account)list[2]).Id);
-            Assert.AreEqual(4, ((Account)list[3]).Id);
-            Assert.AreEqual(5, ((Account)list[4]).Id);
+            Assert.That(list.Count, Is.EqualTo(5));
+            Assert.That(((Account)list[0]).Id, Is.EqualTo(1));
+            Assert.That(((Account)list[1]).Id, Is.EqualTo(2));
+            Assert.That(((Account)list[2]).Id, Is.EqualTo(3));
+            Assert.That(((Account)list[3]).Id, Is.EqualTo(4));
+            Assert.That(((Account)list[4]).Id, Is.EqualTo(5));
 
-            Assert.IsFalse(((Account)list[0]).CartOption);
-            Assert.IsFalse(((Account)list[1]).CartOption);
-            Assert.IsTrue(((Account)list[2]).CartOption);
-            Assert.IsTrue(((Account)list[3]).CartOption);
-            Assert.IsTrue(((Account)list[4]).CartOption);
+            Assert.That(((Account)list[0]).CartOption, Is.False);
+            Assert.That(((Account)list[1]).CartOption, Is.False);
+            Assert.That(((Account)list[2]).CartOption, Is.True);
+            Assert.That(((Account)list[3]).CartOption, Is.True);
+            Assert.That(((Account)list[4]).CartOption, Is.True);
 
-            Assert.IsTrue(((Account)list[0]).BannerOption);
-            Assert.IsTrue(((Account)list[1]).BannerOption);
-            Assert.IsFalse(((Account)list[2]).BannerOption);
-            Assert.IsFalse(((Account)list[3]).BannerOption);
-            Assert.IsTrue(((Account)list[4]).BannerOption);
+            Assert.That(((Account)list[0]).BannerOption, Is.True);
+            Assert.That(((Account)list[1]).BannerOption, Is.True);
+            Assert.That(((Account)list[2]).BannerOption, Is.False);
+            Assert.That(((Account)list[3]).BannerOption, Is.False);
+            Assert.That(((Account)list[4]).BannerOption, Is.True);
         }
 
         /// <summary>
@@ -1251,11 +1174,11 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
 
             Other anOther = sqlMap.QueryForObject("SelectByInt", 99) as Other;
 
-            Assert.IsNotNull(anOther);
-            Assert.AreEqual(99, anOther.Int);
-            Assert.AreEqual(1966, anOther.Long);
-            Assert.AreEqual(true, anOther.Bool);
-            Assert.AreEqual(false, anOther.Bool2);
+            Assert.That(anOther, Is.Not.Null);
+            Assert.That(anOther.Int, Is.EqualTo(99));
+            Assert.That(anOther.Long, Is.EqualTo(1966));
+            Assert.That(anOther.Bool, Is.EqualTo(true));
+            Assert.That(anOther.Bool2, Is.EqualTo(false));
         }
 
         /// <summary>
@@ -1274,11 +1197,11 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
 
             Other anOther = sqlMap.QueryForObject("SelectByInt", 99) as Other;
 
-            Assert.IsNotNull(anOther);
-            Assert.AreEqual(99, anOther.Int);
-            Assert.AreEqual(1966, anOther.Long);
-            Assert.AreEqual(true, anOther.Bool);
-            Assert.AreEqual(false, anOther.Bool2);
+            Assert.That(anOther, Is.Not.Null);
+            Assert.That(anOther.Int, Is.EqualTo(99));
+            Assert.That(anOther.Long, Is.EqualTo(1966));
+            Assert.That(anOther.Bool, Is.EqualTo(true));
+            Assert.That(anOther.Bool2, Is.EqualTo(false));
         }
 
         /// <summary>
@@ -1297,11 +1220,11 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
 
             Other anOther = sqlMap.QueryForObject("SelectByInt", 99) as Other;
 
-            Assert.IsNotNull(anOther);
-            Assert.AreEqual(99, anOther.Int);
-            Assert.AreEqual(1966, anOther.Long);
-            Assert.AreEqual(true, anOther.Bool);
-            Assert.AreEqual(false, anOther.Bool2);
+            Assert.That(anOther, Is.Not.Null);
+            Assert.That(anOther.Int, Is.EqualTo(99));
+            Assert.That(anOther.Long, Is.EqualTo(1966));
+            Assert.That(anOther.Bool, Is.EqualTo(true));
+            Assert.That(anOther.Bool2, Is.EqualTo(false));
         }
         #endregion
     }

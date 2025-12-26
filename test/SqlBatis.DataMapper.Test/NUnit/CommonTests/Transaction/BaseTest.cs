@@ -132,10 +132,10 @@ namespace SqlBatis.DataMapper.Test.NUnit.CommonTests.Transaction
 		/// <param name="account">An account object</param>
 		protected void AssertAccount1(Account account) 
 		{
-			Assert.AreEqual(1, account.Id, "account.Id");
-			Assert.AreEqual("Joe", account.FirstName, "account.FirstName");
-			Assert.AreEqual("Dalton", account.LastName, "account.LastName");
-			Assert.AreEqual("Joe.Dalton@somewhere.com", account.EmailAddress, "account.EmailAddress");
+			Assert.That(account.Id, Is.EqualTo(1), "account.Id");
+			Assert.That(account.FirstName, Is.EqualTo("Joe"), "account.FirstName");
+			Assert.That(account.LastName, Is.EqualTo("Dalton"), "account.LastName");
+			Assert.That(account.EmailAddress, Is.EqualTo("Joe.Dalton@somewhere.com"), "account.EmailAddress");
 		}
 
 		/// <summary>
@@ -144,10 +144,10 @@ namespace SqlBatis.DataMapper.Test.NUnit.CommonTests.Transaction
 		/// <param name="account">An account as hashtable</param>
 		protected void AssertAccount1AsHashtable(Hashtable account) 
 		{
-			Assert.AreEqual(1, (int)account["Id"], "account.Id");
-			Assert.AreEqual("Joe", (string)account["FirstName"], "account.FirstName");
-			Assert.AreEqual("Dalton", (string)account["LastName"], "account.LastName");
-			Assert.AreEqual("Joe.Dalton@somewhere.com", (string)account["EmailAddress"], "account.EmailAddress");
+			Assert.That((int)account["Id"], Is.EqualTo(1), "account.Id");
+			Assert.That((string)account["FirstName"], Is.EqualTo("Joe"), "account.FirstName");
+			Assert.That((string)account["LastName"], Is.EqualTo("Dalton"), "account.LastName");
+			Assert.That((string)account["EmailAddress"], Is.EqualTo("Joe.Dalton@somewhere.com"), "account.EmailAddress");
 		}
 
 		/// <summary>
@@ -156,10 +156,10 @@ namespace SqlBatis.DataMapper.Test.NUnit.CommonTests.Transaction
 		/// <param name="account">An account object</param>
 		protected void AssertAccount6(Account account) 
 		{
-			Assert.AreEqual(6, account.Id, "account.Id");
-			Assert.AreEqual("Calamity", account.FirstName, "account.FirstName");
-			Assert.AreEqual("Jane", account.LastName, "account.LastName");
-			Assert.IsNull(account.EmailAddress, "account.EmailAddress");
+			Assert.That(account.Id, Is.EqualTo(6), "account.Id");
+			Assert.That(account.FirstName, Is.EqualTo("Calamity"), "account.FirstName");
+			Assert.That(account.LastName, Is.EqualTo("Jane"), "account.LastName");
+			Assert.That(account.EmailAddress, Is.Null, "account.EmailAddress");
 		}
 
 
