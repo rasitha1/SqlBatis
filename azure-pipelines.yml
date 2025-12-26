@@ -81,9 +81,9 @@ steps:
     failTaskOnFailedTests: true
     testRunTitle: 'Unit Tests'
 
-- task: PublishCodeCoverageResults@1
+- task: PublishCodeCoverageResults@2
   displayName: 'Publish code coverage'
   inputs:
     codeCoverageTool: Cobertura
     summaryFileLocation: '$(Build.SourcesDirectory)\Coverage\Cobertura.xml'
-    reportDirectory: '$(Build.SourcesDirectory)\Coverage'
+
