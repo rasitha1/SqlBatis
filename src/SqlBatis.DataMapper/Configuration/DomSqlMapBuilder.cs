@@ -350,14 +350,13 @@ namespace SqlBatis.DataMapper.Configuration
         /// Constructs a DomSqlMapBuilder.
         /// </summary>
         public DomSqlMapBuilder(
-            ILogger<DomSqlMapBuilder> logger, 
             ILoggerFactory loggerFactory,
             ConfigurationScope configScope, 
             InlineParameterMapParser paramParser, 
             PreparedCommandFactory commandFactory,
             ResultStrategyFactory resultStrategyFactory)
         {
-            _logger = logger;
+            _logger = loggerFactory.CreateLogger<DomSqlMapBuilder>();
             _loggerFactory = loggerFactory;
             _configScope = configScope;
             _paramParser = paramParser;

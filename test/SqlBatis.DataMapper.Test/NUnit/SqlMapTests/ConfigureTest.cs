@@ -1,21 +1,23 @@
-using System;
-using System.Configuration;
-using System.IO;
-using System.Reflection;
-using System.Threading;
-using SqlBatis.DataMapper.Utilities;
-using SqlBatis.DataMapper; // SqlMap API
-using SqlBatis.DataMapper.Configuration;
-using SqlBatis.DataMapper.SessionStore;
-using SqlBatis.DataMapper.Test.Domain;
-using NUnit.Framework;
-using System.Collections.Specialized;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging.Abstractions;
+using NUnit.Framework;
+using SqlBatis.DataMapper; // SqlMap API
 using SqlBatis.DataMapper.Commands;
+using SqlBatis.DataMapper.Configuration;
 using SqlBatis.DataMapper.Configuration.ParameterMapping;
 using SqlBatis.DataMapper.Configuration.Serializers;
 using SqlBatis.DataMapper.MappedStatements.ResultStrategy;
 using SqlBatis.DataMapper.Scope;
+using SqlBatis.DataMapper.SessionStore;
+using SqlBatis.DataMapper.Test.Domain;
+using SqlBatis.DataMapper.Utilities;
+using System;
+using System.Collections.Specialized;
+using System.Configuration;
+using System.IO;
+using System.Reflection;
+using System.Threading;
+using Microsoft.Extensions.Logging;
 
 namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
 {
@@ -37,11 +39,17 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
 		{
             _fileName = "sqlmap" + "_" + Configuration["database"] + "_" + Configuration["providerType"] + ".config";
 
-            var scope = new ConfigurationScope();
-            var resultsStrategy = new ResultClassStrategy(NullLogger<ResultClassStrategy>.Instance);
+            var services = new ServiceCollection();
+            services.AddLogging(c => c.AddConsole());
+            var provider = services.BuildServiceProvider();
 
-            builder = new DomSqlMapBuilder(NullLogger<DomSqlMapBuilder>.Instance, NullLoggerFactory.Instance,
-                scope, new InlineParameterMapParser(), new PreparedCommandFactory(NullLoggerFactory.Instance), new ResultStrategyFactory(resultsStrategy));
+
+            var scope = new ConfigurationScope();
+            var resultsStrategy = new ResultClassStrategy(provider.GetRequiredService<ILogger<ResultClassStrategy>>());
+
+
+            builder = new DomSqlMapBuilder(provider.GetRequiredService<ILoggerFactory>(),
+                scope, new InlineParameterMapParser(), new PreparedCommandFactory(provider.GetRequiredService<ILoggerFactory>()), new ResultStrategyFactory(resultsStrategy));
 
 
 		}

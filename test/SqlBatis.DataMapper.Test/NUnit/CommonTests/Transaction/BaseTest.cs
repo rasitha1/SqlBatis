@@ -12,6 +12,8 @@ using SqlBatis.DataMapper.Utilities; // ScriptRunner definition
 using SqlBatis.DataMapper.Test.Domain;
 using Microsoft.Extensions.Configuration;
 using System.Collections.Generic;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 using SqlBatis.DataMapper.Commands;
 using SqlBatis.DataMapper.Configuration.ParameterMapping;
@@ -70,13 +72,15 @@ namespace SqlBatis.DataMapper.Test.NUnit.CommonTests.Transaction
         protected static void InitSqlMap()
 		{
 			//DateTime start = DateTime.Now;
-
+            var services = new ServiceCollection();
+            services.AddLogging(c => c.AddConsole().SetMinimumLevel(LogLevel.Debug));
+            var provider = services.BuildServiceProvider();
 
 			var scope = new ConfigurationScope();
-            var resultsStrategy = new ResultClassStrategy(NullLogger<ResultClassStrategy>.Instance);
+            var resultsStrategy = new ResultClassStrategy(provider.GetRequiredService<ILogger<ResultClassStrategy>>());
 
-            DomSqlMapBuilder builder = new DomSqlMapBuilder(NullLogger<DomSqlMapBuilder>.Instance, NullLoggerFactory.Instance,
-                scope, new InlineParameterMapParser(), new PreparedCommandFactory(NullLoggerFactory.Instance), new ResultStrategyFactory(resultsStrategy));
+            DomSqlMapBuilder builder = new DomSqlMapBuilder(provider.GetRequiredService<ILoggerFactory>(),
+                scope, new InlineParameterMapParser(), new PreparedCommandFactory(provider.GetRequiredService<ILoggerFactory>()), new ResultStrategyFactory(resultsStrategy));
 
 			sqlMap = builder.Configure("sqlmap" + "_" + Configuration["database"] + "_"
                 + Configuration["providerType"] + ".config");
