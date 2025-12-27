@@ -8,9 +8,19 @@
 		<RepositoryType>git</RepositoryType>
 		<PackageTags>ibatis datamapper</PackageTags>
 		<PackageReleaseNotes>
-			Changed iBatisNet to SqlBatis
+			* Switch to `Microsoft.Extensions.Logging` and get rid of custom logging implementation
+			* Multi-target .NET 8 and .NET 10
+			* Use latest versions of dependent libraries
+			* All tests now use `Microsoft.Data.SqlClient`
+			* Breaking Changes (and how to fix them):
+			- `SqlBatis.DataMapper.Logging` or `SqlBatis.DataMapper.Logging.Impl` are no longer valid. Remove any using blocks.
+			- Remove use of `ILoggerFactoryAdapter` or `NetStandardLoggerAdapter`
+			Example: Remove `services.AddSingleton&lt;ILoggerFactoryAdapter, NetStandardLoggerAdapter&gt;()`
+			- `LogManager` is not valid anymore. Remove setting the Adapter property.
+			Example: Remove `LogManager.Adapter = app.ApplicationServices.GetRequiredService&lt;ILoggerFactoryAdapter&gt;()`
+			- Assembly and namespace `IBatisNet.DynamicProxy` are no longer valid. Update references to use `SqlBatis.DynamicProxy`
+			- If using `lazyFactoryType` update value `value=&quot;SqlBatis.DynamicProxy.LazyLoadProxyFactory, SqlBatis.DynamicProxy&quot;`
 
-			https://github.com/rasitha1/SqlBatis/blob/master/README.md
 		</PackageReleaseNotes>
 		<Authors>rasitha1</Authors>
 		<Company>rasitha1</Company>
