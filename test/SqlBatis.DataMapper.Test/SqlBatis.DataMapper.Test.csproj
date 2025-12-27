@@ -1,14 +1,8 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFrameworks>net10.0</TargetFrameworks>
-
-    <IsPackable>false</IsPackable>
-
-    <AssemblyName>SqlBatis.DataMapper.Test</AssemblyName>
-
-    <RootNamespace>SqlBatis.DataMapper.Test</RootNamespace>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFrameworks>net10.0</TargetFrameworks>
+	</PropertyGroup>
 
   <ItemGroup>
     <None Remove="properties.xml" />

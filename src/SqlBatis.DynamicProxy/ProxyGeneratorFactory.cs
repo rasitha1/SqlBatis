@@ -25,10 +25,9 @@
 
 #endregion
 
-using System;
 using Castle.DynamicProxy;
 
-namespace IBatisNet.DynamicProxy
+namespace SqlBatis.DynamicProxy
 {
     /// <summary>
     ///     A Factory for getting the ProxyGenerator.

@@ -1,8 +1,8 @@
 ﻿using System;
-using SqlBatis.DataMapper.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using SqlBatis.DataMapper.Commands;
+using SqlBatis.DataMapper.Configuration;
 using SqlBatis.DataMapper.Configuration.ParameterMapping;
 using SqlBatis.DataMapper.MappedStatements.ResultStrategy;
 using SqlBatis.DataMapper.Scope;

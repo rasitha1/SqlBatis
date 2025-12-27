@@ -27,18 +27,15 @@
 
 #region Using
 
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.Collections.Specialized;
-using System.Linq;
 using System.Reflection;
 using Castle.DynamicProxy;
 using SqlBatis.DataMapper.Exceptions;
 
 #endregion
 
-namespace IBatisNet.DynamicProxy
+namespace SqlBatis.DynamicProxy
 {
     /// <summary>
     ///     An ProxyGenerator with cache that uses the Castle.DynamicProxy library.
