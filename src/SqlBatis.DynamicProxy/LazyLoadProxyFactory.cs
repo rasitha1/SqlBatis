@@ -37,9 +37,6 @@ namespace SqlBatis.DynamicProxy
     /// </summary>
     public class LazyLoadProxyFactory : ILazyFactory
     {
-        #region Fields
-
-        #endregion
 
         #region ILazyFactory Members
 

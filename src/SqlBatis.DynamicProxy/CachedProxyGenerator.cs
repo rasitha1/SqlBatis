@@ -54,14 +54,8 @@ namespace SqlBatis.DynamicProxy
             _cachedProxyTypes = new HybridDictionary();
         }
 
-        public override object CreateInterfaceProxyWithTarget(Type interfaceToProxy, Type[] additionalInterfacesToProxy,
-            object target,
-            ProxyGenerationOptions options, params IInterceptor[] interceptors)
-        {
-            return base.CreateInterfaceProxyWithTarget(interfaceToProxy, additionalInterfacesToProxy, target, options,
-                interceptors);
-        }
 
+        /// <inheritdoc/>
         public override object CreateClassProxy(Type classToProxy, Type[] additionalInterfacesToProxy,
             ProxyGenerationOptions options,
             object[] constructorArguments, params IInterceptor[] interceptors)
@@ -116,6 +110,7 @@ namespace SqlBatis.DynamicProxy
 
         }
 
+        /// <inheritdoc/>
         public override object CreateClassProxyWithTarget(Type classToProxy, Type[] additionalInterfacesToProxy,
             object target,
             ProxyGenerationOptions options, object[] constructorArguments, params IInterceptor[] interceptors)
@@ -164,21 +159,5 @@ namespace SqlBatis.DynamicProxy
 
             return CreateClassProxyInstance(proxyType, proxyArguments, classToProxy, constructorArguments);
         }
-
-        public override object CreateInterfaceProxyWithTargetInterface(Type interfaceToProxy,
-            Type[] additionalInterfacesToProxy, object target,
-            ProxyGenerationOptions options, params IInterceptor[] interceptors)
-        {
-            return base.CreateInterfaceProxyWithTargetInterface(interfaceToProxy, additionalInterfacesToProxy, target,
-                options, interceptors);
-        }
-
-        public override object CreateInterfaceProxyWithoutTarget(Type interfaceToProxy,
-            Type[] additionalInterfacesToProxy,
-            ProxyGenerationOptions options, params IInterceptor[] interceptors)
-        {
-            return base.CreateInterfaceProxyWithoutTarget(interfaceToProxy, additionalInterfacesToProxy, options,
-                interceptors);
-        }           
     }
 }
