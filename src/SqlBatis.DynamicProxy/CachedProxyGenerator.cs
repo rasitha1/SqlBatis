@@ -27,18 +27,15 @@
 
 #region Using
 
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.Collections.Specialized;
-using System.Linq;
 using System.Reflection;
 using Castle.DynamicProxy;
 using SqlBatis.DataMapper.Exceptions;
 
 #endregion
 
-namespace IBatisNet.DynamicProxy
+namespace SqlBatis.DynamicProxy
 {
     /// <summary>
     ///     An ProxyGenerator with cache that uses the Castle.DynamicProxy library.
@@ -57,14 +54,8 @@ namespace IBatisNet.DynamicProxy
             _cachedProxyTypes = new HybridDictionary();
         }
 
-        public override object CreateInterfaceProxyWithTarget(Type interfaceToProxy, Type[] additionalInterfacesToProxy,
-            object target,
-            ProxyGenerationOptions options, params IInterceptor[] interceptors)
-        {
-            return base.CreateInterfaceProxyWithTarget(interfaceToProxy, additionalInterfacesToProxy, target, options,
-                interceptors);
-        }
 
+        /// <inheritdoc/>
         public override object CreateClassProxy(Type classToProxy, Type[] additionalInterfacesToProxy,
             ProxyGenerationOptions options,
             object[] constructorArguments, params IInterceptor[] interceptors)
@@ -119,6 +110,7 @@ namespace IBatisNet.DynamicProxy
 
         }
 
+        /// <inheritdoc/>
         public override object CreateClassProxyWithTarget(Type classToProxy, Type[] additionalInterfacesToProxy,
             object target,
             ProxyGenerationOptions options, object[] constructorArguments, params IInterceptor[] interceptors)
@@ -167,21 +159,5 @@ namespace IBatisNet.DynamicProxy
 
             return CreateClassProxyInstance(proxyType, proxyArguments, classToProxy, constructorArguments);
         }
-
-        public override object CreateInterfaceProxyWithTargetInterface(Type interfaceToProxy,
-            Type[] additionalInterfacesToProxy, object target,
-            ProxyGenerationOptions options, params IInterceptor[] interceptors)
-        {
-            return base.CreateInterfaceProxyWithTargetInterface(interfaceToProxy, additionalInterfacesToProxy, target,
-                options, interceptors);
-        }
-
-        public override object CreateInterfaceProxyWithoutTarget(Type interfaceToProxy,
-            Type[] additionalInterfacesToProxy,
-            ProxyGenerationOptions options, params IInterceptor[] interceptors)
-        {
-            return base.CreateInterfaceProxyWithoutTarget(interfaceToProxy, additionalInterfacesToProxy, options,
-                interceptors);
-        }           
     }
 }

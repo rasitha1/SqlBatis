@@ -1,39 +1,35 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>net10.0</TargetFramework>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>5.0.0</Version>
-    <Authors>rasitha1</Authors>
-    <Company>rasitha1</Company>
-    <Product>SqlBatis</Product>
-    <Description>Schema (.xsd) files used by SqlBatis. By adding this package, you will get VS Intellisense while working on SqlBatis .xml and .config files</Description>
-    <PackageProjectUrl>https://github.com/rasitha1/SqlBatis</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/rasitha1/SqlBatis</RepositoryUrl>
-    <RepositoryType>git</RepositoryType>
-    <PackageTags>ibatis sqlmap.xsd schemas sqlmapconfig.xsd providers.xsd</PackageTags>
-    <PackageReleaseNotes>Initial Version
-Matching version with SqlBatis.DataMapper
-</PackageReleaseNotes>
-    <IncludeBuildOutput>false</IncludeBuildOutput>
-	  <PackageReadmeFile>README.md</PackageReadmeFile>
-  </PropertyGroup>
-
-  <ItemGroup>
-    <None Remove="provider.xsd" />
-    <None Remove="SqlMap.xsd" />
-    <None Remove="SqlMapConfig.xsd" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Include="provider.xsd" />
-    <Content Include="SqlMap.xsd" />
-    <Content Include="SqlMapConfig.xsd" />
-  </ItemGroup>
+	<PropertyGroup>
+		<TargetFramework>netstandard2.0</TargetFramework>
+		<Description>Schema (.xsd) files used by SqlBatis. By adding this package, you will get VS Intellisense while working on SqlBatis .xml and .config files</Description>
+		<PackageProjectUrl>https://github.com/rasitha1/SqlBatis</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/rasitha1/SqlBatis</RepositoryUrl>
+		<PackageTags>ibatis sqlmap.xsd schemas sqlmapconfig.xsd providers.xsd</PackageTags>
+		<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+		<GenerateDocumentationFile>false</GenerateDocumentationFile>
+		<IncludeBuildOutput>false</IncludeBuildOutput>
+		<PackageId>SqlBatis.Schemas</PackageId>
+		<NoWarn>$(NoWarn);NU5128</NoWarn>
+		<IncludeSymbols>false</IncludeSymbols>
+		<IncludeSource>false</IncludeSource>
+	</PropertyGroup>
 
 	<ItemGroup>
+		<None Remove="provider.xsd" />
+		<None Remove="SqlMap.xsd" />
+		<None Remove="SqlMapConfig.xsd" />
+	</ItemGroup>
+	
+	<ItemGroup>
 		<None Include="..\..\LICENSE.txt" Pack="true" PackagePath="" />
-		<None Include="README.md" Pack="true" PackagePath=""/>
+		<None Include="README.md" Pack="true" PackagePath="" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Include="provider.xsd" Pack="true" PackagePath="content" />
+		<None Include="SqlMap.xsd"  Pack="true" PackagePath="content" />
+		<None Include="SqlMapConfig.xsd"  Pack="true" PackagePath="content" />
 	</ItemGroup>
 
 

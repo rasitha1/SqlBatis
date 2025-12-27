@@ -27,17 +27,15 @@
 
 #region Using
 
-using System;
 using System.Collections;
-using System.Reflection;
 using Castle.DynamicProxy;
-using SqlBatis.DataMapper.Utilities.Objects.Members;
 using SqlBatis.DataMapper;
 using SqlBatis.DataMapper.MappedStatements;
+using SqlBatis.DataMapper.Utilities.Objects.Members;
 
 #endregion
 
-namespace IBatisNet.DynamicProxy
+namespace SqlBatis.DynamicProxy
 {
     /// <summary>
     ///     Default implementation of the interceptor reponsible of load the lazy element
@@ -52,7 +50,6 @@ namespace IBatisNet.DynamicProxy
         ///     Intercepts the specified invocation.
         /// </summary>
         /// <param name="invocation">The invocation.</param>
-        /// <param name="arguments">The target arguments.</param>
         /// <returns></returns>
         public void Intercept(IInvocation invocation)
         {

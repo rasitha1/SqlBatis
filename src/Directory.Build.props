@@ -1,0 +1,19 @@
+<Project>
+	<Import Project=".\..\Directory.Build.props" />
+	
+
+	<PropertyGroup>
+		<PublishRepositoryUrl>true</PublishRepositoryUrl>
+		<IncludeSymbols>true</IncludeSymbols>
+		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
+		<PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<IsPackable>true</IsPackable>
+		<SignAssembly>true</SignAssembly>
+		<AssemblyOriginatorKeyFile>AssemblyKey.snk</AssemblyOriginatorKeyFile>
+		<EmbedUntrackedSources>true</EmbedUntrackedSources>
+
+	</PropertyGroup>
+
+</Project>

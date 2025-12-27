@@ -25,23 +25,18 @@
 
 #endregion
 
-using System;
-using System.Reflection;
 using Castle.DynamicProxy;
-using SqlBatis.DataMapper.Utilities.Objects.Members;
 using SqlBatis.DataMapper.MappedStatements;
 using SqlBatis.DataMapper.Proxy;
+using SqlBatis.DataMapper.Utilities.Objects.Members;
 
-namespace IBatisNet.DynamicProxy
+namespace SqlBatis.DynamicProxy
 {
     /// <summary>
     ///     This class is responsible of create lazy load proxies for a concrete class with virtual method.
     /// </summary>
     public class LazyLoadProxyFactory : ILazyFactory
     {
-        #region Fields
-
-        #endregion
 
         #region ILazyFactory Members
 
