@@ -4,7 +4,7 @@ A fork of the Apache IBatisNet distribution which has been refactored and migrat
 
 [![Build Status](https://rasitha.visualstudio.com/OSS/_apis/build/status/rasitha1.SqlBatis?branchName=master)](https://rasitha.visualstudio.com/OSS/_build/latest?definitionId=2&branchName=master)
 
-## [Releases](RELEASE.md)
+## [Releases](https://github.com/rasitha1/SqlBatis/blob/master/RELEASE.md)
 
 ## Usage
 
