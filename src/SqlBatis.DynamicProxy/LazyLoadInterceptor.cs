@@ -50,7 +50,6 @@ namespace SqlBatis.DynamicProxy
         ///     Intercepts the specified invocation.
         /// </summary>
         /// <param name="invocation">The invocation.</param>
-        /// <param name="arguments">The target arguments.</param>
         /// <returns></returns>
         public void Intercept(IInvocation invocation)
         {
