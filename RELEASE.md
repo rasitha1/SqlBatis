@@ -2,10 +2,18 @@
 
 ## 6.0.0 
 * Switch to `Microsoft.Extensions.Logging` and get rid of custom logging implementation
-* Use .NET 10
-* Dependent library updates
-
-
+* Multi-target .NET 8 and .NET 10
+* Use latest versions of dependent libraries
+* All tests now use `Microsoft.Data.SqlClient`
+* Breaking Changes (and how to fix them):
+    - `SqlBatis.DataMapper.Logging` or `SqlBatis.DataMapper.Logging.Impl` are no longer valid. Remove any using blocks.
+	- Remove use of `ILoggerFactoryAdapter` or `NetStandardLoggerAdapter`
+	  Example: Remove `services.AddSingleton<ILoggerFactoryAdapter, NetStandardLoggerAdapter>()`
+	- `LogManager` is not valid anymore. Remove setting the Adapter property.
+	  Example: Remove `LogManager.Adapter = app.ApplicationServices.GetRequiredService<ILoggerFactoryAdapter>()`
+	- Assembly and namespace `IBatisNet.DynamicProxy` are no longer valid. Update references to use `SqlBatis.DynamicProxy`
+	- If using `lazyFactoryType` update value `value="SqlBatis.DynamicProxy.LazyLoadProxyFactory, SqlBatis.DynamicProxy"`
+	
 ## 5.1.0
 
 * Provide a few extension methods to easily register a type that depends on a named `ISqlMapper` instance.

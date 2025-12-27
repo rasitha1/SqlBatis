@@ -12,6 +12,7 @@
 		<IsPackable>true</IsPackable>
 		<SignAssembly>true</SignAssembly>
 		<AssemblyOriginatorKeyFile>AssemblyKey.snk</AssemblyOriginatorKeyFile>
+		<EmbedUntrackedSources>true</EmbedUntrackedSources>
 
 	</PropertyGroup>
 

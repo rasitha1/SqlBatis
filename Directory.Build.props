@@ -17,6 +17,7 @@
 		<Product>SqlBatis</Product>
 		<PublishRepositoryUrl>true</PublishRepositoryUrl>
 		<LangVersion>latest</LangVersion>
+		<Version>6.0.0-CI</Version>
 
 
 		<TreatWarningsAsErrors>true</TreatWarningsAsErrors>
