@@ -27,10 +27,9 @@ using System;
 using System.Collections.Generic;
 using System.Collections;
 using System.Reflection;
-
+using Microsoft.Extensions.Logging;
 using SqlBatis.DataMapper.Utilities.Objects.Members;
 using SqlBatis.DataMapper.MappedStatements;
-using SqlBatis.DataMapper.Logging;
 
 namespace SqlBatis.DataMapper.Proxy
 {
@@ -52,22 +51,21 @@ namespace SqlBatis.DataMapper.Proxy
         private object _loadLock = new object();
         private IList<T> _list = null;
 
-        private static readonly ILog Logger = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
         #endregion
 
         /// <summary>
         /// Initializes a new instance of the LazyListGeneric class.
         /// </summary>
-        /// <param name="mappedSatement">The mapped satement.</param>
+        /// <param name="mappedStatement">The mapped statement.</param>
         /// <param name="param">The param.</param>
         /// <param name="target">The target.</param>
         /// <param name="setAccessor">The set accessor.</param>
-        public LazyListGeneric(IMappedStatement mappedSatement, object param,
+        public LazyListGeneric(IMappedStatement mappedStatement, object param,
             object target, ISetAccessor setAccessor)
         {
             _param = param;
-            _statementId = mappedSatement.Id;
-            _sqlMap = mappedSatement.SqlMap;
+            _statementId = mappedStatement.Id;
+            _sqlMap = mappedStatement.SqlMap;
             _target = target;
             _setAccessor = setAccessor;
             _list = new List<T>();
@@ -79,29 +77,14 @@ namespace SqlBatis.DataMapper.Proxy
         /// <param name="methodName">Name of the method.</param>
         private void Load(string methodName)
         {
-            if (Logger.IsDebugEnabled)
-            {
-                Logger.Debug("Proxyfying call to " + methodName);
-            }
-
             lock (_loadLock)
             {
                 if (_loaded == false)
                 {
-                    if (Logger.IsDebugEnabled)
-                    {
-                        Logger.Debug("Proxyfying call, query statement " + _statementId);
-                    }
-
                     _list = _sqlMap.QueryForList<T>(_statementId, _param);
                     _loaded = true;
                     _setAccessor.Set(_target, _list);
                 }
-            }
-
-            if (Logger.IsDebugEnabled)
-            {
-                Logger.Debug("End of proxyfied call to " + methodName);
             }
         }
 

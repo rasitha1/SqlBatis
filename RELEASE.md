@@ -1,5 +1,11 @@
 # Releases
 
+## 6.0.0 
+* Switch to `Microsoft.Extensions.Logging` and get rid of custom logging implementation
+* Use .NET 10
+* Dependent library updates
+
+
 ## 5.1.0
 
 * Provide a few extension methods to easily register a type that depends on a named `ISqlMapper` instance.

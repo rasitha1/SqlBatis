@@ -12,6 +12,14 @@ using SqlBatis.DataMapper.Utilities; // ScriptRunner definition
 using SqlBatis.DataMapper.Test.Domain;
 using Microsoft.Extensions.Configuration;
 using System.Collections.Generic;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Abstractions;
+using SqlBatis.DataMapper.Commands;
+using SqlBatis.DataMapper.Configuration.ParameterMapping;
+using SqlBatis.DataMapper.Configuration.Serializers;
+using SqlBatis.DataMapper.MappedStatements.ResultStrategy;
+using SqlBatis.DataMapper.Scope;
 using ConfigurationBuilder= Microsoft.Extensions.Configuration.ConfigurationBuilder;
 
 //[assembly:log4net.Config.XmlConfigurator(Watch=true)]
@@ -63,13 +71,19 @@ namespace SqlBatis.DataMapper.Test.NUnit.CommonTests.Transaction
         /// </summary>
         protected static void InitSqlMap()
 		{
-            //DateTime start = DateTime.Now;
+			//DateTime start = DateTime.Now;
+            var services = new ServiceCollection();
+            services.AddLogging(c => c.AddConsole().SetMinimumLevel(LogLevel.Debug));
+            var provider = services.BuildServiceProvider();
 
+			var scope = new ConfigurationScope();
+            var resultsStrategy = new ResultClassStrategy(provider.GetRequiredService<ILogger<ResultClassStrategy>>());
 
-            ConfigureHandler handler = new ConfigureHandler( Configure );
-			DomSqlMapBuilder builder = new DomSqlMapBuilder();
-            sqlMap = builder.ConfigureAndWatch("sqlmap" + "_" + Configuration["database"] + "_"
-                + Configuration["providerType"] + ".config", handler);
+            DomSqlMapBuilder builder = new DomSqlMapBuilder(provider.GetRequiredService<ILoggerFactory>(),
+                scope, new InlineParameterMapParser(), new PreparedCommandFactory(provider.GetRequiredService<ILoggerFactory>()), new ResultStrategyFactory(resultsStrategy));
+
+			sqlMap = builder.Configure("sqlmap" + "_" + Configuration["database"] + "_"
+                + Configuration["providerType"] + ".config");
 
             //string loadTime = DateTime.Now.Subtract(start).ToString();
             //Console.WriteLine("Loading configuration time :"+loadTime);

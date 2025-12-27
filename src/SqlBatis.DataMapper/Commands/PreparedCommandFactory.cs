@@ -29,32 +29,35 @@
 
 #endregion
 
+using Microsoft.Extensions.Logging;
+
 namespace SqlBatis.DataMapper.Commands
 {
 	/// <summary>
 	/// Summary description for PreparedCommandFactory.
 	/// </summary>
-	internal sealed class PreparedCommandFactory
-	{
+    public sealed class PreparedCommandFactory
+    {
+        private readonly ILoggerFactory _loggerFactory;
+
+        /// <summary>
+        /// Initializes a new instance of the PreparedCommandFactory class using the specified logger factory.
+        /// </summary>
+        /// <param name="loggerFactory">The logger factory used to create loggers for command preparation and execution. Cannot be null.</param>
+        public PreparedCommandFactory(ILoggerFactory loggerFactory)
+        {
+            _loggerFactory = loggerFactory;
+        }
 		/// <summary>
 		/// Get an IPreparedCommand.
 		/// </summary>
 		/// <returns></returns>
-		public static IPreparedCommand GetPreparedCommand(bool isEmbedStatementParams)
-		{
-			IPreparedCommand preparedCommand;
+		public IPreparedCommand GetPreparedCommand(bool isEmbedStatementParams)
+        {
+            IPreparedCommand preparedCommand = new DefaultPreparedCommand(_loggerFactory.CreateLogger<DefaultPreparedCommand>());
 
-//			if (isEmbedStatementParams)
-//			{
-//				preparedCommand = new EmbedParamsPreparedCommand();
-//			}
-//			else
-//			{
-				preparedCommand = new DefaultPreparedCommand();
-//			}
-
-			return preparedCommand;
-		}
+            return preparedCommand;
+        }
 
 	}
 }

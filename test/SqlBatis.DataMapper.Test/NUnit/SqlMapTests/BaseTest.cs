@@ -1,18 +1,23 @@
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging.Abstractions;
+using NUnit.Framework;
+using SqlBatis.DataMapper.Commands;
+using SqlBatis.DataMapper.Configuration;
+using SqlBatis.DataMapper.Configuration.ParameterMapping;
+using SqlBatis.DataMapper.Configuration.Serializers;
+using SqlBatis.DataMapper.MappedStatements.ResultStrategy;
+using SqlBatis.DataMapper.Scope;
+// SqlMap API
+using SqlBatis.DataMapper.Test.Domain;
+// DataSource definition
+using SqlBatis.DataMapper.Utilities; // ScriptRunner definition
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.IO;
-using SqlBatis.DataMapper.Configuration;
-
-using NUnit.Framework;
-
-// DataSource definition
-using SqlBatis.DataMapper.Utilities; // ScriptRunner definition
-// SqlMap API
-using SqlBatis.DataMapper.Test.Domain;
 using System.Collections.Specialized;
-using SqlBatis.DataMapper.Logging;
-using Microsoft.Extensions.Configuration;
+using System.IO;
+using Microsoft.Extensions.Logging;
 using ConfigurationBuilder = Microsoft.Extensions.Configuration.ConfigurationBuilder;
 
 
@@ -30,8 +35,6 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
         /// The sqlMap
         /// </summary>
         protected static ISqlMapper sqlMap = null;
-        private static readonly ILog Logger = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-
         protected static string ScriptDirectory { get; }
 
         protected static KeyConvert ConvertKey = null;
@@ -51,19 +54,24 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
 
         protected void InitSqlMap()
         {
+            var services = new ServiceCollection();
+            services.AddLogging(c => c.AddConsole().SetMinimumLevel(LogLevel.Debug));
+            var provider = services.BuildServiceProvider();
+
             //DateTime start = DateTime.Now;
+            var scope = new ConfigurationScope();
+            var resultsStrategy = new ResultClassStrategy(provider.GetRequiredService<ILogger<ResultClassStrategy>>());
 
-
-            ConfigureHandler handler = new ConfigureHandler(Configure);
-            DomSqlMapBuilder builder = new DomSqlMapBuilder();
+            DomSqlMapBuilder builder = new DomSqlMapBuilder(provider.GetRequiredService<ILoggerFactory>(),
+                scope, new InlineParameterMapParser(), new PreparedCommandFactory(provider.GetRequiredService<ILoggerFactory>()), new ResultStrategyFactory(resultsStrategy));
             NameValueCollection properties = new NameValueCollection();
             properties.Add("collection2Namespace", "SqlBatis.DataMapper.Test.Domain.LineItemCollection2, SqlBatis.DataMapper.Test");
             properties.Add("nullableInt", "int?");
             ChildSetupProperties(properties);
             builder.Properties = properties;
 
-            sqlMap = builder.ConfigureAndWatch("sqlmap" + "_" + Configuration["database"] + "_"
-                                               + Configuration["providerType"] + ".config", handler);
+            sqlMap = builder.Configure("sqlmap" + "_" + Configuration["database"] + "_"
+                                               + Configuration["providerType"] + ".config");
 
             //string loadTime = DateTime.Now.Subtract(start).ToString();
             //Console.WriteLine("Loading configuration time :"+loadTime);
@@ -90,8 +98,16 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
         protected virtual void SetUpFixture()
         {
             //DateTime start = DateTime.Now;
+            var services = new ServiceCollection();
+            services.AddLogging(c => c.AddConsole().SetMinimumLevel(LogLevel.Debug));
+            var provider = services.BuildServiceProvider();
 
-            DomSqlMapBuilder builder = new DomSqlMapBuilder();
+            var scope = new ConfigurationScope();
+            var resultsStrategy = new ResultClassStrategy(provider.GetRequiredService<ILogger<ResultClassStrategy>>());
+
+            DomSqlMapBuilder builder = new DomSqlMapBuilder(provider.GetRequiredService<ILoggerFactory>(),
+                scope, new InlineParameterMapParser(), new PreparedCommandFactory(provider.GetRequiredService<ILoggerFactory>()), new ResultStrategyFactory(resultsStrategy));
+
             NameValueCollection properties = new NameValueCollection();
             properties.Add("collection2Namespace", "SqlBatis.DataMapper.Test.Domain.LineItemCollection2, SqlBatis.DataMapper.Test");
             properties.Add("nullableInt", "int?");
@@ -158,19 +174,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests
             return key.ToLower();
         }
 
-        /// <summary>
-        /// Configure the SqlMap
-        /// </summary>
-        /// <remarks>
-        /// Must verify ConfigureHandler signature.
-        /// </remarks>
-        /// <param name="obj">
-        /// The reconfigured sqlMap.
-        /// </param>
-        protected static void Configure(object obj)
-        {
-            sqlMap = null;//(SqlMapper) obj;
-        }
+
 
         /// <summary>
         /// Run a sql batch for the datasource.

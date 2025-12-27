@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using NUnit.Framework;
 using SqlBatis.DataMapper.DependencyInjection;
 
@@ -143,7 +144,7 @@ namespace SqlBatis.DataMapper.Test.NUnit.SqlMapTests.DependencyInjection
         public void CanGetNamedMapperBasedType(string name)
         {
             _services.AddSingletonWithNamedMapper<ISomeDao, SomeDao>(name);
-
+            _services.AddLogging(c => c.AddConsole().SetMinimumLevel(LogLevel.Debug));
             using var provider = _services.BuildServiceProvider();
             var dao = provider.GetRequiredService<ISomeDao>();
 
