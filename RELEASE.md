@@ -2,37 +2,8 @@
 
 ## 6.0.0 
 * Switch to `Microsoft.Extensions.Logging` and get rid of custom logging implementation
-* Add async support
-* Support code-based configuration of `SqlMap.config` file
-  * Properties
-  * Settings
-  * Providers
-  * Database/Datasource
-  * Aliases
-  * Type handlers
-  * Sql Maps
-
-  ## Async support
-  ```csharp
-
-  var customers = await _mapper.QueryForListAsync<Customer>("GetAllCustomers", null);
-
-  ```
-
-  ## Code-based Configuration
-  ```csharp
-
-  services.AddSqlMapper(options => {
-		//Configuration.GetSection("Database").Bind(options);
-	})
-	.UseSqlServer()
-	.AddEmbeddedSqlMaps(typeof(CustomerDao).Assembly, "SqlMaps.*.xml")
-	.AddTypeAlias(typeof(Customer).Assembly, "MyApp.Models.*")
-	.AddTypeHandler<string, AnsiStringTypeHandler>()
-	.AddTypeHandler<bool, OuiNonBoolTypeHandler>("Varchar");
-
-  ```
-
+* Use .NET 10
+* Dependent library updates
 
 
 ## 5.1.0
